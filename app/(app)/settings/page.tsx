@@ -582,6 +582,7 @@ const FEATURES = [
   { label:'교인 한도',       free:'30명',  growth:'100명', community:'500명', enterprise:'무제한' },
   { label:'사용자 수',       free:'1명',   growth:'2명',   community:'5명',   enterprise:'무제한' },
   { label:'데이터 보관',     free:'1년', growth:'3년', community:'무제한', enterprise:'무제한' },
+  { label:'AI 목회 도우미',  free:false, growth:false, community:true,   enterprise:true  },
   { label:'API 접근',        free:false, growth:false, community:false,  enterprise:true  },
   { label:'전담 고객 지원',  free:false, growth:false, community:false,  enterprise:true  },
 ];
