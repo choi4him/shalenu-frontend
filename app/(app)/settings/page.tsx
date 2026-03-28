@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { apiClient } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 import Script from 'next/script';
 import {
   DndContext,
@@ -53,10 +54,10 @@ const inputSt: React.CSSProperties = {
   transition:'border-color 0.2s',
 };
 const labelSt: React.CSSProperties = { fontSize:'13px', fontWeight:600, color:'#374151', marginBottom:'5px', display:'block' };
-const sectionTitle = (t: string) => (
+const sectionTitle = (title: string) => (
   <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
     <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }}/>
-    <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>{t}</span>
+    <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>{title}</span>
   </div>
 );
 const card = { background:'#fff', borderRadius:'16px', padding:'24px', border:'1px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)', marginBottom:'16px' } as React.CSSProperties;
@@ -77,6 +78,7 @@ function Alert({ type, msg }: { type:'ok'|'err', msg:string }) {
 // 탭 1: 교회 정보
 // ═══════════════════════════════════════════════════════
 function ChurchTab() {
+  const { t } = useTranslation();
   const [data,    setData]    = useState<Church | null>(null);
   const [form,    setForm]    = useState<Partial<Church>>({});
   const [loading, setLoading] = useState(true);
@@ -102,13 +104,13 @@ function ChurchTab() {
     setSaving(true); setAlert(null);
     try {
       await apiClient('/api/v1/churches/me', { method:'PUT', body: JSON.stringify(form) });
-      setAlert({ type:'ok', msg:'저장되었습니다.' });
+      setAlert({ type:'ok', msg: t.common.saved });
     } catch (e) {
-      setAlert({ type:'err', msg: e instanceof Error ? e.message : '저장에 실패했습니다.' });
+      setAlert({ type:'err', msg: e instanceof Error ? e.message : t.common.saveError });
     } finally { setSaving(false); }
   };
 
-  if (loading) return <div style={{ color:'#9ca3af',fontSize:'14px',padding:'20px 0' }}>불러오는 중...</div>;
+  if (loading) return <div style={{ color:'#9ca3af',fontSize:'14px',padding:'20px 0' }}>{t.common.loading}</div>;
 
   const f = (key: keyof Church) => ({
     value: (form[key] as string) ?? '',
@@ -120,35 +122,35 @@ function ChurchTab() {
     <div>
       {alert && <Alert type={alert.type} msg={alert.msg} />}
       <div style={card}>
-        {sectionTitle('기본 정보')}
+        {sectionTitle(t.settings.churchBasicInfo)}
         <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px' }}>
           <div style={{ gridColumn:'1/-1' }}>
-            <label style={labelSt}>교회 이름 <span style={{ color:'#ef4444' }}>*</span></label>
-            <input className="inp" style={inputSt} placeholder="교회 이름" {...f('name')} />
+            <label style={labelSt}>{t.settings.churchName} <span style={{ color:'#ef4444' }}>*</span></label>
+            <input className="inp" style={inputSt} placeholder={t.settings.churchName} {...f('name')} />
           </div>
           <div style={{ gridColumn:'1/-1' }}>
-            <label style={labelSt}>주소</label>
+            <label style={labelSt}>{t.members.address}</label>
             <div style={{ display:'flex',gap:'8px' }}>
-              <input className="inp" style={{ ...inputSt, flex:1 }} placeholder="주소" {...f('address')} />
+              <input className="inp" style={{ ...inputSt, flex:1 }} placeholder={t.members.address} {...f('address')} />
               <button type="button" onClick={openPostcode}
                 style={{ padding:'0 14px',borderRadius:'9px',border:'1.5px solid #c9a84c',background:'#fdf8e8',color:'#c9a84c',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap',transition:'all 0.15s' }}>
-                주소 검색
+                {t.settings.addressSearch}
               </button>
             </div>
           </div>
           <div>
-            <label style={labelSt}>전화번호</label>
+            <label style={labelSt}>{t.settings.phone}</label>
             <input className="inp" style={inputSt} placeholder="02-000-0000" type="tel" {...f('phone')} />
           </div>
           <div>
-            <label style={labelSt}>설립일</label>
+            <label style={labelSt}>{t.settings.foundedDate}</label>
             <input className="inp" style={inputSt} type="date" {...f('founded_at')} />
           </div>
           <div style={{ gridColumn:'1/-1' }}>
-            <label style={labelSt}>교단</label>
+            <label style={labelSt}>{t.settings.denomination}</label>
             <select className="inp" style={inputSt} {...f('denomination')}>
-              <option value="">교단 선택</option>
-              {['예장합동','예장통합','기감','기장','기성','순복음','침례교','루터교','성공회','기타'].map(d => (
+              <option value="">{t.settings.denominationSelect}</option>
+              {t.settings.denominations.map(d => (
                 <option key={d} value={d}>{d}</option>
               ))}
             </select>
@@ -157,7 +159,7 @@ function ChurchTab() {
         <div style={{ marginTop:'20px',textAlign:'right' }}>
           <button onClick={save} disabled={saving}
             style={{ padding:'10px 24px',borderRadius:'10px',border:'none',background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)',color:saving?'#d4b85c':'#fff',fontSize:'14px',fontWeight:700,cursor:saving?'not-allowed':'pointer',fontFamily:'inherit',transition:'all 0.2s',boxShadow:saving?'none':'0 4px 12px rgba(201,168,76,0.3)' }}>
-            {saving ? '저장 중...' : '저장'}
+            {saving ? t.common.saving : t.common.save}
           </button>
         </div>
       </div>
@@ -168,12 +170,7 @@ function ChurchTab() {
 // ═══════════════════════════════════════════════════════
 // 탭 2: 코드 관리
 // ═══════════════════════════════════════════════════════
-const CODE_CATEGORIES = [
-  { type:'offering_type',          label:'헌금 종류' },
-  { type:'worship_type',           label:'예배 종류' },
-  { type:'transaction_category',   label:'거래 분류' },
-  { type:'budget_category',        label:'예산 분류' },
-];
+const CODE_CATEGORY_TYPES = ['offering_type', 'worship_type', 'transaction_category', 'budget_category'] as const;
 
 // ─── 드래그 핸들 아이콘 ────────────────────────────────────
 function GripIcon() {
@@ -201,6 +198,7 @@ function SortableItem({
   onSaveEdit:  () => void;
   onCancelEdit:() => void;
 }) {
+  const { t } = useTranslation();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: item.id });
 
@@ -242,25 +240,25 @@ function SortableItem({
       {/* 활성 토글 */}
       <button onClick={onToggle}
         style={{ padding:'3px 10px',borderRadius:'20px',border:`1px solid ${item.is_active?'#10b981':'#e5e7eb'}`,background:item.is_active?'#ecfdf5':'#f9fafb',color:item.is_active?'#059669':'#9ca3af',fontSize:'11px',fontWeight:600,cursor:'pointer',transition:'all 0.15s',fontFamily:'inherit' }}>
-        {item.is_active ? '활성' : '비활성'}
+        {item.is_active ? t.common.active : t.common.inactive}
       </button>
 
       {/* 편집/저장 */}
       {editId === item.id ? (
         <>
           <button onClick={onSaveEdit}
-            style={{ padding:'4px 10px',borderRadius:'7px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'12px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>저장</button>
+            style={{ padding:'4px 10px',borderRadius:'7px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'12px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>{t.common.save}</button>
           <button onClick={onCancelEdit}
-            style={{ padding:'4px 10px',borderRadius:'7px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'12px',cursor:'pointer',fontFamily:'inherit' }}>취소</button>
+            style={{ padding:'4px 10px',borderRadius:'7px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'12px',cursor:'pointer',fontFamily:'inherit' }}>{t.common.cancel}</button>
         </>
       ) : (
         <button onClick={onStartEdit}
-          style={{ padding:'4px 8px',borderRadius:'7px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'12px',cursor:'pointer',fontFamily:'inherit' }}>수정</button>
+          style={{ padding:'4px 8px',borderRadius:'7px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'12px',cursor:'pointer',fontFamily:'inherit' }}>{t.common.edit}</button>
       )}
 
       {/* 삭제 */}
       <button onClick={onDelete}
-        style={{ padding:'4px 8px',borderRadius:'7px',border:'1px solid #fecaca',background:'#fff',color:'#ef4444',fontSize:'12px',cursor:'pointer',fontFamily:'inherit',transition:'all 0.15s' }}>삭제</button>
+        style={{ padding:'4px 8px',borderRadius:'7px',border:'1px solid #fecaca',background:'#fff',color:'#ef4444',fontSize:'12px',cursor:'pointer',fontFamily:'inherit',transition:'all 0.15s' }}>{t.common.delete}</button>
     </div>
   );
 }
@@ -268,13 +266,14 @@ function SortableItem({
 function CodeSection({
   cat, isAdding, onStartAdding, onStopAdding, newLabel, setNewLabel,
 }: {
-  cat: { type:string; label:string };
+  cat: { type:string; label:string; };
   isAdding: boolean;
   onStartAdding: () => void;
   onStopAdding: () => void;
   newLabel: string;
   setNewLabel: (v: string) => void;
 }) {
+  const { t } = useTranslation();
   const [items,     setItems]     = useState<LookupItem[]>([]);
   const [loading,   setLoading]   = useState(true);
   const [editId,    setEditId]    = useState<number|null>(null);
@@ -330,7 +329,7 @@ function CodeSection({
   };
 
   const deleteItem = async (id: number) => {
-    if (!confirm('삭제하시겠습니까?')) return;
+    if (!confirm(t.common.deleteConfirm)) return;
     try { await apiClient(`/api/v1/lookup/${id}`, { method:'DELETE' }); load(); } catch {}
   };
 
@@ -348,17 +347,17 @@ function CodeSection({
         <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
           <div style={{ width:'4px',height:'16px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }}/>
           <span style={{ fontSize:'14px',fontWeight:700,color:'#1a1a1a' }}>{cat.label}</span>
-          <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{items.length}개</span>
+          <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{items.length}{t.common.items}</span>
         </div>
         <button onClick={() => { onStartAdding(); setNewLabel(''); }}
           style={{ display:'flex',alignItems:'center',gap:'5px',padding:'6px 12px',borderRadius:'8px',border:'1.5px solid #c9a84c',background:'#fdf8e8',color:'#c9a84c',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          항목 추가
+          {t.settings.addItem}
         </button>
       </div>
 
       {loading ? (
-        <div style={{ color:'#9ca3af',fontSize:'13px' }}>불러오는 중...</div>
+        <div style={{ color:'#9ca3af',fontSize:'13px' }}>{t.common.loading}</div>
       ) : (
         <div style={{ display:'flex',flexDirection:'column',gap:'4px' }}>
           <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -381,19 +380,19 @@ function CodeSection({
           </DndContext>
 
           {items.length === 0 && !isAdding && (
-            <div style={{ textAlign:'center',padding:'20px',color:'#9ca3af',fontSize:'13px' }}>등록된 항목이 없습니다</div>
+            <div style={{ textAlign:'center',padding:'20px',color:'#9ca3af',fontSize:'13px' }}>{t.settings.noRegisteredItems}</div>
           )}
 
           {isAdding && (
             <div style={{ display:'flex',gap:'8px',padding:'8px',borderRadius:'8px',background:'#fdf8e8',border:'1.5px dashed #e8d48b',marginTop:'4px' }}>
               <input autoFocus value={newLabel} onChange={e => setNewLabel(e.target.value)}
                 onKeyDown={e => { if(e.key==='Enter') addItem(); if(e.key==='Escape') onStopAdding(); }}
-                placeholder="새 항목 이름 입력 후 Enter"
+                placeholder={t.settings.newItemPlaceholder}
                 style={{ ...inputSt,flex:1,padding:'7px 11px',fontSize:'13px',border:'1px solid #f0d88a' }} />
               <button onClick={addItem}
-                style={{ padding:'7px 14px',borderRadius:'8px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>추가</button>
+                style={{ padding:'7px 14px',borderRadius:'8px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>{t.common.add}</button>
               <button onClick={onStopAdding}
-                style={{ padding:'7px 11px',borderRadius:'8px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'13px',cursor:'pointer',fontFamily:'inherit' }}>취소</button>
+                style={{ padding:'7px 11px',borderRadius:'8px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'13px',cursor:'pointer',fontFamily:'inherit' }}>{t.common.cancel}</button>
             </div>
           )}
         </div>
@@ -404,14 +403,17 @@ function CodeSection({
 
 
 function CodeTab() {
+  const { t } = useTranslation();
   const [addingType, setAddingType] = useState<string | null>(null);
   const [newLabel,   setNewLabel]   = useState('');
 
   const stopAdding = () => { setAddingType(null); setNewLabel(''); };
 
+  const categories = t.settings.codeCategories;
+
   return (
     <div>
-      {CODE_CATEGORIES.map(cat => (
+      {categories.map(cat => (
         <CodeSection
           key={cat.type}
           cat={cat}
@@ -429,20 +431,14 @@ function CodeTab() {
 // ═══════════════════════════════════════════════════════
 // 탭 3: 사용자 관리
 // ═══════════════════════════════════════════════════════
-const ROLE_LABELS: Record<string, string> = {
-  senior_pastor:   '담임목사',
-  associate_pastor:'부목사',
-  admin_staff:     '사무 담당자',
-  admin:           '관리자',
-  staff:           '직원',
-  viewer:          '열람자',
-};
+// ROLE_LABELS are now provided by t.settings.roleLabels
 const ROLE_COLORS: Record<string, string> = {
   senior_pastor:'#c9a84c', associate_pastor:'#7c3aed', admin_staff:'#0891b2',
   admin:'#c9a84c', staff:'#0891b2', viewer:'#9ca3af',
 };
 
 function UsersTab() {
+  const { t } = useTranslation();
   const [users,   setUsers]   = useState<UserItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [inviting,setInviting]= useState(false);
@@ -461,7 +457,7 @@ function UsersTab() {
 
   const changeRole = async (user: UserItem, role: string) => {
     try { await apiClient(`/api/v1/users/${user.id}`, { method:'PUT', body: JSON.stringify({ ...user, role }) }); load(); }
-    catch { setAlert({ type:'err', msg:'역할 변경에 실패했습니다.' }); }
+    catch { setAlert({ type:'err', msg: t.settings.roleChangeFailed }); }
   };
 
   const toggleActive = async (user: UserItem) => {
@@ -474,10 +470,10 @@ function UsersTab() {
     setAlert(null);
     try {
       await apiClient('/api/v1/users/invite', { method:'POST', body: JSON.stringify({ email: inviteEmail.trim(), role: inviteRole }) });
-      setAlert({ type:'ok', msg:`${inviteEmail} 으로 초대 메일을 발송했습니다.` });
+      setAlert({ type:'ok', msg: t.settings.inviteSentMsg.replace('{email}', inviteEmail) });
       setInviting(false); setInviteEmail(''); load();
     } catch (e) {
-      setAlert({ type:'err', msg: e instanceof Error ? e.message : '초대에 실패했습니다.' });
+      setAlert({ type:'err', msg: e instanceof Error ? e.message : t.settings.inviteFailed });
     }
   };
 
@@ -486,11 +482,11 @@ function UsersTab() {
       {alert && <Alert type={alert.type} msg={alert.msg} />}
       <div style={card}>
         <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'16px' }}>
-          {sectionTitle('사용자 목록')}
+          {sectionTitle(t.settings.userList)}
           <button onClick={() => setInviting(v => !v)}
             style={{ display:'flex',alignItems:'center',gap:'5px',padding:'8px 14px',borderRadius:'9px',border:'none',background:'linear-gradient(135deg,#c9a84c,#c9a84c)',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',boxShadow:'0 3px 10px rgba(201,168,76,0.3)' }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            사용자 초대
+            {t.settings.inviteUser}
           </button>
         </div>
 
@@ -498,27 +494,27 @@ function UsersTab() {
         {inviting && (
           <div style={{ display:'flex',gap:'8px',padding:'14px',borderRadius:'10px',background:'#fdf8e8',border:'1.5px dashed #e8d48b',marginBottom:'14px',flexWrap:'wrap' }}>
             <input value={inviteEmail} onChange={e => setInviteEmail(e.target.value)}
-              placeholder="초대할 이메일 주소"
+              placeholder={t.settings.inviteEmailPlaceholder}
               style={{ ...inputSt, flex:'2 1 200px', padding:'8px 12px',fontSize:'13px',border:'1px solid #f0d88a' }} />
             <select value={inviteRole} onChange={e => setInviteRole(e.target.value)}
               style={{ ...inputSt, flex:'1 1 120px', padding:'8px 12px',fontSize:'13px',border:'1px solid #f0d88a' }}>
-              <option value="admin_staff">사무 담당자</option>
-              <option value="associate_pastor">부목사</option>
-              <option value="viewer">열람자</option>
+              <option value="admin_staff">{t.settings.roleLabels.admin_staff}</option>
+              <option value="associate_pastor">{t.settings.roleLabels.associate_pastor}</option>
+              <option value="viewer">{t.settings.roleLabels.viewer}</option>
             </select>
             <button onClick={invite}
-              style={{ padding:'8px 16px',borderRadius:'9px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',flexShrink:0 }}>초대 발송</button>
+              style={{ padding:'8px 16px',borderRadius:'9px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',flexShrink:0 }}>{t.settings.sendInvite}</button>
             <button onClick={() => { setInviting(false); setInviteEmail(''); }}
-              style={{ padding:'8px 12px',borderRadius:'9px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'13px',cursor:'pointer',fontFamily:'inherit',flexShrink:0 }}>취소</button>
+              style={{ padding:'8px 12px',borderRadius:'9px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'13px',cursor:'pointer',fontFamily:'inherit',flexShrink:0 }}>{t.common.cancel}</button>
           </div>
         )}
 
-        {loading ? <div style={{ color:'#9ca3af',fontSize:'13px' }}>불러오는 중...</div> : (
+        {loading ? <div style={{ color:'#9ca3af',fontSize:'13px' }}>{t.common.loading}</div> : (
           <div style={{ overflowX:'auto' }}>
             <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'13px' }}>
               <thead>
                 <tr style={{ background:'#f8fafc',borderBottom:'1.5px solid #e5e7eb' }}>
-                  {['이름','이메일','역할','상태',''].map(h => (
+                  {t.settings.headers.map(h => (
                     <th key={h} style={{ padding:'9px 13px',textAlign:'left',fontWeight:700,color:'#6b7280',whiteSpace:'nowrap' }}>{h}</th>
                   ))}
                 </tr>
@@ -540,13 +536,13 @@ function UsersTab() {
                     <td style={{ padding:'11px 13px' }}>
                       <select value={u.role} onChange={e => changeRole(u, e.target.value)}
                         style={{ padding:'5px 9px',borderRadius:'7px',border:'1.5px solid #e5e7eb',fontSize:'12px',color:ROLE_COLORS[u.role]??'#374151',fontWeight:600,cursor:'pointer',fontFamily:'inherit',background:'#fff',outline:'none' }}>
-                        {Object.entries(ROLE_LABELS).map(([v,l]) => <option key={v} value={v}>{l}</option>)}
+                        {Object.entries(t.settings.roleLabels).map(([v,l]) => <option key={v} value={v}>{l}</option>)}
                       </select>
                     </td>
                     <td style={{ padding:'11px 13px' }}>
                       <button onClick={() => toggleActive(u)}
                         style={{ padding:'4px 12px',borderRadius:'20px',border:`1px solid ${u.is_active?'#10b981':'#e5e7eb'}`,background:u.is_active?'#ecfdf5':'#f9fafb',color:u.is_active?'#059669':'#9ca3af',fontSize:'11px',fontWeight:600,cursor:'pointer',transition:'all 0.15s',fontFamily:'inherit' }}>
-                        {u.is_active ? '활성' : '비활성'}
+                        {u.is_active ? t.common.active : t.common.inactive}
                       </button>
                     </td>
 
@@ -555,7 +551,7 @@ function UsersTab() {
               </tbody>
             </table>
             {users.length === 0 && (
-              <div style={{ textAlign:'center',padding:'30px',color:'#9ca3af',fontSize:'13px' }}>등록된 사용자가 없습니다</div>
+              <div style={{ textAlign:'center',padding:'30px',color:'#9ca3af',fontSize:'13px' }}>{t.settings.noUsers}</div>
             )}
           </div>
         )}
@@ -567,32 +563,28 @@ function UsersTab() {
 // ═══════════════════════════════════════════════════════
 // 탭 4: 요금제
 // ═══════════════════════════════════════════════════════
-const PLANS = [
-  { key:'free',      label:'무료',    price:0,    members:30,  color:'#6b7280' },
-  { key:'growth',    label:'성장',    price:49,   members:100, color:'#10b981' },
-  { key:'community', label:'공동체',  price:99,   members:500, color:'#c9a84c' },
-  { key:'enterprise',label:'대형',   price:199,  members:null, color:'#f59e0b' },
-];
-const FEATURES = [
-  { label:'교인 관리',       free:true,  growth:true,  community:true,  enterprise:true  },
-  { label:'헌금 관리',       free:true,  growth:true,  community:true,  enterprise:true  },
-  { label:'재정 관리',       free:true,  growth:true,  community:true,  enterprise:true  },
-  { label:'예산 편성',       free:false, growth:true,  community:true,  enterprise:true  },
-  { label:'재정 보고서',     free:false, growth:true,  community:true,  enterprise:true  },
-  { label:'교인 한도',       free:'30명',  growth:'100명', community:'500명', enterprise:'무제한' },
-  { label:'사용자 수',       free:'1명',   growth:'2명',   community:'5명',   enterprise:'무제한' },
-  { label:'데이터 보관',     free:'1년', growth:'3년', community:'무제한', enterprise:'무제한' },
-  { label:'AI 목회 도우미',  free:false, growth:false, community:true,   enterprise:true  },
-  { label:'API 접근',        free:false, growth:false, community:false,  enterprise:true  },
-  { label:'전담 고객 지원',  free:false, growth:false, community:false,  enterprise:true  },
+const PLAN_COLORS: Record<string, string> = { free:'#6b7280', growth:'#10b981', community:'#c9a84c', enterprise:'#f59e0b' };
+const PLAN_PRICES: Record<string, number | null> = { free:0, growth:49, community:99, enterprise:199 };
+const PLAN_MEMBERS: Record<string, number | null> = { free:30, growth:100, community:500, enterprise:null };
+const FEATURE_DATA = [
+  { idx:0, free:true,  growth:true,  community:true,  enterprise:true  },
+  { idx:1, free:true,  growth:true,  community:true,  enterprise:true  },
+  { idx:2, free:false, growth:true,  community:true,  enterprise:true  },
+  { idx:3, free:false, growth:true,  community:true,  enterprise:true  },
+  { idx:4, free:false, growth:false, community:true,  enterprise:true  },
+  { idx:5, free:false, growth:false, community:true,  enterprise:true  },
+  { idx:6, free:'30',  growth:'100', community:'500', enterprise:'unlimited' },
+  { idx:7, free:'1',   growth:'2',   community:'5',   enterprise:'unlimited' },
+  { idx:8, free:false, growth:false, community:false, enterprise:true  },
 ];
 
 function PlanTab() {
+  const { t } = useTranslation();
   // 실제 연동 시 API에서 받아오는 값. 임시로 free 사용
-  const currentPlan = 'free';
+  const currentPlan: string = 'free';
   const currentMembers = 24;
 
-  const currentPlanData = PLANS.find(p => p.key === currentPlan)!;
+  const planKeys = ['free', 'growth', 'community', 'enterprise'] as const;
 
   const check = (v: boolean | string) => {
     if (v === true)  return <span style={{ color:'#10b981',fontSize:'16px' }}>✓</span>;
@@ -600,32 +592,38 @@ function PlanTab() {
     return <span style={{ fontSize:'12px',fontWeight:600,color:'#374151' }}>{v}</span>;
   };
 
+  const curPrice = PLAN_PRICES[currentPlan];
+  const curMembers = PLAN_MEMBERS[currentPlan];
+  const curColor = PLAN_COLORS[currentPlan];
+
+  const priceLabel = (price: number | null) =>
+    price === null ? t.settings.contact : price === 0 ? 'Free' : `$${price}/mo`;
+
   return (
     <div>
       {/* 현재 요금제 카드 */}
       <div style={{ ...card, background:'linear-gradient(135deg,#2a1f10,#3d2e18)', border:'none', marginBottom:'16px' }}>
         <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'16px' }}>
           <div>
-            <div style={{ fontSize:'12px',color:'rgba(165,180,252,0.8)',fontWeight:600,letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:'6px' }}>현재 요금제</div>
+            <div style={{ fontSize:'12px',color:'rgba(165,180,252,0.8)',fontWeight:600,letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:'6px' }}>{t.settings.currentPlan}</div>
             <div style={{ display:'flex',alignItems:'center',gap:'10px' }}>
-              <span style={{ fontSize:'26px',fontWeight:900,color:'#fff',letterSpacing:'-0.04em' }}>{currentPlanData.label}</span>
+              <span style={{ fontSize:'26px',fontWeight:900,color:'#fff',letterSpacing:'-0.04em' }}>{t.settings.planNames[currentPlan as keyof typeof t.settings.planNames]}</span>
               <span style={{ padding:'3px 10px',borderRadius:'20px',background:'rgba(255,255,255,0.12)',color:'#f0d88a',fontSize:'12px',fontWeight:600 }}>
-                {currentPlanData.price === 0 ? 'Free' : currentPlanData.price === null ? '문의' : `$${currentPlanData.price}/월`}
+                {priceLabel(curPrice!)}
               </span>
             </div>
           </div>
           <div style={{ textAlign:'right' }}>
-            <div style={{ fontSize:'12px',color:'rgba(165,180,252,0.8)',marginBottom:'4px' }}>교인 현황</div>
+            <div style={{ fontSize:'12px',color:'rgba(165,180,252,0.8)',marginBottom:'4px' }}>{t.settings.memberStatus}</div>
             <div style={{ fontSize:'22px',fontWeight:800,color:'#fff' }}>
               {currentMembers}
               <span style={{ fontSize:'14px',color:'rgba(255,255,255,0.5)',fontWeight:500 }}>
-                /{currentPlanData.members !== null ? `${currentPlanData.members.toLocaleString('ko-KR')}` : '무제한'}명
+                /{curMembers !== null ? curMembers.toLocaleString() : t.settings.unlimited}{t.common.people}
               </span>
             </div>
-            {/* 사용량 바 */}
-            {currentPlanData.members && (
+            {curMembers && (
               <div style={{ width:'160px',height:'6px',borderRadius:'99px',background:'rgba(255,255,255,0.15)',marginTop:'6px',marginLeft:'auto' }}>
-                <div style={{ height:'100%',width:`${Math.min(100,(currentMembers/currentPlanData.members)*100)}%`,borderRadius:'99px',background:'linear-gradient(90deg,#e8d48b,#d4b85c)',transition:'width 0.4s' }}/>
+                <div style={{ height:'100%',width:`${Math.min(100,(currentMembers/curMembers)*100)}%`,borderRadius:'99px',background:'linear-gradient(90deg,#e8d48b,#d4b85c)',transition:'width 0.4s' }}/>
               </div>
             )}
           </div>
@@ -634,22 +632,22 @@ function PlanTab() {
 
       {/* 요금제 비교 표 */}
       <div style={card}>
-        {sectionTitle('요금제 비교')}
+        {sectionTitle(t.settings.planComparison)}
         <div style={{ overflowX:'auto' }}>
           <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'13px' }}>
             <thead>
               <tr>
-                <th style={{ padding:'10px 14px',textAlign:'left',fontWeight:700,color:'#6b7280',borderBottom:'1.5px solid #e5e7eb',minWidth:'120px' }}>기능</th>
-                {PLANS.map(p => (
-                  <th key={p.key} style={{ padding:'10px 14px',textAlign:'center',borderBottom:'1.5px solid #e5e7eb',minWidth:'90px' }}>
+                <th style={{ padding:'10px 14px',textAlign:'left',fontWeight:700,color:'#6b7280',borderBottom:'1.5px solid #e5e7eb',minWidth:'120px' }}>{t.settings.featureLabel}</th>
+                {planKeys.map(pk => (
+                  <th key={pk} style={{ padding:'10px 14px',textAlign:'center',borderBottom:'1.5px solid #e5e7eb',minWidth:'90px' }}>
                     <div style={{ display:'flex',flexDirection:'column',alignItems:'center',gap:'3px' }}>
-                      <span style={{ fontWeight:700,color: p.key===currentPlan ? p.color : '#374151' }}>
-                        {p.label}
-                        {p.key===currentPlan && <span style={{ marginLeft:'4px',fontSize:'10px',color:'#fff',background:p.color,padding:'1px 5px',borderRadius:'4px' }}>현재</span>}
-                        {p.key==='community' && p.key!==currentPlan && <span style={{ marginLeft:'4px',fontSize:'10px',color:'#fff',background:'#c9a84c',padding:'1px 5px',borderRadius:'4px' }}>가장 인기</span>}
+                      <span style={{ fontWeight:700,color: pk===currentPlan ? PLAN_COLORS[pk] : '#374151' }}>
+                        {t.settings.planNames[pk]}
+                        {pk===currentPlan && <span style={{ marginLeft:'4px',fontSize:'10px',color:'#fff',background:PLAN_COLORS[pk],padding:'1px 5px',borderRadius:'4px' }}>{t.settings.current}</span>}
+                        {pk==='community' && pk!==currentPlan && <span style={{ marginLeft:'4px',fontSize:'10px',color:'#fff',background:'#c9a84c',padding:'1px 5px',borderRadius:'4px' }}>{t.settings.mostPopular}</span>}
                       </span>
                       <span style={{ fontSize:'11px',color:'#9ca3af',fontWeight:400 }}>
-                        {p.price === null ? '문의' : p.price === 0 ? 'Free' : `$${p.price}/월`}
+                        {priceLabel(PLAN_PRICES[pk]!)}
                       </span>
                     </div>
                   </th>
@@ -657,13 +655,13 @@ function PlanTab() {
               </tr>
             </thead>
             <tbody>
-              {FEATURES.map((f, i) => (
-                <tr key={f.label} style={{ background: i%2===0?'#fff':'#fafbff', borderBottom:'1px solid #f1f5f9' }}>
-                  <td style={{ padding:'10px 14px',color:'#374151',fontWeight:500 }}>{f.label}</td>
-                  <td style={{ padding:'10px 14px',textAlign:'center' }}>{check(f.free)}</td>
-                  <td style={{ padding:'10px 14px',textAlign:'center' }}>{check(f.growth)}</td>
-                  <td style={{ padding:'10px 14px',textAlign:'center' }}>{check(f.community)}</td>
-                  <td style={{ padding:'10px 14px',textAlign:'center' }}>{check(f.enterprise)}</td>
+              {FEATURE_DATA.map((f, i) => (
+                <tr key={i} style={{ background: i%2===0?'#fff':'#fafbff', borderBottom:'1px solid #f1f5f9' }}>
+                  <td style={{ padding:'10px 14px',color:'#374151',fontWeight:500 }}>{t.settings.features[f.idx]}</td>
+                  <td style={{ padding:'10px 14px',textAlign:'center' }}>{check(f.free === 'unlimited' ? t.settings.unlimited : f.free)}</td>
+                  <td style={{ padding:'10px 14px',textAlign:'center' }}>{check(f.growth === 'unlimited' ? t.settings.unlimited : f.growth)}</td>
+                  <td style={{ padding:'10px 14px',textAlign:'center' }}>{check(f.community === 'unlimited' ? t.settings.unlimited : f.community)}</td>
+                  <td style={{ padding:'10px 14px',textAlign:'center' }}>{check(f.enterprise === 'unlimited' ? t.settings.unlimited : f.enterprise)}</td>
                 </tr>
               ))}
             </tbody>
@@ -673,12 +671,12 @@ function PlanTab() {
         {/* 업그레이드 버튼 */}
         <div style={{ marginTop:'20px',padding:'18px',borderRadius:'12px',background:'linear-gradient(135deg,#f5f7ff,#fdf8e8)',textAlign:'center' }}>
           <p style={{ margin:'0 0 10px',fontSize:'14px',color:'#374151',fontWeight:500 }}>
-            더 많은 기능이 필요하신가요?
+            {t.settings.needMore}
           </p>
           <a href="mailto:support@j-sheepfold.com"
             style={{ display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 24px',borderRadius:'10px',background:'linear-gradient(135deg,#c9a84c,#c9a84c)',color:'#fff',fontSize:'14px',fontWeight:700,textDecoration:'none',boxShadow:'0 4px 12px rgba(201,168,76,0.3)' }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            업그레이드 문의
+            {t.settings.upgradeContact}
           </a>
         </div>
       </div>
@@ -689,14 +687,11 @@ function PlanTab() {
 // ═══════════════════════════════════════════════════════
 // 메인: 설정 페이지
 // ═══════════════════════════════════════════════════════
-const TABS = [
-  { key:'church', label:'교회 정보',   icon:'🏛️' },
-  { key:'codes',  label:'코드 관리',   icon:'🏷️' },
-  { key:'users',  label:'사용자 관리', icon:'👥' },
-  { key:'plan',   label:'요금제',      icon:'💳' },
-];
+const TAB_ICONS: Record<string, string> = { church:'🏛️', codes:'🏷️', users:'👥', plan:'💳' };
+const TAB_KEYS = ['church', 'codes', 'users', 'plan'] as const;
 
 export default function SettingsPage() {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<string>('church');
 
   return (
@@ -714,15 +709,15 @@ export default function SettingsPage() {
       <div style={{ padding:'36px 40px', maxWidth:'820px' }}>
         {/* 헤더 */}
         <div style={{ marginBottom:'28px' }}>
-          <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 5px' }}>설정</h1>
-          <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>교회 정보 및 시스템 설정을 관리합니다</p>
+          <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 5px' }}>{t.settings.title}</h1>
+          <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>{t.settings.subtitle}</p>
         </div>
 
         {/* 탭 바 */}
         <div style={{ display:'flex',gap:'4px',padding:'5px',background:'#f8fafc',borderRadius:'13px',border:'1px solid #e5e7eb',marginBottom:'24px',flexWrap:'wrap' }}>
-          {TABS.map(t => (
-            <button key={t.key} className={`tab-btn${tab===t.key?' active':''}`} onClick={() => setTab(t.key)}>
-              <span>{t.icon}</span>{t.label}
+          {TAB_KEYS.map(tk => (
+            <button key={tk} className={`tab-btn${tab===tk?' active':''}`} onClick={() => setTab(tk)}>
+              <span>{TAB_ICONS[tk]}</span>{t.settings.tabs[tk]}
             </button>
           ))}
         </div>
