@@ -16,13 +16,13 @@
 
   /* ── 배경 계층 ── */
   --background:   transparent;                /* SVG 배경이 보이도록 */
-  --surface:      rgba(255, 250, 235, 0.88);  /* 카드/패널 배경 (밝은 크림 반투명) */
-  --surface-2:    rgba(255, 248, 220, 0.84);  /* 중간 레이어 */
+  --surface:      rgba(240, 225, 180, 0.93);  /* 카드/패널 배경 */
+  --surface-2:    rgba(235, 218, 168, 0.90);  /* 중간 레이어 */
   --surface-3:    rgba(15, 30, 10, 0.92);     /* 사이드바 (반투명 어두운 초록) */
 
   /* ── 텍스트 ── */
-  --foreground:   #2c1a00;   /* 주요 텍스트 (진한 갈색) */
-  --foreground-2: #3d2a00;   /* 본문 텍스트 */
+  --foreground:   #3a2500;   /* 주요 텍스트 (카드 제목 진한 갈색) */
+  --foreground-2: #3a2500;   /* 본문 텍스트 */
   --muted:        #8b6914;   /* 보조/힌트 텍스트 */
 
   /* ── 보더 ── */
@@ -50,7 +50,7 @@
   --glow-cyan:    0 0 24px rgba(74, 124, 89, 0.2);
 
   /* ── 그림자 ── */
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--border-2);
+  --shadow-card: 0 2px 12px rgba(100, 70, 10, 0.2);
   --shadow-lg:   0 20px 60px rgba(0, 0, 0, 0.18);
 }
 
@@ -133,21 +133,22 @@ body {
   background-clip: text;
 }
 
-/* ── 카드 (라이트 크림) ── */
+/* ── 카드 ── */
 .card-dark {
   background: var(--surface);
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-card);
+  border-radius: 12px;
+  border: 1.5px solid rgba(160, 120, 40, 0.5);
+  box-shadow: 0 2px 12px rgba(100, 70, 10, 0.2);
 }
 
-/* ── 글래스모피즘 카드 (라이트) ── */
+/* ── 글래스모피즘 카드 ── */
 .card-glass {
-  background: rgba(255, 250, 235, 0.75);
+  background: rgba(240, 225, 180, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(180, 140, 60, 0.25);
-  border-radius: 16px;
+  border: 1.5px solid rgba(160, 120, 40, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(100, 70, 10, 0.2);
 }
 
 /* ── 인풋 공통 ── */
