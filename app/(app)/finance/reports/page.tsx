@@ -178,7 +178,7 @@ export default function FinanceReportsPage() {
     maintainAspectRatio: false,
     interaction: { mode: 'index' as const, intersect: false },
     plugins: {
-      legend: { position: 'top' as const, labels: { font: { family: 'Pretendard, sans-serif', size: 12 }, usePointStyle: true, boxWidth: 8, color: '#c0c0d0' } },
+      legend: { position: 'top' as const, labels: { font: { family: 'Pretendard, sans-serif', size: 12 }, usePointStyle: true, boxWidth: 8, color: '#374151' } },
       tooltip: {
         callbacks: {
           label: (ctx: TooltipItem<'line'>) =>
@@ -187,10 +187,10 @@ export default function FinanceReportsPage() {
       },
     },
     scales: {
-      x: { grid: { display: false }, ticks: { font: { family: 'Pretendard', size: 12 }, color: '#7b7b9d' } },
+      x: { grid: { display: false }, ticks: { font: { family: 'Pretendard', size: 12 }, color: '#374151' } },
       y: {
-        grid: { color: 'rgba(255,255,255,0.07)' },
-        ticks: { font: { family: 'Pretendard', size: 11 }, color: '#7b7b9d', callback: (v: string | number) => `${Number(v).toLocaleString()}원` },
+        grid: { color: 'rgba(160,120,40,0.1)' },
+        ticks: { font: { family: 'Pretendard', size: 11 }, color: '#374151', callback: (v: string | number) => `${Number(v).toLocaleString()}원` },
       },
     },
   };
@@ -211,7 +211,7 @@ export default function FinanceReportsPage() {
       data: sortedCats.map(([, v]) => v),
       backgroundColor: DONUT_COLORS.slice(0, sortedCats.length),
       borderWidth: 2,
-      borderColor: '#1a1a3e',
+      borderColor: 'rgba(255,255,255,0.9)',
       hoverOffset: 6,
     }],
   };
@@ -220,7 +220,7 @@ export default function FinanceReportsPage() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'right' as const, labels: { font: { family: 'Pretendard, sans-serif', size: 12 }, usePointStyle: true, boxWidth: 8, padding: 14, color: '#c0c0d0' } },
+      legend: { position: 'right' as const, labels: { font: { family: 'Pretendard, sans-serif', size: 12 }, usePointStyle: true, boxWidth: 8, padding: 14, color: '#374151' } },
       tooltip: {
         callbacks: {
           label: (ctx: TooltipItem<'doughnut'>) => {
@@ -234,16 +234,16 @@ export default function FinanceReportsPage() {
     cutout: '62%',
   };
 
-  const netColor = !summary ? '#111827' : summary.net_profit >= 0 ? '#059669' : '#dc2626';
+  const netColor = !summary ? '#1a1a1a' : summary.net_profit >= 0 ? '#059669' : '#dc2626';
 
   return (
     <>
       <style>{`
         @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
         @keyframes fadeIn  { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
-        .yr-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;color:#374151;transition:all 0.15s;font-size:16px; }
+        .yr-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1px solid rgba(160,120,40,0.3);background:rgba(255,255,255,0.90);cursor:pointer;color:#1a1a1a;transition:all 0.15s;font-size:16px; }
         .yr-btn:hover { border-color:#c9a84c;color:#c9a84c; }
-        .sec-title { font-size:15px;font-weight:700;color:#111827;display:flex;align-items:center;gap:8px;margin-bottom:18px; }
+        .sec-title { font-size:15px;font-weight:700;color:#1a1a1a;display:flex;align-items:center;gap:8px;margin-bottom:18px; }
         .sec-bar { width:4px;height:18px;background:linear-gradient(#c9a84c,#c9a84c);border-radius:99px;flex-shrink:0; }
         @media print {
           nav, aside, [data-noprint] { display:none !important; }
@@ -264,25 +264,25 @@ export default function FinanceReportsPage() {
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 width: '36px', height: '36px', borderRadius: '10px',
-                background: '#f1f5f9', border: '1.5px solid #e5e7eb',
-                cursor: 'pointer', color: '#374151', flexShrink: 0, transition: 'all 0.15s',
+                background: 'rgba(255,255,255,0.90)', border: '1px solid rgba(160,120,40,0.3)',
+                cursor: 'pointer', color: '#1a1a1a', flexShrink: 0, transition: 'all 0.15s',
               }}
-              onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#e0e7ff'}
-              onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = '#f1f5f9'}
+              onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#c9a84c'; b.style.color = '#c9a84c'; }}
+              onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = 'rgba(160,120,40,0.3)'; b.style.color = '#1a1a1a'; }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em', margin: '0 0 4px' }}>재정 보고서</h1>
-              <p style={{ margin: 0, fontSize: '13px', color: '#9ca3af', fontWeight: 500 }}>{year}년 연간 보고서</p>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 4px' }}>재정 보고서</h1>
+              <p style={{ margin: 0, fontSize: '13px', color: '#8b6914', fontWeight: 500 }}>{year}년 연간 보고서</p>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* 연도 선택기 */}
-            <div className="no-print" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#fff', borderRadius: '12px', padding: '6px 14px', border: '1.5px solid #e5e7eb', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+            <div className="no-print" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.90)', borderRadius: '12px', padding: '6px 14px', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
               <button className="yr-btn" onClick={() => setYear(y => y - 1)}>‹</button>
-              <span style={{ fontSize: '16px', fontWeight: 800, color: '#1e1e2e', minWidth: '52px', textAlign: 'center' }}>{year}년</span>
+              <span style={{ fontSize: '16px', fontWeight: 800, color: '#1a1a1a', minWidth: '52px', textAlign: 'center' }}>{year}년</span>
               <button className="yr-btn" onClick={() => setYear(y => y + 1)}>›</button>
             </div>
 
@@ -293,12 +293,12 @@ export default function FinanceReportsPage() {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '7px',
                 padding: '11px 18px', borderRadius: '12px',
-                border: '1.5px solid #e5e7eb', background: '#fff',
-                color: '#374151', fontSize: '13px', fontWeight: 600,
+                border: '1px solid rgba(160,120,40,0.3)', background: 'rgba(255,255,255,0.90)',
+                color: '#1a1a1a', fontSize: '13px', fontWeight: 600,
                 cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s',
               }}
               onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#c9a84c'; b.style.color = '#c9a84c'; }}
-              onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#e5e7eb'; b.style.color = '#374151'; }}
+              onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = 'rgba(160,120,40,0.3)'; b.style.color = '#1a1a1a'; }}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
@@ -362,7 +362,7 @@ export default function FinanceReportsPage() {
         <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: '20px', marginBottom: '28px' }}>
 
           {/* 꺾은선 차트 */}
-          <div style={{ background: '#fff', borderRadius: '16px', padding: '22px 24px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 14px rgba(0,0,0,0.04)' }}>
+          <div style={{ background: 'rgba(255,255,255,0.90)', borderRadius: '16px', padding: '22px 24px', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
             <div className="sec-title">
               <div className="sec-bar" />
               섹션 2 — 월별 수입/지출 추이
@@ -377,7 +377,7 @@ export default function FinanceReportsPage() {
           </div>
 
           {/* 도넛 차트 */}
-          <div style={{ background: '#fff', borderRadius: '16px', padding: '22px 24px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 14px rgba(0,0,0,0.04)' }}>
+          <div style={{ background: 'rgba(255,255,255,0.90)', borderRadius: '16px', padding: '22px 24px', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
             <div className="sec-title">
               <div className="sec-bar" />
               섹션 3 — 항목별 지출 분포
@@ -399,8 +399,8 @@ export default function FinanceReportsPage() {
                   position: 'absolute', top: '50%', left: '34%',
                   transform: 'translate(-50%,-50%)', textAlign: 'center', pointerEvents: 'none',
                 }}>
-                  <div style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>총 지출</div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#111827', marginTop: '2px' }}>{formatKRW(totalExpTx)}</div>
+                  <div style={{ fontSize: '11px', color: '#8b6914', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>총 지출</div>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#1a1a1a', marginTop: '2px' }}>{formatKRW(totalExpTx)}</div>
                 </div>
               </div>
             )}
@@ -413,9 +413,9 @@ export default function FinanceReportsPage() {
                   return (
                     <div key={cat} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <div style={{ width: '10px', height: '10px', borderRadius: '3px', background: DONUT_COLORS[i], flexShrink: 0 }} />
-                      <span style={{ fontSize: '12px', color: '#374151', fontWeight: 500, flex: 1 }}>{CATEGORY_LABELS[cat] ?? cat}</span>
-                      <span style={{ fontSize: '11px', color: '#9ca3af' }}>{pct}%</span>
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#111827' }}>{formatKRW(amt)}</span>
+                      <span style={{ fontSize: '12px', color: '#1a1a1a', fontWeight: 500, flex: 1 }}>{CATEGORY_LABELS[cat] ?? cat}</span>
+                      <span style={{ fontSize: '11px', color: '#8b6914' }}>{pct}%</span>
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#1a1a1a' }}>{formatKRW(amt)}</span>
                     </div>
                   );
                 })}
@@ -425,8 +425,8 @@ export default function FinanceReportsPage() {
         </div>
 
         {/* ════ 섹션 4: 월별 상세 테이블 ════ */}
-        <div style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 14px rgba(0,0,0,0.04)' }}>
-          <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ background: 'rgba(255,255,255,0.90)', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
+          <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid rgba(160,120,40,0.2)' }}>
             <div className="sec-title" style={{ marginBottom: 0 }}>
               <div className="sec-bar" />
               섹션 4 — 월별 상세
@@ -435,11 +435,11 @@ export default function FinanceReportsPage() {
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
               <thead>
-                <tr style={{ background: '#f8fafc' }}>
+                <tr style={{ background: 'rgba(160,120,40,0.06)' }}>
                   {['월', '수입 합계', '지출 합계', '순이익', '누계 잔액'].map(h => (
                     <th key={h} style={{
                       padding: '12px 20px', textAlign: h === '월' ? 'left' : 'right',
-                      fontSize: '11px', fontWeight: 700, color: '#6b7280',
+                      fontSize: '11px', fontWeight: 700, color: '#8b6914',
                       letterSpacing: '0.05em', textTransform: 'uppercase', whiteSpace: 'nowrap',
                     }}>{h}</th>
                   ))}
@@ -459,8 +459,8 @@ export default function FinanceReportsPage() {
                   : monthRows.map((row, i) => {
                     const hasData = row.income > 0 || row.expense > 0;
                     return (
-                      <tr key={i} style={{ borderBottom: '1px solid #f1f5f9', background: hasData ? '#fff' : '#fafafa' }}>
-                        <td style={{ padding: '13px 20px', fontSize: '14px', fontWeight: 600, color: '#374151' }}>{row.month}</td>
+                      <tr key={i} style={{ borderBottom: '1px solid rgba(160,120,40,0.15)', background: hasData ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)' }}>
+                        <td style={{ padding: '13px 20px', fontSize: '14px', fontWeight: 600, color: '#1a1a1a' }}>{row.month}</td>
                         <td style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.income > 0 ? 700 : 400, color: row.income > 0 ? '#7d6324' : '#d1d5db' }}>
                           {row.income > 0 ? formatKRW(row.income) : '—'}
                         </td>

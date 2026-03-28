@@ -16,18 +16,18 @@
 
   /* ── 배경 계층 ── */
   --background:   transparent;                /* SVG 배경이 보이도록 */
-  --surface:      rgba(240, 225, 180, 0.93);  /* 카드/패널 배경 */
-  --surface-2:    rgba(235, 218, 168, 0.90);  /* 중간 레이어 */
+  --surface:      rgba(255, 255, 255, 0.90);  /* 카드/패널 배경 */
+  --surface-2:    rgba(255, 255, 255, 0.85);  /* 중간 레이어 */
   --surface-3:    rgba(15, 30, 10, 0.92);     /* 사이드바 (반투명 어두운 초록) */
 
   /* ── 텍스트 ── */
-  --foreground:   #3a2500;   /* 주요 텍스트 (카드 제목 진한 갈색) */
-  --foreground-2: #3a2500;   /* 본문 텍스트 */
+  --foreground:   #1a1a1a;   /* 주요 텍스트 */
+  --foreground-2: #1a1a1a;   /* 본문 텍스트 */
   --muted:        #8b6914;   /* 보조/힌트 텍스트 */
 
   /* ── 보더 ── */
-  --border:       rgba(180, 140, 60, 0.3);
-  --border-2:     rgba(180, 140, 60, 0.15);
+  --border:       rgba(160, 120, 40, 0.3);
+  --border-2:     rgba(160, 120, 40, 0.15);
 
   /* ── 사이드바 ── */
   --sidebar-bg:          rgba(20, 40, 15, 0.92);
@@ -50,7 +50,7 @@
   --glow-cyan:    0 0 24px rgba(74, 124, 89, 0.2);
 
   /* ── 그림자 ── */
-  --shadow-card: 0 2px 12px rgba(100, 70, 10, 0.2);
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.1);
   --shadow-lg:   0 20px 60px rgba(0, 0, 0, 0.18);
 }
 
@@ -135,27 +135,27 @@ body {
 
 /* ── 카드 ── */
 .card-dark {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.90);
   border-radius: 12px;
-  border: 1.5px solid rgba(160, 120, 40, 0.5);
-  box-shadow: 0 2px 12px rgba(100, 70, 10, 0.2);
+  border: 1px solid rgba(160, 120, 40, 0.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* ── 글래스모피즘 카드 ── */
 .card-glass {
-  background: rgba(240, 225, 180, 0.88);
+  background: rgba(255, 255, 255, 0.90);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(160, 120, 40, 0.5);
+  border: 1px solid rgba(160, 120, 40, 0.3);
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(100, 70, 10, 0.2);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* ── 인풋 공통 ── */
 .input-dark {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1.5px solid rgba(180, 140, 60, 0.3);
-  color: #2c1a00;
+  background: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(160, 120, 40, 0.3);
+  color: #1a1a1a;
   border-radius: 10px;
   padding: 9px 12px;
   font-size: 13px;
@@ -164,7 +164,7 @@ body {
   transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
 }
-.input-dark::placeholder { color: #a07840; }
+.input-dark::placeholder { color: #9ca3af; }
 .input-dark:focus {
   border-color: #c9a84c !important;
   box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
@@ -182,19 +182,19 @@ body {
 .badge-type      { background:rgba(201,168,76,0.1);  color:#7a5c00; border:1px solid rgba(201,168,76,0.3); }
 
 /* ── 테이블 ── */
-.table-dark thead tr { background:rgba(180,140,60,0.08); border-bottom:1px solid var(--border); }
+.table-dark thead tr { background:rgba(160,120,40,0.06); border-bottom:1px solid var(--border); }
 .table-dark th { padding:13px 18px; text-align:left; font-size:12px; font-weight:700; color:var(--muted); letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap; }
 .table-dark td { padding:14px 18px; color:var(--foreground-2); border-bottom:1px solid var(--border); }
 .table-dark tbody tr { cursor:pointer; transition:background 0.12s; }
-.table-dark tbody tr:hover { background:rgba(201,168,76,0.07) !important; }
+.table-dark tbody tr:hover { background:rgba(160,120,40,0.06) !important; }
 
 /* ── 페이지네이션 버튼 ── */
 .page-btn-dark {
   display:inline-flex; align-items:center; justify-content:center;
   width:34px; height:34px; border-radius:8px;
   font-size:13px; font-weight:600; cursor:pointer;
-  border:1.5px solid rgba(180,140,60,0.3);
-  background:rgba(255,250,235,0.8); color:var(--foreground-2);
+  border:1px solid rgba(160,120,40,0.3);
+  background:rgba(255,255,255,0.90); color:var(--foreground-2);
   transition:all 0.15s; font-family:inherit;
 }
 .page-btn-dark:hover:not(:disabled) { border-color:#c9a84c; color:#7a4000; background:rgba(201,168,76,0.1); }

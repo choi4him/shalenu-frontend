@@ -125,8 +125,8 @@ export default function TransactionsPage() {
       <style>{`
         @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
         .tx-row { cursor:pointer; transition:background 0.15s; }
-        .tx-row:hover { background:#f5f7ff !important; }
-        .page-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid #e5e7eb;background:#fff;color:#374151;transition:all 0.15s;font-family:inherit; }
+        .tx-row:hover { background:rgba(160,120,40,0.06) !important; }
+        .page-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid rgba(160,120,40,0.3);background:rgba(255,255,255,0.90);color:#1a1a1a;transition:all 0.15s;font-family:inherit; }
         .page-btn:hover:not(:disabled) { border-color:#c9a84c;color:#c9a84c; }
         .page-btn.active { background:#c9a84c;color:#fff;border-color:#c9a84c; }
         .page-btn:disabled { opacity:.35;cursor:not-allowed; }
@@ -143,19 +143,19 @@ export default function TransactionsPage() {
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 width: '36px', height: '36px', borderRadius: '10px',
-                background: '#f1f5f9', border: '1.5px solid #e5e7eb',
-                cursor: 'pointer', color: '#374151', flexShrink: 0, transition: 'all 0.15s',
+                background: 'rgba(255,255,255,0.90)', border: '1px solid rgba(160,120,40,0.3)',
+                cursor: 'pointer', color: '#1a1a1a', flexShrink: 0, transition: 'all 0.15s',
               }}
-              onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#e0e7ff'}
-              onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = '#f1f5f9'}
+              onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#c9a84c'; b.style.color = '#c9a84c'; }}
+              onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = 'rgba(160,120,40,0.3)'; b.style.color = '#1a1a1a'; }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6"/>
               </svg>
             </button>
             <div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em', margin: '0 0 6px' }}>거래 내역</h1>
-              <p style={{ margin: 0, fontSize: '14px', color: '#9ca3af', fontWeight: 500 }}>전체 {total.toLocaleString()}건</p>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 6px' }}>거래 내역</h1>
+              <p style={{ margin: 0, fontSize: '14px', color: '#8b6914', fontWeight: 500 }}>전체 {total.toLocaleString()}건</p>
             </div>
           </div>
           <button
@@ -194,18 +194,18 @@ export default function TransactionsPage() {
 
         {/* 필터 */}
         <div style={{
-          background: '#fff', borderRadius: '14px', padding: '18px 24px',
-          boxShadow: '0 1px 4px rgba(0,0,0,0.05)', border: '1px solid #f1f5f9', marginBottom: '20px',
+          background: 'rgba(255,255,255,0.90)', borderRadius: '14px', padding: '18px 24px',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.1)', border: '1px solid rgba(160,120,40,0.3)', marginBottom: '20px',
         }}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
 
             {[
-              { label: '시작일', el: <input className="fi-filter" type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#374151', outline:'none', fontFamily:'inherit', background:'#fff', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }} /> },
-              { label: '종료일', el: <input className="fi-filter" type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#374151', outline:'none', fontFamily:'inherit', background:'#fff', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }} /> },
+              { label: '시작일', el: <input className="fi-filter" type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }} /> },
+              { label: '종료일', el: <input className="fi-filter" type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }} /> },
               {
                 label: '계좌',
                 el: (
-                  <select className="fi-filter" value={filterAcct} onChange={e => setFilterAcct(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#374151', outline:'none', fontFamily:'inherit', background:'#fff', cursor:'pointer', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }}>
+                  <select className="fi-filter" value={filterAcct} onChange={e => setFilterAcct(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', cursor:'pointer', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }}>
                     <option value="">전체</option>
                     {accounts.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
                   </select>
@@ -214,7 +214,7 @@ export default function TransactionsPage() {
               {
                 label: '거래 유형',
                 el: (
-                  <select className="fi-filter" value={filterType} onChange={e => setFilterType(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#374151', outline:'none', fontFamily:'inherit', background:'#fff', cursor:'pointer', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }}>
+                  <select className="fi-filter" value={filterType} onChange={e => setFilterType(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', cursor:'pointer', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }}>
                     <option value="">전체</option>
                     <option value="income">수입</option>
                     <option value="expense">지출</option>
@@ -223,7 +223,7 @@ export default function TransactionsPage() {
               },
             ].map(({ label, el }) => (
               <div key={label} style={{ flex: 1, minWidth: '130px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '11px', fontWeight: 700, color: '#9ca3af', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{label}</label>
+                <label style={{ fontSize: '11px', fontWeight: 700, color: '#8b6914', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{label}</label>
                 {el}
               </div>
             ))}
@@ -231,12 +231,12 @@ export default function TransactionsPage() {
             <button
               onClick={() => { setDateFrom(''); setDateTo(''); setFilterAcct(''); setFilterType(''); }}
               style={{
-                padding: '9px 16px', borderRadius: '9px', border: '1.5px solid #e5e7eb',
-                background: '#f8fafc', fontSize: '13px', fontWeight: 600, color: '#6b7280',
+                padding: '9px 16px', borderRadius: '9px', border: '1px solid rgba(160,120,40,0.3)',
+                background: 'rgba(255,255,255,0.90)', fontSize: '13px', fontWeight: 600, color: '#1a1a1a',
                 cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap', transition: 'all 0.15s',
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#c9a84c'; (e.currentTarget as HTMLButtonElement).style.color = '#c9a84c'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#e5e7eb'; (e.currentTarget as HTMLButtonElement).style.color = '#6b7280'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(160,120,40,0.3)'; (e.currentTarget as HTMLButtonElement).style.color = '#1a1a1a'; }}
             >초기화</button>
           </div>
         </div>
@@ -251,13 +251,13 @@ export default function TransactionsPage() {
         )}
 
         {/* 테이블 */}
-        <div style={{ background:'#fff', borderRadius:'16px', boxShadow:'0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)', overflow:'hidden', border:'1px solid #f1f5f9' }}>
+        <div style={{ background:'rgba(255,255,255,0.90)', borderRadius:'16px', boxShadow:'0 2px 12px rgba(0,0,0,0.1)', overflow:'hidden', border:'1px solid rgba(160,120,40,0.3)' }}>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width:'100%', borderCollapse:'collapse', minWidth:'700px' }}>
               <thead>
-                <tr style={{ background:'#f8fafc', borderBottom:'1px solid #e5e7eb' }}>
+                <tr style={{ background:'rgba(160,120,40,0.06)', borderBottom:'1px solid rgba(160,120,40,0.2)' }}>
                   {['날짜', '적요', '분류', '계좌', '수입', '지출'].map(h => (
-                    <th key={h} style={{ padding:'13px 18px', textAlign:'left', fontSize:'12px', fontWeight:700, color:'#6b7280', letterSpacing:'0.05em', textTransform:'uppercase', whiteSpace:'nowrap' }}>{h}</th>
+                    <th key={h} style={{ padding:'13px 18px', textAlign:'left', fontSize:'12px', fontWeight:700, color:'#8b6914', letterSpacing:'0.05em', textTransform:'uppercase', whiteSpace:'nowrap' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -267,11 +267,11 @@ export default function TransactionsPage() {
                   : transactions.length === 0
                     ? (
                       <tr>
-                        <td colSpan={6} style={{ padding:'60px 20px', textAlign:'center', color:'#9ca3af' }}>
+                        <td colSpan={6} style={{ padding:'60px 20px', textAlign:'center', color:'#8b6914' }}>
                           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display:'block', margin:'0 auto 12px' }}>
                             <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
                           </svg>
-                          <div style={{ fontSize:'15px', fontWeight:600, color:'#374151', marginBottom:'4px' }}>거래 내역이 없습니다</div>
+                          <div style={{ fontSize:'15px', fontWeight:600, color:'#1a1a1a', marginBottom:'4px' }}>거래 내역이 없습니다</div>
                           <div style={{ fontSize:'13px' }}>
                             {(dateFrom || dateTo || filterAcct || filterType) ? '필터 조건을 변경해보세요.' : '거래를 입력해보세요!'}
                           </div>
@@ -284,22 +284,22 @@ export default function TransactionsPage() {
                         className="tx-row"
                         onMouseEnter={() => setHoveredRow(tx.id)}
                         onMouseLeave={() => setHoveredRow(null)}
-                        style={{ borderBottom:'1px solid #f1f5f9', background: hoveredRow === tx.id ? '#f5f7ff' : '#fff' }}
+                        style={{ borderBottom:'1px solid rgba(160,120,40,0.15)', background: hoveredRow === tx.id ? 'rgba(160,120,40,0.06)' : 'transparent' }}
                       >
-                        <td style={{ padding:'14px 18px', fontSize:'14px', color:'#374151', whiteSpace:'nowrap', fontWeight:500 }}>
+                        <td style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', whiteSpace:'nowrap', fontWeight:500 }}>
                           {fmtDate(tx.transaction_date)}
                         </td>
-                        <td style={{ padding:'14px 18px', fontSize:'14px', color:'#111827', fontWeight:500, maxWidth:'200px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                        <td style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', fontWeight:500, maxWidth:'200px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
                           {tx.description || '—'}
                         </td>
                         <td style={{ padding:'14px 18px', fontSize:'13px', whiteSpace:'nowrap' }}>
                           {tx.category ? (
-                            <span style={{ background:'#f3f4f6', color:'#4b5563', padding:'3px 10px', borderRadius:'99px', fontSize:'12px', fontWeight:600 }}>
+                            <span style={{ background:'rgba(160,120,40,0.1)', color:'#7a5c00', padding:'3px 10px', borderRadius:'99px', fontSize:'12px', fontWeight:600, border:'1px solid rgba(160,120,40,0.25)' }}>
                               {CATEGORY_LABELS[tx.category] ?? tx.category}
                             </span>
                           ) : '—'}
                         </td>
-                        <td style={{ padding:'14px 18px', fontSize:'13px', color:'#6b7280', whiteSpace:'nowrap' }}>
+                        <td style={{ padding:'14px 18px', fontSize:'13px', color:'#8b6914', whiteSpace:'nowrap' }}>
                           {tx.account_name ?? `계좌 #${tx.account_id}`}
                         </td>
                         {/* 수입 */}
@@ -323,7 +323,7 @@ export default function TransactionsPage() {
 
           {/* 페이지네이션 */}
           {!loading && totalPages > 1 && (
-            <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:'6px', padding:'18px 20px', borderTop:'1px solid #f1f5f9' }}>
+            <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:'6px', padding:'18px 20px', borderTop:'1px solid rgba(160,120,40,0.2)' }}>
               <button className="page-btn" disabled={page === 1} onClick={() => goPage(1)}>«</button>
               <button className="page-btn" disabled={page === 1} onClick={() => goPage(page - 1)}>‹</button>
               {pageButtons().map(p => (

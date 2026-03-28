@@ -157,7 +157,7 @@ export default function FinancePage() {
     scales: {
       x: { grid: { display: false }, ticks: { font: { family: 'Pretendard', size: 12 } } },
       y: {
-        grid: { color: '#f1f5f9' },
+        grid: { color: 'rgba(160,120,40,0.1)' },
         ticks: {
           font: { family: 'Pretendard', size: 11 },
           callback: (v: string | number) => `${Number(v).toLocaleString('ko-KR')}원`,
@@ -174,11 +174,11 @@ export default function FinancePage() {
     <>
       <style>{`
         @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
-        .year-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;color:#374151;transition:all 0.15s; }
+        .year-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1px solid rgba(160,120,40,0.3);background:rgba(255,255,255,0.90);cursor:pointer;color:#1a1a1a;transition:all 0.15s; }
         .year-btn:hover { border-color:#c9a84c; color:#c9a84c; }
-        .acc-row { display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #f1f5f9;transition:background 0.15s; }
+        .acc-row { display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(160,120,40,0.2);transition:background 0.15s; }
         .acc-row:last-child { border-bottom:none; }
-        .acc-row:hover { background:#f5f7ff; }
+        .acc-row:hover { background:rgba(160,120,40,0.06); }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
@@ -186,14 +186,14 @@ export default function FinancePage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em', margin: '0 0 6px' }}>재정 관리</h1>
-            <p style={{ margin: 0, fontSize: '14px', color: '#9ca3af', fontWeight: 500 }}>교회 전체 재정 현황</p>
+            <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 6px' }}>재정 관리</h1>
+            <p style={{ margin: 0, fontSize: '14px', color: '#8b6914', fontWeight: 500 }}>교회 전체 재정 현황</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* 연도 선택기 */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#fff', borderRadius: '12px', padding: '6px 14px', border: '1.5px solid #e5e7eb', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.90)', borderRadius: '12px', padding: '6px 14px', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
               <button className="year-btn" onClick={() => setYear(y => y - 1)}>‹</button>
-              <span style={{ fontSize: '16px', fontWeight: 800, color: '#1e1e2e', minWidth: '52px', textAlign: 'center' }}>{year}년</span>
+              <span style={{ fontSize: '16px', fontWeight: 800, color: '#1a1a1a', minWidth: '52px', textAlign: 'center' }}>{year}년</span>
               <button className="year-btn" onClick={() => setYear(y => y + 1)}>›</button>
             </div>
             {/* 거래 입력 버튼 */}
@@ -275,14 +275,14 @@ export default function FinancePage() {
 
           {/* 월별 수입/지출 차트 */}
           <div style={{
-            background: '#fff', borderRadius: '16px', padding: '24px',
-            boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)',
-            border: '1px solid #f1f5f9',
+            background: 'rgba(255,255,255,0.90)', borderRadius: '16px', padding: '24px',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
+            border: '1px solid rgba(160,120,40,0.3)',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
               <div>
-                <div style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>월별 수입 / 지출</div>
-                <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>{year}년 통계</div>
+                <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>월별 수입 / 지출</div>
+                <div style={{ fontSize: '12px', color: '#8b6914', marginTop: '2px' }}>{year}년 통계</div>
               </div>
               <button
                 onClick={() => router.push('/finance/transactions')}
@@ -305,14 +305,14 @@ export default function FinancePage() {
 
           {/* 계좌 목록 */}
           <div style={{
-            background: '#fff', borderRadius: '16px',
-            boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)',
-            border: '1px solid #f1f5f9', overflow: 'hidden',
+            background: 'rgba(255,255,255,0.90)', borderRadius: '16px',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
+            border: '1px solid rgba(160,120,40,0.3)', overflow: 'hidden',
           }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(160,120,40,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>계좌 현황</div>
-                <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>등록된 교회 계좌</div>
+                <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>계좌 현황</div>
+                <div style={{ fontSize: '12px', color: '#8b6914', marginTop: '2px' }}>등록된 교회 계좌</div>
               </div>
               <button
                 onClick={() => router.push('/finance/accounts/new')}
@@ -358,7 +358,7 @@ export default function FinancePage() {
                   <div key={acc.id} className="acc-row">
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>{acc.name}</span>
+                        <span style={{ fontSize: '14px', fontWeight: 600, color: '#1a1a1a' }}>{acc.name}</span>
                         {typeCfg && (
                           <span style={{ fontSize: '11px', fontWeight: 700, color: typeCfg.color, background: typeCfg.bg, padding: '2px 8px', borderRadius: '99px', letterSpacing: '0.02em' }}>
                             {typeCfg.label}
