@@ -220,7 +220,119 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .sub-list { animation:slideDown 0.18s ease; }
       `}</style>
 
-      <div style={{ display:'flex', minHeight:'100vh', background:'var(--background)' }}>
+      <div style={{ display:'flex', minHeight:'100vh', background:'var(--background)', position:'relative' }}>
+
+        {/* ═══ 배경 SVG: 양떼와 목자 실루엣 ═══ */}
+        <div style={{ position:'fixed', inset:0, zIndex:0, pointerEvents:'none', opacity:0.08, overflow:'hidden' }}>
+          <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" fill="#c9a84c" xmlns="http://www.w3.org/2000/svg">
+
+            {/* ── 왼쪽 상단: 빛줄기 (방사형) ── */}
+            <g opacity="0.6">
+              <line x1="0" y1="0" x2="400" y2="300" stroke="#c9a84c" strokeWidth="1.5" opacity="0.5"/>
+              <line x1="0" y1="0" x2="500" y2="200" stroke="#c9a84c" strokeWidth="1" opacity="0.4"/>
+              <line x1="0" y1="0" x2="350" y2="400" stroke="#c9a84c" strokeWidth="1.2" opacity="0.35"/>
+              <line x1="0" y1="0" x2="550" y2="350" stroke="#c9a84c" strokeWidth="0.8" opacity="0.3"/>
+              <line x1="0" y1="0" x2="250" y2="450" stroke="#c9a84c" strokeWidth="1" opacity="0.25"/>
+              <line x1="0" y1="0" x2="600" y2="150" stroke="#c9a84c" strokeWidth="0.8" opacity="0.3"/>
+              <line x1="0" y1="0" x2="450" y2="100" stroke="#c9a84c" strokeWidth="1" opacity="0.35"/>
+              <line x1="0" y1="0" x2="150" y2="350" stroke="#c9a84c" strokeWidth="0.8" opacity="0.2"/>
+            </g>
+
+            {/* ── 오른쪽 하단: 언덕 곡선 ── */}
+            <path d="M1920 1080 L1920 850 Q1750 780 1550 830 Q1350 880 1150 820 Q950 760 750 840 Q600 900 500 880 L500 1080 Z" opacity="0.4"/>
+            <path d="M1920 1080 L1920 900 Q1800 860 1650 890 Q1500 920 1350 880 Q1200 840 1050 900 Q900 960 800 940 L800 1080 Z" opacity="0.6"/>
+            <path d="M1920 1080 L1920 940 Q1850 920 1750 945 Q1600 970 1450 940 Q1300 910 1150 950 Q1050 980 1000 970 L1000 1080 Z" opacity="0.8"/>
+
+            {/* ── 나무 실루엣 (멀리 2그루) ── */}
+            {/* 나무 1 */}
+            <g transform="translate(1050, 770)">
+              <rect x="-4" y="0" width="8" height="50" rx="2"/>
+              <ellipse cx="0" cy="-10" rx="25" ry="35"/>
+            </g>
+            {/* 나무 2 */}
+            <g transform="translate(1150, 790)">
+              <rect x="-3" y="0" width="6" height="40" rx="2"/>
+              <ellipse cx="0" cy="-8" rx="20" ry="28"/>
+            </g>
+
+            {/* ── 목자 실루엣 (지팡이 들고 서있는 모습) ── */}
+            <g transform="translate(1300, 760)">
+              {/* 머리 */}
+              <circle cx="0" cy="0" r="12"/>
+              {/* 몸통 */}
+              <path d="M-8 12 L-12 70 L12 70 L8 12 Z" rx="3"/>
+              {/* 왼쪽 다리 */}
+              <path d="M-8 70 L-12 110 L-6 110 L-2 70 Z"/>
+              {/* 오른쪽 다리 */}
+              <path d="M2 70 L6 110 L12 110 L8 70 Z"/>
+              {/* 지팡이 */}
+              <rect x="18" y="-30" width="3" height="140" rx="1.5"/>
+              <path d="M21 -30 Q21 -45 12 -45" fill="none" stroke="#c9a84c" strokeWidth="3" strokeLinecap="round"/>
+            </g>
+
+            {/* ── 양 실루엣 7마리 ── */}
+            {/* 양 1 */}
+            <g transform="translate(1400, 850)">
+              <ellipse cx="0" cy="0" rx="22" ry="16"/>
+              <circle cx="-18" cy="-10" r="8"/>
+              <rect x="-12" y="14" width="4" height="14" rx="1"/>
+              <rect x="-4" y="14" width="4" height="14" rx="1"/>
+              <rect x="4" y="14" width="4" height="14" rx="1"/>
+              <rect x="12" y="14" width="4" height="14" rx="1"/>
+            </g>
+            {/* 양 2 */}
+            <g transform="translate(1500, 870)">
+              <ellipse cx="0" cy="0" rx="20" ry="14"/>
+              <circle cx="16" cy="-8" r="7"/>
+              <rect x="-10" y="12" width="4" height="12" rx="1"/>
+              <rect x="-2" y="12" width="4" height="12" rx="1"/>
+              <rect x="6" y="12" width="4" height="12" rx="1"/>
+              <rect x="14" y="12" width="4" height="12" rx="1"/>
+            </g>
+            {/* 양 3 (작은 양) */}
+            <g transform="translate(1580, 860)">
+              <ellipse cx="0" cy="0" rx="16" ry="11"/>
+              <circle cx="-12" cy="-7" r="6"/>
+              <rect x="-8" y="9" width="3" height="10" rx="1"/>
+              <rect x="-2" y="9" width="3" height="10" rx="1"/>
+              <rect x="4" y="9" width="3" height="10" rx="1"/>
+              <rect x="10" y="9" width="3" height="10" rx="1"/>
+            </g>
+            {/* 양 4 */}
+            <g transform="translate(1680, 890)">
+              <ellipse cx="0" cy="0" rx="22" ry="16"/>
+              <circle cx="18" cy="-10" r="8"/>
+              <rect x="-12" y="14" width="4" height="14" rx="1"/>
+              <rect x="-4" y="14" width="4" height="14" rx="1"/>
+              <rect x="4" y="14" width="4" height="14" rx="1"/>
+              <rect x="12" y="14" width="4" height="14" rx="1"/>
+            </g>
+            {/* 양 5 */}
+            <g transform="translate(1780, 870)">
+              <ellipse cx="0" cy="0" rx="18" ry="13"/>
+              <circle cx="-14" cy="-8" r="7"/>
+              <rect x="-10" y="11" width="3.5" height="12" rx="1"/>
+              <rect x="-3" y="11" width="3.5" height="12" rx="1"/>
+              <rect x="4" y="11" width="3.5" height="12" rx="1"/>
+              <rect x="11" y="11" width="3.5" height="12" rx="1"/>
+            </g>
+            {/* 양 6 (앉아있는 양) */}
+            <g transform="translate(1450, 900)">
+              <ellipse cx="0" cy="0" rx="20" ry="12"/>
+              <circle cx="16" cy="-7" r="7"/>
+              <rect x="-8" y="10" width="4" height="6" rx="1"/>
+              <rect x="8" y="10" width="4" height="6" rx="1"/>
+            </g>
+            {/* 양 7 (멀리 작은 양) */}
+            <g transform="translate(1250, 830)">
+              <ellipse cx="0" cy="0" rx="14" ry="10"/>
+              <circle cx="-10" cy="-6" r="5"/>
+              <rect x="-6" y="8" width="3" height="9" rx="1"/>
+              <rect x="0" y="8" width="3" height="9" rx="1"/>
+              <rect x="6" y="8" width="3" height="9" rx="1"/>
+            </g>
+          </svg>
+        </div>
 
         {/* ═══ 사이드바 ═══ */}
         <aside style={{
@@ -354,7 +466,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </aside>
 
         {/* ═══ 콘텐츠 영역 ═══ */}
-        <main style={{ flex:1, marginLeft:'240px', minHeight:'100vh' }}>
+        <main style={{ flex:1, marginLeft:'240px', minHeight:'100vh', position:'relative', zIndex:1 }}>
           {children}
         </main>
       </div>
