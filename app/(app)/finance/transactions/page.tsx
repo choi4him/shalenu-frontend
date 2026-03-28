@@ -127,10 +127,10 @@ export default function TransactionsPage() {
         .tx-row { cursor:pointer; transition:background 0.15s; }
         .tx-row:hover { background:#f5f7ff !important; }
         .page-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid #e5e7eb;background:#fff;color:#374151;transition:all 0.15s;font-family:inherit; }
-        .page-btn:hover:not(:disabled) { border-color:#4f46e5;color:#4f46e5; }
-        .page-btn.active { background:#4f46e5;color:#fff;border-color:#4f46e5; }
+        .page-btn:hover:not(:disabled) { border-color:#c9a84c;color:#c9a84c; }
+        .page-btn.active { background:#c9a84c;color:#fff;border-color:#c9a84c; }
         .page-btn:disabled { opacity:.35;cursor:not-allowed; }
-        .fi-filter:focus { border-color:#4f46e5 !important; box-shadow:0 0 0 3px rgba(79,70,229,0.12); }
+        .fi-filter:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.12); }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
@@ -163,10 +163,10 @@ export default function TransactionsPage() {
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               padding: '11px 20px', borderRadius: '12px',
-              background: 'linear-gradient(135deg,#4f46e5,#6366f1)',
+              background: 'linear-gradient(135deg,#c9a84c,#c9a84c)',
               color: '#fff', border: 'none', cursor: 'pointer',
               fontSize: '14px', fontWeight: 700, fontFamily: 'inherit',
-              boxShadow: '0 4px 12px rgba(79,70,229,0.35)', transition: 'all 0.2s',
+              boxShadow: '0 4px 12px rgba(201,168,76,0.35)', transition: 'all 0.2s',
             }}
             onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.88'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)'; }}
             onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '1'; (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
@@ -181,7 +181,7 @@ export default function TransactionsPage() {
         {/* 간단 통계 */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '20px' }}>
           {[
-            { label: '조회 수입 합계', value: formatKRW(incomeSum), color: '#3730a3', bg: 'linear-gradient(135deg,#eef2ff,#c7d2fe)' },
+            { label: '조회 수입 합계', value: formatKRW(incomeSum), color: '#7d6324', bg: 'linear-gradient(135deg,#fdf8e8,#f0d88a)' },
             { label: '조회 지출 합계', value: formatKRW(expenseSum), color: '#be123c', bg: 'linear-gradient(135deg,#fff1f2,#fecdd3)' },
             { label: '순수익', value: formatKRW(incomeSum - expenseSum), color: incomeSum >= expenseSum ? '#059669' : '#dc2626', bg: 'linear-gradient(135deg,#f0fdf4,#bbf7d0)' },
           ].map(c => (
@@ -235,7 +235,7 @@ export default function TransactionsPage() {
                 background: '#f8fafc', fontSize: '13px', fontWeight: 600, color: '#6b7280',
                 cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap', transition: 'all 0.15s',
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#6366f1'; (e.currentTarget as HTMLButtonElement).style.color = '#4f46e5'; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#c9a84c'; (e.currentTarget as HTMLButtonElement).style.color = '#c9a84c'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#e5e7eb'; (e.currentTarget as HTMLButtonElement).style.color = '#6b7280'; }}
             >초기화</button>
           </div>

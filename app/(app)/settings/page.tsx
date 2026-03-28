@@ -55,7 +55,7 @@ const inputSt: React.CSSProperties = {
 const labelSt: React.CSSProperties = { fontSize:'13px', fontWeight:600, color:'#374151', marginBottom:'5px', display:'block' };
 const sectionTitle = (t: string) => (
   <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
-    <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }}/>
+    <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }}/>
     <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>{t}</span>
   </div>
 );
@@ -131,7 +131,7 @@ function ChurchTab() {
             <div style={{ display:'flex',gap:'8px' }}>
               <input className="inp" style={{ ...inputSt, flex:1 }} placeholder="주소" {...f('address')} />
               <button type="button" onClick={openPostcode}
-                style={{ padding:'0 14px',borderRadius:'9px',border:'1.5px solid #4f46e5',background:'#eef2ff',color:'#4f46e5',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap',transition:'all 0.15s' }}>
+                style={{ padding:'0 14px',borderRadius:'9px',border:'1.5px solid #c9a84c',background:'#fdf8e8',color:'#c9a84c',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap',transition:'all 0.15s' }}>
                 주소 검색
               </button>
             </div>
@@ -156,7 +156,7 @@ function ChurchTab() {
         </div>
         <div style={{ marginTop:'20px',textAlign:'right' }}>
           <button onClick={save} disabled={saving}
-            style={{ padding:'10px 24px',borderRadius:'10px',border:'none',background:saving?'#c7d2fe':'linear-gradient(135deg,#4f46e5,#6366f1)',color:saving?'#818cf8':'#fff',fontSize:'14px',fontWeight:700,cursor:saving?'not-allowed':'pointer',fontFamily:'inherit',transition:'all 0.2s',boxShadow:saving?'none':'0 4px 12px rgba(79,70,229,0.3)' }}>
+            style={{ padding:'10px 24px',borderRadius:'10px',border:'none',background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)',color:saving?'#d4b85c':'#fff',fontSize:'14px',fontWeight:700,cursor:saving?'not-allowed':'pointer',fontFamily:'inherit',transition:'all 0.2s',boxShadow:saving?'none':'0 4px 12px rgba(201,168,76,0.3)' }}>
             {saving ? '저장 중...' : '저장'}
           </button>
         </div>
@@ -207,9 +207,9 @@ function SortableItem({
   const rowStyle: React.CSSProperties = {
     display:'flex', alignItems:'center', gap:'8px',
     padding:'8px 10px', borderRadius:'8px',
-    background: isDragging ? '#eef2ff' : item.is_active ? '#f8fafc' : '#fff5f5',
-    border: `1.5px solid ${isDragging ? '#a5b4fc' : item.is_active ? '#e5e7eb' : '#fecaca'}`,
-    boxShadow: isDragging ? '0 8px 24px rgba(79,70,229,0.18)' : '0 1px 2px rgba(0,0,0,0.03)',
+    background: isDragging ? '#fdf8e8' : item.is_active ? '#f8fafc' : '#fff5f5',
+    border: `1.5px solid ${isDragging ? '#e8d48b' : item.is_active ? '#e5e7eb' : '#fecaca'}`,
+    boxShadow: isDragging ? '0 8px 24px rgba(201,168,76,0.18)' : '0 1px 2px rgba(0,0,0,0.03)',
     transform: CSS.Transform.toString(transform),
     transition: transition ?? 'all 0.15s',
     zIndex: isDragging ? 999 : undefined,
@@ -222,7 +222,7 @@ function SortableItem({
       <div
         {...listeners} {...attributes}
         style={{ display:'flex',alignItems:'center',flexShrink:0,padding:'2px 3px',color:'#d1d5db',cursor:'grab',borderRadius:'4px',transition:'color 0.15s',touchAction:'none' }}
-        onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.color='#4f46e5'}
+        onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.color='#c9a84c'}
         onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.color='#d1d5db'}
       >
         <GripIcon />
@@ -249,7 +249,7 @@ function SortableItem({
       {editId === item.id ? (
         <>
           <button onClick={onSaveEdit}
-            style={{ padding:'4px 10px',borderRadius:'7px',border:'none',background:'#4f46e5',color:'#fff',fontSize:'12px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>저장</button>
+            style={{ padding:'4px 10px',borderRadius:'7px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'12px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>저장</button>
           <button onClick={onCancelEdit}
             style={{ padding:'4px 10px',borderRadius:'7px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'12px',cursor:'pointer',fontFamily:'inherit' }}>취소</button>
         </>
@@ -346,12 +346,12 @@ function CodeSection({
     <div style={{ ...card, marginBottom:'12px' }}>
       <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'14px' }}>
         <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
-          <div style={{ width:'4px',height:'16px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }}/>
+          <div style={{ width:'4px',height:'16px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }}/>
           <span style={{ fontSize:'14px',fontWeight:700,color:'#111827' }}>{cat.label}</span>
           <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{items.length}개</span>
         </div>
         <button onClick={() => { onStartAdding(); setNewLabel(''); }}
-          style={{ display:'flex',alignItems:'center',gap:'5px',padding:'6px 12px',borderRadius:'8px',border:'1.5px solid #4f46e5',background:'#eef2ff',color:'#4f46e5',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>
+          style={{ display:'flex',alignItems:'center',gap:'5px',padding:'6px 12px',borderRadius:'8px',border:'1.5px solid #c9a84c',background:'#fdf8e8',color:'#c9a84c',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           항목 추가
         </button>
@@ -385,13 +385,13 @@ function CodeSection({
           )}
 
           {isAdding && (
-            <div style={{ display:'flex',gap:'8px',padding:'8px',borderRadius:'8px',background:'#eef2ff',border:'1.5px dashed #a5b4fc',marginTop:'4px' }}>
+            <div style={{ display:'flex',gap:'8px',padding:'8px',borderRadius:'8px',background:'#fdf8e8',border:'1.5px dashed #e8d48b',marginTop:'4px' }}>
               <input autoFocus value={newLabel} onChange={e => setNewLabel(e.target.value)}
                 onKeyDown={e => { if(e.key==='Enter') addItem(); if(e.key==='Escape') onStopAdding(); }}
                 placeholder="새 항목 이름 입력 후 Enter"
-                style={{ ...inputSt,flex:1,padding:'7px 11px',fontSize:'13px',border:'1px solid #c7d2fe' }} />
+                style={{ ...inputSt,flex:1,padding:'7px 11px',fontSize:'13px',border:'1px solid #f0d88a' }} />
               <button onClick={addItem}
-                style={{ padding:'7px 14px',borderRadius:'8px',border:'none',background:'#4f46e5',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>추가</button>
+                style={{ padding:'7px 14px',borderRadius:'8px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>추가</button>
               <button onClick={onStopAdding}
                 style={{ padding:'7px 11px',borderRadius:'8px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'13px',cursor:'pointer',fontFamily:'inherit' }}>취소</button>
             </div>
@@ -438,8 +438,8 @@ const ROLE_LABELS: Record<string, string> = {
   viewer:          '열람자',
 };
 const ROLE_COLORS: Record<string, string> = {
-  senior_pastor:'#4f46e5', associate_pastor:'#7c3aed', admin_staff:'#0891b2',
-  admin:'#4f46e5', staff:'#0891b2', viewer:'#9ca3af',
+  senior_pastor:'#c9a84c', associate_pastor:'#7c3aed', admin_staff:'#0891b2',
+  admin:'#c9a84c', staff:'#0891b2', viewer:'#9ca3af',
 };
 
 function UsersTab() {
@@ -488,7 +488,7 @@ function UsersTab() {
         <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'16px' }}>
           {sectionTitle('사용자 목록')}
           <button onClick={() => setInviting(v => !v)}
-            style={{ display:'flex',alignItems:'center',gap:'5px',padding:'8px 14px',borderRadius:'9px',border:'none',background:'linear-gradient(135deg,#4f46e5,#6366f1)',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',boxShadow:'0 3px 10px rgba(79,70,229,0.3)' }}>
+            style={{ display:'flex',alignItems:'center',gap:'5px',padding:'8px 14px',borderRadius:'9px',border:'none',background:'linear-gradient(135deg,#c9a84c,#c9a84c)',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',boxShadow:'0 3px 10px rgba(201,168,76,0.3)' }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             사용자 초대
           </button>
@@ -496,18 +496,18 @@ function UsersTab() {
 
         {/* 초대 폼 */}
         {inviting && (
-          <div style={{ display:'flex',gap:'8px',padding:'14px',borderRadius:'10px',background:'#eef2ff',border:'1.5px dashed #a5b4fc',marginBottom:'14px',flexWrap:'wrap' }}>
+          <div style={{ display:'flex',gap:'8px',padding:'14px',borderRadius:'10px',background:'#fdf8e8',border:'1.5px dashed #e8d48b',marginBottom:'14px',flexWrap:'wrap' }}>
             <input value={inviteEmail} onChange={e => setInviteEmail(e.target.value)}
               placeholder="초대할 이메일 주소"
-              style={{ ...inputSt, flex:'2 1 200px', padding:'8px 12px',fontSize:'13px',border:'1px solid #c7d2fe' }} />
+              style={{ ...inputSt, flex:'2 1 200px', padding:'8px 12px',fontSize:'13px',border:'1px solid #f0d88a' }} />
             <select value={inviteRole} onChange={e => setInviteRole(e.target.value)}
-              style={{ ...inputSt, flex:'1 1 120px', padding:'8px 12px',fontSize:'13px',border:'1px solid #c7d2fe' }}>
+              style={{ ...inputSt, flex:'1 1 120px', padding:'8px 12px',fontSize:'13px',border:'1px solid #f0d88a' }}>
               <option value="admin_staff">사무 담당자</option>
               <option value="associate_pastor">부목사</option>
               <option value="viewer">열람자</option>
             </select>
             <button onClick={invite}
-              style={{ padding:'8px 16px',borderRadius:'9px',border:'none',background:'#4f46e5',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',flexShrink:0 }}>초대 발송</button>
+              style={{ padding:'8px 16px',borderRadius:'9px',border:'none',background:'#c9a84c',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',flexShrink:0 }}>초대 발송</button>
             <button onClick={() => { setInviting(false); setInviteEmail(''); }}
               style={{ padding:'8px 12px',borderRadius:'9px',border:'1px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'13px',cursor:'pointer',fontFamily:'inherit',flexShrink:0 }}>취소</button>
           </div>
@@ -530,7 +530,7 @@ function UsersTab() {
                     onMouseLeave={e => (e.currentTarget as HTMLTableRowElement).style.background='transparent'}>
                     <td style={{ padding:'11px 13px',fontWeight:600,color:'#111827',whiteSpace:'nowrap' }}>
                       <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
-                        <div style={{ width:'28px',height:'28px',borderRadius:'50%',background:'linear-gradient(135deg,#eef2ff,#c7d2fe)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',fontWeight:800,color:'#4f46e5',flexShrink:0 }}>
+                        <div style={{ width:'28px',height:'28px',borderRadius:'50%',background:'linear-gradient(135deg,#fdf8e8,#f0d88a)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',fontWeight:800,color:'#c9a84c',flexShrink:0 }}>
                           {u.full_name.charAt(0)}
                         </div>
                         {u.full_name}
@@ -570,7 +570,7 @@ function UsersTab() {
 const PLANS = [
   { key:'free',      label:'무료',    price:0,    members:100,  color:'#6b7280' },
   { key:'growth',    label:'성장',    price:49,   members:500,  color:'#10b981' },
-  { key:'community', label:'공동체',  price:99,   members:2000, color:'#4f46e5' },
+  { key:'community', label:'공동체',  price:99,   members:2000, color:'#c9a84c' },
   { key:'enterprise',label:'대형',   price:null, members:null, color:'#f59e0b' },
 ];
 const FEATURES = [
@@ -603,13 +603,13 @@ function PlanTab() {
   return (
     <div>
       {/* 현재 요금제 카드 */}
-      <div style={{ ...card, background:'linear-gradient(135deg,#1e1b4b,#312e81)', border:'none', marginBottom:'16px' }}>
+      <div style={{ ...card, background:'linear-gradient(135deg,#2a1f10,#3d2e18)', border:'none', marginBottom:'16px' }}>
         <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'16px' }}>
           <div>
             <div style={{ fontSize:'12px',color:'rgba(165,180,252,0.8)',fontWeight:600,letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:'6px' }}>현재 요금제</div>
             <div style={{ display:'flex',alignItems:'center',gap:'10px' }}>
               <span style={{ fontSize:'26px',fontWeight:900,color:'#fff',letterSpacing:'-0.04em' }}>{currentPlanData.label}</span>
-              <span style={{ padding:'3px 10px',borderRadius:'20px',background:'rgba(255,255,255,0.12)',color:'#c7d2fe',fontSize:'12px',fontWeight:600 }}>
+              <span style={{ padding:'3px 10px',borderRadius:'20px',background:'rgba(255,255,255,0.12)',color:'#f0d88a',fontSize:'12px',fontWeight:600 }}>
                 {currentPlanData.price === 0 ? 'Free' : currentPlanData.price === null ? '문의' : `$${currentPlanData.price}/월`}
               </span>
             </div>
@@ -625,7 +625,7 @@ function PlanTab() {
             {/* 사용량 바 */}
             {currentPlanData.members && (
               <div style={{ width:'160px',height:'6px',borderRadius:'99px',background:'rgba(255,255,255,0.15)',marginTop:'6px',marginLeft:'auto' }}>
-                <div style={{ height:'100%',width:`${Math.min(100,(currentMembers/currentPlanData.members)*100)}%`,borderRadius:'99px',background:'linear-gradient(90deg,#a5b4fc,#818cf8)',transition:'width 0.4s' }}/>
+                <div style={{ height:'100%',width:`${Math.min(100,(currentMembers/currentPlanData.members)*100)}%`,borderRadius:'99px',background:'linear-gradient(90deg,#e8d48b,#d4b85c)',transition:'width 0.4s' }}/>
               </div>
             )}
           </div>
@@ -670,12 +670,12 @@ function PlanTab() {
         </div>
 
         {/* 업그레이드 버튼 */}
-        <div style={{ marginTop:'20px',padding:'18px',borderRadius:'12px',background:'linear-gradient(135deg,#f5f7ff,#eef2ff)',textAlign:'center' }}>
+        <div style={{ marginTop:'20px',padding:'18px',borderRadius:'12px',background:'linear-gradient(135deg,#f5f7ff,#fdf8e8)',textAlign:'center' }}>
           <p style={{ margin:'0 0 10px',fontSize:'14px',color:'#374151',fontWeight:500 }}>
             더 많은 기능이 필요하신가요?
           </p>
           <a href="mailto:support@j-sheepfold.com"
-            style={{ display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 24px',borderRadius:'10px',background:'linear-gradient(135deg,#4f46e5,#6366f1)',color:'#fff',fontSize:'14px',fontWeight:700,textDecoration:'none',boxShadow:'0 4px 12px rgba(79,70,229,0.3)' }}>
+            style={{ display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 24px',borderRadius:'10px',background:'linear-gradient(135deg,#c9a84c,#c9a84c)',color:'#fff',fontSize:'14px',fontWeight:700,textDecoration:'none',boxShadow:'0 4px 12px rgba(201,168,76,0.3)' }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             업그레이드 문의
           </a>
@@ -703,11 +703,11 @@ export default function SettingsPage() {
       <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" strategy="lazyOnload" />
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
-        .inp:focus { border-color:#4f46e5 !important; box-shadow:0 0 0 3px rgba(79,70,229,0.12) !important; }
+        .inp:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.12) !important; }
         select.inp { cursor:pointer; }
         .tab-btn { display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:10px;border:none;background:transparent;font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;transition:all 0.15s;font-family:inherit; }
         .tab-btn:hover { background:#f1f5f9;color:#374151; }
-        .tab-btn.active { background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;font-weight:700;box-shadow:0 3px 10px rgba(79,70,229,0.3); }
+        .tab-btn.active { background:linear-gradient(135deg,#c9a84c,#c9a84c);color:#fff;font-weight:700;box-shadow:0 3px 10px rgba(201,168,76,0.3); }
       `}</style>
 
       <div style={{ padding:'36px 40px', maxWidth:'820px' }}>

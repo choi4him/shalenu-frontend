@@ -29,7 +29,7 @@ async function loadChartJs() {
 
 const MONTH_LABELS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
 const STATUS_COLORS = {
-  present: '#4f46e5',
+  present: '#c9a84c',
   absent:  '#ef4444',
   late:    '#f59e0b',
   online:  '#06b6d4',
@@ -189,7 +189,7 @@ export default function AttendanceStatsPage() {
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
         .th-btn { background:none; border:none; cursor:pointer; font:inherit; font-size:13px; font-weight:700; color:#374151; display:flex; align-items:center; gap:4px; }
-        .th-btn:hover { color:#4f46e5; }
+        .th-btn:hover { color:#c9a84c; }
         tr.mem-row:hover td { background:#f8faff; }
       `}</style>
 
@@ -231,7 +231,7 @@ export default function AttendanceStatsPage() {
             {/* ── 요약 카드 4개 ── */}
             <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'12px', marginBottom:'20px' }}>
               {([
-                { label:'출석', key:'present', icon:'✅', color:STATUS_COLORS.present, bg:'#eef2ff', border:'#c7d2fe' },
+                { label:'출석', key:'present', icon:'✅', color:STATUS_COLORS.present, bg:'#fdf8e8', border:'#f0d88a' },
                 { label:'결석', key:'absent',  icon:'❌', color:STATUS_COLORS.absent,  bg:'#fef2f2', border:'#fecaca' },
                 { label:'지각', key:'late',    icon:'⏰', color:STATUS_COLORS.late,    bg:'#fffbeb', border:'#fde68a' },
                 { label:'온라인',key:'online', icon:'💻', color:STATUS_COLORS.online,  bg:'#ecfeff', border:'#a5f3fc' },
@@ -253,7 +253,7 @@ export default function AttendanceStatsPage() {
             <div style={{ display:'grid', gridTemplateColumns:'2fr 1fr', gap:'16px', marginBottom:'20px' }}>
               <div style={{ background:'#fff', borderRadius:'16px', padding:'20px', border:'1px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'14px' }}>
-                  <div style={{ width:'4px', height:'18px', background:'linear-gradient(#4f46e5,#6366f1)', borderRadius:'99px' }}/>
+                  <div style={{ width:'4px', height:'18px', background:'linear-gradient(#c9a84c,#c9a84c)', borderRadius:'99px' }}/>
                   <span style={{ fontSize:'14px', fontWeight:700, color:'#111827' }}>월별 출석 추이</span>
                   <span style={{ fontSize:'12px', color:'#9ca3af' }}>{year}년</span>
                 </div>
@@ -264,7 +264,7 @@ export default function AttendanceStatsPage() {
 
               <div style={{ background:'#fff', borderRadius:'16px', padding:'20px', border:'1px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'14px' }}>
-                  <div style={{ width:'4px', height:'18px', background:'linear-gradient(#4f46e5,#6366f1)', borderRadius:'99px' }}/>
+                  <div style={{ width:'4px', height:'18px', background:'linear-gradient(#c9a84c,#c9a84c)', borderRadius:'99px' }}/>
                   <span style={{ fontSize:'14px', fontWeight:700, color:'#111827' }}>출석 비율</span>
                 </div>
                 <div style={{ height:'220px' }}>
@@ -277,7 +277,7 @@ export default function AttendanceStatsPage() {
             <div style={{ background:'#fff', borderRadius:'16px', padding:'20px', border:'1px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
               <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'14px', flexWrap:'wrap', gap:'10px' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:'8px' }}>
-                  <div style={{ width:'4px', height:'18px', background:'linear-gradient(#4f46e5,#6366f1)', borderRadius:'99px' }}/>
+                  <div style={{ width:'4px', height:'18px', background:'linear-gradient(#c9a84c,#c9a84c)', borderRadius:'99px' }}/>
                   <span style={{ fontSize:'14px', fontWeight:700, color:'#111827' }}>교인별 출석 현황</span>
                   <span style={{ fontSize:'12px', color:'#9ca3af' }}>{filteredMembers.length}명</span>
                 </div>
@@ -313,13 +313,13 @@ export default function AttendanceStatsPage() {
                           onClick={() => router.push(`/members/${m.member_id}`)}>
                           <td style={{ padding:'10px 12px', fontWeight:600, color:'#111827' }}>
                             <div style={{ display:'flex', alignItems:'center', gap:'8px' }}>
-                              <div style={{ width:'28px', height:'28px', borderRadius:'50%', background:'linear-gradient(135deg,#eef2ff,#c7d2fe)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'11px', fontWeight:800, color:'#4f46e5', flexShrink:0 }}>
+                              <div style={{ width:'28px', height:'28px', borderRadius:'50%', background:'linear-gradient(135deg,#fdf8e8,#f0d88a)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'11px', fontWeight:800, color:'#c9a84c', flexShrink:0 }}>
                                 {m.name.charAt(0)}
                               </div>
                               {m.name}
                             </div>
                           </td>
-                          <td style={{ padding:'10px 12px', textAlign:'center', fontWeight:600, color:'#4f46e5' }}>{m.present}</td>
+                          <td style={{ padding:'10px 12px', textAlign:'center', fontWeight:600, color:'#c9a84c' }}>{m.present}</td>
                           <td style={{ padding:'10px 12px', textAlign:'center', color:'#ef4444' }}>{m.absent}</td>
                           <td style={{ padding:'10px 12px', textAlign:'center', color:'#f59e0b' }}>{m.late}</td>
                           <td style={{ padding:'10px 12px', textAlign:'center', color:'#06b6d4' }}>{m.online}</td>

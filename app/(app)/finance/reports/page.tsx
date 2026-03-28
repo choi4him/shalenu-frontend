@@ -57,7 +57,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 const DONUT_COLORS = [
-  '#6366f1','#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6',
+  '#c9a84c','#e8d48b','#4a7c59','#b5923a','#6b9e78','#d4b85c',
 ];
 
 // ─── 요약 카드 ──────────────────────────────────────────
@@ -149,12 +149,12 @@ export default function FinanceReportsPage() {
       {
         label: '수입',
         data: incomeByMonth,
-        borderColor: '#6366f1',
-        backgroundColor: 'rgba(99,102,241,0.08)',
+        borderColor: '#c9a84c',
+        backgroundColor: 'rgba(201,168,76,0.08)',
         borderWidth: 2.5,
         pointRadius: 4,
         pointHoverRadius: 6,
-        pointBackgroundColor: '#6366f1',
+        pointBackgroundColor: '#c9a84c',
         tension: 0.4,
         fill: true,
       },
@@ -242,9 +242,9 @@ export default function FinanceReportsPage() {
         @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
         @keyframes fadeIn  { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
         .yr-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;color:#374151;transition:all 0.15s;font-size:16px; }
-        .yr-btn:hover { border-color:#4f46e5;color:#4f46e5; }
+        .yr-btn:hover { border-color:#c9a84c;color:#c9a84c; }
         .sec-title { font-size:15px;font-weight:700;color:#111827;display:flex;align-items:center;gap:8px;margin-bottom:18px; }
-        .sec-bar { width:4px;height:18px;background:linear-gradient(#4f46e5,#6366f1);border-radius:99px;flex-shrink:0; }
+        .sec-bar { width:4px;height:18px;background:linear-gradient(#c9a84c,#c9a84c);border-radius:99px;flex-shrink:0; }
         @media print {
           nav, aside, [data-noprint] { display:none !important; }
           body { font-family:'Pretendard',sans-serif; }
@@ -297,7 +297,7 @@ export default function FinanceReportsPage() {
                 color: '#374151', fontSize: '13px', fontWeight: 600,
                 cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s',
               }}
-              onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#6366f1'; b.style.color = '#4f46e5'; }}
+              onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#c9a84c'; b.style.color = '#c9a84c'; }}
               onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#e5e7eb'; b.style.color = '#374151'; }}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -330,10 +330,10 @@ export default function FinanceReportsPage() {
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '16px' }}>
               <SummaryCard
-                gradient="linear-gradient(135deg,#eef2ff,#c7d2fe)"
-                label="총 수입" valueColor="#3730a3"
+                gradient="linear-gradient(135deg,#fdf8e8,#f0d88a)"
+                label="총 수입" valueColor="#7d6324"
                 value={summary ? formatKRW(summary.total_income) : '—'}
-                icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
+                icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
               />
               <SummaryCard
                 gradient="linear-gradient(135deg,#fff1f2,#fecdd3)"
@@ -461,7 +461,7 @@ export default function FinanceReportsPage() {
                     return (
                       <tr key={i} style={{ borderBottom: '1px solid #f1f5f9', background: hasData ? '#fff' : '#fafafa' }}>
                         <td style={{ padding: '13px 20px', fontSize: '14px', fontWeight: 600, color: '#374151' }}>{row.month}</td>
-                        <td style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.income > 0 ? 700 : 400, color: row.income > 0 ? '#3730a3' : '#d1d5db' }}>
+                        <td style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.income > 0 ? 700 : 400, color: row.income > 0 ? '#7d6324' : '#d1d5db' }}>
                           {row.income > 0 ? formatKRW(row.income) : '—'}
                         </td>
                         <td style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.expense > 0 ? 700 : 400, color: row.expense > 0 ? '#be123c' : '#d1d5db' }}>
@@ -481,9 +481,9 @@ export default function FinanceReportsPage() {
               {/* 합계 행 */}
               {!loading && summary && (
                 <tfoot>
-                  <tr style={{ background: 'linear-gradient(135deg,#f5f7ff,#eef2ff)', borderTop: '2px solid #c7d2fe' }}>
-                    <td style={{ padding: '14px 20px', fontSize: '13px', fontWeight: 800, color: '#3730a3' }}>연간 합계</td>
-                    <td style={{ padding: '14px 20px', textAlign: 'right', fontSize: '15px', fontWeight: 900, color: '#3730a3', letterSpacing: '-0.02em' }}>
+                  <tr style={{ background: 'linear-gradient(135deg,#f5f7ff,#fdf8e8)', borderTop: '2px solid #f0d88a' }}>
+                    <td style={{ padding: '14px 20px', fontSize: '13px', fontWeight: 800, color: '#7d6324' }}>연간 합계</td>
+                    <td style={{ padding: '14px 20px', textAlign: 'right', fontSize: '15px', fontWeight: 900, color: '#7d6324', letterSpacing: '-0.02em' }}>
                       {formatKRW(summary.total_income)}
                     </td>
                     <td style={{ padding: '14px 20px', textAlign: 'right', fontSize: '15px', fontWeight: 900, color: '#be123c', letterSpacing: '-0.02em' }}>

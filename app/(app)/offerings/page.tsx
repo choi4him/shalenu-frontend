@@ -177,7 +177,7 @@ export default function OfferingsPage() {
         <div>
           <h1 style={{
             fontSize: '26px', fontWeight: 800, letterSpacing: '-0.04em', margin: '0 0 6px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            background: 'linear-gradient(135deg, #c9a84c, #e8d48b)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
           }}>
             헌금 관리
@@ -200,7 +200,7 @@ export default function OfferingsPage() {
       {/* 이번 달 통계 카드 */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
         <StatCard
-          accentColor="#6366f1"
+          accentColor="#c9a84c"
           icon={
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
@@ -307,7 +307,7 @@ export default function OfferingsPage() {
                   ? (
                     <tr>
                       <td colSpan={6} style={{ padding: '60px 20px', textAlign: 'center', color: 'var(--muted)' }}>
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto 12px' }}>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto 12px' }}>
                           <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
                         </svg>
                         <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--foreground-2)', marginBottom: '4px' }}>헌금 내역이 없습니다</div>

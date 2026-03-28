@@ -186,13 +186,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <>
       <style>{`
         @keyframes slideDown { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
-        .nav-link { display:flex;align-items:center;gap:11px;padding:9px 13px;border-radius:10px;text-decoration:none;font-size:14px;color:#e2e8f0 !important;transition:all 0.15s;cursor:pointer;border:none;background:transparent;width:100%;font-family:inherit;text-align:left; }
-        .nav-link:hover { background:var(--sidebar-hover);color:#ffffff !important; }
-        .nav-link.active { background:var(--grad-primary);color:#ffffff !important;font-weight:700;box-shadow:0 4px 16px rgba(139,92,246,0.45); }
-        .nav-link.group-active { color:#ffffff !important;font-weight:600; }
-        .sub-link { display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:#e2e8f0 !important;transition:all 0.15s; }
-        .sub-link:hover { background:rgba(255,255,255,0.05);color:#c4b5fd !important; }
-        .sub-link.active { background:rgba(139,92,246,0.2);color:#c4b5fd !important;font-weight:600;box-shadow:inset 0 0 0 1px rgba(139,92,246,0.3); }
+        .nav-link { display:flex;align-items:center;gap:11px;padding:9px 13px;border-radius:10px;text-decoration:none;font-size:14px;color:#d4c9a8 !important;transition:all 0.15s;cursor:pointer;border:none;background:transparent;width:100%;font-family:inherit;text-align:left; }
+        .nav-link:hover { background:var(--sidebar-hover);color:#f5edd6 !important; }
+        .nav-link.active { background:var(--grad-primary);color:#1a1208 !important;font-weight:700;box-shadow:0 4px 16px rgba(201,168,76,0.4); }
+        .nav-link.group-active { color:#f5edd6 !important;font-weight:600; }
+        .sub-link { display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:#d4c9a8 !important;transition:all 0.15s; }
+        .sub-link:hover { background:rgba(201,168,76,0.08);color:#e8d48b !important; }
+        .sub-link.active { background:rgba(201,168,76,0.15);color:#e8d48b !important;font-weight:600;box-shadow:inset 0 0 0 1px rgba(201,168,76,0.3); }
         .chevron { transition:transform 0.2s ease;flex-shrink:0; }
         .chevron.open { transform:rotate(90deg); }
         .sub-list { animation:slideDown 0.18s ease; }
@@ -204,24 +204,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <aside style={{
           width:'240px', minHeight:'100vh',
           background:'var(--surface-3)',
-          borderRight:'1px solid rgba(139,92,246,0.15)',
+          borderRight:'1px solid rgba(201,168,76,0.12)',
           display:'flex', flexDirection:'column',
           position:'fixed', top:0, left:0, bottom:0, zIndex:50,
           boxShadow:'4px 0 24px rgba(0,0,0,0.3)',
         }}>
           {/* 로고 */}
-          <div style={{ padding:'26px 22px 18px', borderBottom:'1px solid rgba(139,92,246,0.15)', position:'relative', overflow:'hidden' }}>
+          <div style={{ padding:'26px 22px 18px', borderBottom:'1px solid rgba(201,168,76,0.12)', position:'relative', overflow:'hidden' }}>
             {/* 배경 글로우 */}
-            <div style={{ position:'absolute', top:'-20px', right:'-20px', width:'80px', height:'80px', borderRadius:'50%', background:'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)', pointerEvents:'none' }} />
+            <div style={{ position:'absolute', top:'-20px', right:'-20px', width:'80px', height:'80px', borderRadius:'50%', background:'radial-gradient(circle, rgba(201,168,76,0.2) 0%, transparent 70%)', pointerEvents:'none' }} />
             <div style={{ display:'flex', alignItems:'center', gap:'10px', position:'relative' }}>
-              <div style={{ width:'36px',height:'36px',borderRadius:'11px',background:'var(--grad-primary)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,boxShadow:'0 4px 16px rgba(139,92,246,0.5)' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              <div style={{ width:'36px',height:'36px',borderRadius:'11px',background:'var(--grad-primary)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,boxShadow:'0 4px 16px rgba(201,168,76,0.4)' }}>
+                {/* 십자가 아이콘 */}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="10" y="2" width="4" height="20" rx="1" fill="#1a1208"/>
+                  <rect x="4" y="7" width="16" height="4" rx="1" fill="#1a1208"/>
                 </svg>
               </div>
               <div>
-                <p style={{ color:'#fff',fontWeight:800,fontSize:'17px',margin:0,letterSpacing:'-0.02em' }}>J-SheepFold</p>
-                <p style={{ background:'var(--grad-primary)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontSize:'10px',margin:0,letterSpacing:'0.08em',fontWeight:700 }}>J-SHEEPFOLD</p>
+                <p style={{ color:'#f5edd6',fontWeight:800,fontSize:'17px',margin:0,letterSpacing:'-0.02em' }}>J-SheepFold</p>
+                <p style={{ background:'var(--grad-primary)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontSize:'10px',margin:0,letterSpacing:'0.08em',fontWeight:700 }}>교회 통합 관리 시스템</p>
               </div>
             </div>
           </div>
@@ -237,7 +239,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     key={item.href}
                     href={item.href!}
                     className={`nav-link${isActive ? ' active' : ''}`}
-                    style={{ color: '#e2e8f0' }}
+                    style={{ color: '#d4c9a8' }}
                   >
                     <span style={{ color: 'inherit', display:'flex', flexShrink:0 }}>{item.icon}</span>
                     <span style={{ flex:1, color: 'inherit' }}>{item.label}</span>
@@ -255,13 +257,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <button
                     className={`nav-link${isGroupActive ? ' group-active' : ''}`}
                     onClick={() => toggleGroup(item.label)}
-                    style={{ color: '#e2e8f0' }}
+                    style={{ color: '#d4c9a8' }}
                   >
                     <span style={{ color: 'inherit', display:'flex', flexShrink:0 }}>{item.icon}</span>
                     <span style={{ flex:1, color: 'inherit' }}>{item.label}</span>
                     {/* 배지 점 */}
                     {isGroupActive && !isOpen && (
-                      <span style={{ width:'6px',height:'6px',borderRadius:'50%',background:'var(--primary-400)',flexShrink:0,boxShadow:'0 0 6px var(--primary-400)' }} />
+                      <span style={{ width:'6px',height:'6px',borderRadius:'50%',background:'#c9a84c',flexShrink:0,boxShadow:'0 0 6px #c9a84c' }} />
                     )}
                     {/* 화살표 */}
                     <span className={`chevron${isOpen ? ' open' : ''}`}>
@@ -275,7 +277,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   {isOpen && (
                     <div className="sub-list" style={{ paddingLeft:'14px', marginTop:'2px', display:'flex', flexDirection:'column', gap:'1px' }}>
                       {/* 세로 선 + 서브 아이템 */}
-                      <div style={{ borderLeft:'1.5px solid rgba(99,102,241,0.3)', paddingLeft:'10px', display:'flex', flexDirection:'column', gap:'1px' }}>
+                      <div style={{ borderLeft:'1.5px solid rgba(201,168,76,0.25)', paddingLeft:'10px', display:'flex', flexDirection:'column', gap:'1px' }}>
                         {item.children.map(sub => {
                           const isSubActive = pathname === sub.href || pathname.startsWith(sub.href + '/');
                           return (
@@ -283,9 +285,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                               key={sub.href}
                               href={sub.href}
                               className={`sub-link${isSubActive ? ' active' : ''}`}
-                              style={{ color: '#e2e8f0' }}
+                              style={{ color: '#d4c9a8' }}
                             >
-                              <span style={{ color: isSubActive ? '#a5b4fc' : '#e2e8f0', flexShrink:0 }}>
+                              <span style={{ color: isSubActive ? '#e8d48b' : '#d4c9a8', flexShrink:0 }}>
                                 {SUB_ICONS[sub.href]}
                               </span>
                               <span style={{ color: 'inherit' }}>{sub.label}</span>
@@ -300,8 +302,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             })}
           </nav>
 
-          {/* 하단 로그아웃 */}
-          <div style={{ padding:'14px 10px', borderTop:'1px solid rgba(139,92,246,0.15)' }}>
+          {/* 하단: 성경구절 + 로그아웃 */}
+          <div style={{ padding:'14px 16px', borderTop:'1px solid rgba(201,168,76,0.12)' }}>
+            {/* 성경 구절 */}
+            <div style={{ padding:'10px 12px', marginBottom:'10px', borderRadius:'10px', background:'rgba(201,168,76,0.06)', border:'1px solid rgba(201,168,76,0.1)' }}>
+              <p style={{ fontSize:'11px', color:'#c9a84c', margin:0, lineHeight:'1.6', fontStyle:'italic' }}>
+                &ldquo;여호와는 나의 목자시니 내게 부족함이 없으리로다&rdquo;
+              </p>
+              <p style={{ fontSize:'10px', color:'#8a7e60', margin:'4px 0 0', textAlign:'right' }}>
+                시편 23:1
+              </p>
+            </div>
+
             <button
               onClick={handleLogout}
               className="nav-link"

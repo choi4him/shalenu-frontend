@@ -79,7 +79,7 @@ export default function PastoralPage() {
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
         @keyframes slideIn { from{opacity:0;transform:translateX(8px)} to{opacity:1;transform:none} }
-        .note-card:hover { background:#f8faff !important; border-color:#c7d2fe !important; transform:translateY(-1px); box-shadow:0 4px 16px rgba(79,70,229,0.1) !important; }
+        .note-card:hover { background:#f8faff !important; border-color:#f0d88a !important; transform:translateY(-1px); box-shadow:0 4px 16px rgba(201,168,76,0.1) !important; }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '900px' }}>
@@ -115,7 +115,7 @@ export default function PastoralPage() {
               const cfg = t.key !== 'all' ? CAT_CONFIG[t.key as NoteCategory] : null;
               return (
                 <button key={t.key} onClick={() => setCat(t.key as 'all' | NoteCategory)}
-                  style={{ padding: '6px 13px', borderRadius: '18px', border: `1.5px solid ${sel ? (cfg?.border ?? '#c7d2fe') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#eef2ff') : '#fff', color: sel ? (cfg?.color ?? '#4f46e5') : '#6b7280', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.14s' }}>
+                  style={{ padding: '6px 13px', borderRadius: '18px', border: `1.5px solid ${sel ? (cfg?.border ?? '#f0d88a') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#fdf8e8') : '#fff', color: sel ? (cfg?.color ?? '#c9a84c') : '#6b7280', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.14s' }}>
                   {(t as any).icon} {t.label}
                 </button>
               );

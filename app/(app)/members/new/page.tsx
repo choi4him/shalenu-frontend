@@ -45,7 +45,7 @@ const INITIAL: MemberForm = {
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div style={{
-      fontSize: '12px', fontWeight: 700, color: '#6366f1',
+      fontSize: '12px', fontWeight: 700, color: '#c9a84c',
       letterSpacing: '0.06em', textTransform: 'uppercase',
       marginBottom: '16px', paddingBottom: '10px',
       borderBottom: '1px solid #ede9fe',
@@ -180,8 +180,8 @@ export default function MemberNewPage() {
   };
 
   const focusStyle = (hasErr: boolean): React.CSSProperties => ({
-    borderColor: hasErr ? '#f87171' : '#4f46e5',
-    boxShadow: hasErr ? '0 0 0 3px rgba(248,113,113,0.15)' : '0 0 0 3px rgba(79,70,229,0.12)',
+    borderColor: hasErr ? '#f87171' : '#c9a84c',
+    boxShadow: hasErr ? '0 0 0 3px rgba(248,113,113,0.15)' : '0 0 0 3px rgba(201,168,76,0.12)',
   });
   const blurStyle = (hasErr: boolean): React.CSSProperties => ({
     borderColor: hasErr ? '#f87171' : '#e5e7eb',
@@ -197,10 +197,10 @@ export default function MemberNewPage() {
       {/* 카카오 우편번호 스크립트 */}
       <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" strategy="lazyOnload" />
       <style>{`
-        .form-input:focus { border-color: #4f46e5 !important; box-shadow: 0 0 0 3px rgba(79,70,229,0.12) !important; }
+        .form-input:focus { border-color: #c9a84c !important; box-shadow: 0 0 0 3px rgba(201,168,76,0.12) !important; }
         .form-input.err:focus { border-color: #f87171 !important; box-shadow: 0 0 0 3px rgba(248,113,113,0.15) !important; }
         .radio-group label { cursor: pointer; }
-        .radio-group input[type="radio"] { accent-color: #4f46e5; }
+        .radio-group input[type="radio"] { accent-color: #c9a84c; }
         .addr-search-btn:hover { background: #4338ca !important; }
         .addr-readonly { background: #f8fafc !important; color: #6b7280 !important; cursor: default !important; }
       `}</style>
@@ -358,7 +358,7 @@ export default function MemberNewPage() {
                         style={{
                           display: 'inline-flex', alignItems: 'center', gap: '6px',
                           padding: '11px 16px', borderRadius: '10px',
-                          background: '#4f46e5', border: 'none', color: '#fff',
+                          background: '#c9a84c', border: 'none', color: '#fff',
                           fontSize: '13px', fontWeight: 600, cursor: 'pointer',
                           fontFamily: 'inherit', whiteSpace: 'nowrap',
                           transition: 'background 0.15s ease',
@@ -475,7 +475,7 @@ export default function MemberNewPage() {
                 fontFamily: 'inherit', transition: 'all 0.15s ease',
                 opacity: loading ? 0.5 : 1,
               }}
-              onMouseEnter={e => { if (!loading) (e.currentTarget.style.borderColor = '#6366f1'); }}
+              onMouseEnter={e => { if (!loading) (e.currentTarget.style.borderColor = '#c9a84c'); }}
               onMouseLeave={e => { (e.currentTarget.style.borderColor = '#e5e7eb'); }}
             >
               취소
@@ -486,13 +486,13 @@ export default function MemberNewPage() {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '12px 28px', borderRadius: '12px',
-                background: loading ? '#c7d2fe' : 'linear-gradient(135deg, #4f46e5, #6366f1)',
+                background: loading ? '#f0d88a' : 'linear-gradient(135deg, #c9a84c, #c9a84c)',
                 border: 'none',
-                color: loading ? '#818cf8' : '#fff',
+                color: loading ? '#d4b85c' : '#fff',
                 fontSize: '14px', fontWeight: 700,
                 cursor: loading ? 'not-allowed' : 'pointer',
                 fontFamily: 'inherit',
-                boxShadow: loading ? 'none' : '0 4px 12px rgba(79,70,229,0.35)',
+                boxShadow: loading ? 'none' : '0 4px 12px rgba(201,168,76,0.35)',
                 transition: 'all 0.2s ease',
               }}
             >

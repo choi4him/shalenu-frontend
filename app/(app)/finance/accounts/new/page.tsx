@@ -70,10 +70,10 @@ export default function AccountNewPage() {
   return (
     <>
       <style>{`
-        .acc-input:focus { border-color:#4f46e5 !important; box-shadow:0 0 0 3px rgba(79,70,229,0.12) !important; }
+        .acc-input:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.12) !important; }
         .type-card { border-radius:12px; border:2px solid #e5e7eb; padding:14px 16px; cursor:pointer; transition:all 0.2s; background:#fff; text-align:left; width:100%; font-family:inherit; }
-        .type-card:hover { border-color:#c7d2fe; background:#fafbff; }
-        .type-card.selected { border-color:#6366f1; background:linear-gradient(135deg,#eef2ff,#e0e7ff); }
+        .type-card:hover { border-color:#f0d88a; background:#fafbff; }
+        .type-card.selected { border-color:#c9a84c; background:linear-gradient(135deg,#fdf8e8,#e0e7ff); }
         @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
       `}</style>
 
@@ -137,13 +137,13 @@ export default function AccountNewPage() {
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
                     {accountType === t.value ? (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12"/>
                       </svg>
                     ) : (
                       <div style={{ width: '14px', height: '14px', borderRadius: '50%', border: '1.5px solid #d1d5db' }} />
                     )}
-                    <span style={{ fontSize: '14px', fontWeight: 700, color: accountType === t.value ? '#3730a3' : '#374151' }}>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: accountType === t.value ? '#7d6324' : '#374151' }}>
                       {t.label}
                     </span>
                   </div>
@@ -222,7 +222,7 @@ export default function AccountNewPage() {
           {/* 미리보기 */}
           {name.trim() && (
             <div style={{
-              background: 'linear-gradient(135deg,#eef2ff,#e0e7ff)',
+              background: 'linear-gradient(135deg,#fdf8e8,#e0e7ff)',
               borderRadius: '12px', padding: '14px 18px', marginBottom: '20px',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             }}>
@@ -272,13 +272,13 @@ export default function AccountNewPage() {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '12px 28px', borderRadius: '12px',
-                background: submitting ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)',
+                background: submitting ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)',
                 border: 'none',
-                color: submitting ? '#818cf8' : '#fff',
+                color: submitting ? '#d4b85c' : '#fff',
                 fontSize: '14px', fontWeight: 700,
                 cursor: submitting ? 'not-allowed' : 'pointer',
                 fontFamily: 'inherit',
-                boxShadow: submitting ? 'none' : '0 4px 12px rgba(79,70,229,0.35)',
+                boxShadow: submitting ? 'none' : '0 4px 12px rgba(201,168,76,0.35)',
                 transition: 'all 0.2s',
               }}
             >

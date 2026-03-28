@@ -25,7 +25,7 @@ const DEFAULT_TYPES = ['구역', '목장', '셀', '부서', '순', '팀'];
 
 // 유형별 색상 팔레트 (6가지 + fallback)
 const PALETTE = [
-  { bg: '#eef2ff', text: '#4f46e5', border: '#c7d2fe' },
+  { bg: '#fdf8e8', text: '#c9a84c', border: '#f0d88a' },
   { bg: '#f0fdf4', text: '#16a34a', border: '#bbf7d0' },
   { bg: '#fff7ed', text: '#ea580c', border: '#fed7aa' },
   { bg: '#faf5ff', text: '#9333ea', border: '#e9d5ff' },
@@ -94,7 +94,7 @@ function AddTypeModal({ onClose, onAdded }: { onClose: () => void; onAdded: (nam
         <div style={{ display:'flex', gap:'8px', marginTop:'14px' }}>
           <button onClick={onClose} style={{ flex:1, padding:'10px', borderRadius:'9px', border:'1.5px solid #e5e7eb', background:'#fff', color:'#6b7280', fontSize:'13px', fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>취소</button>
           <button onClick={submit} disabled={saving}
-            style={{ flex:2, padding:'10px', borderRadius:'9px', border:'none', background:saving?'#c7d2fe':'linear-gradient(135deg,#4f46e5,#6366f1)', color:saving?'#818cf8':'#fff', fontSize:'13px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit' }}>
+            style={{ flex:2, padding:'10px', borderRadius:'9px', border:'none', background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)', color:saving?'#d4b85c':'#fff', fontSize:'13px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit' }}>
             {saving ? '등록 중...' : '추가하기'}
           </button>
         </div>
@@ -252,7 +252,7 @@ function CreateModal({ types, typeStyles, onClose, onCreated }: {
           <div style={{ display:'flex', gap:'8px', marginTop:'24px' }}>
             <button onClick={onClose} style={{ flex:1, padding:'11px', borderRadius:'10px', border:'1.5px solid #e5e7eb', background:'#fff', color:'#6b7280', fontSize:'14px', fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>취소</button>
             <button onClick={submit} disabled={saving}
-              style={{ flex:2, padding:'11px', borderRadius:'10px', border:'none', background:saving?'#c7d2fe':'linear-gradient(135deg,#4f46e5,#6366f1)', color:saving?'#818cf8':'#fff', fontSize:'14px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit', boxShadow:saving?'none':'0 4px 12px rgba(79,70,229,0.3)', transition:'all 0.2s' }}>
+              style={{ flex:2, padding:'11px', borderRadius:'10px', border:'none', background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)', color:saving?'#d4b85c':'#fff', fontSize:'14px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit', boxShadow:saving?'none':'0 4px 12px rgba(201,168,76,0.3)', transition:'all 0.2s' }}>
               {saving ? '등록 중...' : '등록하기'}
             </button>
           </div>
@@ -274,7 +274,7 @@ function GroupCard({ group, typeIndex, onClick }: { group: Group; typeIndex: num
   return (
     <div onClick={onClick}
       style={{ background:'#fff', borderRadius:'16px', padding:'20px', border:'1.5px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)', cursor:'pointer', transition:'all 0.18s', position:'relative', overflow:'hidden' }}
-      onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow='0 8px 24px rgba(79,70,229,0.13)'; el.style.borderColor='#c7d2fe'; el.style.transform='translateY(-2px)'; }}
+      onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow='0 8px 24px rgba(201,168,76,0.13)'; el.style.borderColor='#f0d88a'; el.style.transform='translateY(-2px)'; }}
       onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow='0 1px 4px rgba(0,0,0,0.05)'; el.style.borderColor='#f1f5f9'; el.style.transform='none'; }}>
       <div style={{ position:'absolute', top:0, right:0, width:'80px', height:'80px', background:`radial-gradient(circle at 80% 0%, ${c.bg} 0%, transparent 70%)`, borderRadius:'0 16px 0 0' }}/>
 
@@ -369,7 +369,7 @@ export default function GroupsPage() {
             <p style={{ margin:'5px 0 0', fontSize:'13px', color:'#9ca3af' }}>교회 소그룹을 관리합니다</p>
           </div>
           <button onClick={() => setShowCreate(true)}
-            style={{ display:'flex', alignItems:'center', gap:'7px', padding:'10px 20px', borderRadius:'11px', border:'none', background:'linear-gradient(135deg,#4f46e5,#6366f1)', color:'#fff', fontSize:'14px', fontWeight:700, cursor:'pointer', fontFamily:'inherit', boxShadow:'0 4px 14px rgba(79,70,229,0.35)', transition:'all 0.2s', flexShrink:0 }}>
+            style={{ display:'flex', alignItems:'center', gap:'7px', padding:'10px 20px', borderRadius:'11px', border:'none', background:'linear-gradient(135deg,#c9a84c,#c9a84c)', color:'#fff', fontSize:'14px', fontWeight:700, cursor:'pointer', fontFamily:'inherit', boxShadow:'0 4px 14px rgba(201,168,76,0.35)', transition:'all 0.2s', flexShrink:0 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             소그룹 등록
           </button>
@@ -382,7 +382,7 @@ export default function GroupsPage() {
             const sel = filter === '전체';
             return (
               <button onClick={() => setFilter('전체')}
-                style={{ padding:'7px 16px', borderRadius:'20px', border:`1.5px solid ${sel ? '#4f46e5' : '#e5e7eb'}`, background:sel ? '#eef2ff' : '#fff', color:sel ? '#4f46e5' : '#6b7280', fontSize:'13px', fontWeight:sel?700:500, cursor:'pointer', transition:'all 0.15s', fontFamily:'inherit' }}>
+                style={{ padding:'7px 16px', borderRadius:'20px', border:`1.5px solid ${sel ? '#c9a84c' : '#e5e7eb'}`, background:sel ? '#fdf8e8' : '#fff', color:sel ? '#c9a84c' : '#6b7280', fontSize:'13px', fontWeight:sel?700:500, cursor:'pointer', transition:'all 0.15s', fontFamily:'inherit' }}>
                 전체
                 <span style={{ marginLeft:'5px', padding:'1px 6px', borderRadius:'10px', background:sel?'rgba(255,255,255,0.5)':'#f3f4f6', fontSize:'11px', fontWeight:700 }}>
                   {groups.length}
@@ -415,7 +415,7 @@ export default function GroupsPage() {
             <div style={{ fontSize:'15px', fontWeight:600, color:'#374151', marginBottom:'6px' }}>등록된 소그룹이 없습니다</div>
             <div style={{ fontSize:'13px', color:'#9ca3af', marginBottom:'16px' }}>상단 버튼으로 첫 소그룹을 등록해보세요</div>
             <button onClick={() => setShowCreate(true)}
-              style={{ padding:'9px 20px', borderRadius:'10px', border:'none', background:'#4f46e5', color:'#fff', fontSize:'13px', fontWeight:700, cursor:'pointer', fontFamily:'inherit' }}>
+              style={{ padding:'9px 20px', borderRadius:'10px', border:'none', background:'#c9a84c', color:'#fff', fontSize:'13px', fontWeight:700, cursor:'pointer', fontFamily:'inherit' }}>
               + 소그룹 등록
             </button>
           </div>

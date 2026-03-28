@@ -78,18 +78,18 @@ function StepBar({ step }: { step: number }) {
                   fontWeight: 800, fontSize: '14px', flexShrink: 0,
                   transition: 'all 0.3s',
                   background: done
-                    ? 'linear-gradient(135deg,#4f46e5,#6366f1)'
+                    ? 'linear-gradient(135deg,#c9a84c,#e8d48b)'
                     : current
-                      ? 'linear-gradient(135deg,#4f46e5,#6366f1)'
+                      ? 'linear-gradient(135deg,#c9a84c,#e8d48b)'
                       : '#f1f5f9',
-                  color: (done || current) ? '#fff' : '#9ca3af',
-                  boxShadow: current ? '0 0 0 4px rgba(99,102,241,0.2)' : 'none',
+                  color: (done || current) ? '#1a1208' : '#9ca3af',
+                  boxShadow: current ? '0 0 0 4px rgba(201,168,76,0.2)' : 'none',
                 }}>
                   {done
                     ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     : i + 1}
                 </div>
-                <span style={{ fontSize: '11px', fontWeight: current ? 700 : 500, color: current ? '#4f46e5' : done ? '#6b7280' : '#9ca3af', whiteSpace: 'nowrap' }}>
+                <span style={{ fontSize: '11px', fontWeight: current ? 700 : 500, color: current ? '#c9a84c' : done ? '#6b7280' : '#9ca3af', whiteSpace: 'nowrap' }}>
                   {s}
                 </span>
               </div>
@@ -97,7 +97,7 @@ function StepBar({ step }: { step: number }) {
               {i < steps.length - 1 && (
                 <div style={{
                   flex: 1, height: '2px', marginBottom: '18px', marginLeft: '6px', marginRight: '6px',
-                  background: done ? '#4f46e5' : '#e5e7eb',
+                  background: done ? '#c9a84c' : '#e5e7eb',
                   transition: 'background 0.4s',
                 }} />
               )}
@@ -221,25 +221,25 @@ export default function OnboardingPage() {
         @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
         @keyframes fadeIn { from{opacity:0} to{opacity:1} }
         @keyframes spin   { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-        .inp:focus { border-color:#4f46e5 !important; box-shadow:0 0 0 3px rgba(79,70,229,0.14) !important; }
+        .inp:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.14) !important; }
         .role-card { padding:12px 14px;border:2px solid #e5e7eb;border-radius:12px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:10px; }
-        .role-card.sel { border-color:#4f46e5;background:#eef2ff; }
-        .role-card:hover { border-color:#a5b4fc; }
+        .role-card.sel { border-color:#c9a84c;background:#fdf8e8; }
+        .role-card:hover { border-color:#e8d48b; }
         select.inp { cursor:pointer; }
       `}</style>
 
       {/* 배경 */}
       <div style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #1e1b4b 100%)',
+        background: 'linear-gradient(135deg, #2a1f10 0%, #3d2e18 40%, #2a1f10 100%)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: '40px 16px', position: 'relative', overflow: 'hidden',
       }}>
         {/* 배경 도형 */}
         {[
-          { w:260, h:260, top:'-60px', left:'-80px',  bg:'rgba(99,102,241,0.15)', r:'50%' },
-          { w:200, h:200, bottom:'-40px', right:'-60px', bg:'rgba(129,140,248,0.1)', r:'50%' },
-          { w:140, h:140, top:'40%', right:'5%', bg:'rgba(165,180,252,0.08)', r:'30px' },
+          { w:260, h:260, top:'-60px', left:'-80px',  bg:'rgba(201,168,76,0.1)', r:'50%' },
+          { w:200, h:200, bottom:'-40px', right:'-60px', bg:'rgba(201,168,76,0.07)', r:'50%' },
+          { w:140, h:140, top:'40%', right:'5%', bg:'rgba(74,124,89,0.06)', r:'30px' },
         ].map((s, i) => (
           <div key={i} style={{ position:'absolute', width:s.w, height:s.h,
             top:s.top, left:(s as { left?: string }).left, bottom:(s as { bottom?: string }).bottom,
@@ -259,11 +259,14 @@ export default function OnboardingPage() {
         }}>
           {/* 로고 */}
           <div style={{ display:'flex', alignItems:'center', gap:'10px', marginBottom:'28px' }}>
-            <div style={{ width:'40px',height:'40px',borderRadius:'12px',background:'linear-gradient(135deg,#818cf8,#4f46e5)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0 }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <div style={{ width:'40px',height:'40px',borderRadius:'12px',background:'linear-gradient(135deg,#c9a84c,#e8d48b)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0 }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="10" y="2" width="4" height="20" rx="1" fill="#1a1208"/>
+                <rect x="4" y="7" width="16" height="4" rx="1" fill="#1a1208"/>
+              </svg>
             </div>
             <div>
-              <div style={{ fontSize:'18px', fontWeight:800, color:'#1e1b4b', letterSpacing:'-0.02em' }}>J-SheepFold</div>
+              <div style={{ fontSize:'18px', fontWeight:800, color:'#2a1f10', letterSpacing:'-0.02em' }}>J-SheepFold</div>
               <div style={{ fontSize:'11px', color:'#9ca3af', letterSpacing:'0.04em' }}>교회 초기 설정</div>
             </div>
           </div>
@@ -296,9 +299,9 @@ export default function OnboardingPage() {
                   <input className="inp" style={{ ...inputSt, flex:1 }} readOnly value={church.zipCode}
                     placeholder="우편번호" />
                   <button type="button" onClick={openDaumPostcode}
-                    style={{ padding:'0 16px',borderRadius:'10px',border:'1.5px solid #4f46e5',background:'#eef2ff',color:'#4f46e5',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap',transition:'all 0.15s' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background='#4f46e5'; (e.currentTarget as HTMLButtonElement).style.color='#fff'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background='#eef2ff'; (e.currentTarget as HTMLButtonElement).style.color='#4f46e5'; }}
+                    style={{ padding:'0 16px',borderRadius:'10px',border:'1.5px solid #c9a84c',background:'#fdf8e8',color:'#c9a84c',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap',transition:'all 0.15s' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background='#c9a84c'; (e.currentTarget as HTMLButtonElement).style.color='#fff'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background='#fdf8e8'; (e.currentTarget as HTMLButtonElement).style.color='#c9a84c'; }}
                   >주소 검색</button>
                 </div>
                 <input className="inp" style={{ ...inputSt, marginBottom:'8px' }} readOnly value={church.address} placeholder="기본 주소" />
@@ -340,10 +343,10 @@ export default function OnboardingPage() {
                   {ROLES.map(r => (
                     <div key={r.value} className={`role-card${admin.role === r.value ? ' sel' : ''}`}
                       onClick={() => setAdmin(p => ({ ...p, role: r.value }))}>
-                      <div style={{ width:'16px',height:'16px',borderRadius:'50%',border:`2px solid ${admin.role === r.value ? '#4f46e5' : '#d1d5db'}`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,transition:'all 0.15s' }}>
-                        {admin.role === r.value && <div style={{ width:'8px',height:'8px',borderRadius:'50%',background:'#4f46e5' }} />}
+                      <div style={{ width:'16px',height:'16px',borderRadius:'50%',border:`2px solid ${admin.role === r.value ? '#c9a84c' : '#d1d5db'}`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,transition:'all 0.15s' }}>
+                        {admin.role === r.value && <div style={{ width:'8px',height:'8px',borderRadius:'50%',background:'#c9a84c' }} />}
                       </div>
-                      <span style={{ fontSize:'13px',fontWeight:admin.role === r.value ? 700 : 500,color:admin.role === r.value ? '#3730a3' : '#374151' }}>{r.label}</span>
+                      <span style={{ fontSize:'13px',fontWeight:admin.role === r.value ? 700 : 500,color:admin.role === r.value ? '#7d6324' : '#374151' }}>{r.label}</span>
                     </div>
                   ))}
                 </div>
@@ -408,7 +411,7 @@ export default function OnboardingPage() {
                   <div style={{ fontSize:'12px',color:'#ef4444',marginTop:'4px' }}>비밀번호가 일치하지 않습니다</div>
                 )}
                 {admin.passwordConfirm && admin.password === admin.passwordConfirm && (
-                  <div style={{ fontSize:'12px',color:'#059669',marginTop:'4px' }}>✓ 비밀번호가 일치합니다</div>
+                  <div style={{ fontSize:'12px',color:'#059669',marginTop:'4px' }}>&#10003; 비밀번호가 일치합니다</div>
                 )}
               </Field>
             </div>
@@ -420,21 +423,21 @@ export default function OnboardingPage() {
               {/* 체크 원 */}
               <div style={{
                 width:'80px', height:'80px', borderRadius:'50%',
-                background:'linear-gradient(135deg,#4f46e5,#6366f1)',
+                background:'linear-gradient(135deg,#c9a84c,#e8d48b)',
                 display:'flex', alignItems:'center', justifyContent:'center',
                 margin:'0 auto 20px',
-                boxShadow:'0 8px 30px rgba(79,70,229,0.4)',
+                boxShadow:'0 8px 30px rgba(201,168,76,0.4)',
                 animation:'popIn 0.4s cubic-bezier(0.34,1.56,0.64,1)',
               }}>
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1a1208" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
               </div>
               <h2 style={{ fontSize:'22px',fontWeight:800,color:'#111827',marginBottom:'10px',letterSpacing:'-0.03em' }}>
-                설정이 완료되었습니다! 🎉
+                설정이 완료되었습니다!
               </h2>
               <p style={{ fontSize:'14px',color:'#6b7280',lineHeight:'1.7',marginBottom:'8px' }}>
-                <strong style={{ color:'#1e1b4b' }}>{church.name}</strong>의<br />
+                <strong style={{ color:'#2a1f10' }}>{church.name}</strong>의<br />
                 J-SheepFold 교회 관리 시스템이 준비되었습니다.
               </p>
               <p style={{ fontSize:'13px',color:'#9ca3af',marginBottom:'32px' }}>
@@ -445,14 +448,14 @@ export default function OnboardingPage() {
                 style={{
                   width: '100%', padding:'14px',
                   borderRadius:'12px', border:'none',
-                  background:'linear-gradient(135deg,#4f46e5,#6366f1)',
-                  color:'#fff', fontSize:'15px', fontWeight:700,
+                  background:'linear-gradient(135deg,#c9a84c,#e8d48b)',
+                  color:'#1a1208', fontSize:'15px', fontWeight:700,
                   cursor:'pointer', fontFamily:'inherit',
-                  boxShadow:'0 6px 20px rgba(79,70,229,0.4)',
+                  boxShadow:'0 6px 20px rgba(201,168,76,0.4)',
                   transition:'all 0.2s',
                 }}
-                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform='translateY(-2px)'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 10px 26px rgba(79,70,229,0.45)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform='none'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 6px 20px rgba(79,70,229,0.4)'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform='translateY(-2px)'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 10px 26px rgba(201,168,76,0.45)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform='none'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 6px 20px rgba(201,168,76,0.4)'; }}
               >
                 J-SheepFold 시작하기 →
               </button>
@@ -466,7 +469,7 @@ export default function OnboardingPage() {
                 <button
                   onClick={goPrev}
                   style={{ flex:1, padding:'13px', borderRadius:'11px', border:'1.5px solid #e5e7eb', background:'#fff', color:'#374151', fontSize:'14px', fontWeight:600, cursor:'pointer', fontFamily:'inherit', transition:'all 0.15s' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor='#6366f1'; }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor='#c9a84c'; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor='#e5e7eb'; }}
                 >← 이전</button>
               )}
@@ -476,12 +479,12 @@ export default function OnboardingPage() {
                 style={{
                   flex:2, padding:'13px', borderRadius:'11px',
                   border:'none',
-                  background: submitting ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)',
-                  color: submitting ? '#818cf8' : '#fff',
+                  background: submitting ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#e8d48b)',
+                  color: submitting ? '#9a7a2e' : '#1a1208',
                   fontSize:'14px', fontWeight:700,
                   cursor: submitting ? 'not-allowed' : 'pointer',
                   fontFamily:'inherit',
-                  boxShadow: submitting ? 'none' : '0 4px 14px rgba(79,70,229,0.35)',
+                  boxShadow: submitting ? 'none' : '0 4px 14px rgba(201,168,76,0.35)',
                   transition:'all 0.2s',
                   display:'flex', alignItems:'center', justifyContent:'center', gap:'8px',
                 }}

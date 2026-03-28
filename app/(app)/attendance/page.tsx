@@ -29,7 +29,7 @@ const STATUS_CONFIG: Record<AttStatus, { label: string; color: string; bg: strin
   present: { label: '출석', color: '#16a34a', bg: '#f0fdf4', border: '#86efac' },
   absent:  { label: '결석', color: '#dc2626', bg: '#fef2f2', border: '#fca5a5' },
   late:    { label: '지각', color: '#d97706', bg: '#fffbeb', border: '#fcd34d' },
-  online:  { label: '온라인', color: '#6366f1', bg: '#eef2ff', border: '#a5b4fc' },
+  online:  { label: '온라인', color: '#c9a84c', bg: '#fdf8e8', border: '#e8d48b' },
 };
 
 const STATUS_ORDER: AttStatus[] = ['present', 'absent', 'late', 'online'];
@@ -51,7 +51,7 @@ function AttRow({ name, memberId, status, onChange }: {
   return (
     <div style={{ display:'flex', alignItems:'center', gap:'10px', padding:'10px 14px', borderRadius:'11px', background:'#fff', border:'1px solid #f1f5f9', marginBottom:'6px', transition:'all 0.12s' }}>
       {/* 아바타 */}
-      <div style={{ width:'34px', height:'34px', borderRadius:'50%', background:'linear-gradient(135deg,#eef2ff,#c7d2fe)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'13px', fontWeight:800, color:'#4f46e5', flexShrink:0 }}>
+      <div style={{ width:'34px', height:'34px', borderRadius:'50%', background:'linear-gradient(135deg,#fdf8e8,#f0d88a)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'13px', fontWeight:800, color:'#c9a84c', flexShrink:0 }}>
         {name.charAt(0)}
       </div>
       <span style={{ flex:1, fontSize:'14px', fontWeight:600, color:'#111827' }}>{name}</span>
@@ -200,7 +200,7 @@ function WorshipTab({ date }: { date: string }) {
       <div style={{ display:'flex', justifyContent:'flex-end', gap:'8px', marginTop:'14px' }}>
         {saved && <span style={{ display:'flex', alignItems:'center', gap:'5px', fontSize:'13px', color:'#16a34a' }}>✓ 저장되었습니다</span>}
         <button onClick={save} disabled={saving}
-          style={{ padding:'10px 24px', borderRadius:'10px', border:'none', background:saving?'#c7d2fe':'linear-gradient(135deg,#4f46e5,#6366f1)', color:saving?'#818cf8':'#fff', fontSize:'14px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit', boxShadow:saving?'none':'0 4px 12px rgba(79,70,229,0.3)' }}>
+          style={{ padding:'10px 24px', borderRadius:'10px', border:'none', background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)', color:saving?'#d4b85c':'#fff', fontSize:'14px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit', boxShadow:saving?'none':'0 4px 12px rgba(201,168,76,0.3)' }}>
           {saving ? '저장 중...' : '일괄 저장'}
         </button>
       </div>
@@ -337,7 +337,7 @@ function GroupTab({ date }: { date: string }) {
         <div style={{ display:'flex', justifyContent:'flex-end', gap:'8px', marginTop:'14px' }}>
           {saved && <span style={{ display:'flex', alignItems:'center', fontSize:'13px', color:'#16a34a' }}>✓ 저장되었습니다</span>}
           <button onClick={save} disabled={saving}
-            style={{ padding:'10px 24px', borderRadius:'10px', border:'none', background:saving?'#c7d2fe':'linear-gradient(135deg,#4f46e5,#6366f1)', color:saving?'#818cf8':'#fff', fontSize:'14px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit', boxShadow:saving?'none':'0 4px 12px rgba(79,70,229,0.3)' }}>
+            style={{ padding:'10px 24px', borderRadius:'10px', border:'none', background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)', color:saving?'#d4b85c':'#fff', fontSize:'14px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit', boxShadow:saving?'none':'0 4px 12px rgba(201,168,76,0.3)' }}>
             {saving ? '저장 중...' : '일괄 저장'}
           </button>
         </div>
@@ -371,7 +371,7 @@ export default function AttendancePage() {
             <p style={{ margin:'5px 0 0', fontSize:'13px', color:'#9ca3af' }}>예배 및 구역별 출석을 기록합니다</p>
           </div>
           <button onClick={() => router.push('/attendance/stats')}
-            style={{ display:'flex', alignItems:'center', gap:'6px', padding:'9px 16px', borderRadius:'10px', border:'1.5px solid #4f46e5', background:'#eef2ff', color:'#4f46e5', fontSize:'13px', fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>
+            style={{ display:'flex', alignItems:'center', gap:'6px', padding:'9px 16px', borderRadius:'10px', border:'1.5px solid #c9a84c', background:'#fdf8e8', color:'#c9a84c', fontSize:'13px', fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             출석 통계 보기
           </button>

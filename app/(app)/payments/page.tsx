@@ -126,7 +126,7 @@ function CreateLinkModal({ onClose, onDone }: { onClose: () => void; onDone: () 
             <label style={labelStyle}>결제 통화 / 방법</label>
             <div style={{ display: 'flex', gap: '8px' }}>
               {([
-                { key: 'usd', label: '$ USD', sub: 'Stripe', color: '#4f46e5', bg: '#eef2ff', border: '#c7d2fe' },
+                { key: 'usd', label: '$ USD', sub: 'Stripe', color: '#c9a84c', bg: '#fdf8e8', border: '#f0d88a' },
                 { key: 'krw', label: '₩ KRW', sub: 'PortOne', color: '#0ea5e9', bg: '#f0f9ff', border: '#bae6fd' },
               ] as const).map(opt => (
                 <button key={opt.key} onClick={() => setForm(p => ({ ...p, currency: opt.key, amountValue: '' }))}
@@ -159,7 +159,7 @@ function CreateLinkModal({ onClose, onDone }: { onClose: () => void; onDone: () 
                 { key: 'custom', label: '자유 금액' },
               ].map(opt => (
                 <button key={opt.key} onClick={() => setForm(p => ({ ...p, amountType: opt.key as any }))}
-                  style={{ flex: 1, padding: '9px', borderRadius: '9px', border: `1.5px solid ${form.amountType === opt.key ? '#4f46e5' : '#e5e7eb'}`, background: form.amountType === opt.key ? '#eef2ff' : '#fff', color: form.amountType === opt.key ? '#4f46e5' : '#374151', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
+                  style={{ flex: 1, padding: '9px', borderRadius: '9px', border: `1.5px solid ${form.amountType === opt.key ? '#c9a84c' : '#e5e7eb'}`, background: form.amountType === opt.key ? '#fdf8e8' : '#fff', color: form.amountType === opt.key ? '#c9a84c' : '#374151', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
                   {opt.label}
                 </button>
               ))}
@@ -190,7 +190,7 @@ function CreateLinkModal({ onClose, onDone }: { onClose: () => void; onDone: () 
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', paddingTop: '4px' }}>
             <button onClick={onClose} style={{ padding: '10px 18px', borderRadius: '10px', border: '1.5px solid #e5e7eb', background: '#fff', color: '#374151', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>취소</button>
             <button onClick={save} disabled={saving}
-              style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', background: saving ? '#c7d2fe' : isKrw ? 'linear-gradient(135deg,#0ea5e9,#38bdf8)' : 'linear-gradient(135deg,#4f46e5,#6366f1)', color: saving ? '#818cf8' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(79,70,229,0.28)' }}>
+              style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', background: saving ? '#f0d88a' : isKrw ? 'linear-gradient(135deg,#0ea5e9,#38bdf8)' : 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: saving ? '#d4b85c' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,76,0.28)' }}>
               {saving ? '생성 중...' : '링크 생성'}
             </button>
           </div>
@@ -264,7 +264,7 @@ export default function PaymentsPage() {
     <>
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
-        .link-card:hover { box-shadow:0 6px 20px rgba(79,70,229,0.1) !important; border-color:#c7d2fe !important; }
+        .link-card:hover { box-shadow:0 6px 20px rgba(201,168,76,0.1) !important; border-color:#f0d88a !important; }
         .pay-row:hover { background:#f8faff !important; }
       `}</style>
 
@@ -276,7 +276,7 @@ export default function PaymentsPage() {
             <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>Stripe(USD) · 포트원(KRW) 결제 링크로 온라인 헌금을 받으세요</p>
           </div>
           <button onClick={() => setShowModal(true)}
-            style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '10px 20px', borderRadius: '11px', border: 'none', background: 'linear-gradient(135deg,#4f46e5,#6366f1)', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(79,70,229,0.3)' }}>
+            style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '10px 20px', borderRadius: '11px', border: 'none', background: 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(201,168,76,0.3)' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             결제 링크 생성
           </button>
@@ -309,7 +309,7 @@ export default function PaymentsPage() {
         {/* 통계 카드 */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px', marginBottom: '24px' }}>
           {[
-            { label: '결제 링크', value: `${links.filter(l => l.is_active).length}개 활성`, icon: '🔗', color: '#4f46e5', bg: '#eef2ff', border: '#c7d2fe' },
+            { label: '결제 링크', value: `${links.filter(l => l.is_active).length}개 활성`, icon: '🔗', color: '#c9a84c', bg: '#fdf8e8', border: '#f0d88a' },
             { label: '완료된 헌금', value: `${totalCompleted.length}건`, icon: '✅', color: '#16a34a', bg: '#f0fdf4', border: '#86efac' },
             { label: '총 헌금액', value: totalCompleted.length > 0 ? formatAmount(totalAmount, 'usd') : '—', icon: '💰', color: '#d97706', bg: '#fffbeb', border: '#fcd34d' },
           ].map(s => (
@@ -328,7 +328,7 @@ export default function PaymentsPage() {
             { key: 'history', label: '헌금 내역' },
           ].map(t => (
             <button key={t.key} onClick={() => setTab(t.key as any)}
-              style={{ padding: '7px 20px', borderRadius: '7px', border: 'none', fontFamily: 'inherit', fontSize: '13px', fontWeight: tab === t.key ? 700 : 500, cursor: 'pointer', background: tab === t.key ? '#fff' : 'transparent', color: tab === t.key ? '#4f46e5' : '#6b7280', boxShadow: tab === t.key ? '0 1px 4px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.13s' }}>
+              style={{ padding: '7px 20px', borderRadius: '7px', border: 'none', fontFamily: 'inherit', fontSize: '13px', fontWeight: tab === t.key ? 700 : 500, cursor: 'pointer', background: tab === t.key ? '#fff' : 'transparent', color: tab === t.key ? '#c9a84c' : '#6b7280', boxShadow: tab === t.key ? '0 1px 4px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.13s' }}>
               {t.label}
             </button>
           ))}
@@ -351,7 +351,7 @@ export default function PaymentsPage() {
                   style={{ background: '#fff', borderRadius: '14px', padding: '18px 20px', border: '1.5px solid #f1f5f9', boxShadow: '0 1px 6px rgba(0,0,0,0.04)', transition: 'all 0.15s', opacity: link.is_active ? 1 : 0.6 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     {/* 아이콘 */}
-                    <div style={{ width: '42px', height: '42px', borderRadius: '11px', background: link.is_active ? 'linear-gradient(135deg,#eef2ff,#e0e7ff)' : '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', flexShrink: 0 }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '11px', background: link.is_active ? 'linear-gradient(135deg,#fdf8e8,#e0e7ff)' : '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', flexShrink: 0 }}>
                       💳
                     </div>
                     {/* 정보 */}
@@ -363,13 +363,13 @@ export default function PaymentsPage() {
                         </span>
                       </div>
                       {link.description && <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '4px' }}>{link.description}</div>}
-                      <div style={{ fontSize: '13px', color: '#4f46e5', fontWeight: 700 }}>
+                      <div style={{ fontSize: '13px', color: '#c9a84c', fontWeight: 700 }}>
                         {link.amount ? formatAmount(link.amount, link.currency) : '자유 금액'}
                       </div>
                     </div>
                     {/* 공급자 뱃지 + 버튼 */}
                     <div style={{ display: 'flex', gap: '7px', flexShrink: 0, flexWrap: 'wrap', alignItems: 'center' }}>
-                      <span style={{ padding: '3px 8px', borderRadius: '8px', fontSize: '10px', fontWeight: 700, background: link.provider === 'portone' ? '#f0f9ff' : '#eef2ff', color: link.provider === 'portone' ? '#0ea5e9' : '#4f46e5', border: `1px solid ${link.provider === 'portone' ? '#bae6fd' : '#c7d2fe'}` }}>
+                      <span style={{ padding: '3px 8px', borderRadius: '8px', fontSize: '10px', fontWeight: 700, background: link.provider === 'portone' ? '#f0f9ff' : '#fdf8e8', color: link.provider === 'portone' ? '#0ea5e9' : '#c9a84c', border: `1px solid ${link.provider === 'portone' ? '#bae6fd' : '#f0d88a'}` }}>
                         {link.provider === 'portone' ? 'PortOne' : 'Stripe'}
                       </span>
                       {(link.stripe_link_url || link.portone_link_url) && (() => {
@@ -377,7 +377,7 @@ export default function PaymentsPage() {
                         return (
                           <>
                             <button onClick={() => copyLink(url, link.id)}
-                              style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '7px 13px', borderRadius: '8px', border: '1.5px solid #c7d2fe', background: copied === link.id ? '#eef2ff' : '#fff', color: '#4f46e5', fontSize: '12px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s' }}>
+                              style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '7px 13px', borderRadius: '8px', border: '1.5px solid #f0d88a', background: copied === link.id ? '#fdf8e8' : '#fff', color: '#c9a84c', fontSize: '12px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s' }}>
                               {copied === link.id ? (
                                 <><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg> 복사됨</>
                               ) : (

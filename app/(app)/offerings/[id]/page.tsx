@@ -124,8 +124,8 @@ export default function OfferingDetailPage() {
         .item-row { border-bottom:1px solid #f1f5f9; transition:background 0.15s; }
         .item-row:last-child { border-bottom:none; }
         .item-row:hover { background:#fafbff; }
-        .member-link { color:#4f46e5;font-weight:600;cursor:pointer;text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s; }
-        .member-link:hover { border-bottom-color:#4f46e5; }
+        .member-link { color:#c9a84c;font-weight:600;cursor:pointer;text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s; }
+        .member-link:hover { border-bottom-color:#c9a84c; }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '920px' }}>
@@ -191,7 +191,7 @@ export default function OfferingDetailPage() {
               color: '#374151', fontSize: '13px', fontWeight: 600,
               cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s',
             }}
-            onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#6366f1'; b.style.color = '#4f46e5'; }}
+            onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#c9a84c'; b.style.color = '#c9a84c'; }}
             onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#e5e7eb'; b.style.color = '#374151'; }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -214,9 +214,9 @@ export default function OfferingDetailPage() {
 
         {/* ── 총합 카드 ── */}
         <div style={{
-          background: 'linear-gradient(135deg,#4f46e5 0%,#6366f1 50%,#818cf8 100%)',
+          background: 'linear-gradient(135deg,#c9a84c 0%,#c9a84c 50%,#d4b85c 100%)',
           borderRadius: '20px', padding: '28px 32px', marginBottom: '20px',
-          boxShadow: '0 8px 32px rgba(79,70,229,0.3)',
+          boxShadow: '0 8px 32px rgba(201,168,76,0.3)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px',
           animation: 'fadeIn 0.3s',
         }}>
@@ -261,7 +261,7 @@ export default function OfferingDetailPage() {
           animation: 'fadeIn 0.3s 0.1s both',
         }}>
           <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#4f46e5,#6366f1)', borderRadius: '99px' }} />
+            <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
             <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>헌금 항목</span>
             {!loading && <span style={{ fontSize: '12px', color: '#9ca3af', fontWeight: 500, marginLeft: '4px' }}>{items.length}건</span>}
           </div>
@@ -304,9 +304,9 @@ export default function OfferingDetailPage() {
                           <td style={{ padding: '14px 18px' }}>
                             <div style={{
                               width: '26px', height: '26px', borderRadius: '8px',
-                              background: 'linear-gradient(135deg,#eef2ff,#c7d2fe)',
+                              background: 'linear-gradient(135deg,#fdf8e8,#f0d88a)',
                               display: 'flex', alignItems: 'center', justifyContent: 'center',
-                              fontSize: '12px', fontWeight: 800, color: '#4f46e5',
+                              fontSize: '12px', fontWeight: 800, color: '#c9a84c',
                             }}>
                               {item.seq ?? idx + 1}
                             </div>
@@ -370,12 +370,12 @@ export default function OfferingDetailPage() {
               {/* 합계 행 */}
               {!loading && items.length > 0 && (
                 <tfoot>
-                  <tr style={{ background: 'linear-gradient(135deg,#f5f7ff,#eef2ff)', borderTop: '2px solid #e0e7ff' }}>
+                  <tr style={{ background: 'linear-gradient(135deg,#f5f7ff,#fdf8e8)', borderTop: '2px solid #e0e7ff' }}>
                     <td colSpan={2} style={{ padding: '14px 18px', fontSize: '13px', fontWeight: 700, color: '#4b5563' }}>
                       합계 ({items.length}건)
                     </td>
                     <td style={{ padding: '14px 18px' }}>
-                      <span style={{ fontSize: '17px', fontWeight: 900, color: '#3730a3', letterSpacing: '-0.03em' }}>
+                      <span style={{ fontSize: '17px', fontWeight: 900, color: '#7d6324', letterSpacing: '-0.03em' }}>
                         {formatKRW(items.reduce((s, i) => s + i.amount, 0))}
                       </span>
                     </td>
@@ -437,7 +437,7 @@ export default function OfferingDetailPage() {
                   color: '#374151', fontSize: '13px', fontWeight: 600,
                   cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s',
                 }}
-                onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#6366f1'; b.style.color = '#4f46e5'; }}
+                onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#c9a84c'; b.style.color = '#c9a84c'; }}
                 onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = '#e5e7eb'; b.style.color = '#374151'; }}
               >
                 목록으로

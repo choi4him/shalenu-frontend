@@ -45,13 +45,13 @@ const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','
 
 // 헌금 종류별 팔레트
 const TYPE_PALETTE = [
-  { bg:'rgba(99,102,241,0.85)',  border:'#6366f1' },
+  { bg:'rgba(201,168,76,0.85)',  border:'#c9a84c' },
   { bg:'rgba(16,185,129,0.85)', border:'#10b981' },
   { bg:'rgba(245,158,11,0.85)', border:'#f59e0b' },
   { bg:'rgba(239,68,68,0.85)',  border:'#ef4444' },
   { bg:'rgba(59,130,246,0.85)', border:'#3b82f6' },
-  { bg:'rgba(139,92,246,0.85)', border:'#8b5cf6' },
-  { bg:'rgba(236,72,153,0.85)', border:'#ec4899' },
+  { bg:'rgba(201,168,76,0.85)', border:'#e8d48b' },
+  { bg:'rgba(74,124,89,0.85)', border:'#4a7c59' },
 ];
 
 // ─── 스켈레톤 ─────────────────────────────────────────────
@@ -227,9 +227,9 @@ export default function OfferingsStatsPage() {
         @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
         @keyframes fadeIn  { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
         .yr-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;color:#374151;transition:all 0.15s;font-size:18px;font-family:inherit; }
-        .yr-btn:hover { border-color:#4f46e5;color:#4f46e5; }
+        .yr-btn:hover { border-color:#c9a84c;color:#c9a84c; }
         .th-btn { background:none;border:none;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700;color:#6b7280;padding:0;display:flex;align-items:center; }
-        .th-btn:hover { color:#4f46e5; }
+        .th-btn:hover { color:#c9a84c; }
         .member-row:hover { background:#f8faff !important; cursor:pointer; }
       `}</style>
 
@@ -271,7 +271,7 @@ export default function OfferingsStatsPage() {
         {/* ── 섹션 1: 연간 요약 카드 ── */}
         <div style={{ marginBottom:'24px' }}>
           <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'14px' }}>
-            <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }} />
+            <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
             <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>연간 요약</span>
           </div>
           {loading ? (
@@ -285,8 +285,8 @@ export default function OfferingsStatsPage() {
                 label="연간 헌금 합계"
                 amount={stats.grand_total}
                 sub={`${(stats.grand_total / 12).toFixed(0) !== 'NaN' ? '월평균 ' + formatKRW(Math.round(stats.grand_total / 12)) : ''}`}
-                color="#4f46e5"
-                bg="#eef2ff"
+                color="#c9a84c"
+                bg="#fdf8e8"
               />
               {/* 종류별 카드 */}
               {stats.by_type.map((t, i) => (
@@ -308,7 +308,7 @@ export default function OfferingsStatsPage() {
           {/* 월별 막대 차트 */}
           <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
-              <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }} />
+              <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
               <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>월별 헌금 추이</span>
             </div>
             {loading ? <Sk h="240px" r="12px" /> : (
@@ -321,7 +321,7 @@ export default function OfferingsStatsPage() {
           {/* 도넛 차트 */}
           <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
-              <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }} />
+              <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
               <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>종류별 비율</span>
             </div>
             {loading ? <Sk h="240px" r="12px" /> : (
@@ -360,7 +360,7 @@ export default function OfferingsStatsPage() {
         {/* ── 섹션 4: 교인별 헌금 현황 테이블 ── */}
         <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
           <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
-            <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }} />
+            <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
             <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>교인별 헌금 현황</span>
             {!loadingM && <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{members.length}명</span>}
           </div>
@@ -388,8 +388,8 @@ export default function OfferingsStatsPage() {
                         </button>
                       </th>
                     ))}
-                    <th style={{ padding:'10px 14px',textAlign:'right',whiteSpace:'nowrap',color:'#4f46e5' }}>
-                      <button className="th-btn" onClick={() => handleSort('total')} style={{ marginLeft:'auto',color:'#4f46e5' }}>
+                    <th style={{ padding:'10px 14px',textAlign:'right',whiteSpace:'nowrap',color:'#c9a84c' }}>
+                      <button className="th-btn" onClick={() => handleSort('total')} style={{ marginLeft:'auto',color:'#c9a84c' }}>
                         연간 합계<SortIcon k="total" />
                       </button>
                     </th>
@@ -411,9 +411,9 @@ export default function OfferingsStatsPage() {
                         {/* 아바타 */}
                         <div style={{
                           width:'28px',height:'28px',borderRadius:'50%',
-                          background:'linear-gradient(135deg,#eef2ff,#c7d2fe)',
+                          background:'linear-gradient(135deg,#fdf8e8,#f0d88a)',
                           display:'flex',alignItems:'center',justifyContent:'center',
-                          fontSize:'11px',fontWeight:800,color:'#4f46e5',flexShrink:0,
+                          fontSize:'11px',fontWeight:800,color:'#c9a84c',flexShrink:0,
                         }}>
                           {m.member_name.charAt(0)}
                         </div>
@@ -427,7 +427,7 @@ export default function OfferingsStatsPage() {
                           {m.by_type[k] ? formatKRW(m.by_type[k]) : <span style={{ color:'#d1d5db' }}>—</span>}
                         </td>
                       ))}
-                      <td style={{ padding:'11px 14px',textAlign:'right',fontWeight:800,color:'#3730a3',whiteSpace:'nowrap' }}>
+                      <td style={{ padding:'11px 14px',textAlign:'right',fontWeight:800,color:'#7d6324',whiteSpace:'nowrap' }}>
                         {formatKRW(m.total)}
                       </td>
                     </tr>
@@ -435,8 +435,8 @@ export default function OfferingsStatsPage() {
                 </tbody>
                 {/* 합계 행 */}
                 <tfoot>
-                  <tr style={{ background:'linear-gradient(135deg,#f5f7ff,#eef2ff)',borderTop:'2px solid #c7d2fe' }}>
-                    <td style={{ padding:'12px 14px',fontWeight:800,color:'#3730a3',whiteSpace:'nowrap',position:'sticky',left:0,background:'linear-gradient(135deg,#f5f7ff,#eef2ff)',zIndex:1 }}>합계</td>
+                  <tr style={{ background:'linear-gradient(135deg,#f5f7ff,#fdf8e8)',borderTop:'2px solid #f0d88a' }}>
+                    <td style={{ padding:'12px 14px',fontWeight:800,color:'#7d6324',whiteSpace:'nowrap',position:'sticky',left:0,background:'linear-gradient(135deg,#f5f7ff,#fdf8e8)',zIndex:1 }}>합계</td>
                     {memberTypeKeys.map(k => {
                       const sum = members.reduce((s, m) => s + (m.by_type[k] ?? 0), 0);
                       return (
@@ -445,7 +445,7 @@ export default function OfferingsStatsPage() {
                         </td>
                       );
                     })}
-                    <td style={{ padding:'12px 14px',textAlign:'right',fontWeight:900,color:'#3730a3',whiteSpace:'nowrap' }}>
+                    <td style={{ padding:'12px 14px',textAlign:'right',fontWeight:900,color:'#7d6324',whiteSpace:'nowrap' }}>
                       {formatKRW(members.reduce((s, m) => s + m.total, 0))}
                     </td>
                   </tr>

@@ -17,7 +17,7 @@ export default function StatCard({
   icon,
   loading = false,
   subtitle,
-  accentColor = '#8b5cf6',
+  accentColor = '#c9a84c',
 }: StatCardProps) {
   if (loading) {
     return (

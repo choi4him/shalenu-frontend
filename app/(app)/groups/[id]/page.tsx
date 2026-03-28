@@ -31,7 +31,7 @@ interface Member { id: number; full_name: string; }
 const DAYS = ['월','화','수','목','금','토','일'];
 
 const PALETTE = [
-  { bg:'#eef2ff', text:'#4f46e5', border:'#c7d2fe' },
+  { bg:'#fdf8e8', text:'#c9a84c', border:'#f0d88a' },
   { bg:'#f0fdf4', text:'#16a34a', border:'#bbf7d0' },
   { bg:'#fff7ed', text:'#ea580c', border:'#fed7aa' },
   { bg:'#faf5ff', text:'#9333ea', border:'#e9d5ff' },
@@ -43,7 +43,7 @@ function getTypeStyle(index: number) { return PALETTE[index % PALETTE.length]; }
 function getTypeIcon(type: string) { return TYPE_ICONS[type] ?? '📌'; }
 
 const ROLE_COLOR: Record<string, { bg:string; text:string }> = {
-  리더:  { bg:'#eef2ff', text:'#4f46e5' },
+  리더:  { bg:'#fdf8e8', text:'#c9a84c' },
   부리더: { bg:'#f0fdf4', text:'#16a34a' },
   조원:  { bg:'#f9fafb', text:'#6b7280' },
 };
@@ -110,10 +110,10 @@ function AddMemberModal({ groupId, onClose, onAdded }: { groupId: string; onClos
           <div>
             <label style={{ fontSize:'12px',fontWeight:600,color:'#374151',marginBottom:'4px',display:'block' }}>교인 검색</label>
             {selected ? (
-              <div style={{ display:'flex',alignItems:'center',gap:'8px',padding:'9px 12px',borderRadius:'8px',background:'#eef2ff',border:'1.5px solid #a5b4fc' }}>
-                <span style={{ flex:1,fontSize:'13px',fontWeight:600,color:'#4f46e5' }}>{selected.full_name}</span>
+              <div style={{ display:'flex',alignItems:'center',gap:'8px',padding:'9px 12px',borderRadius:'8px',background:'#fdf8e8',border:'1.5px solid #e8d48b' }}>
+                <span style={{ flex:1,fontSize:'13px',fontWeight:600,color:'#c9a84c' }}>{selected.full_name}</span>
                 <button onClick={() => { setSelected(null); setSearch(''); }}
-                  style={{ border:'none',background:'none',cursor:'pointer',color:'#818cf8',fontSize:'18px',lineHeight:1,padding:0 }}>×</button>
+                  style={{ border:'none',background:'none',cursor:'pointer',color:'#d4b85c',fontSize:'18px',lineHeight:1,padding:0 }}>×</button>
               </div>
             ) : (
               <div style={{ position:'relative' }}>
@@ -154,7 +154,7 @@ function AddMemberModal({ groupId, onClose, onAdded }: { groupId: string; onClos
         <div style={{ display:'flex',gap:'8px',marginTop:'20px' }}>
           <button onClick={onClose} style={{ flex:1,padding:'10px',borderRadius:'9px',border:'1.5px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>취소</button>
           <button onClick={submit} disabled={saving}
-            style={{ flex:2,padding:'10px',borderRadius:'9px',border:'none',background:saving?'#c7d2fe':'linear-gradient(135deg,#4f46e5,#6366f1)',color:saving?'#818cf8':'#fff',fontSize:'13px',fontWeight:700,cursor:saving?'not-allowed':'pointer',fontFamily:'inherit',transition:'all 0.2s' }}>
+            style={{ flex:2,padding:'10px',borderRadius:'9px',border:'none',background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)',color:saving?'#d4b85c':'#fff',fontSize:'13px',fontWeight:700,cursor:saving?'not-allowed':'pointer',fontFamily:'inherit',transition:'all 0.2s' }}>
             {saving ? '추가 중...' : '추가'}
           </button>
         </div>
@@ -246,7 +246,7 @@ export default function GroupDetailPage() {
     <>
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
-        .inp-edit:focus { border-color:#4f46e5 !important; box-shadow:0 0 0 3px rgba(79,70,229,0.12) !important; }
+        .inp-edit:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.12) !important; }
       `}</style>
 
       <div style={{ padding:'36px 40px', maxWidth:'760px', animation:'fadeIn 0.2s ease' }}>
@@ -279,7 +279,7 @@ export default function GroupDetailPage() {
             </div>
             {!editing ? (
               <button onClick={startEdit}
-                style={{ display:'flex',alignItems:'center',gap:'5px',padding:'8px 14px',borderRadius:'9px',border:'1.5px solid #4f46e5',background:'#eef2ff',color:'#4f46e5',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>
+                style={{ display:'flex',alignItems:'center',gap:'5px',padding:'8px 14px',borderRadius:'9px',border:'1.5px solid #c9a84c',background:'#fdf8e8',color:'#c9a84c',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                 편집
               </button>
@@ -288,7 +288,7 @@ export default function GroupDetailPage() {
                 <button onClick={cancelEdit}
                   style={{ padding:'8px 14px',borderRadius:'9px',border:'1.5px solid #e5e7eb',background:'#fff',color:'#6b7280',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit' }}>취소</button>
                 <button onClick={saveEdit} disabled={saving}
-                  style={{ padding:'8px 16px',borderRadius:'9px',border:'none',background:saving?'#c7d2fe':'linear-gradient(135deg,#4f46e5,#6366f1)',color:saving?'#818cf8':'#fff',fontSize:'13px',fontWeight:700,cursor:saving?'not-allowed':'pointer',fontFamily:'inherit',transition:'all 0.2s' }}>
+                  style={{ padding:'8px 16px',borderRadius:'9px',border:'none',background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)',color:saving?'#d4b85c':'#fff',fontSize:'13px',fontWeight:700,cursor:saving?'not-allowed':'pointer',fontFamily:'inherit',transition:'all 0.2s' }}>
                   {saving ? '저장 중...' : '저장'}
                 </button>
               </div>
@@ -351,12 +351,12 @@ export default function GroupDetailPage() {
         <div style={{ background:'#fff',borderRadius:'16px',padding:'24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
           <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'16px' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
-              <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }}/>
+              <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }}/>
               <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>소그룹원 목록</span>
               <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{members.length}명</span>
             </div>
             <button onClick={() => setShowAdd(true)}
-              style={{ display:'flex',alignItems:'center',gap:'5px',padding:'7px 13px',borderRadius:'9px',border:'none',background:'linear-gradient(135deg,#4f46e5,#6366f1)',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',boxShadow:'0 3px 10px rgba(79,70,229,0.3)' }}>
+              style={{ display:'flex',alignItems:'center',gap:'5px',padding:'7px 13px',borderRadius:'9px',border:'none',background:'linear-gradient(135deg,#c9a84c,#c9a84c)',color:'#fff',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'inherit',boxShadow:'0 3px 10px rgba(201,168,76,0.3)' }}>
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               소그룹원 추가
             </button>
@@ -373,7 +373,7 @@ export default function GroupDetailPage() {
                     onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.background='#f0f4ff'}
                     onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.background='#f8fafc'}>
                     {/* 아바타 */}
-                    <div style={{ width:'32px',height:'32px',borderRadius:'50%',background:'linear-gradient(135deg,#eef2ff,#c7d2fe)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'12px',fontWeight:800,color:'#4f46e5',flexShrink:0 }}>
+                    <div style={{ width:'32px',height:'32px',borderRadius:'50%',background:'linear-gradient(135deg,#fdf8e8,#f0d88a)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'12px',fontWeight:800,color:'#c9a84c',flexShrink:0 }}>
                       {gm.full_name.charAt(0)}
                     </div>
 

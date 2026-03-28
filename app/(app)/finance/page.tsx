@@ -125,7 +125,7 @@ export default function FinancePage() {
           const s = monthlyStats.find(m => m.month === i + 1);
           return s?.income ?? 0;
         }),
-        backgroundColor: 'rgba(79,70,229,0.75)',
+        backgroundColor: 'rgba(201,168,76,0.75)',
         borderRadius: 6,
         borderSkipped: false,
       },
@@ -175,7 +175,7 @@ export default function FinancePage() {
       <style>{`
         @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
         .year-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;color:#374151;transition:all 0.15s; }
-        .year-btn:hover { border-color:#4f46e5; color:#4f46e5; }
+        .year-btn:hover { border-color:#c9a84c; color:#c9a84c; }
         .acc-row { display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #f1f5f9;transition:background 0.15s; }
         .acc-row:last-child { border-bottom:none; }
         .acc-row:hover { background:#f5f7ff; }
@@ -202,10 +202,10 @@ export default function FinancePage() {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '11px 20px', borderRadius: '12px',
-                background: 'linear-gradient(135deg,#4f46e5,#6366f1)',
+                background: 'linear-gradient(135deg,#c9a84c,#c9a84c)',
                 color: '#fff', border: 'none', cursor: 'pointer',
                 fontSize: '14px', fontWeight: 700, fontFamily: 'inherit',
-                boxShadow: '0 4px 12px rgba(79,70,229,0.35)', transition: 'all 0.2s',
+                boxShadow: '0 4px 12px rgba(201,168,76,0.35)', transition: 'all 0.2s',
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.88'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '1'; (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
@@ -226,11 +226,11 @@ export default function FinancePage() {
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
             <SummaryCard
-              gradient="linear-gradient(135deg,#eef2ff 0%,#c7d2fe 100%)"
+              gradient="linear-gradient(135deg,#fdf8e8 0%,#f0d88a 100%)"
               label="총 수입"
               value={summary ? formatKRW(Number(summary.total_income)) : '—'}
-              valueColor="#3730a3"
-              icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
+              valueColor="#7d6324"
+              icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
             />
             <SummaryCard
               gradient="linear-gradient(135deg,#fff1f2 0%,#fecdd3 100%)"
@@ -287,13 +287,13 @@ export default function FinancePage() {
               <button
                 onClick={() => router.push('/finance/transactions')}
                 style={{
-                  fontSize: '12px', fontWeight: 600, color: '#4f46e5',
-                  background: '#eef2ff', border: 'none', padding: '6px 12px',
+                  fontSize: '12px', fontWeight: 600, color: '#c9a84c',
+                  background: '#fdf8e8', border: 'none', padding: '6px 12px',
                   borderRadius: '8px', cursor: 'pointer', fontFamily: 'inherit',
                   transition: 'all 0.15s',
                 }}
                 onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#e0e7ff'}
-                onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = '#eef2ff'}
+                onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = '#fdf8e8'}
               >
                 거래 내역 →
               </button>
@@ -319,10 +319,10 @@ export default function FinancePage() {
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '5px',
                   padding: '7px 13px', borderRadius: '9px',
-                  background: 'linear-gradient(135deg,#4f46e5,#6366f1)',
+                  background: 'linear-gradient(135deg,#c9a84c,#c9a84c)',
                   color: '#fff', border: 'none', cursor: 'pointer',
                   fontSize: '12px', fontWeight: 700, fontFamily: 'inherit',
-                  boxShadow: '0 2px 8px rgba(79,70,229,0.3)', transition: 'all 0.15s',
+                  boxShadow: '0 2px 8px rgba(201,168,76,0.3)', transition: 'all 0.15s',
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.88'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '1'; }}

@@ -36,8 +36,8 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  worship: '#6366f1', mission: '#3b82f6', education: '#10b981',
-  admin: '#f59e0b',   facility: '#ef4444', etc: '#8b5cf6',
+  worship: '#c9a84c', mission: '#3b82f6', education: '#10b981',
+  admin: '#f59e0b',   facility: '#ef4444', etc: '#e8d48b',
 };
 
 // ─── 진행 막대 컴포넌트 ─────────────────────────────────
@@ -69,7 +69,7 @@ function ProgressBar({ planned, actual }: { planned: number; actual: number }) {
             ? 'linear-gradient(90deg,#ef4444,#dc2626)'
             : pct >= 80
               ? 'linear-gradient(90deg,#f59e0b,#d97706)'
-              : 'linear-gradient(90deg,#6366f1,#4f46e5)',
+              : 'linear-gradient(90deg,#c9a84c,#c9a84c)',
           transition: 'width 0.6s cubic-bezier(0.34,1.56,0.64,1)',
         }} />
       </div>
@@ -132,9 +132,9 @@ export default function BudgetListPage() {
         @keyframes fadeIn  { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
         @keyframes pop     { 0%{transform:scale(0.96)} 60%{transform:scale(1.02)} 100%{transform:scale(1)} }
         .yr-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;color:#374151;transition:all 0.15s;font-size:18px;font-family:inherit; }
-        .yr-btn:hover { border-color:#4f46e5;color:#4f46e5; }
+        .yr-btn:hover { border-color:#c9a84c;color:#c9a84c; }
         .budget-item-card { background:#fff;border:1.5px solid #f1f5f9;border-radius:14px;padding:18px 20px;transition:all 0.15s; }
-        .budget-item-card:hover { border-color:#c7d2fe;box-shadow:0 2px 10px rgba(79,70,229,0.08); }
+        .budget-item-card:hover { border-color:#f0d88a;box-shadow:0 2px 10px rgba(201,168,76,0.08); }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '860px' }}>
@@ -169,10 +169,10 @@ export default function BudgetListPage() {
               style={{
                 display:'inline-flex',alignItems:'center',gap:'7px',
                 padding:'11px 18px',borderRadius:'12px',
-                background:'linear-gradient(135deg,#4f46e5,#6366f1)',
+                background:'linear-gradient(135deg,#c9a84c,#c9a84c)',
                 border:'none',color:'#fff',fontSize:'13px',fontWeight:700,
                 cursor:'pointer',fontFamily:'inherit',
-                boxShadow:'0 4px 14px rgba(79,70,229,0.3)',
+                boxShadow:'0 4px 14px rgba(201,168,76,0.3)',
                 transition:'all 0.2s',
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.opacity='0.9'; (e.currentTarget as HTMLButtonElement).style.transform='translateY(-1px)'; }}
@@ -208,11 +208,11 @@ export default function BudgetListPage() {
           <div style={{ textAlign:'center',padding:'60px 20px',animation:'fadeIn 0.3s' }}>
             <div style={{
               width:'72px',height:'72px',borderRadius:'20px',
-              background:'linear-gradient(135deg,#eef2ff,#c7d2fe)',
+              background:'linear-gradient(135deg,#fdf8e8,#f0d88a)',
               display:'flex',alignItems:'center',justifyContent:'center',
               margin:'0 auto 18px',
             }}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
               </svg>
             </div>
@@ -223,14 +223,14 @@ export default function BudgetListPage() {
               style={{
                 display:'inline-flex',alignItems:'center',gap:'8px',
                 padding:'13px 28px',borderRadius:'14px',
-                background:'linear-gradient(135deg,#4f46e5,#6366f1)',
+                background:'linear-gradient(135deg,#c9a84c,#c9a84c)',
                 border:'none',color:'#fff',fontSize:'15px',fontWeight:700,
                 cursor:'pointer',fontFamily:'inherit',
-                boxShadow:'0 6px 20px rgba(79,70,229,0.35)',
+                boxShadow:'0 6px 20px rgba(201,168,76,0.35)',
                 transition:'all 0.2s',
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform='translateY(-2px)'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 10px 26px rgba(79,70,229,0.4)'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform='none'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 6px 20px rgba(79,70,229,0.35)'; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform='translateY(-2px)'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 10px 26px rgba(201,168,76,0.4)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform='none'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 6px 20px rgba(201,168,76,0.35)'; }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               {year}년 예산 편성하기
@@ -244,9 +244,9 @@ export default function BudgetListPage() {
 
             {/* 총괄 카드 */}
             <div style={{
-              background:'linear-gradient(135deg,#4f46e5 0%,#6366f1 50%,#818cf8 100%)',
+              background:'linear-gradient(135deg,#c9a84c 0%,#c9a84c 50%,#d4b85c 100%)',
               borderRadius:'20px',padding:'26px 30px',marginBottom:'20px',
-              boxShadow:'0 8px 32px rgba(79,70,229,0.3)',
+              boxShadow:'0 8px 32px rgba(201,168,76,0.3)',
             }}>
               <div style={{ display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:'20px',flexWrap:'wrap',gap:'12px' }}>
                 <div>
@@ -291,7 +291,7 @@ export default function BudgetListPage() {
             {/* 항목별 카드 목록 */}
             <div style={{ marginBottom:'12px' }}>
               <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'14px' }}>
-                <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }} />
+                <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
                 <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>항목별 예산</span>
                 <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{budget.items.length}개 항목</span>
               </div>

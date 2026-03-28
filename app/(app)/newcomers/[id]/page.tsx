@@ -175,7 +175,7 @@ export default function NewcomerDetailPage() {
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
         @keyframes slideIn { from{opacity:0;transform:translateX(8px)} to{opacity:1;transform:none} }
-        .inp-edit:focus { border-color:#6366f1 !important; box-shadow:0 0 0 3px rgba(99,102,241,0.1); }
+        .inp-edit:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.1); }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '760px', animation: 'fadeIn 0.2s ease' }}>
@@ -197,7 +197,7 @@ export default function NewcomerDetailPage() {
         <div style={{ background: '#fff', borderRadius: '16px', padding: '24px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '20px', gap: '12px', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'linear-gradient(135deg,#eef2ff,#c7d2fe)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', fontWeight: 800, color: '#4f46e5', flexShrink: 0 }}>
+              <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'linear-gradient(135deg,#fdf8e8,#f0d88a)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', fontWeight: 800, color: '#c9a84c', flexShrink: 0 }}>
                 {nc.name.charAt(0)}
               </div>
               <div>
@@ -236,7 +236,7 @@ export default function NewcomerDetailPage() {
                   취소
                 </button>
                 <button onClick={saveEdit} disabled={saving}
-                  style={{ padding: '8px 16px', borderRadius: '9px', border: 'none', background: saving ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)', color: saving ? '#818cf8' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>
+                  style={{ padding: '8px 16px', borderRadius: '9px', border: 'none', background: saving ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: saving ? '#d4b85c' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>
                   {saving ? '저장 중...' : '저장'}
                 </button>
               </div>
@@ -353,7 +353,7 @@ export default function NewcomerDetailPage() {
         {/* 이력 타임라인 */}
         <div style={{ background: '#fff', borderRadius: '16px', padding: '24px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-            <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#4f46e5,#6366f1)', borderRadius: '99px' }} />
+            <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
             <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>상태 변경 이력</span>
           </div>
 

@@ -185,7 +185,7 @@ export default function BookingsPage() {
         @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
         .bk-row { transition:background 0.12s; }
         .bk-row:hover { background:#f8faff !important; }
-        .inp-bk:focus { border-color:#6366f1 !important; box-shadow:0 0 0 3px rgba(99,102,241,0.1); }
+        .inp-bk:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.1); }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '900px' }}>
@@ -205,12 +205,12 @@ export default function BookingsPage() {
         {/* 통계 카드 */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '10px', marginBottom: '20px' }}>
           {TABS.map(t => {
-            const cfg = STATUS[t.key] ?? { color: '#4f46e5', bg: '#eef2ff', border: '#c7d2fe' };
+            const cfg = STATUS[t.key] ?? { color: '#c9a84c', bg: '#fdf8e8', border: '#f0d88a' };
             const isSel = statusTab === t.key;
             return (
               <div key={t.key} onClick={() => setStatusTab(t.key)}
-                style={{ background: isSel ? (t.key === 'all' ? '#eef2ff' : cfg.bg) : '#fff', border: `1.5px solid ${isSel ? (t.key === 'all' ? '#c7d2fe' : cfg.border) : '#f1f5f9'}`, borderRadius: '12px', padding: '14px 16px', cursor: 'pointer', transition: 'all 0.15s', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-                <div style={{ fontSize: '22px', fontWeight: 800, color: t.key === 'all' ? '#4f46e5' : cfg.color, letterSpacing: '-0.02em' }}>{counts[t.key] ?? 0}</div>
+                style={{ background: isSel ? (t.key === 'all' ? '#fdf8e8' : cfg.bg) : '#fff', border: `1.5px solid ${isSel ? (t.key === 'all' ? '#f0d88a' : cfg.border) : '#f1f5f9'}`, borderRadius: '12px', padding: '14px 16px', cursor: 'pointer', transition: 'all 0.15s', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+                <div style={{ fontSize: '22px', fontWeight: 800, color: t.key === 'all' ? '#c9a84c' : cfg.color, letterSpacing: '-0.02em' }}>{counts[t.key] ?? 0}</div>
                 <div style={{ fontSize: '12px', fontWeight: 600, color: '#9ca3af', marginTop: '2px' }}>{t.label}</div>
               </div>
             );
@@ -222,9 +222,9 @@ export default function BookingsPage() {
           <div style={{ display: 'flex', gap: '5px', background: '#f1f5f9', padding: '4px', borderRadius: '10px' }}>
             {TABS.map(t => (
               <button key={t.key} onClick={() => setStatusTab(t.key)}
-                style={{ padding: '6px 14px', borderRadius: '7px', border: 'none', fontFamily: 'inherit', fontSize: '12px', fontWeight: statusTab === t.key ? 700 : 500, cursor: 'pointer', background: statusTab === t.key ? '#fff' : 'transparent', color: statusTab === t.key ? '#4f46e5' : '#6b7280', boxShadow: statusTab === t.key ? '0 1px 4px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.13s', whiteSpace: 'nowrap' }}>
+                style={{ padding: '6px 14px', borderRadius: '7px', border: 'none', fontFamily: 'inherit', fontSize: '12px', fontWeight: statusTab === t.key ? 700 : 500, cursor: 'pointer', background: statusTab === t.key ? '#fff' : 'transparent', color: statusTab === t.key ? '#c9a84c' : '#6b7280', boxShadow: statusTab === t.key ? '0 1px 4px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.13s', whiteSpace: 'nowrap' }}>
                 {t.label}
-                <span style={{ marginLeft: '4px', background: statusTab === t.key ? '#eef2ff' : '#e5e7eb', color: statusTab === t.key ? '#4f46e5' : '#9ca3af', borderRadius: '8px', padding: '0 5px', fontSize: '10px', fontWeight: 700 }}>{counts[t.key] ?? 0}</span>
+                <span style={{ marginLeft: '4px', background: statusTab === t.key ? '#fdf8e8' : '#e5e7eb', color: statusTab === t.key ? '#c9a84c' : '#9ca3af', borderRadius: '8px', padding: '0 5px', fontSize: '10px', fontWeight: 700 }}>{counts[t.key] ?? 0}</span>
               </button>
             ))}
           </div>

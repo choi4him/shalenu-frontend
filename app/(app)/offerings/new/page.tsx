@@ -240,16 +240,16 @@ export default function OfferingNewPage() {
   return (
     <>
       <style>{`
-        .fo-input:focus { border-color: #4f46e5 !important; box-shadow: 0 0 0 3px rgba(79,70,229,0.12) !important; }
+        .fo-input:focus { border-color: #c9a84c !important; box-shadow: 0 0 0 3px rgba(201,168,76,0.12) !important; }
         @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
         .member-drop-item { padding: 9px 14px; cursor: pointer; font-size: 13px; color: #374151; display: flex; align-items: center; gap: 8px; transition: background 0.1s; }
         .member-drop-item:hover { background: #f0f0ff; }
         .item-card { background: #fff; border-radius: 14px; border: 1.5px solid #e5e7eb; padding: 20px; margin-bottom: 12px; transition: border-color 0.2s, box-shadow 0.2s; }
-        .item-card:hover { border-color: #c7d2fe; box-shadow: 0 2px 8px rgba(79,70,229,0.07); }
+        .item-card:hover { border-color: #f0d88a; box-shadow: 0 2px 8px rgba(201,168,76,0.07); }
         .remove-btn { background: none; border: none; cursor: pointer; color: #d1d5db; transition: color 0.15s; padding: 4px; border-radius: 6px; display: flex; align-items: center; }
         .remove-btn:hover { color: #ef4444; background: #fef2f2; }
-        .add-item-btn:hover { border-color: #4f46e5 !important; color: #4f46e5 !important; }
-        .save-btn-draft:hover { background: #f1f5f9 !important; border-color: #6366f1 !important; color: #4f46e5 !important; }
+        .add-item-btn:hover { border-color: #c9a84c !important; color: #c9a84c !important; }
+        .save-btn-draft:hover { background: #f1f5f9 !important; border-color: #c9a84c !important; color: #c9a84c !important; }
         .save-btn-confirm:hover { opacity: 0.88; transform: translateY(-1px); }
       `}</style>
 
@@ -359,7 +359,7 @@ export default function OfferingNewPage() {
             </div>
             {/* 합계 */}
             <div style={{
-              background: 'linear-gradient(135deg, #eef2ff, #e0e7ff)',
+              background: 'linear-gradient(135deg, #fdf8e8, #e0e7ff)',
               borderRadius: '10px', padding: '8px 16px',
               fontSize: '15px', fontWeight: 800, color: '#4338ca',
             }}>
@@ -370,7 +370,7 @@ export default function OfferingNewPage() {
           {items.map((item, idx) => (
             <div key={item.id} className="item-card">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1', background: '#eef2ff', padding: '3px 10px', borderRadius: '99px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#c9a84c', background: '#fdf8e8', padding: '3px 10px', borderRadius: '99px' }}>
                   #{idx + 1}
                 </span>
                 {items.length > 1 && (
@@ -402,7 +402,7 @@ export default function OfferingNewPage() {
                       onClick={() => item.isManual ? updateItem(item.id, { isManual: false, member_name: '', searchQuery: '', member_id: undefined }) : switchManual(item.id)}
                       style={{
                         background: 'none', border: 'none', cursor: 'pointer',
-                        fontSize: '12px', color: '#6366f1', fontWeight: 600, fontFamily: 'inherit',
+                        fontSize: '12px', color: '#c9a84c', fontWeight: 600, fontFamily: 'inherit',
                         padding: '2px 0',
                       }}
                     >
@@ -461,7 +461,7 @@ export default function OfferingNewPage() {
                             >
                               <span style={{
                                 width: '28px', height: '28px', borderRadius: '50%',
-                                background: 'linear-gradient(135deg, #4f46e5, #6366f1)',
+                                background: 'linear-gradient(135deg, #c9a84c, #c9a84c)',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 flexShrink: 0, color: '#fff', fontSize: '12px', fontWeight: 700,
                               }}>{m.name[0]}</span>
@@ -479,7 +479,7 @@ export default function OfferingNewPage() {
                           padding: '12px 14px', fontSize: '13px', color: '#9ca3af',
                         }}>
                           <span>&#34;{item.searchQuery}&#34; 검색 결과 없음 —&nbsp;</span>
-                          <button type="button" onClick={() => switchManual(item.id)} style={{ border: 'none', background: 'none', color: '#6366f1', cursor: 'pointer', fontWeight: 600, fontFamily: 'inherit', fontSize: '13px', padding: 0 }}>직접 입력</button>
+                          <button type="button" onClick={() => switchManual(item.id)} style={{ border: 'none', background: 'none', color: '#c9a84c', cursor: 'pointer', fontWeight: 600, fontFamily: 'inherit', fontSize: '13px', padding: 0 }}>직접 입력</button>
                         </div>
                       )}
                     </>
@@ -616,13 +616,13 @@ export default function OfferingNewPage() {
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               padding: '12px 24px', borderRadius: '12px',
-              background: submitting ? '#c7d2fe' : 'linear-gradient(135deg, #4f46e5, #6366f1)',
+              background: submitting ? '#f0d88a' : 'linear-gradient(135deg, #c9a84c, #c9a84c)',
               border: 'none',
-              color: submitting ? '#818cf8' : '#fff',
+              color: submitting ? '#d4b85c' : '#fff',
               fontSize: '14px', fontWeight: 700,
               cursor: submitting ? 'not-allowed' : 'pointer',
               fontFamily: 'inherit',
-              boxShadow: submitting ? 'none' : '0 4px 12px rgba(79,70,229,0.35)',
+              boxShadow: submitting ? 'none' : '0 4px 12px rgba(201,168,76,0.35)',
               transition: 'all 0.2s ease',
             }}
           >

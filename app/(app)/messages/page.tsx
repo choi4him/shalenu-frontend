@@ -216,7 +216,7 @@ export default function MessagesPage() {
         @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
         @keyframes slideIn { from{opacity:0;transform:translateX(8px)} to{opacity:1;transform:none} }
         .hist-row:hover { background:#f8faff !important; }
-        .inp-msg:focus { border-color:#6366f1 !important; box-shadow:0 0 0 3px rgba(99,102,241,0.1); }
+        .inp-msg:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.1); }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '800px' }}>
@@ -230,7 +230,7 @@ export default function MessagesPage() {
         <div style={{ display: 'flex', gap: '6px', marginBottom: '24px', background: '#f1f5f9', padding: '4px', borderRadius: '11px', width: 'fit-content' }}>
           {[{ key: 'compose', label: '✉️ 새 메시지' }, { key: 'history', label: '📋 발송 이력' }].map(t => (
             <button key={t.key} onClick={() => setTab(t.key as 'compose' | 'history')}
-              style={{ padding: '8px 20px', borderRadius: '8px', border: 'none', fontFamily: 'inherit', fontSize: '13px', fontWeight: tab === t.key ? 700 : 500, cursor: 'pointer', background: tab === t.key ? '#fff' : 'transparent', color: tab === t.key ? '#4f46e5' : '#6b7280', boxShadow: tab === t.key ? '0 1px 5px rgba(0,0,0,0.09)' : 'none', transition: 'all 0.15s' }}>
+              style={{ padding: '8px 20px', borderRadius: '8px', border: 'none', fontFamily: 'inherit', fontSize: '13px', fontWeight: tab === t.key ? 700 : 500, cursor: 'pointer', background: tab === t.key ? '#fff' : 'transparent', color: tab === t.key ? '#c9a84c' : '#6b7280', boxShadow: tab === t.key ? '0 1px 5px rgba(0,0,0,0.09)' : 'none', transition: 'all 0.15s' }}>
               {t.label}
             </button>
           ))}
@@ -289,7 +289,7 @@ export default function MessagesPage() {
                       const sel = recipientType === t.key;
                       return (
                         <button key={t.key} onClick={() => changeRecipientType(t.key as RecipientType)}
-                          style={{ padding: '6px 14px', borderRadius: '16px', border: `1.5px solid ${sel ? '#4f46e5' : '#e5e7eb'}`, background: sel ? '#eef2ff' : '#fff', color: sel ? '#4f46e5' : '#6b7280', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.13s' }}>
+                          style={{ padding: '6px 14px', borderRadius: '16px', border: `1.5px solid ${sel ? '#c9a84c' : '#e5e7eb'}`, background: sel ? '#fdf8e8' : '#fff', color: sel ? '#c9a84c' : '#6b7280', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.13s' }}>
                           {t.label}
                         </button>
                       );
@@ -307,7 +307,7 @@ export default function MessagesPage() {
                             const sel = !!recipients.find(r => r.id === `group-${g.id}`);
                             return (
                               <button key={g.id} onClick={() => toggleGroup(g)}
-                                style={{ padding: '5px 12px', borderRadius: '14px', border: `1.5px solid ${sel ? '#4f46e5' : '#e5e7eb'}`, background: sel ? '#4f46e5' : '#f9fafb', color: sel ? '#fff' : '#374151', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.13s' }}>
+                                style={{ padding: '5px 12px', borderRadius: '14px', border: `1.5px solid ${sel ? '#c9a84c' : '#e5e7eb'}`, background: sel ? '#c9a84c' : '#f9fafb', color: sel ? '#fff' : '#374151', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.13s' }}>
                                 {sel ? '✓ ' : ''}{g.name}
                               </button>
                             );
@@ -349,11 +349,11 @@ export default function MessagesPage() {
                     <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                       {recipients.map(r => (
                         <span key={r.id}
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', borderRadius: '14px', background: '#eef2ff', border: '1px solid #c7d2fe', color: '#4f46e5', fontSize: '12px', fontWeight: 600 }}>
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', borderRadius: '14px', background: '#fdf8e8', border: '1px solid #f0d88a', color: '#c9a84c', fontSize: '12px', fontWeight: 600 }}>
                           {r.type === 'all' ? '👥' : r.type === 'group' ? '🏠' : '👤'} {r.label}
                           {r.type !== 'all' && (
                             <button onClick={() => removeRecipient(r.id)}
-                              style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#818cf8', padding: '0', display: 'flex', fontSize: '12px', lineHeight: 1, fontFamily: 'inherit', fontWeight: 700 }}>✕</button>
+                              style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#d4b85c', padding: '0', display: 'flex', fontSize: '12px', lineHeight: 1, fontFamily: 'inherit', fontWeight: 700 }}>✕</button>
                           )}
                         </span>
                       ))}
@@ -379,7 +379,7 @@ export default function MessagesPage() {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         {/* 바이트 진행 바 */}
                         <div style={{ width: '60px', height: '4px', borderRadius: '99px', background: '#f1f5f9', overflow: 'hidden' }}>
-                          <div style={{ height: '100%', width: `${bytePercent}%`, background: bytePercent >= 100 ? '#ef4444' : bytePercent >= 80 ? '#f59e0b' : '#4f46e5', borderRadius: '99px', transition: 'width 0.2s' }} />
+                          <div style={{ height: '100%', width: `${bytePercent}%`, background: bytePercent >= 100 ? '#ef4444' : bytePercent >= 80 ? '#f59e0b' : '#c9a84c', borderRadius: '99px', transition: 'width 0.2s' }} />
                         </div>
                         <span style={{ fontSize: '11px', fontWeight: 700, color: contentBytes > SMS_LIMIT ? '#ef4444' : '#6b7280' }}>
                           {Math.ceil(contentBytes / 2)} / 90자
@@ -402,7 +402,7 @@ export default function MessagesPage() {
                     💾 임시저장
                   </button>
                   <button onClick={() => send('scheduled')} disabled={sending}
-                    style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', background: sending ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)', color: sending ? '#818cf8' : '#fff', fontSize: '13px', fontWeight: 700, cursor: sending ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: sending ? 'none' : '0 4px 12px rgba(79,70,229,0.3)' }}>
+                    style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', background: sending ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: sending ? '#d4b85c' : '#fff', fontSize: '13px', fontWeight: 700, cursor: sending ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: sending ? 'none' : '0 4px 12px rgba(201,168,76,0.3)' }}>
                     {sending ? '처리 중...' : '📤 발송 등록'}
                   </button>
                 </div>

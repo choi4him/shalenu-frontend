@@ -112,8 +112,8 @@ export default function BirthdaysPage() {
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
         @keyframes pop { 0%{transform:scale(0.95)} 60%{transform:scale(1.04)} 100%{transform:scale(1)} }
-        .bday-card:hover { box-shadow:0 6px 20px rgba(99,102,241,0.13) !important; border-color:#c7d2fe !important; transform:translateY(-2px); }
-        .cal-day:hover { background:#eef2ff !important; }
+        .bday-card:hover { box-shadow:0 6px 20px rgba(201,168,76,0.13) !important; border-color:#f0d88a !important; transform:translateY(-2px); }
+        .cal-day:hover { background:#fdf8e8 !important; }
       `}</style>
 
       <div style={{ padding: '36px 40px', maxWidth: '900px' }}>
@@ -171,7 +171,7 @@ export default function BirthdaysPage() {
                     }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
-                        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: isToday ? 'linear-gradient(135deg,#fef9c3,#fcd34d)' : 'linear-gradient(135deg,#eef2ff,#c7d2fe)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isToday ? '18px' : '14px', fontWeight: 800, color: isToday ? '#92400e' : '#4f46e5' }}>
+                        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: isToday ? 'linear-gradient(135deg,#fef9c3,#fcd34d)' : 'linear-gradient(135deg,#fdf8e8,#f0d88a)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isToday ? '18px' : '14px', fontWeight: 800, color: isToday ? '#92400e' : '#c9a84c' }}>
                           {isToday ? '🎂' : m.name.charAt(0)}
                         </div>
                         <div>
@@ -202,7 +202,7 @@ export default function BirthdaysPage() {
         <section style={{ background: '#fff', borderRadius: '18px', padding: '24px', border: '1px solid #f1f5f9', boxShadow: '0 1px 6px rgba(0,0,0,0.05)', marginBottom: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#4f46e5,#6366f1)', borderRadius: '99px' }} />
+              <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
               <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>생일 캘린더</span>
             </div>
             {/* 월 이동 */}
@@ -240,8 +240,8 @@ export default function BirthdaysPage() {
               const hasBday = bdays.length > 0;
               return (
                 <div key={day} className={hasBday ? 'cal-day' : ''}
-                  style={{ minHeight: '52px', borderRadius: '8px', padding: '4px 5px', background: isToday ? '#eef2ff' : hasBday ? '#fffbeb' : 'transparent', border: isToday ? '1.5px solid #c7d2fe' : hasBday ? '1px solid #fcd34d' : '1px solid transparent', transition: 'background 0.12s', cursor: hasBday ? 'default' : 'default' }}>
-                  <div style={{ fontSize: '12px', fontWeight: isToday ? 800 : 500, color: isToday ? '#4f46e5' : (i % 7 === 0 || (firstDay + i) % 7 === 0) ? '#ef4444' : ((firstDay + i) % 7 === 6) ? '#2563eb' : '#374151', marginBottom: '2px' }}>{day}</div>
+                  style={{ minHeight: '52px', borderRadius: '8px', padding: '4px 5px', background: isToday ? '#fdf8e8' : hasBday ? '#fffbeb' : 'transparent', border: isToday ? '1.5px solid #f0d88a' : hasBday ? '1px solid #fcd34d' : '1px solid transparent', transition: 'background 0.12s', cursor: hasBday ? 'default' : 'default' }}>
+                  <div style={{ fontSize: '12px', fontWeight: isToday ? 800 : 500, color: isToday ? '#c9a84c' : (i % 7 === 0 || (firstDay + i) % 7 === 0) ? '#ef4444' : ((firstDay + i) % 7 === 6) ? '#2563eb' : '#374151', marginBottom: '2px' }}>{day}</div>
                   {bdays.slice(0, 2).map((name, ni) => (
                     <div key={ni} style={{ fontSize: '10px', fontWeight: 600, color: '#92400e', background: '#fef9c3', borderRadius: '3px', padding: '1px 3px', marginBottom: '1px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       🎂 {name}
@@ -276,7 +276,7 @@ export default function BirthdaysPage() {
                 <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>생일이 다가오면 앱에서 알림을 표시합니다</div>
               </div>
               <div onClick={() => setSettings(p => ({ ...p, is_active: !p.is_active }))}
-                style={{ width: '44px', height: '24px', borderRadius: '12px', background: settings.is_active ? '#4f46e5' : '#d1d5db', position: 'relative', cursor: 'pointer', transition: 'background 0.25s', flexShrink: 0 }}>
+                style={{ width: '44px', height: '24px', borderRadius: '12px', background: settings.is_active ? '#c9a84c' : '#d1d5db', position: 'relative', cursor: 'pointer', transition: 'background 0.25s', flexShrink: 0 }}>
                 <div style={{ position: 'absolute', top: '3px', left: settings.is_active ? '22px' : '3px', width: '18px', height: '18px', borderRadius: '50%', background: '#fff', boxShadow: '0 1px 4px rgba(0,0,0,0.2)', transition: 'left 0.25s' }} />
               </div>
             </div>
@@ -292,7 +292,7 @@ export default function BirthdaysPage() {
                   const sel = settings.alert_days_before === d;
                   return (
                     <button key={d} onClick={() => setSettings(p => ({ ...p, alert_days_before: d }))}
-                      style={{ padding: '9px 20px', borderRadius: '20px', border: `1.5px solid ${sel ? '#4f46e5' : '#e5e7eb'}`, background: sel ? '#4f46e5' : '#fff', color: sel ? '#fff' : '#6b7280', fontSize: '13px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s', boxShadow: sel ? '0 2px 8px rgba(79,70,229,0.25)' : 'none' }}>
+                      style={{ padding: '9px 20px', borderRadius: '20px', border: `1.5px solid ${sel ? '#c9a84c' : '#e5e7eb'}`, background: sel ? '#c9a84c' : '#fff', color: sel ? '#fff' : '#6b7280', fontSize: '13px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s', boxShadow: sel ? '0 2px 8px rgba(201,168,76,0.25)' : 'none' }}>
                       {d}일 전
                     </button>
                   );
@@ -303,23 +303,23 @@ export default function BirthdaysPage() {
             {/* 알림 방법 — 앱 알림만 */}
             <div style={{ padding: '14px 18px', borderRadius: '12px', background: '#f9fafb', border: '1px solid #f1f5f9', opacity: settings.is_active ? 1 : 0.4 }}>
               <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827', marginBottom: '4px' }}>알림 방법</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '9px', background: '#eef2ff', border: '1.5px solid #c7d2fe' }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2" strokeLinecap="round">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '9px', background: '#fdf8e8', border: '1.5px solid #f0d88a' }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round">
                   <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
                   <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
                 </svg>
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#4f46e5' }}>앱 알림</div>
-                  <div style={{ fontSize: '11px', color: '#818cf8', marginTop: '1px' }}>문자/이메일 알림은 추후 지원 예정입니다</div>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#c9a84c' }}>앱 알림</div>
+                  <div style={{ fontSize: '11px', color: '#d4b85c', marginTop: '1px' }}>문자/이메일 알림은 추후 지원 예정입니다</div>
                 </div>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2.5" strokeLinecap="round" style={{ marginLeft: 'auto' }}><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2.5" strokeLinecap="round" style={{ marginLeft: 'auto' }}><polyline points="20 6 9 17 4 12"/></svg>
               </div>
             </div>
 
             {/* 저장 버튼 */}
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <button onClick={saveSettings} disabled={settSaving}
-                style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', background: settSaving ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)', color: settSaving ? '#818cf8' : '#fff', fontSize: '14px', fontWeight: 700, cursor: settSaving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: settSaving ? 'none' : '0 4px 12px rgba(79,70,229,0.3)', transition: 'all 0.2s' }}>
+                style={{ padding: '10px 24px', borderRadius: '10px', border: 'none', background: settSaving ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: settSaving ? '#d4b85c' : '#fff', fontSize: '14px', fontWeight: 700, cursor: settSaving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: settSaving ? 'none' : '0 4px 12px rgba(201,168,76,0.3)', transition: 'all 0.2s' }}>
                 {settSaving ? '저장 중...' : '설정 저장'}
               </button>
             </div>

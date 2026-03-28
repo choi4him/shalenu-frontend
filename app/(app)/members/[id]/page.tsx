@@ -82,7 +82,7 @@ interface EditForm {
 const STATUS_MAP = {
   active:    { label: '활동중',  color: '#059669', bg: '#dcfce7', border: '#bbf7d0' },
   inactive:  { label: '휴면',    color: '#d97706', bg: '#fef3c7', border: '#fde68a' },
-  completed: { label: '수료',    color: '#6366f1', bg: '#eef2ff', border: '#c7d2fe' },
+  completed: { label: '수료',    color: '#c9a84c', bg: '#fdf8e8', border: '#f0d88a' },
   withdrawn: { label: '탈퇴',    color: '#dc2626', bg: '#fef2f2', border: '#fecaca' },
 } as const;
 
@@ -379,10 +379,10 @@ export default function MemberDetailPage() {
         @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
         @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
         @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-        .mi-input:focus { border-color:#4f46e5 !important; box-shadow:0 0 0 3px rgba(79,70,229,0.12) !important; }
+        .mi-input:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.12) !important; }
         .tab-btn { display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s;white-space:nowrap; }
         .family-card { background:#f8fafc;border-radius:12px;padding:14px 18px;border:1px solid #e5e7eb;transition:all 0.15s; }
-        .family-card:hover { border-color:#c7d2fe;background:#f5f7ff; }
+        .family-card:hover { border-color:#f0d88a;background:#f5f7ff; }
         .offering-row { display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f1f5f9; }
         .offering-row:last-child { border-bottom:none; }
         .del-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s; }
@@ -456,10 +456,10 @@ export default function MemberDetailPage() {
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '6px',
                   padding: '10px 18px', borderRadius: '11px',
-                  background: 'linear-gradient(135deg,#4f46e5,#6366f1)',
+                  background: 'linear-gradient(135deg,#c9a84c,#c9a84c)',
                   border: 'none', color: '#fff', fontSize: '13px', fontWeight: 700,
                   cursor: 'pointer', fontFamily: 'inherit',
-                  boxShadow: '0 4px 12px rgba(79,70,229,0.3)', transition: 'all 0.2s',
+                  boxShadow: '0 4px 12px rgba(201,168,76,0.3)', transition: 'all 0.2s',
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.9'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '1'; (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
@@ -488,7 +488,7 @@ export default function MemberDetailPage() {
               onClick={() => { if (!editMode) setTab(t.key); }}
               style={{
                 background: tab === t.key ? '#fff' : 'transparent',
-                color: tab === t.key ? '#4f46e5' : '#6b7280',
+                color: tab === t.key ? '#c9a84c' : '#6b7280',
                 boxShadow: tab === t.key ? '0 1px 4px rgba(0,0,0,0.08)' : 'none',
                 opacity: editMode && tab !== t.key ? 0.4 : 1,
                 cursor: editMode && tab !== t.key ? 'not-allowed' : 'pointer',
@@ -509,7 +509,7 @@ export default function MemberDetailPage() {
               /* ── 편집 폼 ── */
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #f1f5f9' }}>
-                  <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#4f46e5,#6366f1)', borderRadius: '99px' }} />
+                  <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
                   <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>정보 편집</span>
                 </div>
 
@@ -532,9 +532,9 @@ export default function MemberDetailPage() {
                           onClick={() => updateField('gender', g)}
                           style={{
                             flex: 1, padding: '10px', borderRadius: '9px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', border: '2px solid', transition: 'all 0.15s',
-                            borderColor: editForm.gender === g ? '#6366f1' : '#e5e7eb',
-                            background:  editForm.gender === g ? 'linear-gradient(135deg,#eef2ff,#e0e7ff)' : '#f8fafc',
-                            color:       editForm.gender === g ? '#3730a3' : '#6b7280',
+                            borderColor: editForm.gender === g ? '#c9a84c' : '#e5e7eb',
+                            background:  editForm.gender === g ? 'linear-gradient(135deg,#fdf8e8,#e0e7ff)' : '#f8fafc',
+                            color:       editForm.gender === g ? '#7d6324' : '#6b7280',
                           }}
                         >{g === 'M' ? '남성' : '여성'}</button>
                       ))}
@@ -598,7 +598,7 @@ export default function MemberDetailPage() {
                         onClick={openPostcode}
                         style={{
                           padding: '10px 16px', borderRadius: '9px', fontSize: '13px', fontWeight: 600,
-                          background: '#4f46e5', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit',
+                          background: '#c9a84c', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit',
                           whiteSpace: 'nowrap', transition: 'opacity 0.15s',
                         }}
                         onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'}
@@ -643,10 +643,10 @@ export default function MemberDetailPage() {
                     style={{
                       display: 'inline-flex', alignItems: 'center', gap: '7px',
                       padding: '11px 22px', borderRadius: '11px',
-                      background: saving ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)',
-                      border: 'none', color: saving ? '#818cf8' : '#fff',
+                      background: saving ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)',
+                      border: 'none', color: saving ? '#d4b85c' : '#fff',
                       fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer',
-                      fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(79,70,229,0.3)',
+                      fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,76,0.3)',
                     }}
                   >
                     {saving ? (
@@ -715,20 +715,20 @@ export default function MemberDetailPage() {
                     <div key={f.id} className="family-card">
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                          <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg,#eef2ff,#c7d2fe)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg>
+                          <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg,#fdf8e8,#f0d88a)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg>
                           </div>
                           <div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                               <span style={{ fontSize: '14px', fontWeight: 700, color: '#111827' }}>{f.name}</span>
-                              <span style={{ fontSize: '12px', fontWeight: 600, color: '#6366f1', background: '#eef2ff', padding: '2px 8px', borderRadius: '99px' }}>{f.relation}</span>
+                              <span style={{ fontSize: '12px', fontWeight: 600, color: '#c9a84c', background: '#fdf8e8', padding: '2px 8px', borderRadius: '99px' }}>{f.relation}</span>
                             </div>
                             {f.phone && <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>{f.phone}</div>}
                           </div>
                         </div>
                         <button
                           onClick={() => router.push(`/members/${f.id}`)}
-                          style={{ fontSize: '12px', color: '#4f46e5', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600 }}
+                          style={{ fontSize: '12px', color: '#c9a84c', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600 }}
                         >상세 →</button>
                       </div>
                     </div>
@@ -748,7 +748,7 @@ export default function MemberDetailPage() {
                     {
                       label: '총 헌금',
                       value: formatKRW(offerings.filter(o => o.status === 'confirmed').reduce((s, o) => s + o.amount, 0)),
-                      gradient: 'linear-gradient(135deg,#eef2ff,#c7d2fe)', color: '#3730a3',
+                      gradient: 'linear-gradient(135deg,#fdf8e8,#f0d88a)', color: '#7d6324',
                     },
                     {
                       label: '헌금 건수',
@@ -788,7 +788,7 @@ export default function MemberDetailPage() {
                                 {o.offering_date ? formatDateKR(o.offering_date) : '—'}
                               </span>
                               {o.offering_type_name && (
-                                <span style={{ fontSize: '12px', fontWeight: 600, color: '#4f46e5', background: '#eef2ff', padding: '2px 8px', borderRadius: '99px' }}>{o.offering_type_name}</span>
+                                <span style={{ fontSize: '12px', fontWeight: 600, color: '#c9a84c', background: '#fdf8e8', padding: '2px 8px', borderRadius: '99px' }}>{o.offering_type_name}</span>
                               )}
                             </div>
                             <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>
@@ -814,7 +814,7 @@ export default function MemberDetailPage() {
               {/* 노트 작성 버튼 */}
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
                 <button onClick={() => { setShowNoteForm(true); setEditingNote(null); setNoteForm({ category: 'general', content: '', is_private: true, visited_at: '' }); }}
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 16px', borderRadius: '9px', border: 'none', background: 'linear-gradient(135deg,#4f46e5,#6366f1)', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 3px 10px rgba(79,70,229,0.3)' }}>
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 16px', borderRadius: '9px', border: 'none', background: 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 3px 10px rgba(201,168,76,0.3)' }}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                   노트 작성
                 </button>
@@ -822,8 +822,8 @@ export default function MemberDetailPage() {
 
               {/* 노트 작성 폼 (인라인) */}
               {showNoteForm && (
-                <div style={{ background: '#f8faff', borderRadius: '12px', padding: '18px', border: '1.5px solid #c7d2fe', marginBottom: '16px' }}>
-                  <div style={{ fontWeight: 700, fontSize: '13px', color: '#4f46e5', marginBottom: '12px' }}>{editingNote ? '노트 수정' : '새 노트 작성'}</div>
+                <div style={{ background: '#f8faff', borderRadius: '12px', padding: '18px', border: '1.5px solid #f0d88a', marginBottom: '16px' }}>
+                  <div style={{ fontWeight: 700, fontSize: '13px', color: '#c9a84c', marginBottom: '12px' }}>{editingNote ? '노트 수정' : '새 노트 작성'}</div>
                   {/* 카테고리 */}
                   <div style={{ display: 'flex', gap: '6px', marginBottom: '10px', flexWrap: 'wrap' }}>
                     {(Object.entries(NOTE_CAT) as [NoteCategory, typeof NOTE_CAT[NoteCategory]][]).map(([k, v]) => (
@@ -849,7 +849,7 @@ export default function MemberDetailPage() {
                   {/* 비공개 토글 */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
                     <div onClick={() => setNoteForm(p => ({ ...p, is_private: !p.is_private }))}
-                      style={{ width: '36px', height: '20px', borderRadius: '10px', background: noteForm.is_private ? '#4f46e5' : '#d1d5db', position: 'relative', cursor: 'pointer', transition: 'background 0.2s' }}>
+                      style={{ width: '36px', height: '20px', borderRadius: '10px', background: noteForm.is_private ? '#c9a84c' : '#d1d5db', position: 'relative', cursor: 'pointer', transition: 'background 0.2s' }}>
                       <div style={{ position: 'absolute', top: '2px', left: noteForm.is_private ? '18px' : '2px', width: '16px', height: '16px', borderRadius: '50%', background: '#fff', boxShadow: '0 1px 3px rgba(0,0,0,0.2)', transition: 'left 0.2s' }} />
                     </div>
                     <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>{noteForm.is_private ? '🔒 비공개' : '🌐 공개'}</span>
@@ -859,7 +859,7 @@ export default function MemberDetailPage() {
                     <button onClick={() => { setShowNoteForm(false); setEditingNote(null); }}
                       style={{ padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e5e7eb', background: '#fff', color: '#6b7280', fontSize: '12px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>취소</button>
                     <button onClick={saveNote} disabled={noteSaving || !noteForm.content.trim()}
-                      style={{ padding: '7px 14px', borderRadius: '8px', border: 'none', background: noteSaving ? '#c7d2fe' : '#4f46e5', color: noteSaving ? '#818cf8' : '#fff', fontSize: '12px', fontWeight: 700, cursor: noteSaving ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>
+                      style={{ padding: '7px 14px', borderRadius: '8px', border: 'none', background: noteSaving ? '#f0d88a' : '#c9a84c', color: noteSaving ? '#d4b85c' : '#fff', fontSize: '12px', fontWeight: 700, cursor: noteSaving ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>
                       {noteSaving ? '저장 중...' : '저장'}
                     </button>
                   </div>

@@ -171,7 +171,7 @@ function BookingModal({
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', paddingTop: '4px' }}>
             <button onClick={onClose} style={{ padding: '10px 18px', borderRadius: '10px', border: '1.5px solid #e5e7eb', background: '#fff', color: '#374151', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>취소</button>
             <button onClick={save} disabled={saving}
-              style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', background: saving ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)', color: saving ? '#818cf8' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(79,70,229,0.28)' }}>
+              style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', background: saving ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: saving ? '#d4b85c' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,76,0.28)' }}>
               {saving ? '신청 중...' : '예약 신청'}
             </button>
           </div>
@@ -219,7 +219,7 @@ function FacilityModal({ onClose, onDone }: { onClose: () => void; onDone: () =>
           <div><label style={labelStyle}>설명</label><textarea style={{ ...inputStyle, minHeight: '70px', resize: 'vertical' }} placeholder="시설 설명" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
             <button onClick={onClose} style={{ padding: '9px 16px', borderRadius: '9px', border: '1.5px solid #e5e7eb', background: '#fff', color: '#374151', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>취소</button>
-            <button onClick={save} disabled={saving} style={{ padding: '9px 20px', borderRadius: '9px', border: 'none', background: saving ? '#c7d2fe' : '#4f46e5', color: saving ? '#818cf8' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>{saving ? '등록 중...' : '등록'}</button>
+            <button onClick={save} disabled={saving} style={{ padding: '9px 20px', borderRadius: '9px', border: 'none', background: saving ? '#f0d88a' : '#c9a84c', color: saving ? '#d4b85c' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>{saving ? '등록 중...' : '등록'}</button>
           </div>
         </div>
       </div>
@@ -283,8 +283,8 @@ export default function FacilitiesPage() {
     <>
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
-        .fac-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(79,70,229,0.12) !important; border-color:#c7d2fe !important; }
-        .cal-day-btn:hover { background:#eef2ff !important; }
+        .fac-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,0.12) !important; border-color:#f0d88a !important; }
+        .cal-day-btn:hover { background:#fdf8e8 !important; }
         .bk-row:hover { background:#f8faff !important; }
       `}</style>
 
@@ -307,7 +307,7 @@ export default function FacilitiesPage() {
           {/* 월 헤더 */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#4f46e5,#6366f1)', borderRadius: '99px' }} />
+              <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
               <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>월별 예약 캘린더</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -344,9 +344,9 @@ export default function FacilitiesPage() {
                 <div key={day} className="cal-day-btn"
                   onClick={() => setSelectedDay(isSel ? null : day)}
                   style={{ minHeight: '52px', borderRadius: '9px', padding: '4px 6px', cursor: 'pointer', transition: 'all 0.12s',
-                    background: isSel ? '#4f46e5' : isToday ? '#eef2ff' : 'transparent',
-                    border: isSel ? '2px solid #4f46e5' : isToday ? '1.5px solid #c7d2fe' : '1.5px solid transparent' }}>
-                  <div style={{ fontSize: '12px', fontWeight: isToday || isSel ? 800 : 500, color: isSel ? '#fff' : isToday ? '#4f46e5' : '#374151', marginBottom: '3px' }}>{day}</div>
+                    background: isSel ? '#c9a84c' : isToday ? '#fdf8e8' : 'transparent',
+                    border: isSel ? '2px solid #c9a84c' : isToday ? '1.5px solid #f0d88a' : '1.5px solid transparent' }}>
+                  <div style={{ fontSize: '12px', fontWeight: isToday || isSel ? 800 : 500, color: isSel ? '#fff' : isToday ? '#c9a84c' : '#374151', marginBottom: '3px' }}>{day}</div>
                   {approvedCount > 0 && <div style={{ fontSize: '9px', fontWeight: 700, padding: '1px 4px', borderRadius: '4px', background: isSel ? 'rgba(255,255,255,0.25)' : '#f0fdf4', color: isSel ? '#fff' : '#16a34a', marginBottom: '1px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>✓ {approvedCount}건</div>}
                   {pendingCount  > 0 && <div style={{ fontSize: '9px', fontWeight: 700, padding: '1px 4px', borderRadius: '4px', background: isSel ? 'rgba(255,255,255,0.25)' : '#fffbeb', color: isSel ? '#fff' : '#d97706', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>⏳ {pendingCount}건</div>}
                 </div>
@@ -406,7 +406,7 @@ export default function FacilitiesPage() {
                   style={{ background: '#fff', borderRadius: '16px', padding: '20px', border: '1.5px solid #f1f5f9', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', transition: 'all 0.18s' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg,#eef2ff,#e0e7ff)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px' }}>{icon}</div>
+                      <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg,#fdf8e8,#e0e7ff)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px' }}>{icon}</div>
                       <div>
                         <div style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>{fac.name}</div>
                         {fac.capacity && <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>수용 {fac.capacity}명</div>}
@@ -434,7 +434,7 @@ export default function FacilitiesPage() {
                   </div>
 
                   <button onClick={() => { setBookTarget(fac); setShowBook(true); }}
-                    style={{ width: '100%', padding: '9px', borderRadius: '9px', border: 'none', background: 'linear-gradient(135deg,#4f46e5,#6366f1)', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 3px 10px rgba(79,70,229,0.25)' }}>
+                    style={{ width: '100%', padding: '9px', borderRadius: '9px', border: 'none', background: 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 3px 10px rgba(201,168,76,0.25)' }}>
                     예약하기
                   </button>
                 </div>

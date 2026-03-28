@@ -18,6 +18,10 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
         />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap"
+        />
       </head>
       <body>{children}</body>
     </html>

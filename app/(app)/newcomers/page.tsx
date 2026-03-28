@@ -188,7 +188,7 @@ function CreateModal({ onClose, onCreated }: { onClose: () => void; onCreated: (
         <div style={{ display: 'flex', gap: '8px', marginTop: '24px' }}>
           <button onClick={onClose} style={{ flex: 1, padding: '11px', borderRadius: '10px', border: '1.5px solid #e5e7eb', background: '#fff', color: '#6b7280', fontSize: '14px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>취소</button>
           <button onClick={submit} disabled={saving}
-            style={{ flex: 2, padding: '11px', borderRadius: '10px', border: 'none', background: saving ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)', color: saving ? '#818cf8' : '#fff', fontSize: '14px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(79,70,229,0.3)' }}>
+            style={{ flex: 2, padding: '11px', borderRadius: '10px', border: 'none', background: saving ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: saving ? '#d4b85c' : '#fff', fontSize: '14px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,76,0.3)' }}>
             {saving ? '등록 중...' : '등록하기'}
           </button>
         </div>
@@ -202,11 +202,11 @@ function NewcomerCard({ nc, onClick }: { nc: Newcomer; onClick: () => void }) {
   return (
     <div onClick={onClick}
       style={{ background: '#fff', borderRadius: '16px', padding: '20px', border: '1.5px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)', cursor: 'pointer', transition: 'all 0.18s' }}
-      onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 8px 24px rgba(79,70,229,0.12)'; el.style.borderColor = '#c7d2fe'; el.style.transform = 'translateY(-2px)'; }}
+      onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 8px 24px rgba(201,168,76,0.12)'; el.style.borderColor = '#f0d88a'; el.style.transform = 'translateY(-2px)'; }}
       onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.boxShadow = '0 1px 4px rgba(0,0,0,0.05)'; el.style.borderColor = '#f1f5f9'; el.style.transform = 'none'; }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg,#eef2ff,#c7d2fe)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', fontWeight: 800, color: '#4f46e5', flexShrink: 0 }}>
+          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg,#fdf8e8,#f0d88a)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', fontWeight: 800, color: '#c9a84c', flexShrink: 0 }}>
             {nc.name.charAt(0)}
           </div>
           <div>
@@ -284,7 +284,7 @@ export default function NewcomersPage() {
             <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>방문 새가족을 관리하고 교인으로 연결합니다</p>
           </div>
           <button onClick={() => setShowCreate(true)}
-            style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '10px 20px', borderRadius: '11px', border: 'none', background: 'linear-gradient(135deg,#4f46e5,#6366f1)', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(79,70,229,0.35)', flexShrink: 0 }}>
+            style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '10px 20px', borderRadius: '11px', border: 'none', background: 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(201,168,76,0.35)', flexShrink: 0 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             새가족 등록
           </button>
@@ -303,7 +303,7 @@ export default function NewcomersPage() {
             const cfg = t.key !== 'all' ? STATUS_CONFIG[t.key as NewcomerStatus] : null;
             return (
               <button key={t.key} onClick={() => setTab(t.key as 'all' | NewcomerStatus)}
-                style={{ padding: '7px 16px', borderRadius: '20px', border: `1.5px solid ${sel ? (cfg?.border ?? '#4f46e5') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#eef2ff') : '#fff', color: sel ? (cfg?.color ?? '#4f46e5') : '#6b7280', fontSize: '13px', fontWeight: sel ? 700 : 500, cursor: 'pointer', transition: 'all 0.15s', fontFamily: 'inherit' }}>
+                style={{ padding: '7px 16px', borderRadius: '20px', border: `1.5px solid ${sel ? (cfg?.border ?? '#c9a84c') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#fdf8e8') : '#fff', color: sel ? (cfg?.color ?? '#c9a84c') : '#6b7280', fontSize: '13px', fontWeight: sel ? 700 : 500, cursor: 'pointer', transition: 'all 0.15s', fontFamily: 'inherit' }}>
                 {t.label}
                 <span style={{ marginLeft: '5px', padding: '1px 6px', borderRadius: '10px', background: sel ? 'rgba(255,255,255,0.5)' : '#f3f4f6', fontSize: '11px', fontWeight: 700 }}>
                   {counts[t.key] ?? 0}
@@ -325,7 +325,7 @@ export default function NewcomersPage() {
             <div style={{ fontSize: '13px', color: '#9ca3af', marginBottom: '16px' }}>새가족 등록 버튼으로 추가해보세요</div>
             {!search && (
               <button onClick={() => setShowCreate(true)}
-                style={{ padding: '9px 20px', borderRadius: '10px', border: 'none', background: '#4f46e5', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
+                style={{ padding: '9px 20px', borderRadius: '10px', border: 'none', background: '#c9a84c', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
                 + 새가족 등록
               </button>
             )}

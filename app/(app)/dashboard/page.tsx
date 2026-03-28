@@ -118,13 +118,15 @@ export default function DashboardPage() {
       title: '전체 교인 수',
       value: totalMembers !== null ? `${totalMembers.toLocaleString()}명` : '--',
       subtitle: '등록 교인 기준',
-      accentColor: '#6366f1',
+      accentColor: '#c9a84c',
       icon: (
+        /* 양 아이콘 */
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          <circle cx="12" cy="8" r="5"/>
+          <circle cx="7" cy="7" r="2.5"/>
+          <circle cx="17" cy="7" r="2.5"/>
+          <path d="M8 18v3M16 18v3"/>
+          <ellipse cx="12" cy="15" rx="6" ry="4"/>
         </svg>
       ),
     },
@@ -132,11 +134,13 @@ export default function DashboardPage() {
       title: '이번 달 헌금',
       value: monthlyOffering !== null ? formatKRW(monthlyOffering) : '--',
       subtitle: `${CURRENT_YEAR}년 ${CURRENT_MONTH}월`,
-      accentColor: '#06b6d4',
+      accentColor: '#e8d48b',
       icon: (
+        /* 십자가+하트 아이콘 */
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="12" y1="1" x2="12" y2="23" />
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          <rect x="10" y="2" width="4" height="14" rx="1"/>
+          <rect x="5" y="6" width="14" height="4" rx="1"/>
+          <path d="M12 17c-2 2-5 3-5 1s3-4 5-2c2-2 5-1 5 2s-3 1-5-1z"/>
         </svg>
       ),
     },
@@ -144,11 +148,15 @@ export default function DashboardPage() {
       title: '이번 달 지출',
       value: monthlyExpense !== null ? formatKRW(monthlyExpense) : '--',
       subtitle: `${CURRENT_YEAR}년 ${CURRENT_MONTH}월`,
-      accentColor: '#f59e0b',
+      accentColor: '#b5923a',
       icon: (
+        /* 저울 아이콘 */
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-          <polyline points="17 6 23 6 23 12" />
+          <line x1="12" y1="3" x2="12" y2="21"/>
+          <line x1="4" y1="7" x2="20" y2="7"/>
+          <path d="M4 7l-1 8h6L8 7"/>
+          <path d="M20 7l1 8h-6l1-8"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
         </svg>
       ),
     },
@@ -156,11 +164,14 @@ export default function DashboardPage() {
       title: '현재 잔액',
       value: currentBalance !== null ? formatKRW(currentBalance) : '--',
       subtitle: '재정 누계 기준',
-      accentColor: '#10b981',
+      accentColor: '#4a7c59',
       icon: (
+        /* 교회 건물 아이콘 */
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="5" width="20" height="14" rx="2" />
-          <line x1="2" y1="10" x2="22" y2="10" />
+          <path d="M12 2L12 6"/>
+          <path d="M9 6h6"/>
+          <path d="M12 6L5 12v9h14v-9L12 6z"/>
+          <rect x="10" y="15" width="4" height="6"/>
         </svg>
       ),
     },
@@ -311,12 +322,12 @@ export default function DashboardPage() {
                 gap: '12px',
                 padding: '14px 18px',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, #4f46e5, #6366f1)',
-                color: '#ffffff',
+                background: 'linear-gradient(135deg, #c9a84c, #e8d48b)',
+                color: '#1a1208',
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: 600,
-                boxShadow: '0 4px 12px rgba(79,70,229,0.35)',
+                boxShadow: '0 4px 12px rgba(201,168,76,0.35)',
                 transition: 'opacity 0.15s ease',
                 whiteSpace: 'nowrap',
               }}
@@ -337,20 +348,20 @@ export default function DashboardPage() {
                 gap: '12px',
                 padding: '14px 18px',
                 borderRadius: '12px',
-                background: 'rgba(5,150,105,0.12)',
-                color: '#34d399',
+                background: 'rgba(74,124,89,0.12)',
+                color: '#6b9e78',
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: 600,
-                border: '1px solid rgba(52,211,153,0.25)',
+                border: '1px solid rgba(74,124,89,0.25)',
                 transition: 'all 0.15s ease',
                 whiteSpace: 'nowrap',
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(5,150,105,0.2)';
+                (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(74,124,89,0.2)';
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(5,150,105,0.12)';
+                (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(74,124,89,0.12)';
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

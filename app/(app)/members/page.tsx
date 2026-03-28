@@ -116,7 +116,7 @@ export default function MembersPage() {
         <div>
           <h1 style={{
             fontSize: '26px', fontWeight: 800, letterSpacing: '-0.04em', margin: '0 0 6px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            background: 'linear-gradient(135deg, #c9a84c, #e8d48b)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
           }}>
             교인 관리
@@ -189,7 +189,7 @@ export default function MembersPage() {
                   ? (
                     <tr>
                       <td colSpan={6} style={{ padding: '60px 20px', textAlign: 'center', color: 'var(--muted)' }}>
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto 12px' }}>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto 12px' }}>
                           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
                         <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--foreground-2)', marginBottom: '4px' }}>교인이 없습니다</div>

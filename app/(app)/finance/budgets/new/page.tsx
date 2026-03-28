@@ -64,7 +64,7 @@ const labelSt: React.CSSProperties = {
 
 // ─── 작은 아이콘 버튼 ────────────────────────────────────
 function IconBtn({
-  onClick, title, children, color = '#4f46e5', bg = '#eef2ff', border = '#c7d2fe',
+  onClick, title, children, color = '#c9a84c', bg = '#fdf8e8', border = '#f0d88a',
 }: {
   onClick: () => void; title: string; children: React.ReactNode;
   color?: string; bg?: string; border?: string;
@@ -133,8 +133,8 @@ function AddModal({
             type="button" onClick={handleSave} disabled={saving || !val.trim()}
             style={{
               padding:'9px 18px', borderRadius:'9px', border:'none',
-              background: (saving || !val.trim()) ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)',
-              color: (saving || !val.trim()) ? '#818cf8' : '#fff',
+              background: (saving || !val.trim()) ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)',
+              color: (saving || !val.trim()) ? '#d4b85c' : '#fff',
               fontSize:'13px', fontWeight:700, cursor:(saving || !val.trim())?'not-allowed':'pointer',
               fontFamily:'inherit', display:'flex', alignItems:'center', gap:'6px',
             }}
@@ -340,18 +340,18 @@ export default function BudgetNewPage() {
         @keyframes popUp  { from{opacity:0;transform:scale(0.94) translateY(8px)} to{opacity:1;transform:none} }
         @keyframes spin   { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
         @keyframes slotIn { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:none} }
-        .mi-input:focus { border-color:#4f46e5 !important; box-shadow:0 0 0 3px rgba(79,70,229,0.12) !important; }
+        .mi-input:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.12) !important; }
         .line-card { background:#fff;border:1.5px solid #f1f5f9;border-radius:14px;padding:16px 18px;transition:border-color 0.15s;animation:slotIn 0.2s; }
         .line-card:hover { border-color:#e0e7ff; }
-        .add-btn { display:inline-flex;align-items:center;gap:7px;padding:11px 18px;border-radius:11px;border:1.5px dashed #c7d2fe;background:#f5f7ff;color:#4f46e5;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;justify-content:center;transition:all 0.15s; }
-        .add-btn:hover { border-color:#4f46e5;background:#eef2ff; }
+        .add-btn { display:inline-flex;align-items:center;gap:7px;padding:11px 18px;border-radius:11px;border:1.5px dashed #f0d88a;background:#f5f7ff;color:#c9a84c;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;justify-content:center;transition:all 0.15s; }
+        .add-btn:hover { border-color:#c9a84c;background:#fdf8e8; }
         .del-btn { display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:1.5px solid #fecaca;background:#fff;color:#dc2626;cursor:pointer;flex-shrink:0;transition:all 0.15s; }
         .del-btn:hover { background:#fef2f2;border-color:#dc2626; }
         .tmpl-select { width:100%;padding:10px 12px;border-radius:9px;border:1.5px solid #e5e7eb;font-size:14px;color:#111827;background:#fff;font-family:inherit;outline:none;cursor:pointer;transition:border-color 0.2s; }
-        .tmpl-select:focus { border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,0.12); }
+        .tmpl-select:focus { border-color:#c9a84c;box-shadow:0 0 0 3px rgba(201,168,76,0.12); }
         .yr-btn { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;color:#374151;transition:all 0.15s;font-size:18px; }
-        .yr-btn:hover { border-color:#4f46e5;color:#4f46e5; }
-        .free-toggle { font-size:11px;color:#6366f1;background:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;padding:0;text-decoration:underline;white-space:nowrap; }
+        .yr-btn:hover { border-color:#c9a84c;color:#c9a84c; }
+        .free-toggle { font-size:11px;color:#c9a84c;background:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;padding:0;text-decoration:underline;white-space:nowrap; }
         .free-toggle:hover { color:#4338ca; }
       `}</style>
 
@@ -385,14 +385,14 @@ export default function BudgetNewPage() {
         {/* ── 회계 연도 ── */}
         <div style={{ background:'#fff',borderRadius:'16px',padding:'20px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.06)',marginBottom:'16px' }}>
           <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'14px' }}>
-            <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }} />
+            <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
             <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>기본 정보</span>
           </div>
           <div style={{ maxWidth:'210px' }}>
             <label style={labelSt}>회계 연도 <span style={{ color:'#ef4444' }}>*</span></label>
             <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
               <button className="yr-btn" onClick={() => setYear(y => y - 1)}>‹</button>
-              <div style={{ ...inputSt,textAlign:'center',fontWeight:800,fontSize:'16px',width:'88px',flex:'none',color:'#3730a3',padding:'9px' }}>{year}년</div>
+              <div style={{ ...inputSt,textAlign:'center',fontWeight:800,fontSize:'16px',width:'88px',flex:'none',color:'#7d6324',padding:'9px' }}>{year}년</div>
               <button className="yr-btn" onClick={() => setYear(y => y + 1)}>›</button>
             </div>
           </div>
@@ -403,14 +403,14 @@ export default function BudgetNewPage() {
           {/* 헤더 */}
           <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'16px' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
-              <div style={{ width:'4px',height:'18px',background:'linear-gradient(#4f46e5,#6366f1)',borderRadius:'99px' }} />
+              <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
               <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>예산 항목</span>
               <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{lines.length}개</span>
             </div>
             {total > 0 && (
               <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
                 <span style={{ fontSize:'12px',color:'#6b7280' }}>총 계획</span>
-                <span style={{ fontSize:'16px',fontWeight:900,color:'#3730a3',letterSpacing:'-0.02em' }}>{formatKRW(total)}</span>
+                <span style={{ fontSize:'16px',fontWeight:900,color:'#7d6324',letterSpacing:'-0.02em' }}>{formatKRW(total)}</span>
               </div>
             )}
           </div>
@@ -418,7 +418,7 @@ export default function BudgetNewPage() {
           {/* 스크롤 박스 */}
           <div
             ref={scrollBoxRef}
-            style={{ maxHeight:'500px',overflowY:'auto',marginBottom:'12px',paddingRight:'2px',scrollbarWidth:'thin',scrollbarColor:'#c7d2fe #f1f5f9' }}
+            style={{ maxHeight:'500px',overflowY:'auto',marginBottom:'12px',paddingRight:'2px',scrollbarWidth:'thin',scrollbarColor:'#f0d88a #f1f5f9' }}
           >
             <div style={{ display:'flex',flexDirection:'column',gap:'10px',paddingBottom:'4px' }}>
               {lines.map((line, idx) => (
@@ -426,7 +426,7 @@ export default function BudgetNewPage() {
                   {/* 라인 헤더 */}
                   <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'12px' }}>
                     <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
-                      <div style={{ width:'24px',height:'24px',borderRadius:'7px',background:'linear-gradient(135deg,#eef2ff,#c7d2fe)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',fontWeight:800,color:'#4f46e5' }}>
+                      <div style={{ width:'24px',height:'24px',borderRadius:'7px',background:'linear-gradient(135deg,#fdf8e8,#f0d88a)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',fontWeight:800,color:'#c9a84c' }}>
                         {idx + 1}
                       </div>
                       <span style={{ fontSize:'18px' }}>{CATEGORY_ICONS[line.category] ?? '📌'}</span>
@@ -451,7 +451,7 @@ export default function BudgetNewPage() {
                         <IconBtn
                           onClick={() => setCatModal(true)}
                           title="새 분류 추가"
-                          color="#4f46e5" bg="#eef2ff" border="#c7d2fe"
+                          color="#c9a84c" bg="#fdf8e8" border="#f0d88a"
                         >
                           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                         </IconBtn>
@@ -553,7 +553,7 @@ export default function BudgetNewPage() {
                         <span style={{ position:'absolute',right:'10px',top:'50%',transform:'translateY(-50%)',fontSize:'12px',color:'#9ca3af',pointerEvents:'none' }}>원</span>
                       </div>
                       {line.planned_amount > 0 && (
-                        <div style={{ fontSize:'11px',color:'#6366f1',fontWeight:600,marginTop:'3px',textAlign:'right' }}>
+                        <div style={{ fontSize:'11px',color:'#c9a84c',fontWeight:600,marginTop:'3px',textAlign:'right' }}>
                           {formatKRW(line.planned_amount)}
                         </div>
                       )}
@@ -574,15 +574,15 @@ export default function BudgetNewPage() {
         {/* ── 합계 요약 (sticky) ── */}
         <div style={{
           position:'sticky', bottom:'0', zIndex:10,
-          background:'linear-gradient(135deg,#f5f7ff,#eef2ff)',
-          borderRadius:'14px', padding:'14px 22px', border:'1.5px solid #c7d2fe',
+          background:'linear-gradient(135deg,#f5f7ff,#fdf8e8)',
+          borderRadius:'14px', padding:'14px 22px', border:'1.5px solid #f0d88a',
           marginBottom:'20px', display:'flex', alignItems:'center',
           justifyContent:'space-between', gap:'16px', flexWrap:'wrap',
-          boxShadow:'0 -4px 20px rgba(79,70,229,0.1)', backdropFilter:'blur(8px)',
+          boxShadow:'0 -4px 20px rgba(201,168,76,0.1)', backdropFilter:'blur(8px)',
         }}>
           <div>
-            <div style={{ fontSize:'11px',fontWeight:700,color:'#6366f1',letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:'3px' }}>총 예산 합계</div>
-            <div style={{ fontSize:'26px',fontWeight:900,color:'#3730a3',letterSpacing:'-0.04em' }}>{formatKRW(total)}</div>
+            <div style={{ fontSize:'11px',fontWeight:700,color:'#c9a84c',letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:'3px' }}>총 예산 합계</div>
+            <div style={{ fontSize:'26px',fontWeight:900,color:'#7d6324',letterSpacing:'-0.04em' }}>{formatKRW(total)}</div>
           </div>
           <div style={{ display:'flex',flexDirection:'column',gap:'4px',alignItems:'flex-end',maxHeight:'80px',overflowY:'auto' }}>
             {lines.filter(l => l.planned_amount > 0).map(l => (
@@ -591,7 +591,7 @@ export default function BudgetNewPage() {
                   {categories.find(c => c.value === l.category)?.label ?? l.category}
                   {l.description ? ` · ${l.description}` : ''}
                 </span>
-                <span style={{ fontWeight:700,color:'#3730a3' }}>{formatKRW(l.planned_amount)}</span>
+                <span style={{ fontWeight:700,color:'#7d6324' }}>{formatKRW(l.planned_amount)}</span>
               </div>
             ))}
           </div>
@@ -608,10 +608,10 @@ export default function BudgetNewPage() {
             style={{
               display:'inline-flex',alignItems:'center',gap:'8px',
               padding:'12px 28px',borderRadius:'11px',
-              background:saving?'#c7d2fe':'linear-gradient(135deg,#4f46e5,#6366f1)',
-              border:'none',color:saving?'#818cf8':'#fff',
+              background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)',
+              border:'none',color:saving?'#d4b85c':'#fff',
               fontSize:'14px',fontWeight:700,cursor:saving?'not-allowed':'pointer',
-              fontFamily:'inherit',boxShadow:saving?'none':'0 4px 14px rgba(79,70,229,0.3)',
+              fontFamily:'inherit',boxShadow:saving?'none':'0 4px 14px rgba(201,168,76,0.3)',
             }}
             onMouseEnter={e => { if (!saving) { (e.currentTarget as HTMLButtonElement).style.opacity='0.9'; (e.currentTarget as HTMLButtonElement).style.transform='translateY(-1px)'; } }}
             onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity='1'; (e.currentTarget as HTMLButtonElement).style.transform='none'; }}

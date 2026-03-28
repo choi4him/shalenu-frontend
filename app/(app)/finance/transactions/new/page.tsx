@@ -109,7 +109,7 @@ export default function TransactionNewPage() {
   return (
     <>
       <style>{`
-        .fi-input:focus { border-color:#4f46e5 !important; box-shadow:0 0 0 3px rgba(79,70,229,0.12) !important; }
+        .fi-input:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.12) !important; }
         .type-btn { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; fontFamily:inherit; border:2px solid transparent; transition:all 0.2s; }
         @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
       `}</style>
@@ -154,9 +154,9 @@ export default function TransactionNewPage() {
                 className="type-btn"
                 onClick={() => setTxType('income')}
                 style={{
-                  background: txType === 'income' ? 'linear-gradient(135deg,#eef2ff,#ddd6fe)' : '#f8fafc',
-                  borderColor: txType === 'income' ? '#6366f1' : '#e5e7eb',
-                  color: txType === 'income' ? '#3730a3' : '#6b7280',
+                  background: txType === 'income' ? 'linear-gradient(135deg,#fdf8e8,#ddd6fe)' : '#f8fafc',
+                  borderColor: txType === 'income' ? '#c9a84c' : '#e5e7eb',
+                  color: txType === 'income' ? '#7d6324' : '#6b7280',
                 }}
               >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }}>
@@ -298,15 +298,15 @@ export default function TransactionNewPage() {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '12px 28px', borderRadius: '12px',
-                background: submitting ? '#c7d2fe' : txType === 'income'
-                  ? 'linear-gradient(135deg,#4f46e5,#6366f1)'
+                background: submitting ? '#f0d88a' : txType === 'income'
+                  ? 'linear-gradient(135deg,#c9a84c,#c9a84c)'
                   : 'linear-gradient(135deg,#dc2626,#ef4444)',
                 border: 'none',
-                color: submitting ? '#818cf8' : '#fff',
+                color: submitting ? '#d4b85c' : '#fff',
                 fontSize: '14px', fontWeight: 700,
                 cursor: submitting ? 'not-allowed' : 'pointer',
                 fontFamily: 'inherit',
-                boxShadow: submitting ? 'none' : '0 4px 12px rgba(79,70,229,0.3)',
+                boxShadow: submitting ? 'none' : '0 4px 12px rgba(201,168,76,0.3)',
                 transition: 'all 0.2s',
               }}
             >

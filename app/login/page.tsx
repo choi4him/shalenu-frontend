@@ -73,9 +73,9 @@ export default function LoginPage() {
     width: '100%',
     padding: '12px 16px',
     borderRadius: '10px',
-    border: `1.5px solid ${hasError ? 'rgba(239,68,68,0.5)' : 'rgba(99,102,241,0.3)'}`,
+    border: `1.5px solid ${hasError ? 'rgba(239,68,68,0.5)' : 'rgba(201,168,76,0.3)'}`,
     fontSize: '15px',
-    color: '#e2e8f0',
+    color: '#f5edd6',
     outline: 'none',
     transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
     boxSizing: 'border-box',
@@ -117,27 +117,27 @@ export default function LoginPage() {
         .pw-toggle-btn {
           position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
           background: none; border: none; cursor: pointer; padding: 4px;
-          color: #7b7b9d; display: flex; align-items: center;
+          color: #8a7e60; display: flex; align-items: center;
           border-radius: 6px; transition: color 0.15s; line-height: 0;
         }
-        .pw-toggle-btn:hover { color: #a5b4fc; }
+        .pw-toggle-btn:hover { color: #e8d48b; }
         .login-submit-btn { transition: all 0.2s ease; }
         .login-submit-btn:not(:disabled):hover {
           transform: translateY(-2px);
-          box-shadow: 0 12px 28px rgba(99,102,241,0.5) !important;
+          box-shadow: 0 12px 28px rgba(201,168,76,0.5) !important;
         }
         .login-submit-btn:not(:disabled):active { transform: translateY(0); }
         .login-input:focus {
-          border-color: #6366f1 !important;
-          box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important;
+          border-color: #c9a84c !important;
+          box-shadow: 0 0 0 3px rgba(201,168,76,0.15) !important;
         }
-        .login-input::placeholder { color: #7b7b9d; }
+        .login-input::placeholder { color: #8a7e60; }
       `}</style>
 
       <div
         style={{
           minHeight: '100vh',
-          background: 'linear-gradient(-45deg, #0a0a1a, #0f0f2d, #1a1040, #0d1b3e)',
+          background: 'linear-gradient(-45deg, #1a1208, #241a0e, #2a1f10, #1e150a)',
           backgroundSize: '400% 400%',
           animation: 'gradientShift 12s ease infinite',
           display: 'flex',
@@ -148,29 +148,41 @@ export default function LoginPage() {
           overflow: 'hidden',
         }}
       >
+        {/* 배경 십자가 실루엣 */}
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%',
+          transform: 'translate(-50%, -55%)',
+          opacity: 0.04, pointerEvents: 'none',
+        }}>
+          <svg width="500" height="600" viewBox="0 0 100 120" fill="#c9a84c">
+            <rect x="40" y="0" width="20" height="120" rx="2"/>
+            <rect x="15" y="25" width="70" height="20" rx="2"/>
+          </svg>
+        </div>
+
         {/* 배경 글로우 장식 */}
         <div style={{
           position: 'absolute', top: '-200px', right: '-150px',
           width: '600px', height: '600px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%)',
           pointerEvents: 'none', animation: 'floatParticle 10s ease-in-out infinite',
         }} />
         <div style={{
           position: 'absolute', bottom: '-150px', left: '-100px',
           width: '500px', height: '500px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%)',
           pointerEvents: 'none', animation: 'floatParticle 14s ease-in-out infinite reverse',
         }} />
         <div style={{
           position: 'absolute', top: '40%', left: '60%',
           width: '300px', height: '300px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(74,124,89,0.1) 0%, transparent 70%)',
           pointerEvents: 'none', animation: 'floatParticle 8s ease-in-out infinite',
         }} />
         {/* 격자 패턴 */}
         <div style={{
           position: 'absolute', inset: 0,
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(rgba(201,168,76,0.03) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
           pointerEvents: 'none',
         }} />
@@ -183,15 +195,15 @@ export default function LoginPage() {
               : `login-card-enter${hasError && error ? ' login-card-shake' : ''}`
           }
           style={{
-            background: 'rgba(255,255,255,0.06)',
+            background: 'rgba(26,18,8,0.85)',
             backdropFilter: 'blur(24px)',
             WebkitBackdropFilter: 'blur(24px)',
             borderRadius: '24px',
             padding: '48px 44px',
             width: '100%',
             maxWidth: '420px',
-            boxShadow: '0 32px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08)',
-            border: '1px solid rgba(99,102,241,0.2)',
+            boxShadow: '0 32px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.12)',
+            border: '1px solid rgba(201,168,76,0.15)',
             position: 'relative',
             zIndex: 1,
           }}
@@ -200,34 +212,34 @@ export default function LoginPage() {
           <div style={{
             position: 'absolute', top: '-1px', left: '50%', transform: 'translateX(-50%)',
             width: '60%', height: '1px',
-            background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.8), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.6), transparent)',
           }} />
 
           {/* 로고 */}
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <div style={{
               width: '60px', height: '60px', borderRadius: '18px',
-              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
+              background: 'linear-gradient(135deg, #c9a84c 0%, #e8d48b 100%)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               margin: '0 auto 18px',
-              boxShadow: '0 8px 28px rgba(99,102,241,0.5)',
+              boxShadow: '0 8px 28px rgba(201,168,76,0.4)',
             }}>
+              {/* 십자가 아이콘 */}
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" fill="white" fillOpacity="0.95"/>
-                <path d="M2 17l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 12l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.65"/>
+                <rect x="10" y="2" width="4" height="20" rx="1" fill="#1a1208"/>
+                <rect x="4" y="7" width="16" height="4" rx="1" fill="#1a1208"/>
               </svg>
             </div>
             <h1 style={{
               fontSize: '28px', fontWeight: 800, margin: '0 0 6px',
               letterSpacing: '-0.04em',
-              background: 'linear-gradient(135deg, #e2e8f0, #ffffff)',
+              background: 'linear-gradient(135deg, #e8d48b, #f5edd6)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
             }}>
               J-SheepFold
             </h1>
-            <p style={{ color: '#7b7b9d', fontSize: '13px', margin: 0, fontWeight: 500, letterSpacing: '0.01em' }}>
-              J-SHEEPFOLD · 교회 통합 관리 시스템
+            <p style={{ color: '#8a7e60', fontSize: '13px', margin: 0, fontWeight: 500, letterSpacing: '0.01em' }}>
+              교회 통합 관리 시스템
             </p>
           </div>
 
@@ -236,7 +248,7 @@ export default function LoginPage() {
 
             {/* 이메일 */}
             <div>
-              <label htmlFor="login-email" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#c0c0d0', marginBottom: '8px' }}>
+              <label htmlFor="login-email" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#d4c9a8', marginBottom: '8px' }}>
                 이메일
               </label>
               <input
@@ -256,7 +268,7 @@ export default function LoginPage() {
 
             {/* 비밀번호 */}
             <div>
-              <label htmlFor="login-password" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#c0c0d0', marginBottom: '8px' }}>
+              <label htmlFor="login-password" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#d4c9a8', marginBottom: '8px' }}>
                 비밀번호
               </label>
               <div style={{ position: 'relative' }}>
@@ -314,12 +326,12 @@ export default function LoginPage() {
               style={{
                 width: '100%', padding: '14px', borderRadius: '12px',
                 background: loading
-                  ? 'rgba(99,102,241,0.4)'
-                  : 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
-                border: 'none', color: '#ffffff',
+                  ? 'rgba(201,168,76,0.4)'
+                  : 'linear-gradient(135deg, #c9a84c 0%, #e8d48b 100%)',
+                border: 'none', color: '#1a1208',
                 fontSize: '15px', fontWeight: 700,
                 cursor: loading ? 'not-allowed' : 'pointer',
-                boxShadow: loading ? 'none' : '0 4px 16px rgba(99,102,241,0.4)',
+                boxShadow: loading ? 'none' : '0 4px 16px rgba(201,168,76,0.4)',
                 letterSpacing: '-0.01em', marginTop: '4px',
                 fontFamily: 'inherit',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
@@ -336,8 +348,8 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p style={{ textAlign: 'center', marginTop: '28px', marginBottom: 0, fontSize: '12px', color: '#4b4b6b' }}>
-            © {new Date().getFullYear()} J-SheepFold. All rights reserved.
+          <p style={{ textAlign: 'center', marginTop: '28px', marginBottom: 0, fontSize: '12px', color: '#5c491a' }}>
+            &copy; {new Date().getFullYear()} J-SheepFold. All rights reserved.
           </p>
         </div>
       </div>

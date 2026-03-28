@@ -126,7 +126,7 @@ function PayModal({ pledge, onClose, onPaid }: { pledge: Pledge; onClose: () => 
             </button>
           ))}
           <button onClick={() => setAmount(remaining.toLocaleString('ko-KR'))}
-            style={{ padding: '4px 10px', borderRadius: '7px', border: '1px solid #e5e7eb', background: '#f9fafb', color: '#4f46e5', fontSize: '11px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
+            style={{ padding: '4px 10px', borderRadius: '7px', border: '1px solid #e5e7eb', background: '#f9fafb', color: '#c9a84c', fontSize: '11px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
             전액
           </button>
         </div>
@@ -134,7 +134,7 @@ function PayModal({ pledge, onClose, onPaid }: { pledge: Pledge; onClose: () => 
         <div style={{ display: 'flex', gap: '8px', marginTop: '18px' }}>
           <button onClick={onClose} style={{ flex: 1, padding: '10px', borderRadius: '9px', border: '1.5px solid #e5e7eb', background: '#fff', color: '#6b7280', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>취소</button>
           <button onClick={submit} disabled={saving}
-            style={{ flex: 2, padding: '10px', borderRadius: '9px', border: 'none', background: saving ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)', color: saving ? '#818cf8' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 3px 10px rgba(79,70,229,0.3)' }}>
+            style={{ flex: 2, padding: '10px', borderRadius: '9px', border: 'none', background: saving ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: saving ? '#d4b85c' : '#fff', fontSize: '13px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 3px 10px rgba(201,168,76,0.3)' }}>
             {saving ? '처리 중...' : '납입 확인'}
           </button>
         </div>
@@ -267,7 +267,7 @@ function CreateModal({ onClose, onCreated }: { onClose: () => void; onCreated: (
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               {PAY_CYCLES.map(c => (
                 <button key={c} onClick={() => setForm(p => ({ ...p, pay_cycle: c }))}
-                  style={{ padding: '7px 16px', borderRadius: '20px', border: `1.5px solid ${form.pay_cycle === c ? '#4f46e5' : '#e5e7eb'}`, background: form.pay_cycle === c ? '#4f46e5' : '#f9fafb', color: form.pay_cycle === c ? '#fff' : '#6b7280', fontSize: '13px', fontWeight: form.pay_cycle === c ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s' }}>
+                  style={{ padding: '7px 16px', borderRadius: '20px', border: `1.5px solid ${form.pay_cycle === c ? '#c9a84c' : '#e5e7eb'}`, background: form.pay_cycle === c ? '#c9a84c' : '#f9fafb', color: form.pay_cycle === c ? '#fff' : '#6b7280', fontSize: '13px', fontWeight: form.pay_cycle === c ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s' }}>
                   {c}
                 </button>
               ))}
@@ -278,7 +278,7 @@ function CreateModal({ onClose, onCreated }: { onClose: () => void; onCreated: (
         <div style={{ display: 'flex', gap: '8px', marginTop: '24px' }}>
           <button onClick={onClose} style={{ flex: 1, padding: '11px', borderRadius: '10px', border: '1.5px solid #e5e7eb', background: '#fff', color: '#6b7280', fontSize: '14px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>취소</button>
           <button onClick={submit} disabled={saving}
-            style={{ flex: 2, padding: '11px', borderRadius: '10px', border: 'none', background: saving ? '#c7d2fe' : 'linear-gradient(135deg,#4f46e5,#6366f1)', color: saving ? '#818cf8' : '#fff', fontSize: '14px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(79,70,229,0.3)' }}>
+            style={{ flex: 2, padding: '11px', borderRadius: '10px', border: 'none', background: saving ? '#f0d88a' : 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: saving ? '#d4b85c' : '#fff', fontSize: '14px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,76,0.3)' }}>
             {saving ? '등록 중...' : '등록하기'}
           </button>
         </div>
@@ -295,7 +295,7 @@ function ProgressBar({ pledge }: { pledge: Pledge }) {
   const barColor =
     pledge.status === 'cancelled' ? '#d1d5db' :
     pledge.status === 'completed' ? '#16a34a' :
-    '#4f46e5';
+    '#c9a84c';
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
@@ -367,7 +367,7 @@ export default function PledgesPage() {
             <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>교인별 작정헌금 현황을 관리합니다</p>
           </div>
           <button onClick={() => setShowCreate(true)}
-            style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '10px 20px', borderRadius: '11px', border: 'none', background: 'linear-gradient(135deg,#4f46e5,#6366f1)', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(79,70,229,0.35)', flexShrink: 0 }}>
+            style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '10px 20px', borderRadius: '11px', border: 'none', background: 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(201,168,76,0.35)', flexShrink: 0 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             작정헌금 등록
           </button>
@@ -397,7 +397,7 @@ export default function PledgesPage() {
             const cfg = t.key !== 'all' ? STATUS_CONFIG[t.key as PledgeStatus] : null;
             return (
               <button key={t.key} onClick={() => setTab(t.key as 'all' | PledgeStatus)}
-                style={{ padding: '7px 16px', borderRadius: '20px', border: `1.5px solid ${sel ? (cfg?.border ?? '#c7d2fe') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#eef2ff') : '#fff', color: sel ? (cfg?.color ?? '#4f46e5') : '#6b7280', fontSize: '13px', fontWeight: sel ? 700 : 500, cursor: 'pointer', transition: 'all 0.15s', fontFamily: 'inherit' }}>
+                style={{ padding: '7px 16px', borderRadius: '20px', border: `1.5px solid ${sel ? (cfg?.border ?? '#f0d88a') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#fdf8e8') : '#fff', color: sel ? (cfg?.color ?? '#c9a84c') : '#6b7280', fontSize: '13px', fontWeight: sel ? 700 : 500, cursor: 'pointer', transition: 'all 0.15s', fontFamily: 'inherit' }}>
                 {t.label}
                 <span style={{ marginLeft: '5px', padding: '1px 6px', borderRadius: '10px', background: sel ? 'rgba(255,255,255,0.5)' : '#f3f4f6', fontSize: '11px', fontWeight: 700 }}>
                   {counts[t.key] ?? 0}
@@ -432,7 +432,7 @@ export default function PledgesPage() {
                   style={{ display: 'grid', gridTemplateColumns: '1.4fr 2fr 1.2fr 1.2fr 140px 80px 80px', gap: '0', padding: '14px 20px', borderBottom: '1px solid #f9fafb', alignItems: 'center', transition: 'background 0.12s' }}>
                   {/* 교인명 */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'linear-gradient(135deg,#eef2ff,#c7d2fe)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 800, color: '#4f46e5', flexShrink: 0 }}>
+                    <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'linear-gradient(135deg,#fdf8e8,#f0d88a)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 800, color: '#c9a84c', flexShrink: 0 }}>
                       {pledge.member_name.charAt(0)}
                     </div>
                     <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>{pledge.member_name}</span>
@@ -453,7 +453,7 @@ export default function PledgesPage() {
                   <div>
                     {pledge.status === 'active' && (
                       <button className="pay-btn" onClick={() => setPayTarget(pledge)}
-                        style={{ padding: '5px 12px', borderRadius: '8px', border: 'none', background: '#4f46e5', color: '#fff', fontSize: '12px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
+                        style={{ padding: '5px 12px', borderRadius: '8px', border: 'none', background: '#c9a84c', color: '#fff', fontSize: '12px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
                         납입
                       </button>
                     )}
@@ -470,7 +470,7 @@ export default function PledgesPage() {
             {[
               { label: '총 작정금액', value: fmtKRW(totalPledge), color: '#111827', bg: '#fff' },
               { label: '총 납입금액', value: fmtKRW(totalPaid),   color: '#16a34a', bg: '#f0fdf4' },
-              { label: '전체 달성률',  value: `${totalRate}%`,     color: '#4f46e5', bg: '#eef2ff' },
+              { label: '전체 달성률',  value: `${totalRate}%`,     color: '#c9a84c', bg: '#fdf8e8' },
             ].map(({ label, value, color, bg }) => (
               <div key={label} style={{ background: bg, borderRadius: '12px', padding: '16px 20px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
                 <div style={{ fontSize: '12px', color: '#9ca3af', fontWeight: 600, marginBottom: '4px' }}>{label}</div>
