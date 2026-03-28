@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import StatCard from '@/components/ui/StatCard';
 import { apiClient, formatKRW, formatDateKR } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 정의 ──────────────────────────────────────────────────────────────
 
@@ -55,6 +56,7 @@ const CURRENT_MONTH = 3; // 3월
 // ─── 메인 컴포넌트 ───────────────────────────────────────────────────────────
 
 export default function DashboardPage() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [totalMembers, setTotalMembers] = useState<number | null>(null);
   const [monthlyOffering, setMonthlyOffering] = useState<number | null>(null);
@@ -115,9 +117,9 @@ export default function DashboardPage() {
   // ─── STAT CARDS ────────────────────────────────────────────────────────────
   const statCards = [
     {
-      title: '전체 교인 수',
-      value: totalMembers !== null ? `${totalMembers.toLocaleString()}명` : '--',
-      subtitle: '등록 교인 기준',
+      title: t.dashboard.totalMembers,
+      value: totalMembers !== null ? `${totalMembers.toLocaleString()}${t.common.people}` : '--',
+      subtitle: t.dashboard.totalMembersSubtitle,
       accentColor: '#c9a84c',
       icon: (
         /* 양 아이콘 */
@@ -131,9 +133,9 @@ export default function DashboardPage() {
       ),
     },
     {
-      title: '이번 달 헌금',
+      title: t.dashboard.monthlyOffering,
       value: monthlyOffering !== null ? formatKRW(monthlyOffering) : '--',
-      subtitle: `${CURRENT_YEAR}년 ${CURRENT_MONTH}월`,
+      subtitle: `${CURRENT_YEAR}${t.common.year} ${CURRENT_MONTH}${t.common.month}`,
       accentColor: '#e8d48b',
       icon: (
         /* 십자가+하트 아이콘 */
@@ -145,9 +147,9 @@ export default function DashboardPage() {
       ),
     },
     {
-      title: '이번 달 지출',
+      title: t.dashboard.monthlyExpense,
       value: monthlyExpense !== null ? formatKRW(monthlyExpense) : '--',
-      subtitle: `${CURRENT_YEAR}년 ${CURRENT_MONTH}월`,
+      subtitle: `${CURRENT_YEAR}${t.common.year} ${CURRENT_MONTH}${t.common.month}`,
       accentColor: '#b5923a',
       icon: (
         /* 저울 아이콘 */
@@ -161,9 +163,9 @@ export default function DashboardPage() {
       ),
     },
     {
-      title: '현재 잔액',
+      title: t.dashboard.currentBalance,
       value: currentBalance !== null ? formatKRW(currentBalance) : '--',
-      subtitle: '재정 누계 기준',
+      subtitle: t.dashboard.currentBalanceSubtitle,
       accentColor: '#4a7c59',
       icon: (
         /* 교회 건물 아이콘 */
@@ -187,10 +189,10 @@ export default function DashboardPage() {
           {getTodayKR()}
         </p>
         <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--foreground)', margin: 0, letterSpacing: '-0.03em' }}>
-          현황판
+          {t.dashboard.title}
         </h1>
         <p style={{ color: 'var(--muted)', fontSize: '15px', margin: '6px 0 0' }}>
-          교회 주요 현황을 한눈에 확인하세요.
+          {t.dashboard.subtitle}
         </p>
       </div>
 
@@ -231,13 +233,13 @@ export default function DashboardPage() {
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--foreground)', margin: 0, letterSpacing: '-0.02em' }}>
-              최근 헌금 내역
+              {t.dashboard.recentOfferings}
             </h2>
             <Link
               href="/offerings"
               style={{ fontSize: '13px', color: 'var(--primary-400)', textDecoration: 'none', fontWeight: 600 }}
             >
-              전체 보기 →
+              {t.dashboard.viewAll}
             </Link>
           </div>
 
@@ -260,7 +262,7 @@ export default function DashboardPage() {
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
-              헌금 내역이 없습니다
+              {t.dashboard.noOfferings}
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
@@ -277,7 +279,7 @@ export default function DashboardPage() {
                 >
                   <div>
                     <p style={{ margin: 0, fontSize: '14px', fontWeight: 600, color: 'var(--foreground)' }}>
-                      {item.offering_type ?? item.type ?? '일반 헌금'}
+                      {item.offering_type ?? item.type ?? t.dashboard.defaultOfferingType}
                     </p>
                     <p style={{ margin: '3px 0 0', fontSize: '13px', color: 'var(--muted)' }}>
                       {formatDateKR(item.date)}
@@ -311,7 +313,7 @@ export default function DashboardPage() {
           }}
         >
           <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--foreground)', margin: '0 0 20px', letterSpacing: '-0.02em' }}>
-            빠른 실행
+            {t.dashboard.quickActions}
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <Link
@@ -338,7 +340,7 @@ export default function DashboardPage() {
                 <line x1="12" y1="1" x2="12" y2="23" />
                 <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
               </svg>
-              헌금 입력
+              {t.dashboard.enterOffering}
             </Link>
             <Link
               href="/members/new"
@@ -370,7 +372,7 @@ export default function DashboardPage() {
                 <line x1="20" y1="8" x2="20" y2="14" />
                 <line x1="23" y1="11" x2="17" y2="11" />
               </svg>
-              교인 등록
+              {t.dashboard.registerMember}
             </Link>
           </div>
         </div>

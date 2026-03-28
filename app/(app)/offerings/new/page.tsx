@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient, formatKRW } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ──────────────────────────────────────────────
 interface LookupItem {
@@ -90,6 +91,12 @@ const labelSt: React.CSSProperties = {
 // ─── 메인 컴포넌트 ──────────────────────────────────────
 export default function OfferingNewPage() {
   const router = useRouter();
+  const { t } = useTranslation();
+  const paymentOptions = [
+    { value: 'cash', label: t.offerings.paymentCash },
+    { value: 'transfer', label: t.offerings.paymentTransfer },
+    { value: 'card', label: t.offerings.paymentCard },
+  ];
 
   // 헌금/예배 종류 (API 동적 로딩)
   const [offeringTypes, setOfferingTypes] = useState<LookupItem[]>([]);
@@ -204,10 +211,10 @@ export default function OfferingNewPage() {
       return name && !isNaN(amt) && amt > 0;
     });
     if (validItems.length === 0) {
-      setError('최소 하나의 헌금 항목을 완성해주세요 (이름 + 금액).');
+      setError(t.offerings.minOneItem);
       return;
     }
-    if (!offeringTypeCode) { setError('헌금 종류를 선택해주세요.'); return; }
+    if (!offeringTypeCode) { setError(t.offerings.selectOfferingType); return; }
 
     setSubmitting(true);
     try {
@@ -230,7 +237,7 @@ export default function OfferingNewPage() {
       });
       router.replace(`/offerings/${created.id}`);
     } catch (e) {
-      setError(e instanceof Error ? e.message : '저장 중 오류가 발생했습니다.');
+      setError(e instanceof Error ? e.message : t.common.saveError);
     } finally {
       setSubmitting(false);
     }
@@ -275,10 +282,10 @@ export default function OfferingNewPage() {
           </button>
           <div>
             <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 4px' }}>
-              헌금 입력
+              {t.offerings.newTitle}
             </h1>
             <p style={{ margin: 0, fontSize: '13px', color: '#9ca3af', fontWeight: 500 }}>
-              헌금 항목을 추가하고 저장하세요
+              {t.offerings.newSubtitle}
             </p>
           </div>
         </div>
@@ -293,7 +300,7 @@ export default function OfferingNewPage() {
 
             {/* 날짜 */}
             <div>
-              <label style={labelSt}>헌금 날짜</label>
+              <label style={labelSt}>{t.offerings.offeringDate}</label>
               <input
                 className="fo-input"
                 type="date"
@@ -305,9 +312,9 @@ export default function OfferingNewPage() {
 
             {/* 헌금 종류 */}
             <div>
-              <label style={labelSt}>헌금 종류</label>
+              <label style={labelSt}>{t.offerings.offeringType}</label>
               {!lookupsReady ? (
-                <div style={{ ...inputSt, background: '#f8fafc', color: '#9ca3af' }}>불러오는 중...</div>
+                <div style={{ ...inputSt, background: '#f8fafc', color: '#9ca3af' }}>{t.common.loading}</div>
               ) : (
                 <select
                   className="fo-input"
@@ -316,7 +323,7 @@ export default function OfferingNewPage() {
                   style={{ ...inputSt, cursor: 'pointer' }}
                 >
                   {offeringTypes.length === 0 && (
-                    <option value="">항목 없음</option>
+                    <option value="">{t.offerings.noItems}</option>
                   )}
                   {offeringTypes.map(t => (
                     <option key={t.code} value={t.code}>{t.name}</option>
@@ -327,9 +334,9 @@ export default function OfferingNewPage() {
 
             {/* 예배 종류 */}
             <div>
-              <label style={labelSt}>예배 종류</label>
+              <label style={labelSt}>{t.offerings.worshipType}</label>
               {!lookupsReady ? (
-                <div style={{ ...inputSt, background: '#f8fafc', color: '#9ca3af' }}>불러오는 중...</div>
+                <div style={{ ...inputSt, background: '#f8fafc', color: '#9ca3af' }}>{t.common.loading}</div>
               ) : (
                 <select
                   className="fo-input"
@@ -338,7 +345,7 @@ export default function OfferingNewPage() {
                   style={{ ...inputSt, cursor: 'pointer' }}
                 >
                   {worshipTypes.length === 0 && (
-                    <option value="">항목 없음</option>
+                    <option value="">{t.offerings.noItems}</option>
                   )}
                   {worshipTypes.map(t => (
                     <option key={t.code} value={t.code}>{t.name}</option>
@@ -354,7 +361,7 @@ export default function OfferingNewPage() {
         <div style={{ marginBottom: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
             <div>
-              <span style={{ fontSize: '15px', fontWeight: 700, color: '#1e1e2e' }}>헌금 항목</span>
+              <span style={{ fontSize: '15px', fontWeight: 700, color: '#1e1e2e' }}>{t.offerings.offeringItems}</span>
               <span style={{ marginLeft: '10px', fontSize: '13px', color: '#9ca3af' }}>{items.length}건</span>
             </div>
             {/* 합계 */}
@@ -393,8 +400,8 @@ export default function OfferingNewPage() {
                 <div style={{ gridColumn: '1 / -1', position: 'relative' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
                     <label style={labelSt}>
-                      헌금자 {item.member_id && (
-                        <span style={{ color: '#10b981', marginLeft: '6px', textTransform: 'none', letterSpacing: 0, fontWeight: 600 }}>✓ 교인 연결됨</span>
+                      {t.offerings.donor} {item.member_id && (
+                        <span style={{ color: '#10b981', marginLeft: '6px', textTransform: 'none', letterSpacing: 0, fontWeight: 600 }}>{t.offerings.memberLinked}</span>
                       )}
                     </label>
                     <button
@@ -406,7 +413,7 @@ export default function OfferingNewPage() {
                         padding: '2px 0',
                       }}
                     >
-                      {item.isManual ? '교인 검색으로' : '직접 입력'}
+                      {item.isManual ? t.offerings.searchMember : t.offerings.directInput}
                     </button>
                   </div>
 
@@ -414,7 +421,7 @@ export default function OfferingNewPage() {
                     <input
                       className="fo-input"
                       type="text"
-                      placeholder="이름 직접 입력 (비등록 헌금자)"
+                      placeholder={t.offerings.manualPlaceholder}
                       value={item.member_name}
                       onChange={e => updateItem(item.id, { member_name: e.target.value })}
                       style={inputSt}
@@ -430,7 +437,7 @@ export default function OfferingNewPage() {
                         <input
                           className="fo-input"
                           type="text"
-                          placeholder="이름으로 교인 검색..."
+                          placeholder={t.offerings.searchPlaceholder}
                           value={item.searchQuery}
                           onChange={e => {
                             const v = e.target.value;
@@ -441,7 +448,7 @@ export default function OfferingNewPage() {
                           style={{ ...inputSt, paddingLeft: '36px' }}
                         />
                         {item.searchLoading && (
-                          <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', fontSize: '12px', color: '#9ca3af' }}>검색 중...</div>
+                          <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', fontSize: '12px', color: '#9ca3af' }}>{t.offerings.searching}</div>
                         )}
                       </div>
 
@@ -479,7 +486,7 @@ export default function OfferingNewPage() {
                           padding: '12px 14px', fontSize: '13px', color: '#9ca3af',
                         }}>
                           <span>&#34;{item.searchQuery}&#34; 검색 결과 없음 —&nbsp;</span>
-                          <button type="button" onClick={() => switchManual(item.id)} style={{ border: 'none', background: 'none', color: '#c9a84c', cursor: 'pointer', fontWeight: 600, fontFamily: 'inherit', fontSize: '13px', padding: 0 }}>직접 입력</button>
+                          <button type="button" onClick={() => switchManual(item.id)} style={{ border: 'none', background: 'none', color: '#c9a84c', cursor: 'pointer', fontWeight: 600, fontFamily: 'inherit', fontSize: '13px', padding: 0 }}>{t.offerings.directInput}</button>
                         </div>
                       )}
                     </>
@@ -488,7 +495,7 @@ export default function OfferingNewPage() {
 
                 {/* 금액 */}
                 <div>
-                  <label style={labelSt}>금액</label>
+                  <label style={labelSt}>{t.offerings.amount}</label>
                   <div style={{ position: 'relative' }}>
                     <input
                       className="fo-input"
@@ -499,21 +506,21 @@ export default function OfferingNewPage() {
                       onChange={e => handleAmountChange(item.id, e.target.value)}
                       style={{ ...inputSt, paddingRight: '28px' }}
                     />
-                    <span style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', fontSize: '13px', color: '#9ca3af', pointerEvents: 'none' }}>원</span>
+                    <span style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', fontSize: '13px', color: '#9ca3af', pointerEvents: 'none' }}>{t.common.won}</span>
                   </div>
                 </div>
 
                 {/* 납부 방법 */}
                 <div>
-                  <label style={labelSt}>납부 방법</label>
+                  <label style={labelSt}>{t.offerings.paymentMethod}</label>
                   <select
                     className="fo-input"
                     value={item.payment_method}
                     onChange={e => updateItem(item.id, { payment_method: e.target.value as OfferingItem['payment_method'] })}
                     style={{ ...inputSt, cursor: 'pointer' }}
                   >
-                    <option value="">선택</option>
-                    {PAYMENT_OPTIONS.map(o => (
+                    <option value="">{t.offerings.select}</option>
+                    {paymentOptions.map(o => (
                       <option key={o.value} value={o.value}>{o.label}</option>
                     ))}
                   </select>
@@ -521,11 +528,11 @@ export default function OfferingNewPage() {
 
                 {/* 비고 */}
                 <div style={{ gridColumn: '1 / -1' }}>
-                  <label style={labelSt}>비고</label>
+                  <label style={labelSt}>{t.offerings.notes}</label>
                   <input
                     className="fo-input"
                     type="text"
-                    placeholder="특이사항 입력 (선택)"
+                    placeholder={t.offerings.notesPlaceholder}
                     value={item.notes}
                     onChange={e => updateItem(item.id, { notes: e.target.value })}
                     style={inputSt}
@@ -553,7 +560,7 @@ export default function OfferingNewPage() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
-            헌금 항목 추가
+            {t.offerings.addItem}
           </button>
         </div>
 
@@ -587,7 +594,7 @@ export default function OfferingNewPage() {
               transition: 'all 0.15s',
             }}
           >
-            취소
+            {t.common.cancel}
           </button>
           <button
             type="button"
@@ -606,7 +613,7 @@ export default function OfferingNewPage() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
             </svg>
-            임시저장
+            {t.offerings.saveDraft}
           </button>
           <button
             type="button"
@@ -632,14 +639,14 @@ export default function OfferingNewPage() {
                   <style>{`@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}`}</style>
                   <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                 </svg>
-                저장 중...
+                {t.common.saving}
               </>
             ) : (
               <>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                헌금 확정
+                {t.offerings.confirmOffering}
               </>
             )}
           </button>

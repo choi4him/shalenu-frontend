@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient, formatKRW } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -90,11 +91,13 @@ function SkeletonCard() {
   );
 }
 
-const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+// MONTHS is now derived from translations inside the component
 
 // ─── 메인 ───────────────────────────────────────────────
 export default function FinancePage() {
   const router = useRouter();
+  const { t } = useTranslation();
+  const MONTHS = t.finance.months;
   const [year, setYear]         = useState(new Date().getFullYear());
   const [summary, setSummary]   = useState<SummaryReport | null>(null);
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -109,7 +112,7 @@ export default function FinancePage() {
       apiClient<Account[]>('/api/v1/finance/accounts'),
     ]).then(([sumRes, accRes]) => {
       if (sumRes.status === 'fulfilled') setSummary(sumRes.value);
-      else setError(sumRes.reason?.message ?? '데이터를 불러오지 못했습니다.');
+      else setError(sumRes.reason?.message ?? t.common.fetchError);
       if (accRes.status === 'fulfilled') setAccounts(accRes.value ?? []);
     }).finally(() => setLoading(false));
   }, [year]);
@@ -120,7 +123,7 @@ export default function FinancePage() {
     labels: MONTHS,
     datasets: [
       {
-        label: '수입',
+        label: t.finance.income,
         data: MONTHS.map((_, i) => {
           const s = monthlyStats.find(m => m.month === i + 1);
           return s?.income ?? 0;
@@ -130,7 +133,7 @@ export default function FinancePage() {
         borderSkipped: false,
       },
       {
-        label: '지출',
+        label: t.finance.expense,
         data: MONTHS.map((_, i) => {
           const s = monthlyStats.find(m => m.month === i + 1);
           return s?.expense ?? 0;
@@ -186,14 +189,14 @@ export default function FinancePage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 6px' }}>재정 관리</h1>
-            <p style={{ margin: 0, fontSize: '14px', color: '#8b6914', fontWeight: 500 }}>교회 전체 재정 현황</p>
+            <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 6px' }}>{t.finance.title}</h1>
+            <p style={{ margin: 0, fontSize: '14px', color: '#8b6914', fontWeight: 500 }}>{t.finance.subtitle}</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* 연도 선택기 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.90)', borderRadius: '12px', padding: '6px 14px', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
               <button className="year-btn" onClick={() => setYear(y => y - 1)}>‹</button>
-              <span style={{ fontSize: '16px', fontWeight: 800, color: '#1a1a1a', minWidth: '52px', textAlign: 'center' }}>{year}년</span>
+              <span style={{ fontSize: '16px', fontWeight: 800, color: '#1a1a1a', minWidth: '52px', textAlign: 'center' }}>{year}{t.common.year}</span>
               <button className="year-btn" onClick={() => setYear(y => y + 1)}>›</button>
             </div>
             {/* 거래 입력 버튼 */}
@@ -213,7 +216,7 @@ export default function FinancePage() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
               </svg>
-              거래 입력
+              {t.finance.enterTransaction}
             </button>
           </div>
         </div>
@@ -227,28 +230,28 @@ export default function FinancePage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
             <SummaryCard
               gradient="linear-gradient(135deg,#fdf8e8 0%,#f0d88a 100%)"
-              label="총 수입"
+              label={t.finance.totalIncome}
               value={summary ? formatKRW(Number(summary.total_income)) : '—'}
               valueColor="#7d6324"
               icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
             />
             <SummaryCard
               gradient="linear-gradient(135deg,#fff1f2 0%,#fecdd3 100%)"
-              label="총 지출"
+              label={t.finance.totalExpense}
               value={summary ? formatKRW(Number(summary.total_expense)) : '—'}
               valueColor="#be123c"
               icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e11d48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>}
             />
             <SummaryCard
               gradient={summary && netProfit >= 0 ? 'linear-gradient(135deg,#f0fdf4 0%,#bbf7d0 100%)' : 'linear-gradient(135deg,#fff7ed 0%,#fed7aa 100%)'}
-              label="순이익"
+              label={t.finance.netProfit}
               value={summary ? formatKRW(netProfit) : '—'}
               valueColor={netColor}
               icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={netColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>}
             />
             <SummaryCard
               gradient="linear-gradient(135deg,#f0f9ff 0%,#bae6fd 100%)"
-              label="현재 잔액"
+              label={t.finance.currentBalance}
               value={summary ? formatKRW(Number(summary.current_balance)) : '—'}
               valueColor="#0369a1"
               icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>}
@@ -281,8 +284,8 @@ export default function FinancePage() {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
               <div>
-                <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>월별 수입 / 지출</div>
-                <div style={{ fontSize: '12px', color: '#8b6914', marginTop: '2px' }}>{year}년 통계</div>
+                <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>{t.finance.monthlyChart}</div>
+                <div style={{ fontSize: '12px', color: '#8b6914', marginTop: '2px' }}>{t.finance.yearStats.replace('{year}', String(year))}</div>
               </div>
               <button
                 onClick={() => router.push('/finance/transactions')}
@@ -295,7 +298,7 @@ export default function FinancePage() {
                 onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#e0e7ff'}
                 onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = '#fdf8e8'}
               >
-                거래 내역 →
+                {t.finance.viewTransactions}
               </button>
             </div>
             <div style={{ height: '280px' }}>
@@ -311,8 +314,8 @@ export default function FinancePage() {
           }}>
             <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(160,120,40,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>계좌 현황</div>
-                <div style={{ fontSize: '12px', color: '#8b6914', marginTop: '2px' }}>등록된 교회 계좌</div>
+                <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>{t.finance.accountStatus}</div>
+                <div style={{ fontSize: '12px', color: '#8b6914', marginTop: '2px' }}>{t.finance.registeredAccounts}</div>
               </div>
               <button
                 onClick={() => router.push('/finance/accounts/new')}
@@ -330,7 +333,7 @@ export default function FinancePage() {
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
                 </svg>
-                계좌 추가
+                {t.finance.addAccount}
               </button>
             </div>
 
@@ -349,7 +352,7 @@ export default function FinancePage() {
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto 10px' }}>
                   <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
                 </svg>
-                등록된 계좌가 없습니다
+                {t.finance.noAccounts}
               </div>
             ) : (
               accounts.map(acc => {
@@ -365,7 +368,7 @@ export default function FinancePage() {
                           </span>
                         )}
                         {!acc.is_active && (
-                          <span style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 500, background: '#f3f4f6', padding: '2px 8px', borderRadius: '99px' }}>비활성</span>
+                          <span style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 500, background: '#f3f4f6', padding: '2px 8px', borderRadius: '99px' }}>{t.common.inactive}</span>
                         )}
                       </div>
                       {acc.bank_name && (

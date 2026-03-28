@@ -3,29 +3,16 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
-
-// ─── 성경 구절 목록 ─────────────────────────────────────
-const BIBLE_VERSES = [
-  { text: '여호와는 나의 목자시니 내게 부족함이 없으리로다', ref: '시편 23:1' },
-  { text: '내가 세상 끝날까지 너희와 항상 함께 있으리라', ref: '마태복음 28:20' },
-  { text: '하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니', ref: '요한복음 3:16' },
-  { text: '너희 안에서 착한 일을 시작하신 이가 이루실 줄을 확신하노라', ref: '빌립보서 1:6' },
-  { text: '내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라', ref: '빌립보서 4:13' },
-  { text: '여호와를 앙망하는 자는 새 힘을 얻으리니', ref: '이사야 40:31' },
-  { text: '항상 기뻐하라 쉬지 말고 기도하라 범사에 감사하라', ref: '데살로니가전서 5:16-18' },
-  { text: '너는 마음을 다하여 여호와를 신뢰하고', ref: '잠언 3:5' },
-  { text: '오직 성령의 열매는 사랑과 희락과 화평이요', ref: '갈라디아서 5:22' },
-  { text: '내 양은 내 음성을 들으며 나는 그들을 알며 그들은 나를 따르느니라', ref: '요한복음 10:27' },
-];
+import { useTranslation } from '@/lib/i18n';
 
 // ─── 메뉴 구조 정의 ─────────────────────────────────────
 interface SubItem {
   href:  string;
-  label: string;
+  labelKey: string;
 }
 
 interface NavItem {
-  label:    string;
+  labelKey: string;
   href?:    string;       // 단일 링크
   children?: SubItem[];  // 펼침 메뉴
   icon:     React.ReactNode;
@@ -34,7 +21,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   {
     href:  '/dashboard',
-    label: '현황판',
+    labelKey: 'dashboard',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
@@ -44,7 +31,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     href:  '/members',
-    label: '교인 관리',
+    labelKey: 'members',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -54,7 +41,7 @@ const NAV_ITEMS: NavItem[] = [
     ),
   },
   {
-    label: '헌금 관리',
+    labelKey: 'offerings',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="1" x2="12" y2="23" />
@@ -62,28 +49,28 @@ const NAV_ITEMS: NavItem[] = [
       </svg>
     ),
     children: [
-      { href: '/offerings',       label: '헌금 현황' },
-      { href: '/offerings/new',   label: '헌금 입력' },
-      { href: '/offerings/stats', label: '헌금 통계' },
-      { href: '/payments',        label: '온라인 헌금' },
+      { href: '/offerings',       labelKey: 'offeringStatus' },
+      { href: '/offerings/new',   labelKey: 'offeringInput' },
+      { href: '/offerings/stats', labelKey: 'offeringStats' },
+      { href: '/payments',        labelKey: 'onlineOffering' },
     ],
   },
   {
-    label: '재정 관리',
+    labelKey: 'finance',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
       </svg>
     ),
     children: [
-      { href: '/finance',              label: '재정 개요'   },
-      { href: '/finance/transactions', label: '거래 내역'   },
-      { href: '/finance/budgets',      label: '예산 편성'   },
-      { href: '/finance/reports',      label: '재정 보고서' },
+      { href: '/finance',              labelKey: 'financeOverview' },
+      { href: '/finance/transactions', labelKey: 'transactions' },
+      { href: '/finance/budgets',      labelKey: 'budgets' },
+      { href: '/finance/reports',      labelKey: 'financeReports' },
     ],
   },
   {
-    label: '공동체 관리',
+    labelKey: 'community',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -91,15 +78,15 @@ const NAV_ITEMS: NavItem[] = [
       </svg>
     ),
     children: [
-      { href: '/groups',           label: '소그룹 관리'         },
-      { href: '/attendance',       label: '출석 입력'          },
-      { href: '/attendance/stats', label: '출석 통계'          },
-      { href: '/newcomers',        label: '새가족 관리'        },
-      { href: '/pledges',          label: '작정헌금 관리'      },
+      { href: '/groups',           labelKey: 'groups' },
+      { href: '/attendance',       labelKey: 'attendance' },
+      { href: '/attendance/stats', labelKey: 'attendanceStats' },
+      { href: '/newcomers',        labelKey: 'newcomers' },
+      { href: '/pledges',          labelKey: 'pledges' },
     ],
   },
   {
-    label: '목양 관리',
+    labelKey: 'pastoral',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
@@ -107,16 +94,16 @@ const NAV_ITEMS: NavItem[] = [
       </svg>
     ),
     children: [
-      { href: '/pastoral',    label: '목양 현황'           },
-      { href: '/birthdays',   label: '생일 알림'             },
-      { href: '/messages',    label: '메시지 발송'           },
-      { href: '/facilities',          label: '예약 현황'   },
-      { href: '/facilities/bookings', label: '예약 관리'   },
+      { href: '/pastoral',    labelKey: 'pastoralStatus' },
+      { href: '/birthdays',   labelKey: 'birthdays' },
+      { href: '/messages',    labelKey: 'messages' },
+      { href: '/facilities',          labelKey: 'facilityStatus' },
+      { href: '/facilities/bookings', labelKey: 'facilityBookings' },
     ],
   },
   {
     href:  '/settings',
-    label: '설정',
+    labelKey: 'settings',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="3" />
@@ -125,6 +112,11 @@ const NAV_ITEMS: NavItem[] = [
     ),
   },
 ];
+
+// helper: resolve nav label from key
+function getNavLabel(key: string, nav: Record<string, string>): string {
+  return (nav as Record<string, string>)[key] ?? key;
+}
 
 // ─── 서브 아이템 아이콘 ──────────────────────────────────
 const SUB_ICONS: Record<string, React.ReactNode> = {
@@ -151,6 +143,7 @@ const SUB_ICONS: Record<string, React.ReactNode> = {
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router   = useRouter();
+  const { t, lang, changeLang } = useTranslation();
 
   // 현재 경로에 해당하는 그룹 자동 펼침
   const getInitialOpen = () => {
@@ -158,21 +151,21 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     NAV_ITEMS.forEach(item => {
       if (item.children) {
         const isGroupActive = item.children.some(c => pathname.startsWith(c.href));
-        if (isGroupActive) opens[item.label] = true;
+        if (isGroupActive) opens[item.labelKey] = true;
       }
     });
     return opens;
   };
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(getInitialOpen);
-  const [verseIdx, setVerseIdx] = useState(() => Math.floor(Math.random() * BIBLE_VERSES.length));
+  const [verseIdx, setVerseIdx] = useState(() => Math.floor(Math.random() * t.bible.verses.length));
 
   // 경로 바뀌면 성경 구절 랜덤 교체
   useEffect(() => {
-    setVerseIdx(Math.floor(Math.random() * BIBLE_VERSES.length));
-  }, [pathname]);
+    setVerseIdx(Math.floor(Math.random() * t.bible.verses.length));
+  }, [pathname, t.bible.verses.length]);
 
-  const verse = BIBLE_VERSES[verseIdx];
+  const verse = t.bible.verses[verseIdx];
 
   // 경로 바뀌면 해당 그룹 자동 펼침
   useEffect(() => {
@@ -181,7 +174,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       NAV_ITEMS.forEach(item => {
         if (item.children) {
           if (item.children.some(c => pathname.startsWith(c.href))) {
-            next[item.label] = true;
+            next[item.labelKey] = true;
           }
         }
       });
@@ -200,8 +193,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     router.replace('/login');
   };
 
-  const toggleGroup = (label: string) => {
-    setOpenGroups(prev => ({ ...prev, [label]: !prev[label] }));
+  const toggleGroup = (key: string) => {
+    setOpenGroups(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
@@ -252,7 +245,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </div>
               <div>
                 <p style={{ color:'#ffffff',fontWeight:800,fontSize:'17px',margin:0,letterSpacing:'-0.02em' }}>J-SheepFold</p>
-                <p style={{ background:'var(--grad-primary)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontSize:'10px',margin:0,letterSpacing:'0.08em',fontWeight:700 }}>교회 통합 관리 시스템</p>
+                <p style={{ background:'var(--grad-primary)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontSize:'10px',margin:0,letterSpacing:'0.08em',fontWeight:700 }}>{t.nav.systemName}</p>
               </div>
             </div>
           </div>
@@ -260,6 +253,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {/* 메뉴 */}
           <nav style={{ flex:1, padding:'14px 10px', display:'flex', flexDirection:'column', gap:'2px', overflowY:'auto' }}>
             {NAV_ITEMS.map(item => {
+              const navLabel = getNavLabel(item.labelKey, t.nav as unknown as Record<string, string>);
               // ── 단일 링크 ──
               if (!item.children) {
                 const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href!));
@@ -271,25 +265,25 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     style={{ color: '#f0e8c0' }}
                   >
                     <span style={{ color: 'inherit', display:'flex', flexShrink:0 }}>{item.icon}</span>
-                    <span style={{ flex:1, color: 'inherit' }}>{item.label}</span>
+                    <span style={{ flex:1, color: 'inherit' }}>{navLabel}</span>
                   </Link>
                 );
               }
 
               // ── 펼침 메뉴 ──
               const isGroupActive = item.children.some(c => pathname.startsWith(c.href));
-              const isOpen        = !!openGroups[item.label];
+              const isOpen        = !!openGroups[item.labelKey];
 
               return (
-                <div key={item.label}>
+                <div key={item.labelKey}>
                   {/* 그룹 헤더 버튼 */}
                   <button
                     className={`nav-link${isGroupActive ? ' group-active' : ''}`}
-                    onClick={() => toggleGroup(item.label)}
+                    onClick={() => toggleGroup(item.labelKey)}
                     style={{ color: '#f0e8c0' }}
                   >
                     <span style={{ color: 'inherit', display:'flex', flexShrink:0 }}>{item.icon}</span>
-                    <span style={{ flex:1, color: 'inherit' }}>{item.label}</span>
+                    <span style={{ flex:1, color: 'inherit' }}>{navLabel}</span>
                     {/* 배지 점 */}
                     {isGroupActive && !isOpen && (
                       <span style={{ width:'6px',height:'6px',borderRadius:'50%',background:'#c9a84c',flexShrink:0,boxShadow:'0 0 6px #c9a84c' }} />
@@ -309,6 +303,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       <div style={{ borderLeft:'1.5px solid rgba(201,168,76,0.25)', paddingLeft:'10px', display:'flex', flexDirection:'column', gap:'1px' }}>
                         {item.children.map(sub => {
                           const isSubActive = pathname === sub.href || pathname.startsWith(sub.href + '/');
+                          const subLabel = getNavLabel(sub.labelKey, t.nav as unknown as Record<string, string>);
                           return (
                             <Link
                               key={sub.href}
@@ -319,7 +314,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                               <span style={{ color: isSubActive ? '#ffffff' : '#f0e8c0', flexShrink:0 }}>
                                 {SUB_ICONS[sub.href]}
                               </span>
-                              <span style={{ color: 'inherit' }}>{sub.label}</span>
+                              <span style={{ color: 'inherit' }}>{subLabel}</span>
                             </Link>
                           );
                         })}
@@ -331,8 +326,36 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             })}
           </nav>
 
-          {/* 하단: 성경구절 + 로그아웃 */}
+          {/* 하단: 언어 전환 + 성경구절 + 로그아웃 */}
           <div style={{ padding:'14px 16px', borderTop:'1px solid rgba(201,168,76,0.12)' }}>
+            {/* 언어 전환 버튼 */}
+            <div style={{ display:'flex', gap:'6px', marginBottom:'10px' }}>
+              <button
+                onClick={() => changeLang('ko')}
+                style={{
+                  flex:1, padding:'7px 0', borderRadius:'8px', border:'none', cursor:'pointer',
+                  fontSize:'13px', fontWeight: lang === 'ko' ? 700 : 500, fontFamily:'inherit',
+                  background: lang === 'ko' ? 'rgba(201,168,76,0.2)' : 'transparent',
+                  color: lang === 'ko' ? '#f0d88a' : '#8a7e60',
+                  transition:'all 0.15s',
+                }}
+              >
+                🇰🇷 한국어
+              </button>
+              <button
+                onClick={() => changeLang('en')}
+                style={{
+                  flex:1, padding:'7px 0', borderRadius:'8px', border:'none', cursor:'pointer',
+                  fontSize:'13px', fontWeight: lang === 'en' ? 700 : 500, fontFamily:'inherit',
+                  background: lang === 'en' ? 'rgba(201,168,76,0.2)' : 'transparent',
+                  color: lang === 'en' ? '#f0d88a' : '#8a7e60',
+                  transition:'all 0.15s',
+                }}
+              >
+                🇺🇸 English
+              </button>
+            </div>
+
             {/* 성경 구절 */}
             <div style={{ padding:'12px 14px', marginBottom:'10px', borderRadius:'10px', background:'rgba(201,168,76,0.06)', border:'1px solid rgba(201,168,76,0.1)' }}>
               <p style={{ fontSize:'14px', color:'#c9a84c', margin:0, lineHeight:'1.6', fontStyle:'italic' }}>
@@ -355,7 +378,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <polyline points="16 17 21 12 16 7" />
                 <line x1="21" y1="12" x2="9" y2="12" />
               </svg>
-              <span>로그아웃</span>
+              <span>{t.nav.logout}</span>
             </button>
           </div>
         </aside>

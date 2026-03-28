@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient, formatKRW } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ──────────────────────────────────────────────
 interface LookupItem {
@@ -36,9 +37,10 @@ interface MonthlyStats {
 
 // ─── 상태 뱃지 (다크 테마) ─────────────────────────────
 function StatusBadge({ status }: { status: 'draft' | 'confirmed' }) {
+  const { t } = useTranslation();
   return (
     <span className={`badge ${status === 'confirmed' ? 'badge-confirmed' : 'badge-draft'}`}>
-      {status === 'confirmed' ? '확정' : '임시저장'}
+      {status === 'confirmed' ? t.offerings.confirmed : t.offerings.draft}
     </span>
   );
 }
@@ -90,6 +92,7 @@ function StatCard({ icon, label, value, sub, accentColor }: {
 // ─── 메인 컴포넌트 ─────────────────────────────────────
 export default function OfferingsPage() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const [offerings, setOfferings]     = useState<Offering[]>([]);
   const [total, setTotal]             = useState(0);
@@ -143,7 +146,7 @@ export default function OfferingsPage() {
       setTotalPages(data.pages ?? 1);
       setPage(data.page ?? pg);
     } catch (e) {
-      setError(e instanceof Error ? e.message : '데이터를 불러오지 못했습니다.');
+      setError(e instanceof Error ? e.message : t.common.fetchError);
     } finally {
       setLoading(false);
     }
@@ -179,10 +182,10 @@ export default function OfferingsPage() {
             fontSize: '26px', fontWeight: 800, letterSpacing: '-0.04em', margin: '0 0 6px',
             color: '#1a1a1a',
           }}>
-            헌금 관리
+            {t.offerings.title}
           </h1>
           <p style={{ margin: 0, fontSize: '14px', color: 'var(--muted)', fontWeight: 500 }}>
-            전체 {total.toLocaleString()}건
+            {t.offerings.totalCount.replace('{count}', total.toLocaleString())}
           </p>
         </div>
         <button
@@ -192,7 +195,7 @@ export default function OfferingsPage() {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
-          헌금 입력
+          {t.offerings.enterOffering}
         </button>
       </div>
 
@@ -205,7 +208,7 @@ export default function OfferingsPage() {
               <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
             </svg>
           }
-          label={`${monthLabel} 헌금 합계`}
+          label={t.offerings.monthlyTotal.replace('{label}', monthLabel)}
           value={monthlyStats ? formatKRW(monthlyStats.total_amount) : '—'}
           sub={monthlyStats ? `총 ${monthlyStats.count}건` : undefined}
         />
@@ -216,9 +219,9 @@ export default function OfferingsPage() {
               <polyline points="20 6 9 17 4 12"/>
             </svg>
           }
-          label="전체 헌금 건수"
+          label={t.offerings.totalOfferingCount}
           value={`${total.toLocaleString()}건`}
-          sub="전체 기간"
+          sub={t.offerings.allPeriod}
         />
       </div>
 
@@ -232,8 +235,8 @@ export default function OfferingsPage() {
       }}>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
           {[
-            { label: '시작일', type: 'date', value: dateFrom, onChange: setDateFrom },
-            { label: '종료일', type: 'date', value: dateTo,   onChange: setDateTo },
+            { label: t.offerings.dateFrom, type: 'date', value: dateFrom, onChange: setDateFrom },
+            { label: t.offerings.dateTo, type: 'date', value: dateTo,   onChange: setDateTo },
           ].map(({ label, type, value, onChange }) => (
             <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '150px', flex: 1 }}>
               <label style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{label}</label>
@@ -247,14 +250,14 @@ export default function OfferingsPage() {
             </div>
           ))}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '160px', flex: 1 }}>
-            <label style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>헌금 종류</label>
+            <label style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{t.offerings.offeringType}</label>
             <select
               className="input-dark"
               value={filterType}
               onChange={e => setFilterType(e.target.value)}
               style={{ width: '100%', cursor: 'pointer' }}
             >
-              <option value="">전체</option>
+              <option value="">{t.common.all}</option>
               {offeringTypes.map(t => (
                 <option key={t.code} value={t.code}>{t.name}</option>
               ))}
@@ -264,7 +267,7 @@ export default function OfferingsPage() {
             className="btn-secondary-dark"
             onClick={() => { setDateFrom(''); setDateTo(''); setFilterType(''); }}
           >
-            초기화
+            {t.common.reset}
           </button>
         </div>
       </div>
@@ -277,7 +280,7 @@ export default function OfferingsPage() {
           </svg>
           {error}
           <button onClick={() => fetchOfferings(page)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#fca5a5', cursor: 'pointer', fontWeight: 600, fontFamily: 'inherit', fontSize: '13px' }}>
-            다시 시도
+            {t.common.retry}
           </button>
         </div>
       )}
@@ -294,7 +297,7 @@ export default function OfferingsPage() {
           <table className="table-dark" style={{ width: '100%', borderCollapse: 'collapse', minWidth: '640px' }}>
             <thead>
               <tr>
-                {['날짜', '헌금 종류', '예배 종류', '합계 금액', '건수', '상태'].map(h => (
+                {t.offerings.headers.map(h => (
                   <th key={h}>{h}</th>
                 ))}
               </tr>
@@ -309,9 +312,9 @@ export default function OfferingsPage() {
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto 12px' }}>
                           <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
                         </svg>
-                        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--foreground-2)', marginBottom: '4px' }}>헌금 내역이 없습니다</div>
+                        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--foreground-2)', marginBottom: '4px' }}>{t.offerings.noOfferings}</div>
                         <div style={{ fontSize: '13px' }}>
-                          {(dateFrom || dateTo || filterType) ? '필터 조건을 변경해보세요.' : '헌금을 입력해보세요!'}
+                          {(dateFrom || dateTo || filterType) ? t.offerings.changeFilter : t.offerings.tryEntering}
                         </div>
                       </td>
                     </tr>

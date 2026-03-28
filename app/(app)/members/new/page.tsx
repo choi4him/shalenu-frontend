@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { apiClient } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 
 
 
@@ -86,6 +87,7 @@ const inputStyle: React.CSSProperties = {
 // ─── 메인 컴포넌트 ─────────────────────────────────────
 export default function MemberNewPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [form, setForm]         = useState<MemberForm>(INITIAL);
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState('');
@@ -101,7 +103,7 @@ export default function MemberNewPage() {
   // 카카오 우편번호 팝업 오픈
   const openAddressSearch = () => {
     if (!window.daum?.Postcode) {
-      alert('주소 검색 서비스를 불러오는 중입니다. 잠시 후 다시 시도해주세요.');
+      alert(t.common.loading);
       return;
     }
     new window.daum.Postcode({
@@ -132,9 +134,9 @@ export default function MemberNewPage() {
 
   const validate = (): boolean => {
     const errs: Partial<Record<keyof MemberForm, string>> = {};
-    if (!form.name.trim()) errs.name = '이름은 필수 항목입니다.';
+    if (!form.name.trim()) errs.name = t.members.nameRequired;
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      errs.email = '유효한 이메일 주소를 입력해주세요.';
+      errs.email = t.members.emailInvalid;
     }
     setFieldErr(errs);
     return Object.keys(errs).length === 0;
@@ -172,7 +174,7 @@ export default function MemberNewPage() {
       });
       router.replace(`/members/${created.id}`);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : '저장 중 오류가 발생했습니다.';
+      const msg = err instanceof Error ? err.message : t.common.saveError;
       setError(msg);
     } finally {
       setLoading(false);
@@ -228,10 +230,10 @@ export default function MemberNewPage() {
           </button>
           <div>
             <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 4px' }}>
-              교인 등록
+              {t.members.newTitle}
             </h1>
             <p style={{ margin: 0, fontSize: '13px', color: '#9ca3af', fontWeight: 500 }}>
-              새 교인 정보를 입력해주세요
+              {t.members.newSubtitle}
             </p>
           </div>
         </div>
@@ -246,12 +248,12 @@ export default function MemberNewPage() {
 
             {/* 섹션 1: 기본 정보 */}
             <div style={{ padding: '28px 32px', borderBottom: '1px solid #f1f5f9' }}>
-              <SectionTitle>기본 정보</SectionTitle>
+              <SectionTitle>{t.members.sectionBasic}</SectionTitle>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
 
                 {/* 이름 */}
                 <div style={{ gridColumn: '1 / -1' }}>
-                  <Field label="이름" required>
+                  <Field label={t.members.name} required>
                     <input
                       className={`form-input${fieldErr.name ? ' err' : ''}`}
                       type="text"
@@ -265,9 +267,9 @@ export default function MemberNewPage() {
                 </div>
 
                 {/* 성별 */}
-                <Field label="성별">
+                <Field label={t.members.gender}>
                   <div className="radio-group" style={{ display: 'flex', gap: '20px', paddingTop: '8px' }}>
-                    {[{ val: 'M', label: '남자' }, { val: 'F', label: '여자' }].map(g => (
+                    {[{ val: 'M', label: t.members.male }, { val: 'F', label: t.members.female }].map(g => (
                       <label key={g.val} style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '14px', color: '#374151', fontWeight: 500 }}>
                         <input
                           type="radio"
@@ -289,13 +291,13 @@ export default function MemberNewPage() {
                         onChange={set('gender')}
                         style={{ width: '16px', height: '16px' }}
                       />
-                      미입력
+                      {t.members.notSpecified}
                     </label>
                   </div>
                 </Field>
 
                 {/* 생년월일 */}
-                <Field label="생년월일">
+                <Field label={t.members.birthDate}>
                   <input
                     className="form-input"
                     type="date"
@@ -310,11 +312,11 @@ export default function MemberNewPage() {
 
             {/* 섹션 2: 연락처 */}
             <div style={{ padding: '28px 32px', borderBottom: '1px solid #f1f5f9' }}>
-              <SectionTitle>연락처</SectionTitle>
+              <SectionTitle>{t.members.sectionContact}</SectionTitle>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
 
                 {/* 전화번호 */}
-                <Field label="전화번호">
+                <Field label={t.members.phone}>
                   <input
                     className="form-input"
                     type="tel"
@@ -326,7 +328,7 @@ export default function MemberNewPage() {
                 </Field>
 
                 {/* 이메일 */}
-                <Field label="이메일">
+                <Field label={t.members.email}>
                   <input
                     className={`form-input${fieldErr.email ? ' err' : ''}`}
                     type="email"
@@ -340,14 +342,14 @@ export default function MemberNewPage() {
 
                 {/* 주소 — 카카오 우편번호 */}
                 <div style={{ gridColumn: '1 / -1' }}>
-                  <Field label="주소">
+                  <Field label={t.members.address}>
                     {/* 우편번호 행 */}
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                       <input
                         readOnly
                         className="form-input addr-readonly"
                         type="text"
-                        placeholder="우편번호"
+                        placeholder={t.members.zipcode}
                         value={form.zipcode}
                         style={{ ...inputStyle, width: '120px', flexShrink: 0, background: '#f8fafc', color: '#6b7280', cursor: 'default' }}
                       />
@@ -367,7 +369,7 @@ export default function MemberNewPage() {
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        주소 검색
+                        {t.members.addressSearch}
                       </button>
                     </div>
                     {/* 기본주소 (자동 입력) */}
@@ -375,7 +377,7 @@ export default function MemberNewPage() {
                       readOnly
                       className="form-input addr-readonly"
                       type="text"
-                      placeholder="주소 검색 버튼을 눌러주세요"
+                      placeholder={t.members.addressPlaceholder}
                       value={form.road_address}
                       style={{ ...inputStyle, background: '#f8fafc', color: form.road_address ? '#1e1e2e' : '#9ca3af', cursor: 'default' }}
                     />
@@ -383,7 +385,7 @@ export default function MemberNewPage() {
                     <input
                       className="form-input"
                       type="text"
-                      placeholder="동/호수, 건물명 등 상세주소 입력"
+                      placeholder={t.members.detailAddress}
                       value={form.detail_address}
                       onChange={e => setForm(prev => ({ ...prev, detail_address: e.target.value }))}
                       disabled={!form.road_address}
@@ -400,11 +402,11 @@ export default function MemberNewPage() {
 
             {/* 섹션 3: 교회 정보 */}
             <div style={{ padding: '28px 32px' }}>
-              <SectionTitle>교회 정보</SectionTitle>
+              <SectionTitle>{t.members.sectionChurch}</SectionTitle>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
 
                 {/* 등록일 */}
-                <Field label="등록일">
+                <Field label={t.members.registeredDate}>
                   <input
                     className="form-input"
                     type="date"
@@ -415,7 +417,7 @@ export default function MemberNewPage() {
                 </Field>
 
                 {/* 세례일 */}
-                <Field label="세례일">
+                <Field label={t.members.baptismDate}>
                   <input
                     className="form-input"
                     type="date"
@@ -426,18 +428,18 @@ export default function MemberNewPage() {
                 </Field>
 
                 {/* 상태 */}
-                <Field label="상태">
+                <Field label={t.members.status}>
                   <select
                     className="form-input"
                     value={form.status}
                     onChange={set('status')}
                     style={{ ...inputStyle, cursor: 'pointer' }}
                   >
-                    <option value="">선택 안 함</option>
-                    <option value="active">활동중</option>
-                    <option value="inactive">휴면</option>
-                    <option value="completed">수료</option>
-                    <option value="withdrawn">탈퇴</option>
+                    <option value="">{t.common.selectNone}</option>
+                    <option value="active">{t.members.statusLabels.active}</option>
+                    <option value="inactive">{t.members.statusLabels.inactive}</option>
+                    <option value="completed">{t.members.statusLabels.completed}</option>
+                    <option value="withdrawn">{t.members.statusLabels.withdrawn}</option>
                   </select>
                 </Field>
 
@@ -478,7 +480,7 @@ export default function MemberNewPage() {
               onMouseEnter={e => { if (!loading) (e.currentTarget.style.borderColor = '#c9a84c'); }}
               onMouseLeave={e => { (e.currentTarget.style.borderColor = '#e5e7eb'); }}
             >
-              취소
+              {t.common.cancel}
             </button>
             <button
               type="submit"
@@ -502,14 +504,14 @@ export default function MemberNewPage() {
                     <style>{`@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }`}</style>
                     <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                   </svg>
-                  저장 중...
+                  {t.common.saving}
                 </>
               ) : (
                 <>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
-                  교인 등록
+                  {t.members.register}
                 </>
               )}
             </button>

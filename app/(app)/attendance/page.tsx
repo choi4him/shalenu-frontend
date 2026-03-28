@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ──────────────────────────────────────────────────
 interface Worship { id: number; name: string; }
@@ -74,6 +75,7 @@ function AttRow({ name, memberId, status, onChange }: {
 
 // ─── 예배 출석 탭 ─────────────────────────────────────────
 function WorshipTab({ date }: { date: string }) {
+  const { t } = useTranslation();
   const [worships,   setWorships]   = useState<Worship[]>([]);
   const [worshipId,  setWorshipId]  = useState<number | ''>('');
   const [members,    setMembers]    = useState<Member[]>([]);
@@ -123,14 +125,14 @@ function WorshipTab({ date }: { date: string }) {
   };
 
   const save = async () => {
-    if (!worshipId) { setError('예배를 선택해주세요.'); return; }
+    if (!worshipId) { setError(t.attendance.selectWorshipError); return; }
     setSaving(true); setError('');
     const records = members.map(m => ({ member_id: m.id, status: statusMap[m.id] ?? 'present', worship_id: worshipId, date }));
     try {
       await apiClient('/api/v1/attendance/batch', { method: 'POST', body: JSON.stringify({ records }) });
       setSaved(true);
     } catch (e) {
-      setError(e instanceof Error ? e.message : '저장에 실패했습니다.');
+      setError(e instanceof Error ? e.message : t.common.saveError);
     } finally { setSaving(false); }
   };
 
@@ -143,16 +145,16 @@ function WorshipTab({ date }: { date: string }) {
       <div style={{ display:'flex', gap:'10px', marginBottom:'14px', flexWrap:'wrap', alignItems:'center' }}>
         <select value={worshipId} onChange={e => setWorshipId(Number(e.target.value))}
           style={{ padding:'9px 13px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#1a1a1a', fontFamily:'inherit', outline:'none', background:'#fff', minWidth:'160px' }}>
-          <option value="">예배 선택</option>
+          <option value="">{t.attendance.selectWorship}</option>
           {worships.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
         </select>
         <div style={{ flex:1, minWidth:'160px' }}>
           <input value={search} onChange={e => setSearch(e.target.value)}
-            placeholder="교인 이름 검색..." style={{ width:'100%', padding:'9px 13px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', outline:'none', fontFamily:'inherit', boxSizing:'border-box' }} />
+            placeholder={t.attendance.searchMember} style={{ width:'100%', padding:'9px 13px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', outline:'none', fontFamily:'inherit', boxSizing:'border-box' }} />
         </div>
         {/* 일괄 빠른 적용 */}
         <div style={{ display:'flex', gap:'5px', alignItems:'center' }}>
-          <span style={{ fontSize:'12px', color:'#9ca3af', marginRight:'2px' }}>일괄:</span>
+          <span style={{ fontSize:'12px', color:'#9ca3af', marginRight:'2px' }}>{t.attendance.batchApply}</span>
           {STATUS_ORDER.map(s => {
             const c = STATUS_CONFIG[s];
             return (
@@ -183,11 +185,11 @@ function WorshipTab({ date }: { date: string }) {
 
       {/* 교인 목록 */}
       {loading ? (
-        <div style={{ textAlign:'center', padding:'40px', color:'#9ca3af' }}>불러오는 중...</div>
+        <div style={{ textAlign:'center', padding:'40px', color:'#9ca3af' }}>{t.common.loading}</div>
       ) : (
         <div style={{ maxHeight:'calc(100vh - 420px)', overflowY:'auto' }}>
           {filtered.length === 0 ? (
-            <div style={{ textAlign:'center', padding:'30px', color:'#9ca3af' }}>교인이 없습니다</div>
+            <div style={{ textAlign:'center', padding:'30px', color:'#9ca3af' }}>{t.attendance.noMembers}</div>
           ) : filtered.map(m => (
             <AttRow key={m.id} name={getMemberName(m)} memberId={m.id}
               status={statusMap[m.id] ?? 'present'} onChange={handleStatus} />
@@ -198,10 +200,10 @@ function WorshipTab({ date }: { date: string }) {
       {/* 에러 + 저장 */}
       {error && <div style={{ padding:'9px 13px', borderRadius:'9px', background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', fontSize:'13px', marginTop:'10px' }}>{error}</div>}
       <div style={{ display:'flex', justifyContent:'flex-end', gap:'8px', marginTop:'14px' }}>
-        {saved && <span style={{ display:'flex', alignItems:'center', gap:'5px', fontSize:'13px', color:'#16a34a' }}>✓ 저장되었습니다</span>}
+        {saved && <span style={{ display:'flex', alignItems:'center', gap:'5px', fontSize:'13px', color:'#16a34a' }}>{t.attendance.savedMsg}</span>}
         <button onClick={save} disabled={saving}
           style={{ padding:'10px 24px', borderRadius:'10px', border:'none', background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)', color:saving?'#d4b85c':'#fff', fontSize:'14px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit', boxShadow:saving?'none':'0 4px 12px rgba(201,168,76,0.3)' }}>
-          {saving ? '저장 중...' : '일괄 저장'}
+          {saving ? t.common.saving : t.attendance.batchSave}
         </button>
       </div>
     </div>
@@ -210,6 +212,7 @@ function WorshipTab({ date }: { date: string }) {
 
 // ─── 구역 출석 탭 ─────────────────────────────────────────
 function GroupTab({ date }: { date: string }) {
+  const { t } = useTranslation();
   const [groups,    setGroups]    = useState<Group[]>([]);
   const [groupId,   setGroupId]   = useState<number | ''>('');
   const [members,   setMembers]   = useState<GroupMember[]>([]);
@@ -260,14 +263,14 @@ function GroupTab({ date }: { date: string }) {
   };
 
   const save = async () => {
-    if (!groupId) { setError('구역을 선택해주세요.'); return; }
+    if (!groupId) { setError(t.attendance.selectGroupError); return; }
     setSaving(true); setError('');
     const records = members.map(m => ({ member_id: m.member_id, status: statusMap[m.member_id] ?? 'present', group_id: groupId, date }));
     try {
       await apiClient('/api/v1/attendance/batch', { method: 'POST', body: JSON.stringify({ records }) });
       setSaved(true);
     } catch (e) {
-      setError(e instanceof Error ? e.message : '저장에 실패했습니다.');
+      setError(e instanceof Error ? e.message : t.common.saveError);
     } finally { setSaving(false); }
   };
 
@@ -278,12 +281,12 @@ function GroupTab({ date }: { date: string }) {
       <div style={{ display:'flex', gap:'10px', marginBottom:'14px', flexWrap:'wrap', alignItems:'center' }}>
         <select value={groupId} onChange={e => { setGroupId(Number(e.target.value)); setSaved(false); }}
           style={{ padding:'9px 13px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#1a1a1a', fontFamily:'inherit', outline:'none', background:'#fff', minWidth:'160px' }}>
-          <option value="">구역 선택</option>
+          <option value="">{t.attendance.selectGroup}</option>
           {groups.map(g => <option key={g.id} value={g.id}>{g.name} ({g.type})</option>)}
         </select>
         {members.length > 0 && (
           <div style={{ display:'flex', gap:'5px', alignItems:'center' }}>
-            <span style={{ fontSize:'12px', color:'#9ca3af', marginRight:'2px' }}>일괄:</span>
+            <span style={{ fontSize:'12px', color:'#9ca3af', marginRight:'2px' }}>{t.attendance.batchApply}</span>
             {STATUS_ORDER.map(s => {
               const c = STATUS_CONFIG[s];
               return (
@@ -317,12 +320,12 @@ function GroupTab({ date }: { date: string }) {
       {!groupId ? (
         <div style={{ textAlign:'center', padding:'48px', background:'#f9fafb', borderRadius:'14px', border:'1.5px dashed #e5e7eb' }}>
           <div style={{ fontSize:'36px', marginBottom:'10px' }}>🏘️</div>
-          <div style={{ fontSize:'14px', color:'#6b7280' }}>구역을 선택하면 구역원 목록이 표시됩니다</div>
+          <div style={{ fontSize:'14px', color:'#6b7280' }}>{t.attendance.selectGroupHint}</div>
         </div>
       ) : loading ? (
-        <div style={{ textAlign:'center', padding:'40px', color:'#9ca3af' }}>불러오는 중...</div>
+        <div style={{ textAlign:'center', padding:'40px', color:'#9ca3af' }}>{t.common.loading}</div>
       ) : members.length === 0 ? (
-        <div style={{ textAlign:'center', padding:'30px', color:'#9ca3af' }}>구역원이 없습니다</div>
+        <div style={{ textAlign:'center', padding:'30px', color:'#9ca3af' }}>{t.attendance.noGroupMembers}</div>
       ) : (
         <div style={{ maxHeight:'calc(100vh - 440px)', overflowY:'auto' }}>
           {members.map(m => (
@@ -335,10 +338,10 @@ function GroupTab({ date }: { date: string }) {
       {error && <div style={{ padding:'9px 13px', borderRadius:'9px', background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', fontSize:'13px', marginTop:'10px' }}>{error}</div>}
       {groupId && members.length > 0 && (
         <div style={{ display:'flex', justifyContent:'flex-end', gap:'8px', marginTop:'14px' }}>
-          {saved && <span style={{ display:'flex', alignItems:'center', fontSize:'13px', color:'#16a34a' }}>✓ 저장되었습니다</span>}
+          {saved && <span style={{ display:'flex', alignItems:'center', fontSize:'13px', color:'#16a34a' }}>{t.attendance.savedMsg}</span>}
           <button onClick={save} disabled={saving}
             style={{ padding:'10px 24px', borderRadius:'10px', border:'none', background:saving?'#f0d88a':'linear-gradient(135deg,#c9a84c,#c9a84c)', color:saving?'#d4b85c':'#fff', fontSize:'14px', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontFamily:'inherit', boxShadow:saving?'none':'0 4px 12px rgba(201,168,76,0.3)' }}>
-            {saving ? '저장 중...' : '일괄 저장'}
+            {saving ? t.common.saving : t.attendance.batchSave}
           </button>
         </div>
       )}
@@ -349,6 +352,7 @@ function GroupTab({ date }: { date: string }) {
 // ─── 메인 페이지 ──────────────────────────────────────────
 export default function AttendancePage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [tab,  setTab]  = useState<'worship' | 'group'>('worship');
   const [date, setDate] = useState(toDateStr(new Date()));
 
@@ -367,13 +371,13 @@ export default function AttendancePage() {
         {/* 헤더 */}
         <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:'20px', flexWrap:'wrap', gap:'12px' }}>
           <div>
-            <h1 style={{ margin:0, fontSize:'26px', fontWeight:800, color:'#1a1a1a', letterSpacing:'-0.04em' }}>출석 관리</h1>
-            <p style={{ margin:'5px 0 0', fontSize:'13px', color:'#9ca3af' }}>예배 및 구역별 출석을 기록합니다</p>
+            <h1 style={{ margin:0, fontSize:'26px', fontWeight:800, color:'#1a1a1a', letterSpacing:'-0.04em' }}>{t.attendance.title}</h1>
+            <p style={{ margin:'5px 0 0', fontSize:'13px', color:'#9ca3af' }}>{t.attendance.subtitle}</p>
           </div>
           <button onClick={() => router.push('/attendance/stats')}
             style={{ display:'flex', alignItems:'center', gap:'6px', padding:'9px 16px', borderRadius:'10px', border:'1.5px solid #c9a84c', background:'#fdf8e8', color:'#c9a84c', fontSize:'13px', fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            출석 통계 보기
+            {t.attendance.viewStats}
           </button>
         </div>
 
@@ -392,16 +396,16 @@ export default function AttendancePage() {
           </button>
           <button onClick={() => setDate(toDateStr(new Date()))}
             style={{ padding:'4px 10px', borderRadius:'7px', border:'1px solid #e5e7eb', background:'#f3f4f6', color:'#374151', fontSize:'11px', fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>
-            오늘
+            {t.common.today}
           </button>
         </div>
 
         {/* 탭 */}
         <div style={{ display:'flex', gap:'0', marginBottom:'18px', borderRadius:'12px', background:'#f3f4f6', padding:'4px', width:'fit-content' }}>
-          {(['worship', 'group'] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)}
-              style={{ padding:'8px 22px', borderRadius:'9px', border:'none', background:tab===t?'#fff':'transparent', color:tab===t?'#111827':'#6b7280', fontSize:'13px', fontWeight:tab===t?700:500, cursor:'pointer', fontFamily:'inherit', boxShadow:tab===t?'0 2px 8px rgba(0,0,0,0.08)':'none', transition:'all 0.15s' }}>
-              {t === 'worship' ? '⛪ 예배 출석' : '🏘️ 구역 출석'}
+          {(['worship', 'group'] as const).map(tabKey => (
+            <button key={tabKey} onClick={() => setTab(tabKey)}
+              style={{ padding:'8px 22px', borderRadius:'9px', border:'none', background:tab===tabKey?'#fff':'transparent', color:tab===tabKey?'#111827':'#6b7280', fontSize:'13px', fontWeight:tab===tabKey?700:500, cursor:'pointer', fontFamily:'inherit', boxShadow:tab===tabKey?'0 2px 8px rgba(0,0,0,0.08)':'none', transition:'all 0.15s' }}>
+              {tabKey === 'worship' ? t.attendance.worshipTab : t.attendance.groupTab}
             </button>
           ))}
         </div>

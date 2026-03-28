@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient, formatDateKR } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ─────────────────────────────────────────────
 interface Member {
@@ -31,17 +32,14 @@ const STATUS_CLASS: Record<string, string> = {
   completed: 'badge-completed',
   withdrawn: 'badge-withdrawn',
 };
-const STATUS_LABEL: Record<string, string> = {
-  active: '활동중', inactive: '휴면', completed: '수료', withdrawn: '탈퇴',
-};
-
 function StatusBadge({ status }: { status?: string | null }) {
+  const { t } = useTranslation();
   if (!status || !STATUS_CLASS[status]) {
     return <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: 500 }}>—</span>;
   }
   return (
     <span className={`badge ${STATUS_CLASS[status]}`}>
-      {STATUS_LABEL[status]}
+      {t.members.statusLabels[status] ?? status}
     </span>
   );
 }
@@ -62,6 +60,7 @@ function SkeletonRow() {
 // ─── 메인 컴포넌트 ────────────────────────────────────
 export default function MembersPage() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const [members, setMembers]       = useState<Member[]>([]);
   const [total, setTotal]           = useState(0);
@@ -86,7 +85,7 @@ export default function MembersPage() {
       setTotalPages(data.pages ?? 1);
       setPage(data.page ?? pg);
     } catch (e) {
-      setError(e instanceof Error ? e.message : '데이터를 불러오지 못했습니다.');
+      setError(e instanceof Error ? e.message : t.common.fetchError);
     } finally {
       setLoading(false);
     }
@@ -106,7 +105,7 @@ export default function MembersPage() {
     return range;
   };
 
-  const genderLabel = (g?: string | null) => g === 'M' ? '남' : g === 'F' ? '여' : '—';
+  const genderLabel = (g?: string | null) => g ? (t.members.genderLabels[g] ?? '—') : '—';
 
   return (
     <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
@@ -118,10 +117,10 @@ export default function MembersPage() {
             fontSize: '26px', fontWeight: 800, letterSpacing: '-0.04em', margin: '0 0 6px',
             color: '#1a1a1a',
           }}>
-            교인 관리
+            {t.members.title}
           </h1>
           <p style={{ margin: 0, fontSize: '14px', color: 'var(--muted)', fontWeight: 500 }}>
-            전체 교인 {total.toLocaleString()}명
+            {t.members.totalCount.replace('{count}', total.toLocaleString())}
           </p>
         </div>
         <button
@@ -131,7 +130,7 @@ export default function MembersPage() {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
-          교인 등록
+          {t.members.register}
         </button>
       </div>
 
@@ -144,7 +143,7 @@ export default function MembersPage() {
         <input
           className="input-dark"
           type="text"
-          placeholder="이름, 전화번호, 이메일 검색..."
+          placeholder={t.members.searchPlaceholder}
           value={inputVal}
           onChange={e => handleSearchChange(e.target.value)}
           style={{ width: '100%', paddingLeft: '40px', paddingRight: '16px', paddingTop: '11px', paddingBottom: '11px', borderRadius: '10px', fontSize: '14px' }}
@@ -159,7 +158,7 @@ export default function MembersPage() {
           </svg>
           {error}
           <button onClick={() => fetchMembers(page, search)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#fca5a5', cursor: 'pointer', fontWeight: 600, fontFamily: 'inherit', fontSize: '13px' }}>
-            다시 시도
+            {t.common.retry}
           </button>
         </div>
       )}
@@ -176,7 +175,7 @@ export default function MembersPage() {
           <table className="table-dark" style={{ width: '100%', borderCollapse: 'collapse', minWidth: '640px' }}>
             <thead>
               <tr>
-                {['이름', '성별', '전화번호', '이메일', '등록일', '상태'].map(h => (
+                {t.members.headers.map(h => (
                   <th key={h}>{h}</th>
                 ))}
               </tr>
@@ -191,9 +190,9 @@ export default function MembersPage() {
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto 12px' }}>
                           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--foreground-2)', marginBottom: '4px' }}>교인이 없습니다</div>
+                        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--foreground-2)', marginBottom: '4px' }}>{t.members.noMembers}</div>
                         <div style={{ fontSize: '13px' }}>
-                          {search ? `"${search}" 검색 결과가 없어요.` : '교인을 등록해보세요!'}
+                          {search ? t.members.noSearchResults.replace('{query}', search) : t.members.registerPrompt}
                         </div>
                       </td>
                     </tr>

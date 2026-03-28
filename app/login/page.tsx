@@ -2,20 +2,21 @@
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/lib/i18n';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
 
-/** HTTP 상태코드별 한국어 에러 메시지 */
-function getErrorMessage(status: number): string {
-  if (status === 401 || status === 400) return '이메일 또는 비밀번호가 올바르지 않습니다.';
-  if (status === 403) return '접근 권한이 없습니다. 관리자에게 문의하세요.';
-  if (status === 429) return '로그인 시도가 너무 많습니다. 잠시 후 다시 시도해주세요.';
-  if (status >= 500) return '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
-  return '로그인 처리 중 오류가 발생했습니다.';
+function getErrorMessage(status: number, errors: { wrongCredentials: string; forbidden: string; tooMany: string; serverError: string; genericError: string }): string {
+  if (status === 401 || status === 400) return errors.wrongCredentials;
+  if (status === 403) return errors.forbidden;
+  if (status === 429) return errors.tooMany;
+  if (status >= 500) return errors.serverError;
+  return errors.genericError;
 }
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw]     = useState(false);
@@ -26,9 +27,9 @@ export default function LoginPage() {
   const emailRef                = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 50);
+    const timer = setTimeout(() => setMounted(true), 50);
     emailRef.current?.focus();
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -45,7 +46,7 @@ export default function LoginPage() {
       });
 
       if (!res.ok) {
-        setError(getErrorMessage(res.status));
+        setError(getErrorMessage(res.status, t.login.errors));
         setHasError(true);
         return;
       }
@@ -54,7 +55,7 @@ export default function LoginPage() {
       const token = data.access_token ?? data.token ?? data.accessToken;
 
       if (!token) {
-        setError('로그인 처리 중 오류가 발생했습니다.');
+        setError(t.login.errors.tokenError);
         setHasError(true);
         return;
       }
@@ -62,7 +63,7 @@ export default function LoginPage() {
       localStorage.setItem('access_token', token);
       router.replace('/dashboard');
     } catch {
-      setError('서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.');
+      setError(t.login.errors.networkError);
       setHasError(true);
     } finally {
       setLoading(false);
@@ -201,7 +202,7 @@ export default function LoginPage() {
               J-SheepFold
             </h1>
             <p style={{ color: '#7a5c14', fontSize: '13px', margin: 0, fontWeight: 500, letterSpacing: '0.01em' }}>
-              교회 통합 관리 시스템
+              {t.login.subtitle}
             </p>
           </div>
 
@@ -211,7 +212,7 @@ export default function LoginPage() {
             {/* 이메일 */}
             <div>
               <label htmlFor="login-email" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5c3d1e', marginBottom: '8px' }}>
-                이메일
+                {t.login.email}
               </label>
               <input
                 id="login-email"
@@ -221,7 +222,7 @@ export default function LoginPage() {
                 className="login-input"
                 value={email}
                 onChange={e => { setEmail(e.target.value); if (hasError) setHasError(false); }}
-                placeholder="admin@church.com"
+                placeholder={t.login.emailPlaceholder}
                 required
                 disabled={loading}
                 style={inputStyle}
@@ -231,7 +232,7 @@ export default function LoginPage() {
             {/* 비밀번호 */}
             <div>
               <label htmlFor="login-password" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5c3d1e', marginBottom: '8px' }}>
-                비밀번호
+                {t.login.password}
               </label>
               <div style={{ position: 'relative' }}>
                 <input
@@ -241,7 +242,7 @@ export default function LoginPage() {
                   className="login-input"
                   value={password}
                   onChange={e => { setPassword(e.target.value); if (hasError) setHasError(false); }}
-                  placeholder="비밀번호를 입력하세요"
+                  placeholder={t.login.passwordPlaceholder}
                   required
                   disabled={loading}
                   style={{ ...inputStyle, paddingRight: '48px' }}
@@ -304,14 +305,14 @@ export default function LoginPage() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{ animation: 'spin 0.8s linear infinite' }}>
                     <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                   </svg>
-                  로그인 중...
+                  {t.login.loggingIn}
                 </>
-              ) : '로그인'}
+              ) : t.login.loginBtn}
             </button>
           </form>
 
           <p style={{ textAlign: 'center', marginTop: '28px', marginBottom: 0, fontSize: '12px', color: '#8b6914' }}>
-            &copy; {new Date().getFullYear()} J-SheepFold. All rights reserved.
+            &copy; {new Date().getFullYear()} {t.login.copyright}
           </p>
         </div>
       </div>
