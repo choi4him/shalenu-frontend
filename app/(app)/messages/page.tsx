@@ -74,7 +74,7 @@ function DetailModal({ msg, onClose }: { msg: MessageRecord; onClose: () => void
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
-        {msg.title && <h3 style={{ margin: '0 0 12px', fontSize: '16px', fontWeight: 800, color: '#111827' }}>{msg.title}</h3>}
+        {msg.title && <h3 style={{ margin: '0 0 12px', fontSize: '16px', fontWeight: 800, color: '#1a1a1a' }}>{msg.title}</h3>}
         <div style={{ fontSize: '14px', color: '#374151', lineHeight: 1.7, whiteSpace: 'pre-wrap', background: '#f9fafb', borderRadius: '10px', padding: '14px 16px', marginBottom: '14px' }}>
           {msg.content}
         </div>
@@ -222,7 +222,7 @@ export default function MessagesPage() {
       <div style={{ padding: '36px 40px', maxWidth: '800px' }}>
         {/* 헤더 */}
         <div style={{ marginBottom: '24px' }}>
-          <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em' }}>메시지 발송</h1>
+          <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>메시지 발송</h1>
           <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>교인에게 문자 및 이메일을 발송합니다</p>
         </div>
 
@@ -322,7 +322,7 @@ export default function MessagesPage() {
                   {recipientType === 'individual' && (
                     <div style={{ position: 'relative', marginBottom: '10px' }}>
                       <input className="inp-msg"
-                        style={{ width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', color: '#111827' }}
+                        style={{ width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', color: '#1a1a1a' }}
                         placeholder="교인 이름 검색..." value={memberSearch}
                         onChange={e => setMemberSearch(e.target.value)} />
                       {memberResults.length > 0 && (
@@ -367,7 +367,7 @@ export default function MessagesPage() {
                     <label style={{ fontSize: '12px', fontWeight: 700, color: '#9ca3af', letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>제목</label>
                     <input className="inp-msg" value={title} onChange={e => setTitle(e.target.value)}
                       placeholder="이메일 제목을 입력하세요"
-                      style={{ width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '14px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', color: '#111827' }} />
+                      style={{ width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '14px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', color: '#1a1a1a' }} />
                   </div>
                 )}
 
@@ -389,7 +389,7 @@ export default function MessagesPage() {
                   </div>
                   <textarea className="inp-msg" value={content} onChange={e => setContent(e.target.value)}
                     placeholder={msgType === 'sms' ? '문자 내용을 입력하세요 (한글 90자 기준)' : '이메일 내용을 입력하세요'}
-                    style={{ width: '100%', minHeight: msgType === 'sms' ? '120px' : '180px', padding: '12px 14px', borderRadius: '9px', border: `1.5px solid ${contentBytes > SMS_LIMIT ? '#fca5a5' : '#e5e7eb'}`, fontSize: '14px', resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', color: '#111827', lineHeight: 1.65 }} />
+                    style={{ width: '100%', minHeight: msgType === 'sms' ? '120px' : '180px', padding: '12px 14px', borderRadius: '9px', border: `1.5px solid ${contentBytes > SMS_LIMIT ? '#fca5a5' : '#e5e7eb'}`, fontSize: '14px', resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', color: '#1a1a1a', lineHeight: 1.65 }} />
                   {msgType === 'sms' && contentBytes > SMS_LIMIT && (
                     <div style={{ fontSize: '12px', color: '#ef4444', marginTop: '4px' }}>⚠️ 90자를 초과하면 장문(LMS)으로 발송될 수 있습니다</div>
                   )}
@@ -443,7 +443,7 @@ export default function MessagesPage() {
                       </span>
                       <span style={{ fontSize: '11px', fontWeight: 700, color: typeColor }}>{typeLabel}</span>
                       <div style={{ overflow: 'hidden' }}>
-                        {msg.title && <div style={{ fontSize: '13px', fontWeight: 600, color: '#111827', marginBottom: '1px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{msg.title}</div>}
+                        {msg.title && <div style={{ fontSize: '13px', fontWeight: 600, color: '#1a1a1a', marginBottom: '1px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{msg.title}</div>}
                         <div style={{ fontSize: '12px', color: '#6b7280', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{msg.content}</div>
                       </div>
                       <span style={{ fontSize: '12px', color: '#6b7280' }}>{msg.recipient_count ?? '—'}명</span>

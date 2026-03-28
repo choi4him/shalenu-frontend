@@ -54,7 +54,7 @@ const VISIT_ROUTES = ['지인 소개', '인터넷 검색', '전도', '가족', '
 // ─── 스타일 ────────────────────────────────────────────────
 const inputSt: React.CSSProperties = {
   width: '100%', padding: '10px 13px', borderRadius: '9px',
-  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#111827',
+  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#1a1a1a',
   outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', background: '#fff',
 };
 const labelSt: React.CSSProperties = {
@@ -202,7 +202,7 @@ export default function NewcomerDetailPage() {
               </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                  <h1 style={{ margin: 0, fontSize: '20px', fontWeight: 800, color: '#111827', letterSpacing: '-0.03em' }}>{nc.name}</h1>
+                  <h1 style={{ margin: 0, fontSize: '20px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.03em' }}>{nc.name}</h1>
                   <StatusBadge status={nc.status} />
                 </div>
                 <div style={{ fontSize: '13px', color: '#9ca3af' }}>
@@ -354,7 +354,7 @@ export default function NewcomerDetailPage() {
         <div style={{ background: '#fff', borderRadius: '16px', padding: '24px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
             <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
-            <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>상태 변경 이력</span>
+            <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>상태 변경 이력</span>
           </div>
 
           {history.length === 0 ? (

@@ -77,7 +77,7 @@ function SummaryCard({
       borderTop:`3px solid ${color}`,
     }}>
       <div style={{ fontSize:'11px', fontWeight:700, color:'#9ca3af', textTransform:'uppercase', letterSpacing:'0.05em', marginBottom:'10px' }}>{label}</div>
-      <div style={{ fontSize:'22px', fontWeight:900, color:'#111827', letterSpacing:'-0.04em', marginBottom:'4px' }}>{formatKRW(amount)}</div>
+      <div style={{ fontSize:'22px', fontWeight:900, color:'#1a1a1a', letterSpacing:'-0.04em', marginBottom:'4px' }}>{formatKRW(amount)}</div>
       {sub && <div style={{ fontSize:'12px', color:'#6b7280' }}>{sub}</div>}
       <div style={{ marginTop:'10px', height:'4px', borderRadius:'99px', background:bg, overflow:'hidden' }}>
         <div style={{ height:'100%', width:'100%', background:color, borderRadius:'99px' }} />
@@ -247,7 +247,7 @@ export default function OfferingsStatsPage() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div>
-              <h1 style={{ fontSize:'26px',fontWeight:800,color:'#111827',letterSpacing:'-0.04em',margin:'0 0 4px' }}>헌금 통계</h1>
+              <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 4px' }}>헌금 통계</h1>
               <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>연도별 헌금 현황 분석</p>
             </div>
           </div>
@@ -272,7 +272,7 @@ export default function OfferingsStatsPage() {
         <div style={{ marginBottom:'24px' }}>
           <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'14px' }}>
             <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-            <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>연간 요약</span>
+            <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>연간 요약</span>
           </div>
           {loading ? (
             <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:'14px' }}>
@@ -309,7 +309,7 @@ export default function OfferingsStatsPage() {
           <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
               <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-              <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>월별 헌금 추이</span>
+              <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>월별 헌금 추이</span>
             </div>
             {loading ? <Sk h="240px" r="12px" /> : (
               <div style={{ height:'260px', animation:'fadeIn 0.3s' }}>
@@ -322,7 +322,7 @@ export default function OfferingsStatsPage() {
           <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
               <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-              <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>종류별 비율</span>
+              <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>종류별 비율</span>
             </div>
             {loading ? <Sk h="240px" r="12px" /> : (
               <div style={{ animation:'fadeIn 0.3s' }}>
@@ -332,7 +332,7 @@ export default function OfferingsStatsPage() {
                   {stats && (
                     <div style={{ position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',textAlign:'center',pointerEvents:'none' }}>
                       <div style={{ fontSize:'10px',fontWeight:700,color:'#9ca3af',letterSpacing:'0.05em' }}>합계</div>
-                      <div style={{ fontSize:'13px',fontWeight:900,color:'#111827',whiteSpace:'nowrap' }}>
+                      <div style={{ fontSize:'13px',fontWeight:900,color:'#1a1a1a',whiteSpace:'nowrap' }}>
                         {formatKRW(stats.grand_total)}
                       </div>
                     </div>
@@ -347,7 +347,7 @@ export default function OfferingsStatsPage() {
                         <div style={{ width:'10px',height:'10px',borderRadius:'3px',background:TYPE_PALETTE[i % TYPE_PALETTE.length].border,flexShrink:0 }} />
                         <span style={{ fontSize:'12px',color:'#374151',flex:1 }}>{t.type_label}</span>
                         <span style={{ fontSize:'11px',color:'#9ca3af' }}>{pct}%</span>
-                        <span style={{ fontSize:'12px',fontWeight:700,color:'#111827',minWidth:'80px',textAlign:'right' }}>{formatKRW(t.total)}</span>
+                        <span style={{ fontSize:'12px',fontWeight:700,color:'#1a1a1a',minWidth:'80px',textAlign:'right' }}>{formatKRW(t.total)}</span>
                       </div>
                     );
                   })}
@@ -361,7 +361,7 @@ export default function OfferingsStatsPage() {
         <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
           <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
             <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-            <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>교인별 헌금 현황</span>
+            <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>교인별 헌금 현황</span>
             {!loadingM && <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{members.length}명</span>}
           </div>
 
@@ -404,7 +404,7 @@ export default function OfferingsStatsPage() {
                       onClick={() => { if (m.member_id) router.push(`/members/${m.member_id}`); }}
                     >
                       <td style={{
-                        padding:'11px 14px',fontWeight:600,color:'#111827',
+                        padding:'11px 14px',fontWeight:600,color:'#1a1a1a',
                         position:'sticky',left:0,background:'#fff',zIndex:1,
                         display:'flex',alignItems:'center',gap:'8px',whiteSpace:'nowrap',
                       }}>

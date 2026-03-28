@@ -99,7 +99,7 @@ function BookingModal({
     } finally { setSaving(false); }
   };
 
-  const inputStyle = { width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '14px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' as const, color: '#111827' };
+  const inputStyle = { width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '14px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' as const, color: '#1a1a1a' };
   const labelStyle = { fontSize: '11px', fontWeight: 700 as const, color: '#9ca3af', display: 'block' as const, marginBottom: '5px', letterSpacing: '0.04em', textTransform: 'uppercase' as const };
 
   return (
@@ -107,7 +107,7 @@ function BookingModal({
       onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div style={{ background: '#fff', borderRadius: '20px', padding: '28px', width: '480px', maxWidth: '95vw', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', maxHeight: '90vh', overflowY: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '22px' }}>
-          <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#111827' }}>시설 예약 신청</h3>
+          <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1a1a1a' }}>시설 예약 신청</h3>
           <button onClick={onClose} style={{ border: 'none', background: '#f3f4f6', borderRadius: '8px', padding: '7px', cursor: 'pointer', display: 'flex' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
@@ -186,7 +186,7 @@ function FacilityModal({ onClose, onDone }: { onClose: () => void; onDone: () =>
   const [form, setForm] = useState({ name: '', capacity: '', description: '', is_active: true });
   const [saving, setSaving] = useState(false);
   const [err, setErr]    = useState('');
-  const inputStyle = { width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '14px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' as const, color: '#111827' };
+  const inputStyle = { width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '14px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' as const, color: '#1a1a1a' };
   const labelStyle = { fontSize: '11px', fontWeight: 700 as const, color: '#9ca3af', display: 'block' as const, marginBottom: '5px', letterSpacing: '0.04em', textTransform: 'uppercase' as const };
 
   const save = async () => {
@@ -207,7 +207,7 @@ function FacilityModal({ onClose, onDone }: { onClose: () => void; onDone: () =>
       onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div style={{ background: '#fff', borderRadius: '20px', padding: '28px', width: '420px', maxWidth: '95vw', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-          <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#111827' }}>시설 등록</h3>
+          <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#1a1a1a' }}>시설 등록</h3>
           <button onClick={onClose} style={{ border: 'none', background: '#f3f4f6', borderRadius: '8px', padding: '7px', cursor: 'pointer', display: 'flex' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
@@ -292,7 +292,7 @@ export default function FacilitiesPage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em' }}>예약 현황</h1>
+            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>예약 현황</h1>
             <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>시설을 선택하고 예약을 신청하세요</p>
           </div>
           <button onClick={() => setShowFacForm(true)}
@@ -308,14 +308,14 @@ export default function FacilitiesPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
-              <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>월별 예약 캘린더</span>
+              <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>월별 예약 캘린더</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <button onClick={() => { if (calMonth === 0) { setCalYear(y => y-1); setCalMonth(11); } else setCalMonth(m => m-1); }}
                 style={{ width: '30px', height: '30px', borderRadius: '8px', border: '1.5px solid #e5e7eb', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
               </button>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#111827', minWidth: '90px', textAlign: 'center' }}>{calYear}년 {KO_MONTHS[calMonth]}</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: '#1a1a1a', minWidth: '90px', textAlign: 'center' }}>{calYear}년 {KO_MONTHS[calMonth]}</span>
               <button onClick={() => { if (calMonth === 11) { setCalYear(y => y+1); setCalMonth(0); } else setCalMonth(m => m+1); }}
                 style={{ width: '30px', height: '30px', borderRadius: '8px', border: '1.5px solid #e5e7eb', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -370,7 +370,7 @@ export default function FacilitiesPage() {
                     return (
                       <div key={b.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 12px', borderRadius: '9px', background: '#f9fafb', border: '1px solid #f1f5f9' }}>
                         <span style={{ fontSize: '12px', color: '#6b7280', minWidth: '90px' }}>{toTimeStr(b.start_time)} – {toTimeStr(b.end_time)}</span>
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#111827', flex: 1 }}>{b.title}</span>
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#1a1a1a', flex: 1 }}>{b.title}</span>
                         {fac && <span style={{ fontSize: '11px', color: '#9ca3af' }}>{fac.name}</span>}
                         <span style={{ padding: '2px 8px', borderRadius: '10px', background: st.bg, color: st.color, border: `1px solid ${st.border}`, fontSize: '11px', fontWeight: 700 }}>{st.label}</span>
                       </div>
@@ -385,7 +385,7 @@ export default function FacilitiesPage() {
         {/* ════════ 시설 카드 ════════ */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
           <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#f59e0b,#fcd34d)', borderRadius: '99px' }} />
-          <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>시설 목록</span>
+          <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>시설 목록</span>
         </div>
 
         {loading ? (
@@ -408,7 +408,7 @@ export default function FacilitiesPage() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg,#fdf8e8,#e0e7ff)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px' }}>{icon}</div>
                       <div>
-                        <div style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>{fac.name}</div>
+                        <div style={{ fontSize: '15px', fontWeight: 800, color: '#1a1a1a' }}>{fac.name}</div>
                         {fac.capacity && <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>수용 {fac.capacity}명</div>}
                       </div>
                     </div>

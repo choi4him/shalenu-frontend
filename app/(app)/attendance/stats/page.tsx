@@ -197,7 +197,7 @@ export default function AttendanceStatsPage() {
         {/* 헤더 */}
         <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:'20px', flexWrap:'wrap', gap:'12px' }}>
           <div>
-            <h1 style={{ margin:0, fontSize:'26px', fontWeight:800, color:'#111827', letterSpacing:'-0.04em' }}>출석 통계</h1>
+            <h1 style={{ margin:0, fontSize:'26px', fontWeight:800, color:'#1a1a1a', letterSpacing:'-0.04em' }}>출석 통계</h1>
             <p style={{ margin:'5px 0 0', fontSize:'13px', color:'#9ca3af' }}>월별 출석 현황과 교인별 출석률을 확인합니다</p>
           </div>
           <button onClick={() => router.push('/attendance')}
@@ -213,7 +213,7 @@ export default function AttendanceStatsPage() {
             style={{ border:'none', background:'none', cursor:'pointer', padding:'4px 6px', borderRadius:'6px', color:'#6b7280', display:'flex', alignItems:'center' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
-          <span style={{ fontSize:'15px', fontWeight:700, color:'#111827', minWidth:'80px', textAlign:'center' }}>{year}년 {month}월</span>
+          <span style={{ fontSize:'15px', fontWeight:700, color:'#1a1a1a', minWidth:'80px', textAlign:'center' }}>{year}년 {month}월</span>
           <button onClick={() => changeMonth(1)}
             style={{ border:'none', background:'none', cursor:'pointer', padding:'4px 6px', borderRadius:'6px', color:'#6b7280', display:'flex', alignItems:'center' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -254,7 +254,7 @@ export default function AttendanceStatsPage() {
               <div style={{ background:'#fff', borderRadius:'16px', padding:'20px', border:'1px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'14px' }}>
                   <div style={{ width:'4px', height:'18px', background:'linear-gradient(#c9a84c,#c9a84c)', borderRadius:'99px' }}/>
-                  <span style={{ fontSize:'14px', fontWeight:700, color:'#111827' }}>월별 출석 추이</span>
+                  <span style={{ fontSize:'14px', fontWeight:700, color:'#1a1a1a' }}>월별 출석 추이</span>
                   <span style={{ fontSize:'12px', color:'#9ca3af' }}>{year}년</span>
                 </div>
                 <div style={{ height:'220px' }}>
@@ -265,7 +265,7 @@ export default function AttendanceStatsPage() {
               <div style={{ background:'#fff', borderRadius:'16px', padding:'20px', border:'1px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'14px' }}>
                   <div style={{ width:'4px', height:'18px', background:'linear-gradient(#c9a84c,#c9a84c)', borderRadius:'99px' }}/>
-                  <span style={{ fontSize:'14px', fontWeight:700, color:'#111827' }}>출석 비율</span>
+                  <span style={{ fontSize:'14px', fontWeight:700, color:'#1a1a1a' }}>출석 비율</span>
                 </div>
                 <div style={{ height:'220px' }}>
                   {stats && <DonutChart summary={stats.summary} />}
@@ -278,7 +278,7 @@ export default function AttendanceStatsPage() {
               <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'14px', flexWrap:'wrap', gap:'10px' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:'8px' }}>
                   <div style={{ width:'4px', height:'18px', background:'linear-gradient(#c9a84c,#c9a84c)', borderRadius:'99px' }}/>
-                  <span style={{ fontSize:'14px', fontWeight:700, color:'#111827' }}>교인별 출석 현황</span>
+                  <span style={{ fontSize:'14px', fontWeight:700, color:'#1a1a1a' }}>교인별 출석 현황</span>
                   <span style={{ fontSize:'12px', color:'#9ca3af' }}>{filteredMembers.length}명</span>
                 </div>
                 <input value={search} onChange={e => setSearch(e.target.value)}
@@ -311,7 +311,7 @@ export default function AttendanceStatsPage() {
                       return (
                         <tr key={m.member_id} className="mem-row" style={{ borderBottom:'1px solid #f9fafb', cursor:'pointer' }}
                           onClick={() => router.push(`/members/${m.member_id}`)}>
-                          <td style={{ padding:'10px 12px', fontWeight:600, color:'#111827' }}>
+                          <td style={{ padding:'10px 12px', fontWeight:600, color:'#1a1a1a' }}>
                             <div style={{ display:'flex', alignItems:'center', gap:'8px' }}>
                               <div style={{ width:'28px', height:'28px', borderRadius:'50%', background:'linear-gradient(135deg,#fdf8e8,#f0d88a)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'11px', fontWeight:800, color:'#c9a84c', flexShrink:0 }}>
                                 {m.name.charAt(0)}

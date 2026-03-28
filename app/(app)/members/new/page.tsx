@@ -227,7 +227,7 @@ export default function MemberNewPage() {
             </svg>
           </button>
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em', margin: '0 0 4px' }}>
+            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 4px' }}>
               교인 등록
             </h1>
             <p style={{ margin: 0, fontSize: '13px', color: '#9ca3af', fontWeight: 500 }}>

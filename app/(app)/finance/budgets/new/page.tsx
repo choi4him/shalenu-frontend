@@ -52,7 +52,7 @@ const parseAmount = (v: string) => {
 // ─── 공통 스타일 ─────────────────────────────────────────
 const inputSt: React.CSSProperties = {
   width:'100%', padding:'10px 12px', borderRadius:'9px',
-  border:'1.5px solid #e5e7eb', fontSize:'14px', color:'#111827',
+  border:'1.5px solid #e5e7eb', fontSize:'14px', color:'#1a1a1a',
   outline:'none', fontFamily:'inherit', boxSizing:'border-box',
   background:'#fff', transition:'border-color 0.2s, box-shadow 0.2s',
 };
@@ -113,7 +113,7 @@ function AddModal({
         style={{ background:'#fff', borderRadius:'18px', padding:'28px 28px 22px', width:'360px', boxShadow:'0 20px 60px rgba(0,0,0,0.2)', animation:'popUp 0.2s' }}
         onClick={e => e.stopPropagation()}
       >
-        <div style={{ fontSize:'16px', fontWeight:800, color:'#111827', marginBottom:'18px' }}>{title}</div>
+        <div style={{ fontSize:'16px', fontWeight:800, color:'#1a1a1a', marginBottom:'18px' }}>{title}</div>
         <input
           ref={inputRef}
           type="text"
@@ -368,7 +368,7 @@ export default function BudgetNewPage() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
           <div>
-            <h1 style={{ fontSize:'24px',fontWeight:800,color:'#111827',letterSpacing:'-0.04em',margin:'0 0 4px' }}>예산 편성</h1>
+            <h1 style={{ fontSize:'24px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 4px' }}>예산 편성</h1>
             <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>연도별 항목 예산을 입력하세요</p>
           </div>
         </div>
@@ -386,7 +386,7 @@ export default function BudgetNewPage() {
         <div style={{ background:'#fff',borderRadius:'16px',padding:'20px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.06)',marginBottom:'16px' }}>
           <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'14px' }}>
             <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-            <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>기본 정보</span>
+            <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>기본 정보</span>
           </div>
           <div style={{ maxWidth:'210px' }}>
             <label style={labelSt}>회계 연도 <span style={{ color:'#ef4444' }}>*</span></label>
@@ -404,7 +404,7 @@ export default function BudgetNewPage() {
           <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'16px' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
               <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-              <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>예산 항목</span>
+              <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>예산 항목</span>
               <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{lines.length}개</span>
             </div>
             {total > 0 && (

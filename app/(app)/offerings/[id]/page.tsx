@@ -159,7 +159,7 @@ export default function OfferingDetailPage() {
               ) : (
                 <>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                    <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em', margin: 0 }}>
+                    <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: 0 }}>
                       {offering?.offering_type_name ?? offering?.offering_type ?? '헌금'}
                     </h1>
                     {offering && (
@@ -262,7 +262,7 @@ export default function OfferingDetailPage() {
         }}>
           <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
-            <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>헌금 항목</span>
+            <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>헌금 항목</span>
             {!loading && <span style={{ fontSize: '12px', color: '#9ca3af', fontWeight: 500, marginLeft: '4px' }}>{items.length}건</span>}
           </div>
 

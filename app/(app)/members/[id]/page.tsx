@@ -100,7 +100,7 @@ const OFFERING_STATUS_MAP = {
 // ─── 공통 스타일 ─────────────────────────────────────────
 const inputSt: React.CSSProperties = {
   width: '100%', padding: '10px 12px', borderRadius: '9px',
-  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#111827',
+  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#1a1a1a',
   outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box',
   background: '#fff', transition: 'border-color 0.2s, box-shadow 0.2s',
 };
@@ -412,7 +412,7 @@ export default function MemberDetailPage() {
               ) : (
                 <>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em', margin: 0 }}>
+                    <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: 0 }}>
                       {member?.name ?? '—'}
                     </h1>
                     {member && (
@@ -510,7 +510,7 @@ export default function MemberDetailPage() {
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #f1f5f9' }}>
                   <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
-                  <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>정보 편집</span>
+                  <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>정보 편집</span>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
@@ -681,7 +681,7 @@ export default function MemberDetailPage() {
                       {addr.road ? (
                         <div>
                           {addr.zip && <span style={{ fontSize: '12px', background: '#f3f4f6', padding: '2px 8px', borderRadius: '6px', color: '#6b7280', marginRight: '8px' }}>{addr.zip}</span>}
-                          <span style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>{addr.road}</span>
+                          <span style={{ fontSize: '14px', fontWeight: 500, color: '#1a1a1a' }}>{addr.road}</span>
                           {addr.detail && <span style={{ fontSize: '14px', fontWeight: 500, color: '#374151' }}> {addr.detail}</span>}
                         </div>
                       ) : (
@@ -720,7 +720,7 @@ export default function MemberDetailPage() {
                           </div>
                           <div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              <span style={{ fontSize: '14px', fontWeight: 700, color: '#111827' }}>{f.name}</span>
+                              <span style={{ fontSize: '14px', fontWeight: 700, color: '#1a1a1a' }}>{f.name}</span>
                               <span style={{ fontSize: '12px', fontWeight: 600, color: '#c9a84c', background: '#fdf8e8', padding: '2px 8px', borderRadius: '99px' }}>{f.relation}</span>
                             </div>
                             {f.phone && <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>{f.phone}</div>}
@@ -845,7 +845,7 @@ export default function MemberDetailPage() {
                   {/* 내용 */}
                   <textarea value={noteForm.content} onChange={e => setNoteForm(p => ({ ...p, content: e.target.value }))}
                     placeholder="노트 내용을 입력하세요..."
-                    style={{ width: '100%', minHeight: '90px', padding: '10px 12px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', color: '#111827' }} />
+                    style={{ width: '100%', minHeight: '90px', padding: '10px 12px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', color: '#1a1a1a' }} />
                   {/* 비공개 토글 */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
                     <div onClick={() => setNoteForm(p => ({ ...p, is_private: !p.is_private }))}
@@ -929,9 +929,9 @@ export default function MemberDetailPage() {
               <div style={{ width: '52px', height: '52px', borderRadius: '16px', background: '#fef2f2', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
               </div>
-              <div style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>교인 삭제</div>
+              <div style={{ fontSize: '18px', fontWeight: 800, color: '#1a1a1a', marginBottom: '8px' }}>교인 삭제</div>
               <div style={{ fontSize: '14px', color: '#6b7280', lineHeight: 1.6 }}>
-                <strong style={{ color: '#111827' }}>{member?.name}</strong> 교인을 삭제하시겠습니까?<br />
+                <strong style={{ color: '#1a1a1a' }}>{member?.name}</strong> 교인을 삭제하시겠습니까?<br />
                 이 작업은 되돌릴 수 없습니다.
               </div>
             </div>

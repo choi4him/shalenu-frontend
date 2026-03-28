@@ -50,7 +50,7 @@ const ROLE_COLOR: Record<string, { bg:string; text:string }> = {
 
 const inputSt: React.CSSProperties = {
   width:'100%', padding:'9px 12px', borderRadius:'8px',
-  border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#111827',
+  border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#1a1a1a',
   outline:'none', fontFamily:'inherit', boxSizing:'border-box',
   background:'#fff', transition:'border-color 0.2s',
 };
@@ -98,7 +98,7 @@ function AddMemberModal({ groupId, onClose, onAdded }: { groupId: string; onClos
       onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div style={{ background:'#fff',borderRadius:'18px',padding:'28px',width:'420px',maxWidth:'95vw',boxShadow:'0 20px 60px rgba(0,0,0,0.2)' }}>
         <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'20px' }}>
-          <h2 style={{ margin:0,fontSize:'17px',fontWeight:800,color:'#111827' }}>소그룹원 추가</h2>
+          <h2 style={{ margin:0,fontSize:'17px',fontWeight:800,color:'#1a1a1a' }}>소그룹원 추가</h2>
           <button onClick={onClose} style={{ border:'none',background:'#f3f4f6',borderRadius:'8px',padding:'7px',cursor:'pointer',display:'flex' }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
@@ -271,7 +271,7 @@ export default function GroupDetailPage() {
               <div style={{ fontSize:'32px' }}>{getTypeIcon(group.type)}</div>
               <div>
                 <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'4px' }}>
-                  <h1 style={{ margin:0,fontSize:'20px',fontWeight:800,color:'#111827',letterSpacing:'-0.03em' }}>{group.name}</h1>
+                  <h1 style={{ margin:0,fontSize:'20px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.03em' }}>{group.name}</h1>
                   <span style={{ padding:'2px 9px',borderRadius:'20px',background:tc.bg,color:tc.text,border:`1px solid ${tc.border}`,fontSize:'11px',fontWeight:700 }}>{group.type}</span>
                 </div>
                 <div style={{ fontSize:'12px',color:'#9ca3af' }}>소그룹원 {group.member_count}명</div>
@@ -340,7 +340,7 @@ export default function GroupDetailPage() {
               ].map(({ label, value }) => (
                 <div key={label} style={{ padding:'12px',borderRadius:'10px',background:'#f8fafc',border:'1px solid #f1f5f9' }}>
                   <div style={{ fontSize:'11px',color:'#9ca3af',fontWeight:600,marginBottom:'3px',textTransform:'uppercase',letterSpacing:'0.05em' }}>{label}</div>
-                  <div style={{ fontSize:'14px',fontWeight:600,color:'#111827' }}>{value}</div>
+                  <div style={{ fontSize:'14px',fontWeight:600,color:'#1a1a1a' }}>{value}</div>
                 </div>
               ))}
             </div>
@@ -352,7 +352,7 @@ export default function GroupDetailPage() {
           <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'16px' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
               <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }}/>
-              <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>소그룹원 목록</span>
+              <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>소그룹원 목록</span>
               <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{members.length}명</span>
             </div>
             <button onClick={() => setShowAdd(true)}
@@ -377,7 +377,7 @@ export default function GroupDetailPage() {
                       {gm.full_name.charAt(0)}
                     </div>
 
-                    <span style={{ flex:1,fontSize:'14px',fontWeight:600,color:'#111827' }}>{gm.full_name}</span>
+                    <span style={{ flex:1,fontSize:'14px',fontWeight:600,color:'#1a1a1a' }}>{gm.full_name}</span>
 
                     {/* 역할 변경 */}
                     <select value={gm.role} onChange={e => changeRole(gm, e.target.value)}

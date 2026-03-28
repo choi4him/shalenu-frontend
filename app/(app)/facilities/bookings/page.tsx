@@ -77,7 +77,7 @@ function DetailModal({
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
               <span style={{ padding: '3px 10px', borderRadius: '12px', background: st.bg, color: st.color, border: `1px solid ${st.border}`, fontSize: '11px', fontWeight: 700 }}>{st.label}</span>
             </div>
-            <h3 style={{ margin: '6px 0 0', fontSize: '18px', fontWeight: 800, color: '#111827' }}>{booking.title}</h3>
+            <h3 style={{ margin: '6px 0 0', fontSize: '18px', fontWeight: 800, color: '#1a1a1a' }}>{booking.title}</h3>
           </div>
           <button onClick={onClose} style={{ border: 'none', background: '#f3f4f6', borderRadius: '8px', padding: '7px', cursor: 'pointer', display: 'flex', flexShrink: 0 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -191,7 +191,7 @@ export default function BookingsPage() {
       <div style={{ padding: '36px 40px', maxWidth: '900px' }}>
         {/* 헤더 */}
         <div style={{ marginBottom: '24px' }}>
-          <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em' }}>예약 관리</h1>
+          <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>예약 관리</h1>
           <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>시설 예약을 승인하거나 취소합니다</p>
         </div>
 
@@ -229,7 +229,7 @@ export default function BookingsPage() {
             ))}
           </div>
           <input className="inp-bk"
-            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', outline: 'none', fontFamily: 'inherit', color: '#111827', marginLeft: 'auto', width: '200px' }}
+            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', outline: 'none', fontFamily: 'inherit', color: '#1a1a1a', marginLeft: 'auto', width: '200px' }}
             placeholder="제목/시설/신청자 검색" value={search} onChange={e => setSearch(e.target.value)} />
         </div>
 
@@ -258,7 +258,7 @@ export default function BookingsPage() {
                   <span style={{ fontSize: '12px', color: '#6b7280' }}>{toDateStr(b.start_time)}</span>
                   <span style={{ fontSize: '12px', color: '#6b7280' }}>{toTimeStr(b.start_time)}–{toTimeStr(b.end_time)}</span>
                   <div style={{ overflow: 'hidden' }}>
-                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{b.title}</div>
+                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#1a1a1a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{b.title}</div>
                     <div style={{ fontSize: '11px', color: '#9ca3af', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{b.facility_name}</div>
                   </div>
                   <span style={{ fontSize: '13px', color: '#374151' }}>{b.booked_by_name ?? '—'}</span>

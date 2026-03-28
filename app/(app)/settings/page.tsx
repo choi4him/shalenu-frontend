@@ -48,7 +48,7 @@ interface UserItem {
 // ─── 공통 UI ─────────────────────────────────────────────
 const inputSt: React.CSSProperties = {
   width:'100%', padding:'10px 13px', borderRadius:'9px',
-  border:'1.5px solid #e5e7eb', fontSize:'14px', color:'#111827',
+  border:'1.5px solid #e5e7eb', fontSize:'14px', color:'#1a1a1a',
   outline:'none', fontFamily:'inherit', boxSizing:'border-box', background:'#fff',
   transition:'border-color 0.2s',
 };
@@ -56,7 +56,7 @@ const labelSt: React.CSSProperties = { fontSize:'13px', fontWeight:600, color:'#
 const sectionTitle = (t: string) => (
   <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
     <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }}/>
-    <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>{t}</span>
+    <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>{t}</span>
   </div>
 );
 const card = { background:'#fff', borderRadius:'16px', padding:'24px', border:'1px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)', marginBottom:'16px' } as React.CSSProperties;
@@ -347,7 +347,7 @@ function CodeSection({
       <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'14px' }}>
         <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
           <div style={{ width:'4px',height:'16px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }}/>
-          <span style={{ fontSize:'14px',fontWeight:700,color:'#111827' }}>{cat.label}</span>
+          <span style={{ fontSize:'14px',fontWeight:700,color:'#1a1a1a' }}>{cat.label}</span>
           <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{items.length}개</span>
         </div>
         <button onClick={() => { onStartAdding(); setNewLabel(''); }}
@@ -528,7 +528,7 @@ function UsersTab() {
                   <tr key={u.id} style={{ borderBottom:'1px solid #f1f5f9',transition:'background 0.12s' }}
                     onMouseEnter={e => (e.currentTarget as HTMLTableRowElement).style.background='#f8faff'}
                     onMouseLeave={e => (e.currentTarget as HTMLTableRowElement).style.background='transparent'}>
-                    <td style={{ padding:'11px 13px',fontWeight:600,color:'#111827',whiteSpace:'nowrap' }}>
+                    <td style={{ padding:'11px 13px',fontWeight:600,color:'#1a1a1a',whiteSpace:'nowrap' }}>
                       <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
                         <div style={{ width:'28px',height:'28px',borderRadius:'50%',background:'linear-gradient(135deg,#fdf8e8,#f0d88a)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',fontWeight:800,color:'#c9a84c',flexShrink:0 }}>
                           {u.full_name.charAt(0)}
@@ -713,7 +713,7 @@ export default function SettingsPage() {
       <div style={{ padding:'36px 40px', maxWidth:'820px' }}>
         {/* 헤더 */}
         <div style={{ marginBottom:'28px' }}>
-          <h1 style={{ fontSize:'26px',fontWeight:800,color:'#111827',letterSpacing:'-0.04em',margin:'0 0 5px' }}>설정</h1>
+          <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 5px' }}>설정</h1>
           <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>교회 정보 및 시스템 설정을 관리합니다</p>
         </div>
 

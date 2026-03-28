@@ -151,7 +151,7 @@ export default function BudgetListPage() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div>
-              <h1 style={{ fontSize:'26px',fontWeight:800,color:'#111827',letterSpacing:'-0.04em',margin:'0 0 4px' }}>예산 관리</h1>
+              <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 4px' }}>예산 관리</h1>
               <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>연도별 예산 편성 및 실적 비교</p>
             </div>
           </div>
@@ -216,7 +216,7 @@ export default function BudgetListPage() {
                 <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
               </svg>
             </div>
-            <h2 style={{ fontSize:'20px',fontWeight:800,color:'#111827',marginBottom:'8px' }}>{year}년 예산이 없습니다</h2>
+            <h2 style={{ fontSize:'20px',fontWeight:800,color:'#1a1a1a',marginBottom:'8px' }}>{year}년 예산이 없습니다</h2>
             <p style={{ fontSize:'14px',color:'#9ca3af',marginBottom:'28px' }}>새 예산을 편성하여 재정 계획을 시작해보세요.</p>
             <button
               onClick={() => router.push('/finance/budgets/new')}
@@ -292,7 +292,7 @@ export default function BudgetListPage() {
             <div style={{ marginBottom:'12px' }}>
               <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'14px' }}>
                 <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-                <span style={{ fontSize:'15px',fontWeight:700,color:'#111827' }}>항목별 예산</span>
+                <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>항목별 예산</span>
                 <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{budget.items.length}개 항목</span>
               </div>
 
@@ -317,7 +317,7 @@ export default function BudgetListPage() {
                             <div style={{ width:'10px',height:'10px',borderRadius:'3px',background:color }} />
                           </div>
                           <div>
-                            <div style={{ fontSize:'13px',fontWeight:700,color:'#111827' }}>{label}</div>
+                            <div style={{ fontSize:'13px',fontWeight:700,color:'#1a1a1a' }}>{label}</div>
                             {item.description && (
                               <div style={{ fontSize:'11px',color:'#9ca3af',marginTop:'1px' }}>{item.description}</div>
                             )}

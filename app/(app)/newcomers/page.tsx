@@ -47,7 +47,7 @@ const VISIT_ROUTES = ['지인 소개', '인터넷 검색', '전도', '가족', '
 // ─── 공통 스타일 ────────────────────────────────────────────
 const inputSt: React.CSSProperties = {
   width: '100%', padding: '10px 13px', borderRadius: '9px',
-  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#111827',
+  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#1a1a1a',
   outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', background: '#fff',
 };
 const labelSt: React.CSSProperties = {
@@ -109,7 +109,7 @@ function CreateModal({ onClose, onCreated }: { onClose: () => void; onCreated: (
       <div style={{ background: '#fff', borderRadius: '20px', padding: '32px', width: '520px', maxWidth: '95vw', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', maxHeight: '90vh', overflowY: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#111827', letterSpacing: '-0.03em' }}>새가족 등록</h2>
+            <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.03em' }}>새가족 등록</h2>
             <p style={{ margin: '3px 0 0', fontSize: '13px', color: '#9ca3af' }}>새로 방문한 분을 등록합니다</p>
           </div>
           <button onClick={onClose} style={{ border: 'none', background: '#f3f4f6', borderRadius: '8px', padding: '8px', cursor: 'pointer', display: 'flex' }}>
@@ -210,7 +210,7 @@ function NewcomerCard({ nc, onClick }: { nc: Newcomer; onClick: () => void }) {
             {nc.name.charAt(0)}
           </div>
           <div>
-            <div style={{ fontSize: '15px', fontWeight: 800, color: '#111827', letterSpacing: '-0.02em' }}>{nc.name}</div>
+            <div style={{ fontSize: '15px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.02em' }}>{nc.name}</div>
             {nc.phone && <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '1px' }}>{nc.phone}</div>}
           </div>
         </div>
@@ -280,7 +280,7 @@ export default function NewcomersPage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', gap: '16px', flexWrap: 'wrap' }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em' }}>새가족 관리</h1>
+            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>새가족 관리</h1>
             <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>방문 새가족을 관리하고 교인으로 연결합니다</p>
           </div>
           <button onClick={() => setShowCreate(true)}

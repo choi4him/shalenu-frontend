@@ -23,7 +23,7 @@
   /* ── 텍스트 ── */
   --foreground:   #1a1a1a;   /* 주요 텍스트 */
   --foreground-2: #1a1a1a;   /* 본문 텍스트 */
-  --muted:        #8b6914;   /* 보조/힌트 텍스트 */
+  --muted:        #444444;   /* 보조/힌트 텍스트 */
 
   /* ── 보더 ── */
   --border:       rgba(160, 120, 40, 0.3);
@@ -62,6 +62,14 @@
 
 * {
   box-sizing: border-box;
+}
+
+h1, h2, h3 {
+  color: #1a1a1a;
+}
+
+.page-title {
+  color: #1a1a1a !important;
 }
 
 body {

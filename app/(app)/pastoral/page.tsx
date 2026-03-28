@@ -86,7 +86,7 @@ export default function PastoralPage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em' }}>목양 현황</h1>
+            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>목양 현황</h1>
             <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>최근 30일간의 심방·상담·기도 기록</p>
           </div>
         </div>
@@ -106,7 +106,7 @@ export default function PastoralPage() {
         {/* 검색 + 탭 */}
         <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
           <input
-            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', color: '#111827', outline: 'none', fontFamily: 'inherit', width: '220px' }}
+            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', color: '#1a1a1a', outline: 'none', fontFamily: 'inherit', width: '220px' }}
             placeholder="교인명 또는 내용 검색"
             value={search} onChange={e => setSearch(e.target.value)} />
           <div style={{ display: 'flex', gap: '5px' }}>
@@ -147,7 +147,7 @@ export default function PastoralPage() {
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '5px', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '14px', fontWeight: 700, color: '#111827' }}>{note.member_name}</span>
+                        <span style={{ fontSize: '14px', fontWeight: 700, color: '#1a1a1a' }}>{note.member_name}</span>
                         <span style={{ padding: '2px 8px', borderRadius: '10px', background: cfg.bg, color: cfg.color, border: `1px solid ${cfg.border}`, fontSize: '11px', fontWeight: 700 }}>{cfg.label}</span>
                         {note.is_private && (
                           <span style={{ fontSize: '11px', color: '#9ca3af', display: 'flex', alignItems: 'center', gap: '3px' }}>

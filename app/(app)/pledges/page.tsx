@@ -49,7 +49,7 @@ const fmtKRW = (n: number) => n.toLocaleString('ko-KR') + '원';
 // ─── 스타일 ────────────────────────────────────────────────
 const inputSt: React.CSSProperties = {
   width: '100%', padding: '10px 13px', borderRadius: '9px',
-  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#111827',
+  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#1a1a1a',
   outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box', background: '#fff',
 };
 const labelSt: React.CSSProperties = {
@@ -85,7 +85,7 @@ function PayModal({ pledge, onClose, onPaid }: { pledge: Pledge; onClose: () => 
       <div style={{ background: '#fff', borderRadius: '18px', padding: '28px', width: '380px', maxWidth: '95vw', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#111827' }}>납입 처리</h2>
+            <h2 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#1a1a1a' }}>납입 처리</h2>
             <p style={{ margin: '3px 0 0', fontSize: '12px', color: '#9ca3af' }}>{pledge.member_name} · {pledge.title}</p>
           </div>
           <button onClick={onClose} style={{ border: 'none', background: '#f3f4f6', borderRadius: '8px', padding: '7px', cursor: 'pointer', display: 'flex' }}>
@@ -97,7 +97,7 @@ function PayModal({ pledge, onClose, onPaid }: { pledge: Pledge; onClose: () => 
         <div style={{ background: '#f9fafb', borderRadius: '10px', padding: '12px 16px', marginBottom: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
             <span style={{ fontSize: '12px', color: '#6b7280' }}>작정 금액</span>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: '#111827' }}>{fmtKRW(pledge.pledge_amount)}</span>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: '#1a1a1a' }}>{fmtKRW(pledge.pledge_amount)}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
             <span style={{ fontSize: '12px', color: '#6b7280' }}>납입 완료</span>
@@ -193,7 +193,7 @@ function CreateModal({ onClose, onCreated }: { onClose: () => void; onCreated: (
       <div style={{ background: '#fff', borderRadius: '20px', padding: '32px', width: '520px', maxWidth: '95vw', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', maxHeight: '90vh', overflowY: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#111827', letterSpacing: '-0.03em' }}>작정헌금 등록</h2>
+            <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.03em' }}>작정헌금 등록</h2>
             <p style={{ margin: '3px 0 0', fontSize: '13px', color: '#9ca3af' }}>새 작정헌금을 등록합니다</p>
           </div>
           <button onClick={onClose} style={{ border: 'none', background: '#f3f4f6', borderRadius: '8px', padding: '8px', cursor: 'pointer', display: 'flex' }}>
@@ -363,7 +363,7 @@ export default function PledgesPage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '20px', gap: '16px', flexWrap: 'wrap' }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em' }}>작정헌금 관리</h1>
+            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>작정헌금 관리</h1>
             <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>교인별 작정헌금 현황을 관리합니다</p>
           </div>
           <button onClick={() => setShowCreate(true)}
@@ -383,7 +383,7 @@ export default function PledgesPage() {
         {/* 연도 선택 + 검색 */}
         <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
           <select value={year} onChange={e => setYear(Number(e.target.value))}
-            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', fontWeight: 700, color: '#111827', fontFamily: 'inherit', outline: 'none', background: '#fff', cursor: 'pointer' }}>
+            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', fontWeight: 700, color: '#1a1a1a', fontFamily: 'inherit', outline: 'none', background: '#fff', cursor: 'pointer' }}>
             {YEARS.map(y => <option key={y} value={y}>{y}년</option>)}
           </select>
           <input style={{ ...inputSt, maxWidth: '220px' }} placeholder="교인명 또는 헌금명 검색"
@@ -435,12 +435,12 @@ export default function PledgesPage() {
                     <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'linear-gradient(135deg,#fdf8e8,#f0d88a)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 800, color: '#c9a84c', flexShrink: 0 }}>
                       {pledge.member_name.charAt(0)}
                     </div>
-                    <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>{pledge.member_name}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 600, color: '#1a1a1a' }}>{pledge.member_name}</span>
                   </div>
                   {/* 헌금명 */}
                   <div style={{ fontSize: '13px', color: '#374151', paddingRight: '8px' }}>{pledge.title}</div>
                   {/* 작정금액 */}
-                  <div style={{ fontSize: '13px', fontWeight: 600, color: '#111827' }}>{fmtKRW(pledge.pledge_amount)}</div>
+                  <div style={{ fontSize: '13px', fontWeight: 600, color: '#1a1a1a' }}>{fmtKRW(pledge.pledge_amount)}</div>
                   {/* 납입금액 */}
                   <div style={{ fontSize: '13px', fontWeight: 600, color: '#16a34a' }}>{fmtKRW(pledge.paid_amount)}</div>
                   {/* 진행률 */}
@@ -468,7 +468,7 @@ export default function PledgesPage() {
         {displayed.length > 0 && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px', marginTop: '16px' }}>
             {[
-              { label: '총 작정금액', value: fmtKRW(totalPledge), color: '#111827', bg: '#fff' },
+              { label: '총 작정금액', value: fmtKRW(totalPledge), color: '#1a1a1a', bg: '#fff' },
               { label: '총 납입금액', value: fmtKRW(totalPaid),   color: '#16a34a', bg: '#f0fdf4' },
               { label: '전체 달성률',  value: `${totalRate}%`,     color: '#c9a84c', bg: '#fdf8e8' },
             ].map(({ label, value, color, bg }) => (

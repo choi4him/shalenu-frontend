@@ -177,8 +177,7 @@ export default function OfferingsPage() {
         <div>
           <h1 style={{
             fontSize: '26px', fontWeight: 800, letterSpacing: '-0.04em', margin: '0 0 6px',
-            background: 'linear-gradient(135deg, #c9a84c, #e8d48b)',
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            color: '#1a1a1a',
           }}>
             헌금 관리
           </h1>

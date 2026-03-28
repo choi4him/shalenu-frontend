@@ -76,7 +76,7 @@ const PAYMENT_OPTIONS = [
 // ─── 스타일 상수 ────────────────────────────────────────
 const inputSt: React.CSSProperties = {
   width: '100%', padding: '10px 13px', borderRadius: '9px',
-  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#111827',
+  border: '1.5px solid #e5e7eb', fontSize: '14px', color: '#1a1a1a',
   outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box',
   background: '#fff', transition: 'border-color 0.2s, box-shadow 0.2s',
 };
@@ -274,7 +274,7 @@ export default function OfferingNewPage() {
             </svg>
           </button>
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em', margin: '0 0 4px' }}>
+            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 4px' }}>
               헌금 입력
             </h1>
             <p style={{ margin: 0, fontSize: '13px', color: '#9ca3af', fontWeight: 500 }}>
@@ -465,7 +465,7 @@ export default function OfferingNewPage() {
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 flexShrink: 0, color: '#fff', fontSize: '12px', fontWeight: 700,
                               }}>{m.name[0]}</span>
-                              <span style={{ fontWeight: 600, color: '#111827' }}>{m.name}</span>
+                              <span style={{ fontWeight: 600, color: '#1a1a1a' }}>{m.name}</span>
                               {m.phone && <span style={{ color: '#9ca3af', marginLeft: 'auto', fontSize: '12px' }}>{m.phone}</span>}
                             </div>
                           ))}

@@ -120,7 +120,7 @@ export default function BirthdaysPage() {
 
         {/* ── 헤더 ── */}
         <div style={{ marginBottom: '28px' }}>
-          <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em' }}>생일 알림</h1>
+          <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>생일 알림</h1>
           <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>교인 생일을 확인하고 알림을 설정합니다</p>
         </div>
 
@@ -128,7 +128,7 @@ export default function BirthdaysPage() {
         <section style={{ background: '#fff', borderRadius: '18px', padding: '24px', border: '1px solid #f1f5f9', boxShadow: '0 1px 6px rgba(0,0,0,0.05)', marginBottom: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px' }}>
             <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#f59e0b,#fcd34d)', borderRadius: '99px' }} />
-            <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>다가오는 생일</span>
+            <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>다가오는 생일</span>
           </div>
 
           {/* 탭 */}
@@ -175,7 +175,7 @@ export default function BirthdaysPage() {
                           {isToday ? '🎂' : m.name.charAt(0)}
                         </div>
                         <div>
-                          <div style={{ fontSize: '14px', fontWeight: 800, color: '#111827', letterSpacing: '-0.02em' }}>{m.name}</div>
+                          <div style={{ fontSize: '14px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.02em' }}>{m.name}</div>
                           {m.age && <div style={{ fontSize: '11px', color: '#9ca3af' }}>만 {m.age}세</div>}
                         </div>
                       </div>
@@ -203,7 +203,7 @@ export default function BirthdaysPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
-              <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>생일 캘린더</span>
+              <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>생일 캘린더</span>
             </div>
             {/* 월 이동 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -211,7 +211,7 @@ export default function BirthdaysPage() {
                 style={{ width: '30px', height: '30px', borderRadius: '8px', border: '1.5px solid #e5e7eb', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
               </button>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#111827', minWidth: '80px', textAlign: 'center' }}>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: '#1a1a1a', minWidth: '80px', textAlign: 'center' }}>
                 {calYear}년 {KO_MONTHS[calMonth]}
               </span>
               <button onClick={() => { if (calMonth === 11) { setCalYear(y => y + 1); setCalMonth(0); } else setCalMonth(m => m + 1); }}
@@ -259,7 +259,7 @@ export default function BirthdaysPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#16a34a,#86efac)', borderRadius: '99px' }} />
-              <span style={{ fontSize: '15px', fontWeight: 700, color: '#111827' }}>알림 설정</span>
+              <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>알림 설정</span>
             </div>
             {settAlert && (
               <div style={{ padding: '6px 14px', borderRadius: '8px', background: settAlert === 'ok' ? '#f0fdf4' : '#fef2f2', border: `1px solid ${settAlert === 'ok' ? '#86efac' : '#fca5a5'}`, color: settAlert === 'ok' ? '#16a34a' : '#dc2626', fontSize: '12px', fontWeight: 700 }}>
@@ -272,7 +272,7 @@ export default function BirthdaysPage() {
             {/* 알림 활성/비활성 */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px', borderRadius: '12px', background: '#f9fafb', border: '1px solid #f1f5f9' }}>
               <div>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827' }}>생일 알림 활성화</div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#1a1a1a' }}>생일 알림 활성화</div>
                 <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>생일이 다가오면 앱에서 알림을 표시합니다</div>
               </div>
               <div onClick={() => setSettings(p => ({ ...p, is_active: !p.is_active }))}
@@ -283,7 +283,7 @@ export default function BirthdaysPage() {
 
             {/* 며칠 전 알림 */}
             <div style={{ padding: '14px 18px', borderRadius: '12px', background: '#f9fafb', border: '1px solid #f1f5f9', opacity: settings.is_active ? 1 : 0.4, pointerEvents: settings.is_active ? 'auto' : 'none' }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827', marginBottom: '12px' }}>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#1a1a1a', marginBottom: '12px' }}>
                 며칠 전에 알릴까요?
                 <span style={{ fontSize: '13px', fontWeight: 400, color: '#9ca3af', marginLeft: '8px' }}>현재: {settings.alert_days_before}일 전</span>
               </div>
@@ -302,7 +302,7 @@ export default function BirthdaysPage() {
 
             {/* 알림 방법 — 앱 알림만 */}
             <div style={{ padding: '14px 18px', borderRadius: '12px', background: '#f9fafb', border: '1px solid #f1f5f9', opacity: settings.is_active ? 1 : 0.4 }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827', marginBottom: '4px' }}>알림 방법</div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#1a1a1a', marginBottom: '4px' }}>알림 방법</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '9px', background: '#fdf8e8', border: '1.5px solid #f0d88a' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round">
                   <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>

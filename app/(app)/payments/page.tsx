@@ -63,7 +63,7 @@ function CreateLinkModal({ onClose, onDone }: { onClose: () => void; onDone: () 
 
   const isKrw = form.currency === 'krw';
 
-  const inputStyle = { width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '14px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' as const, color: '#111827' };
+  const inputStyle = { width: '100%', padding: '10px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '14px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' as const, color: '#1a1a1a' };
   const labelStyle = { fontSize: '11px', fontWeight: 700 as const, color: '#9ca3af', display: 'block' as const, marginBottom: '5px', letterSpacing: '0.04em', textTransform: 'uppercase' as const };
 
   const save = async () => {
@@ -107,7 +107,7 @@ function CreateLinkModal({ onClose, onDone }: { onClose: () => void; onDone: () 
       <div style={{ background: '#fff', borderRadius: '20px', padding: '28px', width: '480px', maxWidth: '95vw', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', maxHeight: '90vh', overflowY: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '22px' }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#111827' }}>결제 링크 생성</h3>
+            <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1a1a1a' }}>결제 링크 생성</h3>
             <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#9ca3af' }}>
               {isKrw ? '포트원(PortOne) 한국 결제 링크를 만듭니다' : 'Stripe를 통한 온라인 헌금 링크를 만듭니다'}
             </p>
@@ -272,7 +272,7 @@ export default function PaymentsPage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#111827', letterSpacing: '-0.04em' }}>온라인 헌금</h1>
+            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>온라인 헌금</h1>
             <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>Stripe(USD) · 포트원(KRW) 결제 링크로 온라인 헌금을 받으세요</p>
           </div>
           <button onClick={() => setShowModal(true)}
@@ -357,7 +357,7 @@ export default function PaymentsPage() {
                     {/* 정보 */}
                     <div style={{ flex: 1, minWidth: '180px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
-                        <span style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>{link.title}</span>
+                        <span style={{ fontSize: '15px', fontWeight: 800, color: '#1a1a1a' }}>{link.title}</span>
                         <span style={{ padding: '2px 8px', borderRadius: '8px', fontSize: '10px', fontWeight: 700, background: link.is_active ? '#f0fdf4' : '#f3f4f6', color: link.is_active ? '#16a34a' : '#9ca3af' }}>
                           {link.is_active ? '활성' : '비활성'}
                         </span>
@@ -432,13 +432,13 @@ export default function PaymentsPage() {
                         {new Date(p.paid_at ?? p.created_at).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' })}
                       </span>
                       <div style={{ overflow: 'hidden' }}>
-                        <div style={{ fontSize: '13px', fontWeight: 600, color: '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <div style={{ fontSize: '13px', fontWeight: 600, color: '#1a1a1a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {p.donor_name ?? '익명'}
                         </div>
                         {p.donor_email && <div style={{ fontSize: '11px', color: '#9ca3af', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.donor_email}</div>}
                       </div>
                       <span style={{ fontSize: '12px', color: '#6b7280', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.link_title ?? '—'}</span>
-                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#111827' }}>{formatAmount(p.amount, p.currency)}</span>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#1a1a1a' }}>{formatAmount(p.amount, p.currency)}</span>
                       <span style={{ padding: '3px 8px', borderRadius: '10px', background: stCfg.bg, color: stCfg.color, fontSize: '11px', fontWeight: 700, display: 'inline-block' }}>{stCfg.label}</span>
                     </div>
                   );

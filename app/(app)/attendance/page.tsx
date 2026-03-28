@@ -54,7 +54,7 @@ function AttRow({ name, memberId, status, onChange }: {
       <div style={{ width:'34px', height:'34px', borderRadius:'50%', background:'linear-gradient(135deg,#fdf8e8,#f0d88a)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'13px', fontWeight:800, color:'#c9a84c', flexShrink:0 }}>
         {name.charAt(0)}
       </div>
-      <span style={{ flex:1, fontSize:'14px', fontWeight:600, color:'#111827' }}>{name}</span>
+      <span style={{ flex:1, fontSize:'14px', fontWeight:600, color:'#1a1a1a' }}>{name}</span>
       {/* 상태 버튼 그룹 */}
       <div style={{ display:'flex', gap:'5px' }}>
         {STATUS_ORDER.map(s => {
@@ -142,7 +142,7 @@ function WorshipTab({ date }: { date: string }) {
       {/* 예배 선택 + 일괄 적용 */}
       <div style={{ display:'flex', gap:'10px', marginBottom:'14px', flexWrap:'wrap', alignItems:'center' }}>
         <select value={worshipId} onChange={e => setWorshipId(Number(e.target.value))}
-          style={{ padding:'9px 13px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#111827', fontFamily:'inherit', outline:'none', background:'#fff', minWidth:'160px' }}>
+          style={{ padding:'9px 13px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#1a1a1a', fontFamily:'inherit', outline:'none', background:'#fff', minWidth:'160px' }}>
           <option value="">예배 선택</option>
           {worships.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
         </select>
@@ -277,7 +277,7 @@ function GroupTab({ date }: { date: string }) {
     <div>
       <div style={{ display:'flex', gap:'10px', marginBottom:'14px', flexWrap:'wrap', alignItems:'center' }}>
         <select value={groupId} onChange={e => { setGroupId(Number(e.target.value)); setSaved(false); }}
-          style={{ padding:'9px 13px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#111827', fontFamily:'inherit', outline:'none', background:'#fff', minWidth:'160px' }}>
+          style={{ padding:'9px 13px', borderRadius:'9px', border:'1.5px solid #e5e7eb', fontSize:'13px', color:'#1a1a1a', fontFamily:'inherit', outline:'none', background:'#fff', minWidth:'160px' }}>
           <option value="">구역 선택</option>
           {groups.map(g => <option key={g.id} value={g.id}>{g.name} ({g.type})</option>)}
         </select>
@@ -367,7 +367,7 @@ export default function AttendancePage() {
         {/* 헤더 */}
         <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:'20px', flexWrap:'wrap', gap:'12px' }}>
           <div>
-            <h1 style={{ margin:0, fontSize:'26px', fontWeight:800, color:'#111827', letterSpacing:'-0.04em' }}>출석 관리</h1>
+            <h1 style={{ margin:0, fontSize:'26px', fontWeight:800, color:'#1a1a1a', letterSpacing:'-0.04em' }}>출석 관리</h1>
             <p style={{ margin:'5px 0 0', fontSize:'13px', color:'#9ca3af' }}>예배 및 구역별 출석을 기록합니다</p>
           </div>
           <button onClick={() => router.push('/attendance/stats')}
@@ -384,7 +384,7 @@ export default function AttendancePage() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
           <input type="date" value={date} onChange={e => setDate(e.target.value)}
-            style={{ border:'none', fontSize:'14px', fontWeight:700, color:'#111827', fontFamily:'inherit', outline:'none', cursor:'text', background:'transparent' }} />
+            style={{ border:'none', fontSize:'14px', fontWeight:700, color:'#1a1a1a', fontFamily:'inherit', outline:'none', cursor:'text', background:'transparent' }} />
           <span style={{ fontSize:'12px', color:'#9ca3af' }}>{fmtDate(date)}</span>
           <button onClick={() => changeDate(1)}
             style={{ border:'none', background:'none', cursor:'pointer', padding:'4px 6px', borderRadius:'6px', color:'#6b7280', display:'flex', alignItems:'center' }}>
