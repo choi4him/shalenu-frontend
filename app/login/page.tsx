@@ -73,14 +73,14 @@ export default function LoginPage() {
     width: '100%',
     padding: '12px 16px',
     borderRadius: '10px',
-    border: `1.5px solid ${hasError ? 'rgba(239,68,68,0.5)' : 'rgba(201,168,76,0.3)'}`,
+    border: `1.5px solid ${hasError ? 'rgba(239,68,68,0.5)' : 'rgba(180,140,60,0.35)'}`,
     fontSize: '15px',
-    color: '#f5edd6',
+    color: '#2c1a00',
     outline: 'none',
     transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
     boxSizing: 'border-box',
     fontFamily: 'inherit',
-    background: 'rgba(255,255,255,0.06)',
+    background: 'rgba(255,255,255,0.88)',
     boxShadow: hasError ? '0 0 0 3px rgba(239,68,68,0.15)' : 'none',
   };
 
@@ -117,10 +117,10 @@ export default function LoginPage() {
         .pw-toggle-btn {
           position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
           background: none; border: none; cursor: pointer; padding: 4px;
-          color: #8a7e60; display: flex; align-items: center;
+          color: #a07840; display: flex; align-items: center;
           border-radius: 6px; transition: color 0.15s; line-height: 0;
         }
-        .pw-toggle-btn:hover { color: #e8d48b; }
+        .pw-toggle-btn:hover { color: #c9a84c; }
         .login-submit-btn { transition: all 0.2s ease; }
         .login-submit-btn:not(:disabled):hover {
           transform: translateY(-2px);
@@ -131,15 +131,13 @@ export default function LoginPage() {
           border-color: #c9a84c !important;
           box-shadow: 0 0 0 3px rgba(201,168,76,0.15) !important;
         }
-        .login-input::placeholder { color: #8a7e60; }
+        .login-input::placeholder { color: #a07840; }
       `}</style>
 
       <div
         style={{
           minHeight: '100vh',
-          background: 'linear-gradient(-45deg, #1a1208, #241a0e, #2a1f10, #1e150a)',
-          backgroundSize: '400% 400%',
-          animation: 'gradientShift 12s ease infinite',
+          background: 'linear-gradient(180deg, #87CEEB 0%, #b0e0ff 40%, #c8efc8 75%, #a8d8a8 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -148,44 +146,52 @@ export default function LoginPage() {
           overflow: 'hidden',
         }}
       >
-        {/* 배경 십자가 실루엣 */}
-        <div style={{
-          position: 'absolute', top: '50%', left: '50%',
-          transform: 'translate(-50%, -55%)',
-          opacity: 0.04, pointerEvents: 'none',
-        }}>
-          <svg width="500" height="600" viewBox="0 0 100 120" fill="#c9a84c">
-            <rect x="40" y="0" width="20" height="120" rx="2"/>
-            <rect x="15" y="25" width="70" height="20" rx="2"/>
+        {/* 배경 초원 SVG */}
+        <div style={{ position:'absolute', inset:0, pointerEvents:'none', zIndex:0 }}>
+          <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="sunGlowL" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#FFF9C4" stopOpacity="1"/>
+                <stop offset="45%" stopColor="#FFD700" stopOpacity="0.7"/>
+                <stop offset="100%" stopColor="#FFD700" stopOpacity="0"/>
+              </radialGradient>
+              <linearGradient id="hBack" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#7bc67e"/><stop offset="100%" stopColor="#4a9e4a"/>
+              </linearGradient>
+              <linearGradient id="hFront" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#4a9e4a"/><stop offset="100%" stopColor="#2d7a2d"/>
+              </linearGradient>
+            </defs>
+            <circle cx="1700" cy="110" r="130" fill="url(#sunGlowL)" opacity="0.5"/>
+            <circle cx="1700" cy="110" r="68" fill="#FFD700"/>
+            <g fill="white" opacity="0.9">
+              <ellipse cx="300" cy="145" rx="90" ry="44"/>
+              <ellipse cx="235" cy="160" rx="65" ry="37"/>
+              <ellipse cx="370" cy="160" rx="70" ry="37"/>
+            </g>
+            <g fill="white" opacity="0.85">
+              <ellipse cx="900" cy="110" rx="75" ry="35"/>
+              <ellipse cx="838" cy="123" rx="56" ry="30"/>
+              <ellipse cx="966" cy="123" rx="60" ry="30"/>
+            </g>
+            <path d="M0 1080 L0 680 Q300 600 600 640 Q900 680 1200 620 Q1500 560 1920 640 L1920 1080 Z" fill="url(#hBack)"/>
+            <path d="M0 1080 L0 860 Q300 820 600 840 Q900 860 1200 830 Q1500 800 1920 850 L1920 1080 Z" fill="url(#hFront)"/>
+            <g transform="translate(350, 760)"><rect x="-5" y="0" width="10" height="55" rx="3" fill="#5c3d1e"/><ellipse cx="0" cy="-15" rx="33" ry="48" fill="#2d6e1e"/><ellipse cx="0" cy="-25" rx="26" ry="37" fill="#3d8b3d"/></g>
+            <g transform="translate(1580, 775)"><rect x="-4" y="0" width="8" height="46" rx="2" fill="#5c3d1e"/><ellipse cx="0" cy="-12" rx="27" ry="40" fill="#2d6e1e"/><ellipse cx="0" cy="-22" rx="22" ry="31" fill="#3d8b3d"/></g>
+            <g transform="translate(960, 840)" fill="#5c3d1e">
+              <circle cx="0" cy="0" r="12"/>
+              <path d="M-8 12 L-12 66 L12 66 L8 12 Z"/>
+              <rect x="18" y="-35" width="3.5" height="140" rx="1.5"/>
+              <path d="M21.5 -35 Q21.5 -50 12 -50" fill="none" stroke="#5c3d1e" strokeWidth="3.5" strokeLinecap="round"/>
+            </g>
+            <g fill="#f5f5f5">
+              <g transform="translate(680, 876)"><ellipse cx="0" cy="0" rx="26" ry="18"/><circle cx="-21" cy="-11" r="10"/><rect x="-13" y="16" width="5" height="13" rx="2" fill="#d8d8d8"/><rect x="-4" y="16" width="5" height="13" rx="2" fill="#d8d8d8"/><rect x="5" y="16" width="5" height="13" rx="2" fill="#d8d8d8"/><rect x="14" y="16" width="5" height="13" rx="2" fill="#d8d8d8"/></g>
+              <g transform="translate(1220, 882)"><ellipse cx="0" cy="0" rx="28" ry="19"/><circle cx="23" cy="-12" r="11"/><rect x="-15" y="17" width="5" height="14" rx="2" fill="#d8d8d8"/><rect x="-6" y="17" width="5" height="14" rx="2" fill="#d8d8d8"/><rect x="5" y="17" width="5" height="14" rx="2" fill="#d8d8d8"/><rect x="15" y="17" width="5" height="14" rx="2" fill="#d8d8d8"/></g>
+              <g transform="translate(820, 912)"><ellipse cx="0" cy="0" rx="22" ry="15"/><circle cx="-19" cy="4" r="9"/><rect x="-11" y="13" width="4" height="11" rx="1" fill="#d8d8d8"/><rect x="-3" y="13" width="4" height="11" rx="1" fill="#d8d8d8"/><rect x="5" y="13" width="4" height="11" rx="1" fill="#d8d8d8"/></g>
+              <g transform="translate(1100, 862)"><ellipse cx="0" cy="0" rx="19" ry="13"/><circle cx="15" cy="-8" r="7"/><rect x="-9" y="11" width="4" height="10" rx="1" fill="#d8d8d8"/><rect x="-2" y="11" width="4" height="10" rx="1" fill="#d8d8d8"/><rect x="5" y="11" width="4" height="10" rx="1" fill="#d8d8d8"/></g>
+            </g>
           </svg>
         </div>
-
-        {/* 배경 글로우 장식 */}
-        <div style={{
-          position: 'absolute', top: '-200px', right: '-150px',
-          width: '600px', height: '600px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%)',
-          pointerEvents: 'none', animation: 'floatParticle 10s ease-in-out infinite',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '-150px', left: '-100px',
-          width: '500px', height: '500px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%)',
-          pointerEvents: 'none', animation: 'floatParticle 14s ease-in-out infinite reverse',
-        }} />
-        <div style={{
-          position: 'absolute', top: '40%', left: '60%',
-          width: '300px', height: '300px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(74,124,89,0.1) 0%, transparent 70%)',
-          pointerEvents: 'none', animation: 'floatParticle 8s ease-in-out infinite',
-        }} />
-        {/* 격자 패턴 */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'radial-gradient(rgba(201,168,76,0.03) 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-          pointerEvents: 'none',
-        }} />
 
         {/* 로그인 카드 – glassmorphism */}
         <div
@@ -195,24 +201,24 @@ export default function LoginPage() {
               : `login-card-enter${hasError && error ? ' login-card-shake' : ''}`
           }
           style={{
-            background: 'rgba(26,18,8,0.85)',
+            background: 'rgba(255, 250, 235, 0.92)',
             backdropFilter: 'blur(24px)',
             WebkitBackdropFilter: 'blur(24px)',
             borderRadius: '24px',
             padding: '48px 44px',
             width: '100%',
             maxWidth: '420px',
-            boxShadow: '0 32px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.12)',
-            border: '1px solid rgba(201,168,76,0.15)',
+            boxShadow: '0 24px 60px rgba(0,0,0,0.18), 0 0 0 1px rgba(180,140,60,0.2)',
+            border: '1px solid rgba(180,140,60,0.3)',
             position: 'relative',
             zIndex: 1,
           }}
         >
-          {/* 카드 상단 글로우 */}
+          {/* 카드 상단 골드 라인 */}
           <div style={{
             position: 'absolute', top: '-1px', left: '50%', transform: 'translateX(-50%)',
-            width: '60%', height: '1px',
-            background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.6), transparent)',
+            width: '60%', height: '2px',
+            background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.8), transparent)',
           }} />
 
           {/* 로고 */}
@@ -233,12 +239,12 @@ export default function LoginPage() {
             <h1 style={{
               fontSize: '28px', fontWeight: 800, margin: '0 0 6px',
               letterSpacing: '-0.04em',
-              background: 'linear-gradient(135deg, #e8d48b, #f5edd6)',
+              background: 'linear-gradient(135deg, #c9a84c, #7a4000)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
             }}>
               J-SheepFold
             </h1>
-            <p style={{ color: '#8a7e60', fontSize: '13px', margin: 0, fontWeight: 500, letterSpacing: '0.01em' }}>
+            <p style={{ color: '#7a5c14', fontSize: '13px', margin: 0, fontWeight: 500, letterSpacing: '0.01em' }}>
               교회 통합 관리 시스템
             </p>
           </div>
@@ -248,7 +254,7 @@ export default function LoginPage() {
 
             {/* 이메일 */}
             <div>
-              <label htmlFor="login-email" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#d4c9a8', marginBottom: '8px' }}>
+              <label htmlFor="login-email" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5c3d1e', marginBottom: '8px' }}>
                 이메일
               </label>
               <input
@@ -268,7 +274,7 @@ export default function LoginPage() {
 
             {/* 비밀번호 */}
             <div>
-              <label htmlFor="login-password" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#d4c9a8', marginBottom: '8px' }}>
+              <label htmlFor="login-password" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5c3d1e', marginBottom: '8px' }}>
                 비밀번호
               </label>
               <div style={{ position: 'relative' }}>
@@ -348,7 +354,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p style={{ textAlign: 'center', marginTop: '28px', marginBottom: 0, fontSize: '12px', color: '#5c491a' }}>
+          <p style={{ textAlign: 'center', marginTop: '28px', marginBottom: 0, fontSize: '12px', color: '#8b6914' }}>
             &copy; {new Date().getFullYear()} J-SheepFold. All rights reserved.
           </p>
         </div>

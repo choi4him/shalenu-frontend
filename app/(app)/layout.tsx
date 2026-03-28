@@ -208,13 +208,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <>
       <style>{`
         @keyframes slideDown { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
-        .nav-link { display:flex;align-items:center;gap:11px;padding:9px 13px;border-radius:10px;text-decoration:none;font-size:14px;color:#d4c9a8 !important;transition:all 0.15s;cursor:pointer;border:none;background:transparent;width:100%;font-family:inherit;text-align:left; }
-        .nav-link:hover { background:var(--sidebar-hover);color:#f5edd6 !important; }
+        .nav-link { display:flex;align-items:center;gap:11px;padding:9px 13px;border-radius:10px;text-decoration:none;font-size:14px;color:#f0e8c0 !important;transition:all 0.15s;cursor:pointer;border:none;background:transparent;width:100%;font-family:inherit;text-align:left; }
+        .nav-link:hover { background:var(--sidebar-hover);color:#ffffff !important; }
         .nav-link.active { background:var(--grad-primary);color:#1a1208 !important;font-weight:700;box-shadow:0 4px 16px rgba(201,168,76,0.4); }
-        .nav-link.group-active { color:#f5edd6 !important;font-weight:600; }
-        .sub-link { display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:#d4c9a8 !important;transition:all 0.15s; }
-        .sub-link:hover { background:rgba(201,168,76,0.08);color:#e8d48b !important; }
-        .sub-link.active { background:rgba(201,168,76,0.15);color:#e8d48b !important;font-weight:600;box-shadow:inset 0 0 0 1px rgba(201,168,76,0.3); }
+        .nav-link.group-active { color:#ffffff !important;font-weight:600; }
+        .sub-link { display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:#f0e8c0 !important;transition:all 0.15s; }
+        .sub-link:hover { background:rgba(201,168,76,0.1);color:#fff !important; }
+        .sub-link.active { background:rgba(201,168,76,0.18);color:#fff !important;font-weight:600;box-shadow:inset 0 0 0 1px rgba(201,168,76,0.35); }
         .chevron { transition:transform 0.2s ease;flex-shrink:0; }
         .chevron.open { transform:rotate(90deg); }
         .sub-list { animation:slideDown 0.18s ease; }
@@ -222,149 +222,199 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
       <div style={{ display:'flex', minHeight:'100vh', background:'var(--background)', position:'relative' }}>
 
-        {/* ═══ 배경 SVG: 초원/하늘/별/양떼/목자 ═══ */}
-        <div style={{ position:'fixed', inset:0, zIndex:0, pointerEvents:'none', opacity:0.5, overflow:'hidden' }}>
+        {/* ═══ 배경 SVG: 밝은 초원/하늘/구름/태양/양떼/목자 ═══ */}
+        <div style={{ position:'fixed', inset:0, zIndex:0, pointerEvents:'none', opacity:1.0, overflow:'hidden' }}>
           <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
 
-            {/* ── 하늘 영역 (상단 그라디언트) ── */}
             <defs>
+              {/* 하늘 그라디언트 */}
               <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#1a3a5c" stopOpacity="1"/>
-                <stop offset="60%" stopColor="#1a3a5c" stopOpacity="0.4"/>
-                <stop offset="100%" stopColor="transparent" stopOpacity="0"/>
+                <stop offset="0%" stopColor="#87CEEB"/>
+                <stop offset="55%" stopColor="#b0e0ff"/>
+                <stop offset="100%" stopColor="#d4f0ff"/>
               </linearGradient>
+              {/* 뒷 언덕 */}
+              <linearGradient id="hillBack" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#7bc67e"/>
+                <stop offset="100%" stopColor="#4a9e4a"/>
+              </linearGradient>
+              {/* 중간 언덕 */}
+              <linearGradient id="hillMid" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#55aa55"/>
+                <stop offset="100%" stopColor="#3d8b3d"/>
+              </linearGradient>
+              {/* 앞 언덕 */}
+              <linearGradient id="hillFront" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#4a9e4a"/>
+                <stop offset="100%" stopColor="#2d7a2d"/>
+              </linearGradient>
+              {/* 태양 글로우 */}
+              <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#FFF9C4" stopOpacity="1"/>
+                <stop offset="45%" stopColor="#FFD700" stopOpacity="0.7"/>
+                <stop offset="100%" stopColor="#FFD700" stopOpacity="0"/>
+              </radialGradient>
             </defs>
-            <rect x="0" y="0" width="1920" height="600" fill="url(#skyGrad)"/>
 
-            {/* ── 별 (작은 흰 점들) ── */}
-            <g fill="#ffffff">
-              <circle cx="120" cy="60" r="1.5" opacity="0.8"/>
-              <circle cx="300" cy="120" r="1" opacity="0.6"/>
-              <circle cx="480" cy="45" r="1.8" opacity="0.7"/>
-              <circle cx="650" cy="150" r="1" opacity="0.5"/>
-              <circle cx="820" cy="80" r="1.5" opacity="0.9"/>
-              <circle cx="1000" cy="35" r="1.2" opacity="0.6"/>
-              <circle cx="1150" cy="110" r="1" opacity="0.7"/>
-              <circle cx="1320" cy="55" r="1.5" opacity="0.8"/>
-              <circle cx="1500" cy="130" r="1" opacity="0.5"/>
-              <circle cx="1680" cy="70" r="1.8" opacity="0.7"/>
-              <circle cx="1850" cy="40" r="1.2" opacity="0.6"/>
-              <circle cx="200" cy="200" r="1" opacity="0.4"/>
-              <circle cx="550" cy="230" r="1.3" opacity="0.5"/>
-              <circle cx="900" cy="180" r="1" opacity="0.45"/>
-              <circle cx="1400" cy="200" r="1.5" opacity="0.5"/>
-              <circle cx="1750" cy="170" r="1" opacity="0.4"/>
+            {/* ── 하늘 ── */}
+            <rect x="0" y="0" width="1920" height="1080" fill="url(#skyGrad)"/>
+
+            {/* ── 태양 (오른쪽 상단) ── */}
+            <circle cx="1700" cy="110" r="130" fill="url(#sunGlow)" opacity="0.55"/>
+            <circle cx="1700" cy="110" r="68" fill="#FFD700"/>
+            <circle cx="1700" cy="110" r="55" fill="#FFF176" opacity="0.65"/>
+
+            {/* ── 구름 1 (왼쪽) ── */}
+            <g fill="white" opacity="0.95">
+              <ellipse cx="280" cy="138" rx="92" ry="46"/>
+              <ellipse cx="215" cy="153" rx="66" ry="39"/>
+              <ellipse cx="352" cy="153" rx="72" ry="40"/>
+              <ellipse cx="280" cy="162" rx="115" ry="42"/>
             </g>
 
-            {/* ── 빛줄기 (왼쪽 상단에서) ── */}
-            <g opacity="0.4">
-              <line x1="0" y1="0" x2="400" y2="300" stroke="#f0d080" strokeWidth="1.5" opacity="0.5"/>
-              <line x1="0" y1="0" x2="500" y2="200" stroke="#f0d080" strokeWidth="1" opacity="0.4"/>
-              <line x1="0" y1="0" x2="350" y2="400" stroke="#f0d080" strokeWidth="1.2" opacity="0.35"/>
-              <line x1="0" y1="0" x2="550" y2="350" stroke="#f0d080" strokeWidth="0.8" opacity="0.3"/>
-              <line x1="0" y1="0" x2="250" y2="450" stroke="#f0d080" strokeWidth="1" opacity="0.25"/>
-              <line x1="0" y1="0" x2="600" y2="150" stroke="#f0d080" strokeWidth="0.8" opacity="0.3"/>
+            {/* ── 구름 2 (중앙 좌) ── */}
+            <g fill="white" opacity="0.9">
+              <ellipse cx="770" cy="98" rx="78" ry="36"/>
+              <ellipse cx="706" cy="112" rx="58" ry="31"/>
+              <ellipse cx="838" cy="112" rx="62" ry="31"/>
+              <ellipse cx="770" cy="120" rx="98" ry="36"/>
             </g>
 
-            {/* ── 뒷 언덕 (어두운 초록) ── */}
-            <path d="M0 1080 L0 750 Q200 680 450 730 Q700 780 950 720 Q1200 660 1450 730 Q1700 800 1920 750 L1920 1080 Z" fill="#1e3d12" opacity="0.7"/>
-
-            {/* ── 앞 언덕 (중간 초록) ── */}
-            <path d="M0 1080 L0 850 Q150 800 350 830 Q550 860 750 820 Q950 780 1150 830 Q1350 880 1550 840 Q1750 800 1920 850 L1920 1080 Z" fill="#2d5a1b" opacity="0.8"/>
-
-            {/* ── 가장 앞 언덕 ── */}
-            <path d="M0 1080 L0 920 Q200 890 400 910 Q600 930 800 900 Q1000 870 1200 910 Q1400 950 1600 920 Q1800 890 1920 920 L1920 1080 Z" fill="#2d5a1b" opacity="1"/>
-
-            {/* ── 나무 실루엣 (2그루) ── */}
-            <g fill="#1e3d12">
-              {/* 나무 1 */}
-              <g transform="translate(350, 780)">
-                <rect x="-5" y="0" width="10" height="55" rx="3"/>
-                <ellipse cx="0" cy="-12" rx="28" ry="40"/>
-              </g>
-              {/* 나무 2 */}
-              <g transform="translate(1600, 800)">
-                <rect x="-4" y="0" width="8" height="45" rx="2"/>
-                <ellipse cx="0" cy="-10" rx="22" ry="32"/>
-              </g>
+            {/* ── 구름 3 (우측) ── */}
+            <g fill="white" opacity="0.85">
+              <ellipse cx="1330" cy="158" rx="82" ry="39"/>
+              <ellipse cx="1262" cy="174" rx="62" ry="33"/>
+              <ellipse cx="1402" cy="174" rx="66" ry="33"/>
+              <ellipse cx="1330" cy="182" rx="104" ry="37"/>
             </g>
 
-            {/* ── 목자 실루엣 (지팡이 들고 서있는 모습) ── */}
-            <g transform="translate(900, 770)" fill="#f0f0e0" opacity="0.7">
-              {/* 머리 */}
-              <circle cx="0" cy="0" r="13"/>
-              {/* 몸통 */}
-              <path d="M-9 13 L-13 75 L13 75 L9 13 Z"/>
-              {/* 왼쪽 다리 */}
-              <path d="M-9 75 L-13 120 L-6 120 L-2 75 Z"/>
-              {/* 오른쪽 다리 */}
-              <path d="M2 75 L6 120 L13 120 L9 75 Z"/>
-              {/* 지팡이 */}
-              <rect x="20" y="-35" width="3.5" height="155" rx="1.5"/>
-              <path d="M23.5 -35 Q23.5 -52 13 -52" fill="none" stroke="#f0f0e0" strokeWidth="3.5" strokeLinecap="round"/>
+            {/* ── 뒷 언덕 ── */}
+            <path d="M0 1080 L0 630 Q200 550 460 595 Q720 640 970 575 Q1220 510 1470 580 Q1720 650 1920 595 L1920 1080 Z" fill="url(#hillBack)"/>
+
+            {/* ── 중간 언덕 ── */}
+            <path d="M0 1080 L0 770 Q160 710 390 742 Q610 774 820 730 Q1030 686 1230 738 Q1430 790 1630 752 Q1800 714 1920 758 L1920 1080 Z" fill="url(#hillMid)"/>
+
+            {/* ── 앞 언덕 ── */}
+            <path d="M0 1080 L0 890 Q210 852 430 870 Q630 888 855 856 Q1075 824 1295 870 Q1510 916 1715 882 Q1870 848 1920 876 L1920 1080 Z" fill="url(#hillFront)"/>
+
+            {/* ── 나무 (3그루) ── */}
+            {/* 나무 1 */}
+            <g transform="translate(355, 728)">
+              <rect x="-6" y="0" width="12" height="62" rx="3" fill="#5c3d1e"/>
+              <ellipse cx="0" cy="-18" rx="36" ry="52" fill="#2d6e1e"/>
+              <ellipse cx="0" cy="-28" rx="28" ry="40" fill="#3d8b3d"/>
+            </g>
+            {/* 나무 2 */}
+            <g transform="translate(1588, 748)">
+              <rect x="-5" y="0" width="10" height="52" rx="3" fill="#5c3d1e"/>
+              <ellipse cx="0" cy="-14" rx="30" ry="45" fill="#2d6e1e"/>
+              <ellipse cx="0" cy="-24" rx="24" ry="35" fill="#3d8b3d"/>
+            </g>
+            {/* 나무 3 (뒤쪽 작은 나무) */}
+            <g transform="translate(1105, 655)">
+              <rect x="-4" y="0" width="8" height="42" rx="2" fill="#5c3d1e"/>
+              <ellipse cx="0" cy="-12" rx="23" ry="33" fill="#2d6e1e"/>
+              <ellipse cx="0" cy="-20" rx="18" ry="26" fill="#3d8b3d"/>
             </g>
 
-            {/* ── 양 실루엣 7마리 (크림색) ── */}
-            <g fill="#f0f0e0" opacity="0.6">
-              {/* 양 1 - 목자 왼쪽 */}
-              <g transform="translate(750, 860)">
-                <ellipse cx="0" cy="0" rx="24" ry="17"/>
-                <circle cx="-20" cy="-11" r="9"/>
-                <rect x="-13" y="15" width="4.5" height="15" rx="1"/>
-                <rect x="-4" y="15" width="4.5" height="15" rx="1"/>
-                <rect x="5" y="15" width="4.5" height="15" rx="1"/>
-                <rect x="13" y="15" width="4.5" height="15" rx="1"/>
-              </g>
-              {/* 양 2 - 목자 오른쪽 */}
-              <g transform="translate(1050, 870)">
-                <ellipse cx="0" cy="0" rx="22" ry="15"/>
-                <circle cx="18" cy="-9" r="8"/>
-                <rect x="-11" y="13" width="4" height="13" rx="1"/>
-                <rect x="-3" y="13" width="4" height="13" rx="1"/>
-                <rect x="5" y="13" width="4" height="13" rx="1"/>
-                <rect x="13" y="13" width="4" height="13" rx="1"/>
-              </g>
-              {/* 양 3 - 작은 양 */}
-              <g transform="translate(1150, 880)">
-                <ellipse cx="0" cy="0" rx="17" ry="12"/>
-                <circle cx="-13" cy="-7" r="6.5"/>
-                <rect x="-9" y="10" width="3.5" height="11" rx="1"/>
-                <rect x="-2" y="10" width="3.5" height="11" rx="1"/>
-                <rect x="5" y="10" width="3.5" height="11" rx="1"/>
-              </g>
-              {/* 양 4 */}
-              <g transform="translate(650, 890)">
-                <ellipse cx="0" cy="0" rx="22" ry="16"/>
-                <circle cx="18" cy="-10" r="8"/>
-                <rect x="-12" y="14" width="4" height="14" rx="1"/>
-                <rect x="-4" y="14" width="4" height="14" rx="1"/>
-                <rect x="4" y="14" width="4" height="14" rx="1"/>
-                <rect x="12" y="14" width="4" height="14" rx="1"/>
-              </g>
-              {/* 양 5 */}
-              <g transform="translate(1250, 850)">
-                <ellipse cx="0" cy="0" rx="19" ry="14"/>
-                <circle cx="-15" cy="-8" r="7"/>
-                <rect x="-10" y="12" width="4" height="12" rx="1"/>
-                <rect x="-3" y="12" width="4" height="12" rx="1"/>
-                <rect x="4" y="12" width="4" height="12" rx="1"/>
-                <rect x="11" y="12" width="4" height="12" rx="1"/>
-              </g>
-              {/* 양 6 - 앉아있는 양 */}
-              <g transform="translate(830, 900)">
-                <ellipse cx="0" cy="0" rx="21" ry="13"/>
-                <circle cx="17" cy="-8" r="7"/>
-                <rect x="-9" y="11" width="4" height="7" rx="1"/>
-                <rect x="9" y="11" width="4" height="7" rx="1"/>
-              </g>
-              {/* 양 7 - 멀리 작은 양 */}
-              <g transform="translate(550, 830)">
-                <ellipse cx="0" cy="0" rx="15" ry="11"/>
-                <circle cx="-11" cy="-6" r="5.5"/>
-                <rect x="-7" y="9" width="3" height="10" rx="1"/>
-                <rect x="0" y="9" width="3" height="10" rx="1"/>
-                <rect x="7" y="9" width="3" height="10" rx="1"/>
-              </g>
+            {/* ── 목자 (갈색 실루엣, 지팡이) ── */}
+            <g transform="translate(955, 796)" fill="#5c3d1e">
+              <circle cx="0" cy="0" r="14"/>
+              <path d="M-10 14 L-14 78 L14 78 L10 14 Z"/>
+              <path d="M-10 78 L-14 126 L-6 126 L-2 78 Z"/>
+              <path d="M2 78 L6 126 L14 126 L10 78 Z"/>
+              <rect x="22" y="-42" width="4" height="168" rx="2"/>
+              <path d="M26 -42 Q26 -60 15 -60" fill="none" stroke="#5c3d1e" strokeWidth="4" strokeLinecap="round"/>
+            </g>
+
+            {/* ── 양떼 (10마리, 크기 다양) ── */}
+            {/* 양 1 - 크게, 앞 좌 */}
+            <g transform="translate(425, 878)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="32" ry="22"/>
+              <circle cx="-26" cy="-14" r="13"/>
+              <rect x="-18" y="20" width="6" height="18" rx="2" fill="#d8d8d8"/>
+              <rect x="-8" y="20" width="6" height="18" rx="2" fill="#d8d8d8"/>
+              <rect x="6" y="20" width="6" height="18" rx="2" fill="#d8d8d8"/>
+              <rect x="16" y="20" width="6" height="18" rx="2" fill="#d8d8d8"/>
+            </g>
+            {/* 양 2 - 크게, 목자 우측 */}
+            <g transform="translate(1108, 888)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="30" ry="21"/>
+              <circle cx="25" cy="-13" r="12"/>
+              <rect x="-16" y="19" width="5" height="16" rx="2" fill="#d8d8d8"/>
+              <rect x="-7" y="19" width="5" height="16" rx="2" fill="#d8d8d8"/>
+              <rect x="4" y="19" width="5" height="16" rx="2" fill="#d8d8d8"/>
+              <rect x="14" y="19" width="5" height="16" rx="2" fill="#d8d8d8"/>
+            </g>
+            {/* 양 3 - 중간, 목자 좌측 */}
+            <g transform="translate(706, 868)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="26" ry="18"/>
+              <circle cx="-21" cy="-11" r="10"/>
+              <rect x="-14" y="16" width="5" height="14" rx="2" fill="#d8d8d8"/>
+              <rect x="-5" y="16" width="5" height="14" rx="2" fill="#d8d8d8"/>
+              <rect x="4" y="16" width="5" height="14" rx="2" fill="#d8d8d8"/>
+              <rect x="13" y="16" width="5" height="14" rx="2" fill="#d8d8d8"/>
+            </g>
+            {/* 양 4 - 중간 */}
+            <g transform="translate(585, 898)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="28" ry="19"/>
+              <circle cx="23" cy="-12" r="11"/>
+              <rect x="-15" y="17" width="5" height="15" rx="2" fill="#d8d8d8"/>
+              <rect x="-6" y="17" width="5" height="15" rx="2" fill="#d8d8d8"/>
+              <rect x="5" y="17" width="5" height="15" rx="2" fill="#d8d8d8"/>
+              <rect x="15" y="17" width="5" height="15" rx="2" fill="#d8d8d8"/>
+            </g>
+            {/* 양 5 - 작은, 뒤 */}
+            <g transform="translate(855, 846)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="20" ry="14"/>
+              <circle cx="-16" cy="-9" r="8"/>
+              <rect x="-10" y="12" width="4" height="11" rx="1" fill="#d8d8d8"/>
+              <rect x="-3" y="12" width="4" height="11" rx="1" fill="#d8d8d8"/>
+              <rect x="4" y="12" width="4" height="11" rx="1" fill="#d8d8d8"/>
+              <rect x="11" y="12" width="4" height="11" rx="1" fill="#d8d8d8"/>
+            </g>
+            {/* 양 6 - 작은, 뒤 우측 */}
+            <g transform="translate(1308, 838)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="18" ry="12"/>
+              <circle cx="-14" cy="-8" r="7"/>
+              <rect x="-9" y="10" width="3" height="9" rx="1" fill="#d8d8d8"/>
+              <rect x="-2" y="10" width="3" height="9" rx="1" fill="#d8d8d8"/>
+              <rect x="5" y="10" width="3" height="9" rx="1" fill="#d8d8d8"/>
+              <rect x="11" y="10" width="3" height="9" rx="1" fill="#d8d8d8"/>
+            </g>
+            {/* 양 7 - 중간 */}
+            <g transform="translate(1428, 868)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="20" ry="14"/>
+              <circle cx="16" cy="-9" r="8"/>
+              <rect x="-10" y="12" width="4" height="11" rx="1" fill="#d8d8d8"/>
+              <rect x="-3" y="12" width="4" height="11" rx="1" fill="#d8d8d8"/>
+              <rect x="4" y="12" width="4" height="11" rx="1" fill="#d8d8d8"/>
+              <rect x="11" y="12" width="4" height="11" rx="1" fill="#d8d8d8"/>
+            </g>
+            {/* 양 8 - 고개 숙여 풀 먹는 양 */}
+            <g transform="translate(808, 910)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="25" ry="17"/>
+              <circle cx="-23" cy="5" r="10"/>
+              <rect x="-13" y="15" width="5" height="13" rx="2" fill="#d8d8d8"/>
+              <rect x="-4" y="15" width="5" height="13" rx="2" fill="#d8d8d8"/>
+              <rect x="5" y="15" width="5" height="13" rx="2" fill="#d8d8d8"/>
+              <rect x="15" y="15" width="5" height="13" rx="2" fill="#d8d8d8"/>
+            </g>
+            {/* 양 9 - 멀리 작은 양 */}
+            <g transform="translate(965, 828)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="15" ry="10"/>
+              <circle cx="-12" cy="-6" r="6"/>
+              <rect x="-7" y="8" width="3" height="8" rx="1" fill="#d8d8d8"/>
+              <rect x="-1" y="8" width="3" height="8" rx="1" fill="#d8d8d8"/>
+              <rect x="5" y="8" width="3" height="8" rx="1" fill="#d8d8d8"/>
+            </g>
+            {/* 양 10 - 멀리 작은 양 */}
+            <g transform="translate(1205, 818)" fill="#f5f5f5">
+              <ellipse cx="0" cy="0" rx="14" ry="9"/>
+              <circle cx="11" cy="-6" r="5.5"/>
+              <rect x="-6" y="7" width="3" height="7" rx="1" fill="#d8d8d8"/>
+              <rect x="0" y="7" width="3" height="7" rx="1" fill="#d8d8d8"/>
+              <rect x="6" y="7" width="3" height="7" rx="1" fill="#d8d8d8"/>
             </g>
           </svg>
         </div>
@@ -391,7 +441,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </svg>
               </div>
               <div>
-                <p style={{ color:'#f5edd6',fontWeight:800,fontSize:'17px',margin:0,letterSpacing:'-0.02em' }}>J-SheepFold</p>
+                <p style={{ color:'#ffffff',fontWeight:800,fontSize:'17px',margin:0,letterSpacing:'-0.02em' }}>J-SheepFold</p>
                 <p style={{ background:'var(--grad-primary)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontSize:'10px',margin:0,letterSpacing:'0.08em',fontWeight:700 }}>교회 통합 관리 시스템</p>
               </div>
             </div>
@@ -408,7 +458,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     key={item.href}
                     href={item.href!}
                     className={`nav-link${isActive ? ' active' : ''}`}
-                    style={{ color: '#d4c9a8' }}
+                    style={{ color: '#f0e8c0' }}
                   >
                     <span style={{ color: 'inherit', display:'flex', flexShrink:0 }}>{item.icon}</span>
                     <span style={{ flex:1, color: 'inherit' }}>{item.label}</span>
@@ -426,7 +476,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <button
                     className={`nav-link${isGroupActive ? ' group-active' : ''}`}
                     onClick={() => toggleGroup(item.label)}
-                    style={{ color: '#d4c9a8' }}
+                    style={{ color: '#f0e8c0' }}
                   >
                     <span style={{ color: 'inherit', display:'flex', flexShrink:0 }}>{item.icon}</span>
                     <span style={{ flex:1, color: 'inherit' }}>{item.label}</span>
@@ -454,9 +504,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                               key={sub.href}
                               href={sub.href}
                               className={`sub-link${isSubActive ? ' active' : ''}`}
-                              style={{ color: '#d4c9a8' }}
+                              style={{ color: '#f0e8c0' }}
                             >
-                              <span style={{ color: isSubActive ? '#e8d48b' : '#d4c9a8', flexShrink:0 }}>
+                              <span style={{ color: isSubActive ? '#ffffff' : '#f0e8c0', flexShrink:0 }}>
                                 {SUB_ICONS[sub.href]}
                               </span>
                               <span style={{ color: 'inherit' }}>{sub.label}</span>
@@ -486,9 +536,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <button
               onClick={handleLogout}
               className="nav-link"
-              style={{ color:'var(--muted)' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background='rgba(239,68,68,0.12)'; (e.currentTarget as HTMLButtonElement).style.color='#fca5a5'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background='transparent'; (e.currentTarget as HTMLButtonElement).style.color='var(--muted)'; }}
+              style={{ color:'#c8a86a' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background='rgba(239,68,68,0.18)'; (e.currentTarget as HTMLButtonElement).style.color='#fca5a5'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background='transparent'; (e.currentTarget as HTMLButtonElement).style.color='#c8a86a'; }}
             >
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
