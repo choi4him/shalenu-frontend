@@ -504,7 +504,7 @@ export default function FinanceReportsPage() {
 
         {/* 인쇄 푸터 (인쇄 시에만) */}
         <div style={{ marginTop: '24px', textAlign: 'center', fontSize: '12px', color: '#9ca3af', display: 'none' }} className="print-footer">
-          샬레누 교회 관리 시스템 · {year}년 재정 보고서 · 출력일: {new Date().toLocaleDateString('ko-KR')}
+          J-SheepFold 교회 관리 시스템 · {year}년 재정 보고서 · 출력일: {new Date().toLocaleDateString('ko-KR')}
         </div>
         <style>{`@media print { .print-footer { display:block !important; } }`}</style>
 

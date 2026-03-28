@@ -263,7 +263,7 @@ export default function OnboardingPage() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             </div>
             <div>
-              <div style={{ fontSize:'18px', fontWeight:800, color:'#1e1b4b', letterSpacing:'-0.02em' }}>샬레누</div>
+              <div style={{ fontSize:'18px', fontWeight:800, color:'#1e1b4b', letterSpacing:'-0.02em' }}>J-SheepFold</div>
               <div style={{ fontSize:'11px', color:'#9ca3af', letterSpacing:'0.04em' }}>교회 초기 설정</div>
             </div>
           </div>
@@ -288,7 +288,7 @@ export default function OnboardingPage() {
               <Field label="교회 이름" required>
                 <input className="inp" style={inputSt} value={church.name}
                   onChange={e => setChurch(p => ({ ...p, name: e.target.value }))}
-                  placeholder="예: 샬레누 교회" />
+                  placeholder="예: 제이쉽폴드 교회" />
               </Field>
 
               <Field label="교회 주소">
@@ -333,7 +333,7 @@ export default function OnboardingPage() {
           {step === 2 && (
             <div style={{ animation:'fadeUp 0.25s ease' }}>
               <h2 style={{ fontSize:'20px',fontWeight:800,color:'#111827',marginBottom:'6px',letterSpacing:'-0.03em' }}>관리자 계정 설정</h2>
-              <p style={{ fontSize:'13px',color:'#9ca3af',marginBottom:'24px' }}>샬레누에 로그인할 관리자 정보를 입력해주세요.</p>
+              <p style={{ fontSize:'13px',color:'#9ca3af',marginBottom:'24px' }}>J-SheepFold에 로그인할 관리자 정보를 입력해주세요.</p>
 
               <Field label="역할">
                 <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'8px' }}>
@@ -435,7 +435,7 @@ export default function OnboardingPage() {
               </h2>
               <p style={{ fontSize:'14px',color:'#6b7280',lineHeight:'1.7',marginBottom:'8px' }}>
                 <strong style={{ color:'#1e1b4b' }}>{church.name}</strong>의<br />
-                샬레누 교회 관리 시스템이 준비되었습니다.
+                J-SheepFold 교회 관리 시스템이 준비되었습니다.
               </p>
               <p style={{ fontSize:'13px',color:'#9ca3af',marginBottom:'32px' }}>
                 지금 바로 교인을 등록하고 헌금·재정을 관리해보세요.
@@ -454,7 +454,7 @@ export default function OnboardingPage() {
                 onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform='translateY(-2px)'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 10px 26px rgba(79,70,229,0.45)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform='none'; (e.currentTarget as HTMLButtonElement).style.boxShadow='0 6px 20px rgba(79,70,229,0.4)'; }}
               >
-                샬레누 시작하기 →
+                J-SheepFold 시작하기 →
               </button>
             </div>
           )}

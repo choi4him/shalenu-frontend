@@ -220,8 +220,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </svg>
               </div>
               <div>
-                <p style={{ color:'#fff',fontWeight:800,fontSize:'17px',margin:0,letterSpacing:'-0.02em' }}>샬레누</p>
-                <p style={{ background:'var(--grad-primary)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontSize:'10px',margin:0,letterSpacing:'0.08em',fontWeight:700 }}>SHALENU</p>
+                <p style={{ color:'#fff',fontWeight:800,fontSize:'17px',margin:0,letterSpacing:'-0.02em' }}>J-SheepFold</p>
+                <p style={{ background:'var(--grad-primary)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontSize:'10px',margin:0,letterSpacing:'0.08em',fontWeight:700 }}>J-SHEEPFOLD</p>
               </div>
             </div>
           </div>

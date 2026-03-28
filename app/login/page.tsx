@@ -224,10 +224,10 @@ export default function LoginPage() {
               background: 'linear-gradient(135deg, #e2e8f0, #ffffff)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
             }}>
-              샬레누
+              J-SheepFold
             </h1>
             <p style={{ color: '#7b7b9d', fontSize: '13px', margin: 0, fontWeight: 500, letterSpacing: '0.01em' }}>
-              SHALENU · 교회 통합 관리 시스템
+              J-SHEEPFOLD · 교회 통합 관리 시스템
             </p>
           </div>
 
@@ -337,7 +337,7 @@ export default function LoginPage() {
           </form>
 
           <p style={{ textAlign: 'center', marginTop: '28px', marginBottom: 0, fontSize: '12px', color: '#4b4b6b' }}>
-            © {new Date().getFullYear()} Shalenu. All rights reserved.
+            © {new Date().getFullYear()} J-SheepFold. All rights reserved.
           </p>
         </div>
       </div>

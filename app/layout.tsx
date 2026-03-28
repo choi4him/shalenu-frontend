@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "샬레누 — 교회 통합 관리 시스템",
+  title: "J-SheepFold — 교회 통합 관리 시스템",
   description: "교회 교인, 헌금, 재정을 한 곳에서 관리하는 스마트 시스템",
 };
 

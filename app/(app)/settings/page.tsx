@@ -674,7 +674,7 @@ function PlanTab() {
           <p style={{ margin:'0 0 10px',fontSize:'14px',color:'#374151',fontWeight:500 }}>
             더 많은 기능이 필요하신가요?
           </p>
-          <a href="mailto:support@shalenu.com"
+          <a href="mailto:support@j-sheepfold.com"
             style={{ display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 24px',borderRadius:'10px',background:'linear-gradient(135deg,#4f46e5,#6366f1)',color:'#fff',fontSize:'14px',fontWeight:700,textDecoration:'none',boxShadow:'0 4px 12px rgba(79,70,229,0.3)' }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             업그레이드 문의
