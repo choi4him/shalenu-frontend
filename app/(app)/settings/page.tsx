@@ -568,10 +568,10 @@ function UsersTab() {
 // 탭 4: 요금제
 // ═══════════════════════════════════════════════════════
 const PLANS = [
-  { key:'free',      label:'무료',    price:0,    members:100,  color:'#6b7280' },
-  { key:'growth',    label:'성장',    price:49,   members:500,  color:'#10b981' },
-  { key:'community', label:'공동체',  price:99,   members:2000, color:'#c9a84c' },
-  { key:'enterprise',label:'대형',   price:null, members:null, color:'#f59e0b' },
+  { key:'free',      label:'무료',    price:0,    members:30,  color:'#6b7280' },
+  { key:'growth',    label:'성장',    price:49,   members:100, color:'#10b981' },
+  { key:'community', label:'공동체',  price:99,   members:500, color:'#c9a84c' },
+  { key:'enterprise',label:'대형',   price:199,  members:null, color:'#f59e0b' },
 ];
 const FEATURES = [
   { label:'교인 관리',       free:true,  growth:true,  community:true,  enterprise:true  },
@@ -580,8 +580,8 @@ const FEATURES = [
   { label:'예산 편성',       free:false, growth:true,  community:true,  enterprise:true  },
   { label:'재정 보고서',     free:false, growth:true,  community:true,  enterprise:true  },
   { label:'다중 사용자',     free:false, growth:false, community:true,  enterprise:true  },
-  { label:'교인 한도',       free:'100명', growth:'500명', community:'2,000명', enterprise:'무제한' },
-  { label:'사용자 수',       free:'1명', growth:'3명', community:'10명', enterprise:'무제한' },
+  { label:'교인 한도',       free:'30명',  growth:'100명', community:'500명', enterprise:'무제한' },
+  { label:'사용자 수',       free:'1명',   growth:'2명',   community:'5명',   enterprise:'무제한' },
   { label:'데이터 보관',     free:'1년', growth:'3년', community:'무제한', enterprise:'무제한' },
   { label:'API 접근',        free:false, growth:false, community:false,  enterprise:true  },
   { label:'전담 고객 지원',  free:false, growth:false, community:false,  enterprise:true  },
@@ -646,6 +646,7 @@ function PlanTab() {
                       <span style={{ fontWeight:700,color: p.key===currentPlan ? p.color : '#374151' }}>
                         {p.label}
                         {p.key===currentPlan && <span style={{ marginLeft:'4px',fontSize:'10px',color:'#fff',background:p.color,padding:'1px 5px',borderRadius:'4px' }}>현재</span>}
+                        {p.key==='community' && p.key!==currentPlan && <span style={{ marginLeft:'4px',fontSize:'10px',color:'#fff',background:'#c9a84c',padding:'1px 5px',borderRadius:'4px' }}>가장 인기</span>}
                       </span>
                       <span style={{ fontSize:'11px',color:'#9ca3af',fontWeight:400 }}>
                         {p.price === null ? '문의' : p.price === 0 ? 'Free' : `$${p.price}/월`}
