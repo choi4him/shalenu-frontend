@@ -15,10 +15,10 @@
   --primary-900: #5c491a;
 
   /* ── 배경 계층 ── */
-  --background:   #1a1208;   /* 최상위 배경: 따뜻한 어두운 갈색 */
-  --surface:      #241a0e;   /* 카드/패널 배경 */
-  --surface-2:    #1e150a;   /* 중간 레이어 */
-  --surface-3:    #120d06;   /* 사이드바 */
+  --background:   #1a2415;   /* 최상위 배경: 어두운 초록 */
+  --surface:      #1e2e18;   /* 카드/패널 배경 */
+  --surface-2:    #1c2812;   /* 중간 레이어 */
+  --surface-3:    #111a0f;   /* 사이드바 */
 
   /* ── 텍스트 ── */
   --foreground:   #f5edd6;   /* 주요 텍스트 (따뜻한 아이보리) */
@@ -30,7 +30,7 @@
   --border-2:     rgba(255, 255, 255, 0.06);
 
   /* ── 사이드바 ── */
-  --sidebar-bg:          #120d06;
+  --sidebar-bg:          #111a0f;
   --sidebar-hover:       rgba(201, 168, 76, 0.12);
   --sidebar-active:      rgba(201, 168, 76, 0.25);
   --sidebar-text:        #d4c9a8;
@@ -168,7 +168,7 @@ body {
   border-color: #c9a84c !important;
   box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
 }
-.input-dark option { background: #241a0e; color: #f5edd6; }
+.input-dark option { background: #1e2e18; color: #f5edd6; }
 
 /* ── 뱃지 ── */
 .badge { display:inline-block; padding:3px 10px; border-radius:99px; font-size:12px; font-weight:600; letter-spacing:0.01em; white-space:nowrap; }
