@@ -137,7 +137,10 @@ export default function LoginPage() {
       <div
         style={{
           minHeight: '100vh',
-          background: 'linear-gradient(180deg, #87CEEB 0%, #b0e0ff 40%, #c8efc8 75%, #a8d8a8 100%)',
+          backgroundImage: "url('/images/shepherd-bg.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -146,53 +149,6 @@ export default function LoginPage() {
           overflow: 'hidden',
         }}
       >
-        {/* 배경 초원 SVG */}
-        <div style={{ position:'absolute', inset:0, pointerEvents:'none', zIndex:0 }}>
-          <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="sunGlowL" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#FFF9C4" stopOpacity="1"/>
-                <stop offset="45%" stopColor="#FFD700" stopOpacity="0.7"/>
-                <stop offset="100%" stopColor="#FFD700" stopOpacity="0"/>
-              </radialGradient>
-              <linearGradient id="hBack" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#7bc67e"/><stop offset="100%" stopColor="#4a9e4a"/>
-              </linearGradient>
-              <linearGradient id="hFront" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#4a9e4a"/><stop offset="100%" stopColor="#2d7a2d"/>
-              </linearGradient>
-            </defs>
-            <circle cx="1700" cy="110" r="130" fill="url(#sunGlowL)" opacity="0.5"/>
-            <circle cx="1700" cy="110" r="68" fill="#FFD700"/>
-            <g fill="white" opacity="0.9">
-              <ellipse cx="300" cy="145" rx="90" ry="44"/>
-              <ellipse cx="235" cy="160" rx="65" ry="37"/>
-              <ellipse cx="370" cy="160" rx="70" ry="37"/>
-            </g>
-            <g fill="white" opacity="0.85">
-              <ellipse cx="900" cy="110" rx="75" ry="35"/>
-              <ellipse cx="838" cy="123" rx="56" ry="30"/>
-              <ellipse cx="966" cy="123" rx="60" ry="30"/>
-            </g>
-            <path d="M0 1080 L0 680 Q300 600 600 640 Q900 680 1200 620 Q1500 560 1920 640 L1920 1080 Z" fill="url(#hBack)"/>
-            <path d="M0 1080 L0 860 Q300 820 600 840 Q900 860 1200 830 Q1500 800 1920 850 L1920 1080 Z" fill="url(#hFront)"/>
-            <g transform="translate(350, 760)"><rect x="-5" y="0" width="10" height="55" rx="3" fill="#5c3d1e"/><ellipse cx="0" cy="-15" rx="33" ry="48" fill="#2d6e1e"/><ellipse cx="0" cy="-25" rx="26" ry="37" fill="#3d8b3d"/></g>
-            <g transform="translate(1580, 775)"><rect x="-4" y="0" width="8" height="46" rx="2" fill="#5c3d1e"/><ellipse cx="0" cy="-12" rx="27" ry="40" fill="#2d6e1e"/><ellipse cx="0" cy="-22" rx="22" ry="31" fill="#3d8b3d"/></g>
-            <g transform="translate(960, 840)" fill="#5c3d1e">
-              <circle cx="0" cy="0" r="12"/>
-              <path d="M-8 12 L-12 66 L12 66 L8 12 Z"/>
-              <rect x="18" y="-35" width="3.5" height="140" rx="1.5"/>
-              <path d="M21.5 -35 Q21.5 -50 12 -50" fill="none" stroke="#5c3d1e" strokeWidth="3.5" strokeLinecap="round"/>
-            </g>
-            <g fill="#f5f5f5">
-              <g transform="translate(680, 876)"><ellipse cx="0" cy="0" rx="26" ry="18"/><circle cx="-21" cy="-11" r="10"/><rect x="-13" y="16" width="5" height="13" rx="2" fill="#d8d8d8"/><rect x="-4" y="16" width="5" height="13" rx="2" fill="#d8d8d8"/><rect x="5" y="16" width="5" height="13" rx="2" fill="#d8d8d8"/><rect x="14" y="16" width="5" height="13" rx="2" fill="#d8d8d8"/></g>
-              <g transform="translate(1220, 882)"><ellipse cx="0" cy="0" rx="28" ry="19"/><circle cx="23" cy="-12" r="11"/><rect x="-15" y="17" width="5" height="14" rx="2" fill="#d8d8d8"/><rect x="-6" y="17" width="5" height="14" rx="2" fill="#d8d8d8"/><rect x="5" y="17" width="5" height="14" rx="2" fill="#d8d8d8"/><rect x="15" y="17" width="5" height="14" rx="2" fill="#d8d8d8"/></g>
-              <g transform="translate(820, 912)"><ellipse cx="0" cy="0" rx="22" ry="15"/><circle cx="-19" cy="4" r="9"/><rect x="-11" y="13" width="4" height="11" rx="1" fill="#d8d8d8"/><rect x="-3" y="13" width="4" height="11" rx="1" fill="#d8d8d8"/><rect x="5" y="13" width="4" height="11" rx="1" fill="#d8d8d8"/></g>
-              <g transform="translate(1100, 862)"><ellipse cx="0" cy="0" rx="19" ry="13"/><circle cx="15" cy="-8" r="7"/><rect x="-9" y="11" width="4" height="10" rx="1" fill="#d8d8d8"/><rect x="-2" y="11" width="4" height="10" rx="1" fill="#d8d8d8"/><rect x="5" y="11" width="4" height="10" rx="1" fill="#d8d8d8"/></g>
-            </g>
-          </svg>
-        </div>
-
         {/* 로그인 카드 – glassmorphism */}
         <div
           className={
