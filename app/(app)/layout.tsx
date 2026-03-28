@@ -223,19 +223,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div style={{ display:'flex', minHeight:'100vh', background:'var(--background)', position:'relative' }}>
 
         {/* ═══ 배경 SVG: 양떼와 목자 실루엣 ═══ */}
-        <div style={{ position:'fixed', inset:0, zIndex:0, pointerEvents:'none', opacity:0.08, overflow:'hidden' }}>
-          <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" fill="#c9a84c" xmlns="http://www.w3.org/2000/svg">
+        <div style={{ position:'fixed', inset:0, zIndex:0, pointerEvents:'none', opacity:0.15, overflow:'hidden' }}>
+          <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" fill="#f0d080" xmlns="http://www.w3.org/2000/svg">
 
             {/* ── 왼쪽 상단: 빛줄기 (방사형) ── */}
             <g opacity="0.6">
-              <line x1="0" y1="0" x2="400" y2="300" stroke="#c9a84c" strokeWidth="1.5" opacity="0.5"/>
-              <line x1="0" y1="0" x2="500" y2="200" stroke="#c9a84c" strokeWidth="1" opacity="0.4"/>
-              <line x1="0" y1="0" x2="350" y2="400" stroke="#c9a84c" strokeWidth="1.2" opacity="0.35"/>
-              <line x1="0" y1="0" x2="550" y2="350" stroke="#c9a84c" strokeWidth="0.8" opacity="0.3"/>
-              <line x1="0" y1="0" x2="250" y2="450" stroke="#c9a84c" strokeWidth="1" opacity="0.25"/>
-              <line x1="0" y1="0" x2="600" y2="150" stroke="#c9a84c" strokeWidth="0.8" opacity="0.3"/>
-              <line x1="0" y1="0" x2="450" y2="100" stroke="#c9a84c" strokeWidth="1" opacity="0.35"/>
-              <line x1="0" y1="0" x2="150" y2="350" stroke="#c9a84c" strokeWidth="0.8" opacity="0.2"/>
+              <line x1="0" y1="0" x2="400" y2="300" stroke="#f0d080" strokeWidth="1.5" opacity="0.5"/>
+              <line x1="0" y1="0" x2="500" y2="200" stroke="#f0d080" strokeWidth="1" opacity="0.4"/>
+              <line x1="0" y1="0" x2="350" y2="400" stroke="#f0d080" strokeWidth="1.2" opacity="0.35"/>
+              <line x1="0" y1="0" x2="550" y2="350" stroke="#f0d080" strokeWidth="0.8" opacity="0.3"/>
+              <line x1="0" y1="0" x2="250" y2="450" stroke="#f0d080" strokeWidth="1" opacity="0.25"/>
+              <line x1="0" y1="0" x2="600" y2="150" stroke="#f0d080" strokeWidth="0.8" opacity="0.3"/>
+              <line x1="0" y1="0" x2="450" y2="100" stroke="#f0d080" strokeWidth="1" opacity="0.35"/>
+              <line x1="0" y1="0" x2="150" y2="350" stroke="#f0d080" strokeWidth="0.8" opacity="0.2"/>
             </g>
 
             {/* ── 오른쪽 하단: 언덕 곡선 ── */}
@@ -267,7 +267,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <path d="M2 70 L6 110 L12 110 L8 70 Z"/>
               {/* 지팡이 */}
               <rect x="18" y="-30" width="3" height="140" rx="1.5"/>
-              <path d="M21 -30 Q21 -45 12 -45" fill="none" stroke="#c9a84c" strokeWidth="3" strokeLinecap="round"/>
+              <path d="M21 -30 Q21 -45 12 -45" fill="none" stroke="#f0d080" strokeWidth="3" strokeLinecap="round"/>
             </g>
 
             {/* ── 양 실루엣 7마리 ── */}
