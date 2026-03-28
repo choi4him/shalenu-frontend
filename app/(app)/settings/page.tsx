@@ -579,7 +579,6 @@ const FEATURES = [
   { label:'재정 관리',       free:true,  growth:true,  community:true,  enterprise:true  },
   { label:'예산 편성',       free:false, growth:true,  community:true,  enterprise:true  },
   { label:'재정 보고서',     free:false, growth:true,  community:true,  enterprise:true  },
-  { label:'다중 사용자',     free:false, growth:false, community:true,  enterprise:true  },
   { label:'교인 한도',       free:'30명',  growth:'100명', community:'500명', enterprise:'무제한' },
   { label:'사용자 수',       free:'1명',   growth:'2명',   community:'5명',   enterprise:'무제한' },
   { label:'데이터 보관',     free:'1년', growth:'3년', community:'무제한', enterprise:'무제한' },
