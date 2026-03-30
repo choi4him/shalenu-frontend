@@ -1,6 +1,16 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
 
 /**
+ * 요금제 제한으로 인한 403 오류를 구분하기 위한 커스텀 에러 클래스
+ */
+export class PlanLimitError extends Error {
+  constructor() {
+    super('현재 요금제에서 사용할 수 없는 기능입니다.\n설정 > 요금제에서 업그레이드하세요.');
+    this.name = 'PlanLimitError';
+  }
+}
+
+/**
  * Authorization 헤더 자동 삽입 fetch 래퍼
  * - 401 응답 시 /login 으로 리디렉트
  */
@@ -25,6 +35,14 @@ export async function apiClient<T>(
       window.location.href = '/login';
     }
     throw new Error('인증이 만료되었습니다. 다시 로그인해주세요.');
+  }
+
+  if (res.status === 403) {
+    // 전역 배너 표시를 위해 CustomEvent 발생
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('plan-limit-error'));
+    }
+    throw new PlanLimitError();
   }
 
   if (!res.ok) {

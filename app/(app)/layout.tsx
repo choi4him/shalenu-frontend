@@ -160,6 +160,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(getInitialOpen);
   const [verseIdx, setVerseIdx] = useState(0); // SSR 안전: 클라이언트 전용 랜덤은 useEffect에서 처리
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showPlanLimit, setShowPlanLimit] = useState(false);
 
   // 경로 바뀌면 성경 구절 랜덤 교체
   useEffect(() => {
@@ -172,6 +173,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setSidebarOpen(false);
   }, [pathname]);
+
+  // 403 요금제 제한 이벤트 처리
+  useEffect(() => {
+    const handler = () => {
+      setShowPlanLimit(true);
+      setTimeout(() => setShowPlanLimit(false), 6000);
+    };
+    window.addEventListener('plan-limit-error', handler);
+    return () => window.removeEventListener('plan-limit-error', handler);
+  }, []);
 
   // 경로 바뀌면 해당 그룹 자동 펼침
   useEffect(() => {
@@ -217,7 +228,40 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .chevron { transition:transform 0.2s ease;flex-shrink:0; }
         .chevron.open { transform:rotate(90deg); }
         .sub-list { animation:slideDown 0.18s ease; }
+        @keyframes planLimitSlide { from{opacity:0;transform:translateY(-100%)} to{opacity:1;transform:none} }
+        .plan-limit-banner { animation:planLimitSlide 0.3s ease; }
       `}</style>
+
+      {/* ═══ 요금제 제한 알림 배너 ═══ */}
+      {showPlanLimit && (
+        <div className="plan-limit-banner" style={{
+          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
+          background: 'linear-gradient(135deg, #c9a84c, #e8d48b)',
+          color: '#1a1208', padding: '14px 20px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: '12px', boxShadow: '0 4px 20px rgba(201,168,76,0.5)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span style={{ fontSize: '14px', fontWeight: 600 }}>
+              현재 요금제에서 사용할 수 없는 기능입니다.{' '}
+              <a href="/settings?tab=plan" style={{ fontWeight: 800, textDecoration: 'underline', color: '#1a1208' }}>
+                설정 &gt; 요금제에서 업그레이드하세요.
+              </a>
+            </span>
+          </div>
+          <button onClick={() => setShowPlanLimit(false)} style={{
+            background: 'none', border: 'none', cursor: 'pointer', padding: '4px',
+            color: '#1a1208', flexShrink: 0, display: 'flex', alignItems: 'center',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      )}
 
       {/* ═══ 모바일 상단 헤더 ═══ */}
       <header className="mobile-header">
