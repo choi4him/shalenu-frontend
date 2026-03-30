@@ -108,7 +108,7 @@ export default function MembersPage() {
   const genderLabel = (g?: string | null) => g ? (t.members.genderLabels[g] ?? '—') : '—';
 
   return (
-    <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
+    <div className="page-content" style={{ maxWidth: '1100px' }}>
 
       {/* 헤더 */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
@@ -202,22 +202,22 @@ export default function MembersPage() {
                       key={m.id}
                       onClick={() => router.push(`/members/${m.id}`)}
                     >
-                      <td style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: '14px', whiteSpace: 'nowrap' }}>
+                      <td data-label="이름" style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: '14px', whiteSpace: 'nowrap' }}>
                         {m.name}
                       </td>
-                      <td style={{ fontSize: '14px', whiteSpace: 'nowrap' }}>
+                      <td data-label="성별" style={{ fontSize: '14px', whiteSpace: 'nowrap' }}>
                         {genderLabel(m.gender)}
                       </td>
-                      <td style={{ fontSize: '14px', whiteSpace: 'nowrap' }}>
+                      <td data-label="전화번호" style={{ fontSize: '14px', whiteSpace: 'nowrap' }}>
                         {m.phone ?? '—'}
                       </td>
-                      <td style={{ fontSize: '13px', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      <td data-label="이메일" style={{ fontSize: '13px', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {m.email ?? '—'}
                       </td>
-                      <td style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
+                      <td data-label="등록일" style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                         {m.registered_date ? formatDateKR(m.registered_date) : '—'}
                       </td>
-                      <td style={{ whiteSpace: 'nowrap' }}>
+                      <td data-label="상태" style={{ whiteSpace: 'nowrap' }}>
                         <StatusBadge status={m.status} />
                       </td>
                     </tr>

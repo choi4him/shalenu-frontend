@@ -207,7 +207,7 @@ export default function MemberNewPage() {
         .addr-readonly { background: #f8fafc !important; color: #6b7280 !important; cursor: default !important; }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '760px' }}>
+      <div className="page-content" style={{ maxWidth: '760px' }}>
 
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '28px' }}>
@@ -249,7 +249,7 @@ export default function MemberNewPage() {
             {/* 섹션 1: 기본 정보 */}
             <div style={{ padding: '28px 32px', borderBottom: '1px solid #f1f5f9' }}>
               <SectionTitle>{t.members.sectionBasic}</SectionTitle>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+              <div className="r-grid-2" style={{ gap: '18px' }}>
 
                 {/* 이름 */}
                 <div style={{ gridColumn: '1 / -1' }}>
@@ -302,7 +302,7 @@ export default function MemberNewPage() {
             {/* 섹션 2: 연락처 */}
             <div style={{ padding: '28px 32px', borderBottom: '1px solid #f1f5f9' }}>
               <SectionTitle>{t.members.sectionContact}</SectionTitle>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+              <div className="r-grid-2" style={{ gap: '18px' }}>
 
                 {/* 전화번호 */}
                 <Field label={t.members.phone}>
@@ -392,7 +392,7 @@ export default function MemberNewPage() {
             {/* 섹션 3: 교회 정보 */}
             <div style={{ padding: '28px 32px' }}>
               <SectionTitle>{t.members.sectionChurch}</SectionTitle>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+              <div className="r-grid-2" style={{ gap: '18px' }}>
 
                 {/* 등록일 */}
                 <Field label={t.members.registeredDate}>

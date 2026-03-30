@@ -188,7 +188,7 @@ export default function BookingsPage() {
         .inp-bk:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.1); }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '900px' }}>
+      <div className="page-content" style={{ maxWidth: '900px' }}>
         {/* 헤더 */}
         <div style={{ marginBottom: '24px' }}>
           <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>예약 관리</h1>

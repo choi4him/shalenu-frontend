@@ -442,7 +442,7 @@ export default function BudgetNewPage() {
                   </div>
 
                   {/* 3칼럼 그리드 */}
-                  <div style={{ display:'grid',gridTemplateColumns:'1fr 2fr 1fr',gap:'10px' }}>
+                  <div className="m-1col" style={{ display:'grid',gridTemplateColumns:'1fr 2fr 1fr',gap:'10px' }}>
 
                     {/* ① 분류 */}
                     <div>

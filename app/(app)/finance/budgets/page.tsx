@@ -137,7 +137,7 @@ export default function BudgetListPage() {
         .budget-item-card:hover { border-color:#f0d88a;box-shadow:0 2px 10px rgba(201,168,76,0.08); }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '860px' }}>
+      <div className="page-content" style={{ maxWidth: '860px' }}>
 
         {/* ── 헤더 ── */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>

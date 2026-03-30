@@ -235,7 +235,7 @@ function CreateModal({ types, typeStyles, onClose, onCreated }: {
               )}
             </div>
 
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'12px' }}>
+            <div className="r-grid-2" style={{ gap:'12px' }}>
               <div>
                 <label style={labelSt}>{t.groups.meetingDay}</label>
                 <select style={inputSt} value={form.meeting_day}

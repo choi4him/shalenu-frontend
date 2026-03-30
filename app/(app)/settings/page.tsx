@@ -1108,7 +1108,7 @@ export default function SettingsPage() {
         .tab-btn.active { background:linear-gradient(135deg,#c9a84c,#c9a84c);color:#fff;font-weight:700;box-shadow:0 3px 10px rgba(201,168,76,0.3); }
       `}</style>
 
-      <div style={{ padding:'36px 40px', maxWidth:'820px' }}>
+      <div className="page-content" style={{ maxWidth:'820px' }}>
         {/* 헤더 */}
         <div style={{ marginBottom:'28px' }}>
           <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 5px' }}>{t.settings.title}</h1>
@@ -1116,7 +1116,7 @@ export default function SettingsPage() {
         </div>
 
         {/* 탭 바 */}
-        <div style={{ display:'flex',gap:'4px',padding:'5px',background:'#f8fafc',borderRadius:'13px',border:'1px solid #e5e7eb',marginBottom:'24px',flexWrap:'wrap' }}>
+        <div className="tab-scroll" style={{ display:'flex',gap:'4px',padding:'5px',background:'#f8fafc',borderRadius:'13px',border:'1px solid #e5e7eb',marginBottom:'24px' }}>
           {TAB_KEYS.map(tk => (
             <button key={tk} className={`tab-btn${tab===tk?' active':''}`} onClick={() => setTab(tk)}>
               <span>{TAB_ICONS[tk]}</span>{t.settings.tabs[tk]}

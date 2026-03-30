@@ -133,7 +133,7 @@ export default function TransactionsPage() {
         .fi-filter:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.12); }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
+      <div className="page-content" style={{ maxWidth: '1100px' }}>
 
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
@@ -179,7 +179,7 @@ export default function TransactionsPage() {
         </div>
 
         {/* 간단 통계 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '20px' }}>
+        <div className="r-grid-3" style={{ gap: '14px', marginBottom: '20px' }}>
           {[
             { label: '조회 수입 합계', value: formatKRW(incomeSum), color: '#7d6324', bg: 'linear-gradient(135deg,#fdf8e8,#f0d88a)' },
             { label: '조회 지출 합계', value: formatKRW(expenseSum), color: '#be123c', bg: 'linear-gradient(135deg,#fff1f2,#fecdd3)' },
@@ -286,30 +286,30 @@ export default function TransactionsPage() {
                         onMouseLeave={() => setHoveredRow(null)}
                         style={{ borderBottom:'1px solid rgba(160,120,40,0.15)', background: hoveredRow === tx.id ? 'rgba(160,120,40,0.06)' : 'transparent' }}
                       >
-                        <td style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', whiteSpace:'nowrap', fontWeight:500 }}>
+                        <td data-label="날짜" style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', whiteSpace:'nowrap', fontWeight:500 }}>
                           {fmtDate(tx.transaction_date)}
                         </td>
-                        <td style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', fontWeight:500, maxWidth:'200px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                        <td data-label="내용" style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', fontWeight:500, maxWidth:'200px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
                           {tx.description || '—'}
                         </td>
-                        <td style={{ padding:'14px 18px', fontSize:'13px', whiteSpace:'nowrap' }}>
+                        <td data-label="분류" style={{ padding:'14px 18px', fontSize:'13px', whiteSpace:'nowrap' }}>
                           {tx.category ? (
                             <span style={{ background:'rgba(160,120,40,0.1)', color:'#7a5c00', padding:'3px 10px', borderRadius:'99px', fontSize:'12px', fontWeight:600, border:'1px solid rgba(160,120,40,0.25)' }}>
                               {CATEGORY_LABELS[tx.category] ?? tx.category}
                             </span>
                           ) : '—'}
                         </td>
-                        <td style={{ padding:'14px 18px', fontSize:'13px', color:'#8b6914', whiteSpace:'nowrap' }}>
+                        <td data-label="계좌" style={{ padding:'14px 18px', fontSize:'13px', color:'#8b6914', whiteSpace:'nowrap' }}>
                           {tx.account_name ?? `계좌 #${tx.account_id}`}
                         </td>
                         {/* 수입 */}
-                        <td style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
+                        <td data-label="수입" style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
                           {tx.transaction_type === 'income' ? (
                             <span style={{ color:'#2563eb' }}>+ {formatKRW(tx.amount)}</span>
                           ) : '—'}
                         </td>
                         {/* 지출 */}
-                        <td style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
+                        <td data-label="지출" style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
                           {tx.transaction_type === 'expense' ? (
                             <span style={{ color:'#dc2626' }}>– {formatKRW(tx.amount)}</span>
                           ) : '—'}

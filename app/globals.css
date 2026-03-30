@@ -242,6 +242,28 @@ body {
 .btn-secondary-dark:hover { border-color:#c9a84c; color:#7a4000; background:rgba(201,168,76,0.1); }
 
 /* ════════════════════════════════════════════════════
+   모바일 반응형 유틸리티
+   ════════════════════════════════════════════════════ */
+
+/* 탭 수평 스크롤 */
+.tab-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex-wrap: nowrap !important;
+}
+.tab-scroll::-webkit-scrollbar { display: none; }
+
+/* 반응형 그리드 유틸리티 (데스크탑) */
+.r-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.r-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.r-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+
+/* 모바일에서만 1열로 변환 (인라인 grid 유지하면서 덮어쓰기) */
+/* desktop-only: no style */
+.m-1col { }
+
+/* ════════════════════════════════════════════════════
    모바일 반응형
    ════════════════════════════════════════════════════ */
 
@@ -345,8 +367,28 @@ body {
     font-size: 16px !important;
   }
 
-  /* 테이블 수평 스크롤 */
-  .table-dark {
-    min-width: 500px;
+  /* 반응형 그리드 → 1열 */
+  .r-grid-2, .r-grid-3, .r-grid-4, .m-1col { grid-template-columns: 1fr !important; gap: 12px !important; }
+
+  /* 테이블 → 카드 변환 */
+  .table-dark thead, .table-mobile thead { display: none; }
+  .table-dark, .table-dark tbody, .table-mobile, .table-mobile tbody { display: block; }
+  .table-dark tr, .table-mobile tr {
+    display: block; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; margin-bottom: 10px; padding: 4px 0; box-shadow: var(--shadow-card);
   }
+  .table-dark tbody tr:hover, .table-mobile tbody tr:hover { background: var(--surface) !important; }
+  .table-dark td, .table-mobile td {
+    display: flex !important; justify-content: space-between; align-items: center;
+    padding: 9px 16px !important; border-bottom: 1px solid rgba(160,120,40,0.08);
+    font-size: 13px; min-height: 36px; white-space: normal !important;
+    max-width: 100% !important; overflow: visible !important; text-overflow: unset !important;
+  }
+  .table-dark td:last-child, .table-mobile td:last-child { border-bottom: none; }
+  .table-dark td::before, .table-mobile td::before {
+    content: attr(data-label); font-weight: 700; color: var(--muted);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+    flex-shrink: 0; margin-right: 10px; min-width: 68px;
+  }
+  .table-dark td[data-label=""], .table-mobile td[data-label=""] { display: none !important; }
 }

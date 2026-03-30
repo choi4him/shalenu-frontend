@@ -253,7 +253,7 @@ export default function FinanceReportsPage() {
         }
       `}</style>
 
-      <div className="print-page" style={{ padding: '36px 40px', maxWidth: '1100px', animation: 'fadeIn 0.3s' }}>
+      <div className="print-page page-content" style={{ maxWidth: '1100px', animation: 'fadeIn 0.3s' }}>
 
         {/* ── 헤더 ── */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
@@ -324,11 +324,11 @@ export default function FinanceReportsPage() {
             섹션 1 — 연간 요약
           </div>
           {loading ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '16px' }}>
+            <div className="r-grid-4" style={{ gap: '16px' }}>
               {[0,1,2,3].map(i => <Sk key={i} h="88px" r="16px" />)}
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '16px' }}>
+            <div className="r-grid-4" style={{ gap: '16px' }}>
               <SummaryCard
                 gradient="linear-gradient(135deg,#fdf8e8,#f0d88a)"
                 label="총 수입" valueColor="#7d6324"
@@ -359,7 +359,7 @@ export default function FinanceReportsPage() {
         </div>
 
         {/* ════ 섹션 2 + 3: 차트 2개 ════ */}
-        <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: '20px', marginBottom: '28px' }}>
+        <div className="m-1col" style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: '20px', marginBottom: '28px' }}>
 
           {/* 꺾은선 차트 */}
           <div style={{ background: 'rgba(255,255,255,0.90)', borderRadius: '16px', padding: '22px 24px', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
@@ -433,7 +433,7 @@ export default function FinanceReportsPage() {
             </div>
           </div>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
+            <table className="table-mobile" style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
               <thead>
                 <tr style={{ background: 'rgba(160,120,40,0.06)' }}>
                   {['월', '수입 합계', '지출 합계', '순이익', '누계 잔액'].map(h => (
@@ -460,17 +460,17 @@ export default function FinanceReportsPage() {
                     const hasData = row.income > 0 || row.expense > 0;
                     return (
                       <tr key={i} style={{ borderBottom: '1px solid rgba(160,120,40,0.15)', background: hasData ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)' }}>
-                        <td style={{ padding: '13px 20px', fontSize: '14px', fontWeight: 600, color: '#1a1a1a' }}>{row.month}</td>
-                        <td style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.income > 0 ? 700 : 400, color: row.income > 0 ? '#7d6324' : '#d1d5db' }}>
+                        <td data-label="월" style={{ padding: '13px 20px', fontSize: '14px', fontWeight: 600, color: '#1a1a1a' }}>{row.month}</td>
+                        <td data-label="수입 합계" style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.income > 0 ? 700 : 400, color: row.income > 0 ? '#7d6324' : '#d1d5db' }}>
                           {row.income > 0 ? formatKRW(row.income) : '—'}
                         </td>
-                        <td style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.expense > 0 ? 700 : 400, color: row.expense > 0 ? '#be123c' : '#d1d5db' }}>
+                        <td data-label="지출 합계" style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.expense > 0 ? 700 : 400, color: row.expense > 0 ? '#be123c' : '#d1d5db' }}>
                           {row.expense > 0 ? formatKRW(row.expense) : '—'}
                         </td>
-                        <td style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: 700, color: row.net > 0 ? '#059669' : row.net < 0 ? '#dc2626' : '#9ca3af' }}>
+                        <td data-label="순이익" style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: 700, color: row.net > 0 ? '#059669' : row.net < 0 ? '#dc2626' : '#9ca3af' }}>
                           {row.net > 0 ? `+${formatKRW(row.net)}` : row.net < 0 ? `${formatKRW(row.net)}` : '—'}
                         </td>
-                        <td style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: 700, color: row.cumulative >= 0 ? '#1e40af' : '#dc2626' }}>
+                        <td data-label="누계 잔액" style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: 700, color: row.cumulative >= 0 ? '#1e40af' : '#dc2626' }}>
                           {row.income > 0 || row.expense > 0 ? formatKRW(row.cumulative) : '—'}
                         </td>
                       </tr>

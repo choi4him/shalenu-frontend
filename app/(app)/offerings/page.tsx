@@ -173,7 +173,7 @@ export default function OfferingsPage() {
   const monthLabel = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, '0')}월`;
 
   return (
-    <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
+    <div className="page-content" style={{ maxWidth: '1100px' }}>
 
       {/* 헤더 */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
@@ -324,24 +324,24 @@ export default function OfferingsPage() {
                       key={o.id}
                       onClick={() => router.push(`/offerings/${o.id}`)}
                     >
-                      <td style={{ fontSize: '14px', fontWeight: 500, whiteSpace: 'nowrap' }}>
+                      <td data-label="날짜" style={{ fontSize: '14px', fontWeight: 500, whiteSpace: 'nowrap' }}>
                         {fmtDate(o.offering_date)}
                       </td>
-                      <td style={{ whiteSpace: 'nowrap' }}>
+                      <td data-label="종류" style={{ whiteSpace: 'nowrap' }}>
                         <span className="badge badge-type">
                           {o.offering_type_name ?? o.offering_type_code}
                         </span>
                       </td>
-                      <td style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
+                      <td data-label="예배" style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                         {o.worship_type_name ?? o.worship_type_code ?? '—'}
                       </td>
-                      <td style={{ fontSize: '14px', fontWeight: 700, color: 'var(--foreground)', whiteSpace: 'nowrap' }}>
+                      <td data-label="금액" style={{ fontSize: '14px', fontWeight: 700, color: 'var(--foreground)', whiteSpace: 'nowrap' }}>
                         {formatKRW(o.total_amount)}
                       </td>
-                      <td style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
+                      <td data-label="건수" style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                         {o.item_count != null ? `${o.item_count}건` : '—'}
                       </td>
-                      <td style={{ whiteSpace: 'nowrap' }}>
+                      <td data-label="상태" style={{ whiteSpace: 'nowrap' }}>
                         <StatusBadge status={o.status} />
                       </td>
                     </tr>

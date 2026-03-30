@@ -126,7 +126,7 @@ function CreateModal({ onClose, onCreated }: { onClose: () => void; onCreated: (
               onChange={e => setForm(p => ({ ...p, name: e.target.value }))} autoFocus />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div className="r-grid-2" style={{ gap: '12px' }}>
             <div>
               <label style={labelSt}>전화번호</label>
               <input style={inputSt} placeholder="010-0000-0000" value={form.phone}
@@ -139,7 +139,7 @@ function CreateModal({ onClose, onCreated }: { onClose: () => void; onCreated: (
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div className="r-grid-2" style={{ gap: '12px' }}>
             <div>
               <label style={labelSt}>방문일</label>
               <input style={inputSt} type="date" value={form.visit_date}
@@ -276,7 +276,7 @@ export default function NewcomersPage() {
         @media(max-width:640px){ .nc-grid{ grid-template-columns:1fr; } }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '1000px' }}>
+      <div className="page-content" style={{ maxWidth: '1000px' }}>
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', gap: '16px', flexWrap: 'wrap' }}>
           <div>

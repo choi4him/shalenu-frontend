@@ -82,7 +82,7 @@ export default function PastoralPage() {
         .note-card:hover { background:#f8faff !important; border-color:#f0d88a !important; transform:translateY(-1px); box-shadow:0 4px 16px rgba(201,168,76,0.1) !important; }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '900px' }}>
+      <div className="page-content" style={{ maxWidth: '900px' }}>
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
@@ -92,7 +92,7 @@ export default function PastoralPage() {
         </div>
 
         {/* 통계 카드 */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '12px', marginBottom: '24px' }}>
+        <div className="r-grid-4" style={{ gap: '12px', marginBottom: '24px' }}>
           {stats.map(s => (
             <div key={s.key} onClick={() => setCat(cat === s.key as NoteCategory ? 'all' : s.key as NoteCategory)}
               style={{ background: cat === s.key ? s.bg : '#fff', border: `1.5px solid ${cat === s.key ? s.border : '#f1f5f9'}`, borderRadius: '12px', padding: '14px 16px', cursor: 'pointer', transition: 'all 0.15s', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>

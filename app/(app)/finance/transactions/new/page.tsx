@@ -114,7 +114,7 @@ export default function TransactionNewPage() {
         @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '720px' }}>
+      <div className="page-content" style={{ maxWidth: '720px' }}>
 
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '30px' }}>

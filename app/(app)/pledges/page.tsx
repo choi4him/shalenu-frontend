@@ -249,7 +249,7 @@ function CreateModal({ onClose, onCreated }: { onClose: () => void; onCreated: (
             )}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div className="r-grid-2" style={{ gap: '12px' }}>
             <div>
               <label style={labelSt}>시작일</label>
               <input style={inputSt} type="date" value={form.start_date}
@@ -359,7 +359,7 @@ export default function PledgesPage() {
         .pay-btn { opacity:0; transition: opacity 0.15s; }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
+      <div className="page-content" style={{ maxWidth: '1100px' }}>
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '20px', gap: '16px', flexWrap: 'wrap' }}>
           <div>
@@ -408,7 +408,8 @@ export default function PledgesPage() {
         </div>
 
         {/* 테이블 */}
-        <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)', overflow: 'hidden', animation: 'fadeIn 0.2s ease' }}>
+        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)', overflow: 'hidden', animation: 'fadeIn 0.2s ease', minWidth: '700px' }}>
           {/* 테이블 헤더 */}
           <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 2fr 1.2fr 1.2fr 140px 80px 80px', gap: '0', padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
             {['교인명', '작정헌금명', '작정금액', '납입금액', '진행률', '상태', ''].map((h, i) => (
@@ -463,10 +464,11 @@ export default function PledgesPage() {
             })
           )}
         </div>
+        </div>
 
         {/* 합계 카드 */}
         {displayed.length > 0 && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px', marginTop: '16px' }}>
+          <div className="r-grid-3" style={{ gap: '12px', marginTop: '16px' }}>
             {[
               { label: '총 작정금액', value: fmtKRW(totalPledge), color: '#1a1a1a', bg: '#fff' },
               { label: '총 납입금액', value: fmtKRW(totalPaid),   color: '#16a34a', bg: '#f0fdf4' },

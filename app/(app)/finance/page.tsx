@@ -184,7 +184,7 @@ export default function FinancePage() {
         .acc-row:hover { background:rgba(160,120,40,0.06); }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
+      <div className="page-content" style={{ maxWidth: '1100px' }}>
 
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
@@ -223,11 +223,11 @@ export default function FinancePage() {
 
         {/* 요약 카드 4개 */}
         {loading ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
+          <div className="r-grid-4" style={{ gap: '16px', marginBottom: '24px' }}>
             {[0,1,2,3].map(i => <SkeletonCard key={i} />)}
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
+          <div className="r-grid-4" style={{ gap: '16px', marginBottom: '24px' }}>
             <SummaryCard
               gradient="linear-gradient(135deg,#fdf8e8 0%,#f0d88a 100%)"
               label={t.finance.totalIncome}
@@ -274,7 +274,7 @@ export default function FinancePage() {
         )}
 
         {/* 차트 + 계좌 목록 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px' }}>
+        <div className="m-1col" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px' }}>
 
           {/* 월별 수입/지출 차트 */}
           <div style={{

@@ -304,7 +304,7 @@ export default function OfferingsStatsPage() {
         </div>
 
         {/* ── 섹션 2 & 3: 차트 ── */}
-        <div style={{ display:'grid',gridTemplateColumns:'1.6fr 1fr',gap:'18px',marginBottom:'24px' }}>
+        <div className="m-1col" style={{ display:'grid',gridTemplateColumns:'1.6fr 1fr',gap:'18px',marginBottom:'24px' }}>
           {/* 월별 막대 차트 */}
           <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>

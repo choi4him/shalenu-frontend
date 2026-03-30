@@ -116,7 +116,7 @@ export default function BirthdaysPage() {
         .cal-day:hover { background:#fdf8e8 !important; }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '900px' }}>
+      <div className="page-content" style={{ maxWidth: '900px' }}>
 
         {/* ── 헤더 ── */}
         <div style={{ marginBottom: '28px' }}>
@@ -132,7 +132,7 @@ export default function BirthdaysPage() {
           </div>
 
           {/* 탭 */}
-          <div style={{ display: 'flex', gap: '6px', marginBottom: '16px', background: '#f1f5f9', borderRadius: '10px', padding: '4px', width: 'fit-content' }}>
+          <div className="tab-scroll" style={{ display: 'flex', gap: '6px', marginBottom: '16px', background: '#f1f5f9', borderRadius: '10px', padding: '4px', width: 'fit-content' }}>
             {[
               { key: 'this', label: `${KO_MONTHS[thisMonthNum - 1]} (이번 달)` },
               { key: 'next', label: `${KO_MONTHS[nextMonthNum - 1]} (다음 달)` },

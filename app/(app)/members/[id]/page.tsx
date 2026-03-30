@@ -388,7 +388,7 @@ export default function MemberDetailPage() {
         .del-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s; }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '900px' }}>
+      <div className="page-content" style={{ maxWidth: '900px' }}>
 
         {/* ── 헤더 ── */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
@@ -480,7 +480,7 @@ export default function MemberDetailPage() {
         )}
 
         {/* ── 탭 네비게이션 ── */}
-        <div style={{ display: 'flex', gap: '6px', marginBottom: '20px', background: '#f1f5f9', padding: '5px', borderRadius: '13px', width: 'fit-content' }}>
+        <div className="tab-scroll" style={{ display: 'flex', gap: '6px', marginBottom: '20px', background: '#f1f5f9', padding: '5px', borderRadius: '13px', width: 'fit-content' }}>
           {TAB_LIST.map(t => (
             <button
               key={t.key}

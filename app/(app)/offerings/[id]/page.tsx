@@ -128,7 +128,7 @@ export default function OfferingDetailPage() {
         .member-link:hover { border-bottom-color:#c9a84c; }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '920px' }}>
+      <div className="page-content" style={{ maxWidth: '920px' }}>
 
         {/* ── 헤더 ── */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
@@ -267,7 +267,7 @@ export default function OfferingDetailPage() {
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '540px' }}>
+            <table className="table-mobile" style={{ width: '100%', borderCollapse: 'collapse', minWidth: '540px' }}>
               <thead>
                 <tr style={{ background: '#f8fafc' }}>
                   {['#', '헌금자', '금액', '납부 방법', '비고'].map(h => (
@@ -301,7 +301,7 @@ export default function OfferingDetailPage() {
                       return (
                         <tr key={item.id} className="item-row">
                           {/* 순번 */}
-                          <td style={{ padding: '14px 18px' }}>
+                          <td data-label="#" style={{ padding: '14px 18px' }}>
                             <div style={{
                               width: '26px', height: '26px', borderRadius: '8px',
                               background: 'linear-gradient(135deg,#fdf8e8,#f0d88a)',
@@ -313,7 +313,7 @@ export default function OfferingDetailPage() {
                           </td>
 
                           {/* 헌금자 */}
-                          <td style={{ padding: '14px 18px' }}>
+                          <td data-label="헌금자" style={{ padding: '14px 18px' }}>
                             {isMember ? (
                               <button
                                 className="member-link"
@@ -336,14 +336,14 @@ export default function OfferingDetailPage() {
                           </td>
 
                           {/* 금액 */}
-                          <td style={{ padding: '14px 18px' }}>
+                          <td data-label="금액" style={{ padding: '14px 18px' }}>
                             <span style={{ fontSize: '15px', fontWeight: 800, color: '#1e40af', letterSpacing: '-0.02em' }}>
                               {formatKRW(item.amount)}
                             </span>
                           </td>
 
                           {/* 납부 방법 */}
-                          <td style={{ padding: '14px 18px' }}>
+                          <td data-label="납부 방법" style={{ padding: '14px 18px' }}>
                             {pmCfg ? (
                               <span style={{
                                 display: 'inline-block', fontSize: '12px', fontWeight: 700,
@@ -358,7 +358,7 @@ export default function OfferingDetailPage() {
                           </td>
 
                           {/* 비고 */}
-                          <td style={{ padding: '14px 18px', fontSize: '13px', color: '#6b7280', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <td data-label="비고" style={{ padding: '14px 18px', fontSize: '13px', color: '#6b7280', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {item.note || '—'}
                           </td>
                         </tr>

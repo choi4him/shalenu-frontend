@@ -178,7 +178,7 @@ export default function NewcomerDetailPage() {
         .inp-edit:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.1); }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '760px', animation: 'fadeIn 0.2s ease' }}>
+      <div className="page-content" style={{ maxWidth: '760px', animation: 'fadeIn 0.2s ease' }}>
         {/* 뒤로가기 */}
         <button onClick={() => router.push('/newcomers')}
           style={{ display: 'flex', alignItems: 'center', gap: '6px', border: 'none', background: 'none', color: '#6b7280', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', padding: '0 0 20px', fontWeight: 500 }}>

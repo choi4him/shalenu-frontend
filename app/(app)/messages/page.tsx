@@ -219,7 +219,7 @@ export default function MessagesPage() {
         .inp-msg:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.1); }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '800px' }}>
+      <div className="page-content" style={{ maxWidth: '800px' }}>
         {/* 헤더 */}
         <div style={{ marginBottom: '24px' }}>
           <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>메시지 발송</h1>
@@ -227,7 +227,7 @@ export default function MessagesPage() {
         </div>
 
         {/* 탭 */}
-        <div style={{ display: 'flex', gap: '6px', marginBottom: '24px', background: '#f1f5f9', padding: '4px', borderRadius: '11px', width: 'fit-content' }}>
+        <div className="tab-scroll" style={{ display: 'flex', gap: '6px', marginBottom: '24px', background: '#f1f5f9', padding: '4px', borderRadius: '11px', width: 'fit-content' }}>
           {[{ key: 'compose', label: '✉️ 새 메시지' }, { key: 'history', label: '📋 발송 이력' }].map(t => (
             <button key={t.key} onClick={() => setTab(t.key as 'compose' | 'history')}
               style={{ padding: '8px 20px', borderRadius: '8px', border: 'none', fontFamily: 'inherit', fontSize: '13px', fontWeight: tab === t.key ? 700 : 500, cursor: 'pointer', background: tab === t.key ? '#fff' : 'transparent', color: tab === t.key ? '#c9a84c' : '#6b7280', boxShadow: tab === t.key ? '0 1px 5px rgba(0,0,0,0.09)' : 'none', transition: 'all 0.15s' }}>

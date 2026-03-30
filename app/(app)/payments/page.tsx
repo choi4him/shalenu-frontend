@@ -268,7 +268,7 @@ export default function PaymentsPage() {
         .pay-row:hover { background:#f8faff !important; }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '960px' }}>
+      <div className="page-content" style={{ maxWidth: '960px' }}>
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>

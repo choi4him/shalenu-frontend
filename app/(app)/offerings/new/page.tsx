@@ -260,7 +260,7 @@ export default function OfferingNewPage() {
         .save-btn-confirm:hover { opacity: 0.88; transform: translateY(-1px); }
       `}</style>
 
-      <div style={{ padding: '36px 40px', maxWidth: '860px' }}>
+      <div className="page-content" style={{ maxWidth: '860px' }}>
 
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '30px' }}>
@@ -296,7 +296,7 @@ export default function OfferingNewPage() {
           boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)',
           border: '1px solid #f1f5f9', marginBottom: '20px',
         }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
+          <div className="r-grid-3" style={{ gap: '20px' }}>
 
             {/* 날짜 */}
             <div>
@@ -394,7 +394,7 @@ export default function OfferingNewPage() {
                 )}
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              <div className="r-grid-2" style={{ gap: '14px' }}>
 
                 {/* 교인 검색 / 직접 입력 */}
                 <div style={{ gridColumn: '1 / -1', position: 'relative' }}>
