@@ -282,17 +282,6 @@ export default function MemberNewPage() {
                         {g.label}
                       </label>
                     ))}
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '14px', color: '#9ca3af', fontWeight: 500 }}>
-                      <input
-                        type="radio"
-                        name="gender"
-                        value=""
-                        checked={form.gender === ''}
-                        onChange={set('gender')}
-                        style={{ width: '16px', height: '16px' }}
-                      />
-                      {t.members.notSpecified}
-                    </label>
                   </div>
                 </Field>
 
