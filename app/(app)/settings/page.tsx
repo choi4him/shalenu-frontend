@@ -701,6 +701,22 @@ function DataTab() {
   const [importResult, setImportResult] = useState<{imported:Record<string,number>,skipped:Record<string,number>,errors:string[]} | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
 
+  // ── 자동 백업 이메일 상태 ─────────────────────────────
+  const [emailSettings, setEmailSettings] = useState({
+    is_enabled: false, frequency: 'monthly', send_to_email: '',
+    last_backup_at: null as string|null, next_backup_at: null as string|null,
+  });
+  const [settingsSaving, setSettingsSaving] = useState(false);
+  const [settingsAlert, setSettingsAlert] = useState<{type:'ok'|'err';msg:string}|null>(null);
+  const [sendingNow, setSendingNow] = useState(false);
+  const [sendNowAlert, setSendNowAlert] = useState<{type:'ok'|'err';msg:string}|null>(null);
+
+  useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+    fetch(`${BASE_URL}/api/v1/backup/settings`, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.json()).then(d => setEmailSettings(d)).catch(() => {});
+  }, []);
+
   // ── 내보내기 ──────────────────────────────────────────
   const handleExport = async () => {
     setExporting(true);
@@ -792,6 +808,44 @@ function DataTab() {
     ? Object.values(importResult.imported).reduce((a,b)=>a+b,0) : 0;
   const totalSkipped = importResult
     ? Object.values(importResult.skipped).reduce((a,b)=>a+b,0) : 0;
+
+  // ── 이메일 설정 저장 ──────────────────────────────────
+  const handleSaveSettings = async () => {
+    setSettingsSaving(true); setSettingsAlert(null);
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+      const res = await fetch(`${BASE_URL}/api/v1/backup/settings`, {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          is_enabled: emailSettings.is_enabled,
+          frequency: emailSettings.frequency,
+          send_to_email: emailSettings.send_to_email,
+        }),
+      });
+      if (!res.ok) { const e = await res.json(); throw new Error(e.detail ?? `오류 ${res.status}`); }
+      setEmailSettings(await res.json());
+      setSettingsAlert({ type: 'ok', msg: '자동 백업 설정이 저장되었습니다.' });
+    } catch (e: unknown) {
+      setSettingsAlert({ type: 'err', msg: e instanceof Error ? e.message : String(e) });
+    } finally { setSettingsSaving(false); }
+  };
+
+  // ── 즉시 발송 ─────────────────────────────────────────
+  const handleSendNow = async () => {
+    setSendingNow(true); setSendNowAlert(null);
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+      const res = await fetch(`${BASE_URL}/api/v1/backup/send-now`, {
+        method: 'POST', headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) { const e = await res.json(); throw new Error(e.detail ?? `오류 ${res.status}`); }
+      const d = await res.json();
+      setSendNowAlert({ type: 'ok', msg: `${d.to}으로 백업 이메일을 발송했습니다.` });
+    } catch (e: unknown) {
+      setSendNowAlert({ type: 'err', msg: e instanceof Error ? e.message : String(e) });
+    } finally { setSendingNow(false); }
+  };
 
   return (
     <div>
@@ -924,6 +978,107 @@ function DataTab() {
             background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',
             fontSize:'13px',color:'#dc2626' }}>
             ❌ {importError}
+          </div>
+        )}
+      </div>
+
+      {/* 자동 백업 이메일 */}
+      <div style={card}>
+        {sectionTitle('자동 백업 이메일')}
+        <p style={{ margin:'0 0 16px',fontSize:'13px',color:'#6b7280' }}>
+          정기적으로 지정된 이메일로 백업 파일을 자동 발송합니다.
+        </p>
+
+        {/* 활성화 토글 */}
+        <div style={{ display:'flex',alignItems:'center',gap:'12px',marginBottom:'20px' }}>
+          <div
+            onClick={() => setEmailSettings(s => ({...s, is_enabled: !s.is_enabled}))}
+            style={{ width:'44px',height:'24px',borderRadius:'12px',cursor:'pointer',position:'relative',
+              background:emailSettings.is_enabled?'#c9a84c':'#d1d5db',transition:'background 0.2s' }}
+          >
+            <div style={{ position:'absolute',top:'3px',
+              left:emailSettings.is_enabled?'23px':'3px',
+              width:'18px',height:'18px',borderRadius:'50%',background:'#fff',
+              boxShadow:'0 1px 3px rgba(0,0,0,0.2)',transition:'left 0.2s' }}/>
+          </div>
+          <span style={{ fontSize:'14px',fontWeight:600,color:'#374151' }}>
+            {emailSettings.is_enabled ? '자동 백업 활성화됨' : '자동 백업 비활성화'}
+          </span>
+        </div>
+
+        {/* 수신 이메일 */}
+        <div style={{ marginBottom:'16px' }}>
+          <label style={labelSt}>수신 이메일</label>
+          <input
+            style={inputSt}
+            type="email"
+            placeholder="backup@example.com"
+            value={emailSettings.send_to_email}
+            onChange={e => setEmailSettings(s => ({...s, send_to_email: e.target.value}))}
+          />
+        </div>
+
+        {/* 백업 주기 */}
+        <div style={{ marginBottom:'20px' }}>
+          <label style={labelSt}>백업 주기</label>
+          <div style={{ display:'flex',gap:'20px' }}>
+            {[{val:'weekly',label:'매주'},{val:'monthly',label:'매월'}].map(opt => (
+              <label key={opt.val} style={{ display:'flex',alignItems:'center',gap:'7px',cursor:'pointer',fontSize:'13px',color:'#374151' }}>
+                <input type="radio" name="backup-freq" value={opt.val}
+                  checked={emailSettings.frequency===opt.val}
+                  onChange={() => setEmailSettings(s => ({...s, frequency: opt.val}))} />
+                {opt.label}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* 마지막/다음 백업 시각 */}
+        {(emailSettings.last_backup_at || (emailSettings.next_backup_at && emailSettings.is_enabled)) && (
+          <div style={{ display:'flex',gap:'20px',marginBottom:'16px',flexWrap:'wrap' }}>
+            {emailSettings.last_backup_at && (
+              <div style={{ fontSize:'12px',color:'#6b7280' }}>
+                마지막 백업: <strong>{new Date(emailSettings.last_backup_at).toLocaleString('ko-KR')}</strong>
+              </div>
+            )}
+            {emailSettings.next_backup_at && emailSettings.is_enabled && (
+              <div style={{ fontSize:'12px',color:'#6b7280' }}>
+                다음 백업: <strong>{new Date(emailSettings.next_backup_at).toLocaleString('ko-KR')}</strong>
+              </div>
+            )}
+          </div>
+        )}
+
+        {settingsAlert && <Alert type={settingsAlert.type} msg={settingsAlert.msg} />}
+
+        {/* 버튼 */}
+        <div style={{ display:'flex',gap:'10px',flexWrap:'wrap' }}>
+          <button
+            onClick={handleSaveSettings}
+            disabled={settingsSaving}
+            style={{ display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 22px',
+              borderRadius:'10px',background:'linear-gradient(135deg,#c9a84c,#d4b85c)',color:'#fff',
+              fontSize:'14px',fontWeight:700,border:'none',cursor:settingsSaving?'not-allowed':'pointer',
+              opacity:settingsSaving?0.7:1,boxShadow:'0 4px 12px rgba(201,168,76,0.3)' }}
+          >
+            {settingsSaving ? '⏳ 저장 중...' : '💾 설정 저장'}
+          </button>
+          <button
+            onClick={handleSendNow}
+            disabled={sendingNow || !emailSettings.send_to_email}
+            style={{ display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 22px',
+              borderRadius:'10px',background:'#f8fafc',color:'#374151',fontSize:'14px',fontWeight:700,
+              border:'1.5px solid #e5e7eb',
+              cursor:sendingNow||!emailSettings.send_to_email?'not-allowed':'pointer',
+              opacity:sendingNow||!emailSettings.send_to_email?0.6:1 }}
+          >
+            {sendingNow ? '⏳ 발송 중...' : '📧 지금 즉시 발송'}
+          </button>
+        </div>
+
+        {sendNowAlert && (
+          <div style={{ marginTop:'12px' }}>
+            <Alert type={sendNowAlert.type} msg={sendNowAlert.msg} />
           </div>
         )}
       </div>
