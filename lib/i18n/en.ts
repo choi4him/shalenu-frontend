@@ -197,7 +197,7 @@ const en: Translations = {
   settings: {
     title: 'Settings',
     subtitle: 'Manage church info and system settings',
-    tabs: { church: 'Church Info', codes: 'Code Management', users: 'User Management', plan: 'Plans' },
+    tabs: { church: 'Church Info', codes: 'Code Management', users: 'User Management', plan: 'Plans', backup: 'Data' },
     churchBasicInfo: 'Basic Information',
     churchName: 'Church Name',
     addressSearch: 'Search Address',

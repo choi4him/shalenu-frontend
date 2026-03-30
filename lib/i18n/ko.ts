@@ -187,7 +187,7 @@ export interface Translations {
   settings: {
     title: string;
     subtitle: string;
-    tabs: { church: string; codes: string; users: string; plan: string };
+    tabs: { church: string; codes: string; users: string; plan: string; backup: string };
     // ChurchTab
     churchBasicInfo: string;
     churchName: string;
@@ -501,7 +501,7 @@ const ko: Translations = {
   settings: {
     title: '설정',
     subtitle: '교회 정보 및 시스템 설정을 관리합니다',
-    tabs: { church: '교회 정보', codes: '코드 관리', users: '사용자 관리', plan: '요금제' },
+    tabs: { church: '교회 정보', codes: '코드 관리', users: '사용자 관리', plan: '요금제', backup: '데이터 관리' },
     churchBasicInfo: '기본 정보',
     churchName: '교회 이름',
     addressSearch: '주소 검색',

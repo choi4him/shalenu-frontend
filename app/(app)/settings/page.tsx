@@ -685,10 +685,257 @@ function PlanTab() {
 }
 
 // ═══════════════════════════════════════════════════════
+// 탭 5: 데이터 관리 (백업/복구)
+// ═══════════════════════════════════════════════════════
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
+
+function DataTab() {
+  const [exporting, setExporting] = useState(false);
+  const [lastExport, setLastExport] = useState<string | null>(null);
+
+  const [dragOver, setDragOver] = useState(false);
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<Record<string,number> | null>(null);
+  const [replaceMode, setReplaceMode] = useState(false);
+  const [importing, setImporting] = useState(false);
+  const [importResult, setImportResult] = useState<{imported:Record<string,number>,skipped:Record<string,number>,errors:string[]} | null>(null);
+  const [importError, setImportError] = useState<string | null>(null);
+
+  // ── 내보내기 ──────────────────────────────────────────
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+      const res = await fetch(`${BASE_URL}/api/v1/backup/export`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error(`오류 ${res.status}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const date = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `jsheepfold-backup-${date}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setLastExport(new Date().toLocaleString('ko-KR'));
+    } catch (e: unknown) {
+      alert(`내보내기 실패: ${e instanceof Error ? e.message : e}`);
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  // ── 파일 선택/드롭 ────────────────────────────────────
+  const handleFile = (file: File) => {
+    if (!file.name.endsWith('.json')) { alert('JSON 파일만 업로드 가능합니다.'); return; }
+    setImportFile(file);
+    setImportResult(null);
+    setImportError(null);
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const payload = JSON.parse(e.target?.result as string);
+        const d = payload.data ?? {};
+        const counts: Record<string,number> = {};
+        for (const [k, v] of Object.entries(d)) {
+          if (Array.isArray(v) && (v as unknown[]).length > 0) counts[k] = (v as unknown[]).length;
+        }
+        setPreview(counts);
+      } catch { setPreview(null); }
+    };
+    reader.readAsText(file);
+  };
+
+  // ── 가져오기 ──────────────────────────────────────────
+  const handleImport = async () => {
+    if (!importFile) return;
+    if (replaceMode && !confirm('⚠️ 기존 데이터가 모두 삭제됩니다. 계속하시겠습니까?')) return;
+    setImporting(true);
+    setImportError(null);
+    setImportResult(null);
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+      const form = new FormData();
+      form.append('file', importFile);
+      const res = await fetch(
+        `${BASE_URL}/api/v1/backup/import?replace=${replaceMode}`,
+        { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: form },
+      );
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail ?? `오류 ${res.status}`);
+      }
+      setImportResult(await res.json());
+    } catch (e: unknown) {
+      setImportError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setImporting(false);
+    }
+  };
+
+  const LABEL_MAP: Record<string,string> = {
+    shalenu_members:'교인',shalenu_offerings:'헌금',shalenu_transactions:'거래',
+    shalenu_budgets:'예산',shalenu_budget_items:'예산항목',shalenu_small_groups:'소그룹',
+    shalenu_attendance_logs:'출석',shalenu_newcomers:'새가족',shalenu_pastoral_notes:'목양노트',
+    shalenu_offering_pledges:'작정헌금',shalenu_offering_items:'헌금항목',
+    shalenu_small_group_members:'소그룹멤버',shalenu_finance_accounts:'재정계정',
+    shalenu_lookup_codes:'코드',
+  };
+
+  const previewText = preview
+    ? Object.entries(preview).map(([k,v]) => `${LABEL_MAP[k]??k} ${v}건`).join(', ')
+    : null;
+
+  const totalImported = importResult
+    ? Object.values(importResult.imported).reduce((a,b)=>a+b,0) : 0;
+  const totalSkipped = importResult
+    ? Object.values(importResult.skipped).reduce((a,b)=>a+b,0) : 0;
+
+  return (
+    <div>
+      {/* 내보내기 */}
+      <div style={card}>
+        {sectionTitle('데이터 내보내기')}
+        <p style={{ margin:'0 0 16px',fontSize:'13px',color:'#6b7280' }}>
+          정기적으로 백업하여 데이터를 안전하게 보관하세요.
+        </p>
+        <div style={{ display:'flex',alignItems:'center',gap:'12px',flexWrap:'wrap' }}>
+          <button
+            onClick={handleExport}
+            disabled={exporting}
+            style={{ display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 22px',borderRadius:'10px',
+              background:'linear-gradient(135deg,#c9a84c,#d4b85c)',color:'#fff',fontSize:'14px',
+              fontWeight:700,border:'none',cursor:exporting?'not-allowed':'pointer',
+              opacity:exporting?0.7:1,boxShadow:'0 4px 12px rgba(201,168,76,0.3)' }}
+          >
+            {exporting ? '⏳ 내보내는 중...' : '⬇️ 전체 데이터 내보내기'}
+          </button>
+          {lastExport && (
+            <span style={{ fontSize:'12px',color:'#9ca3af' }}>마지막 내보내기: {lastExport}</span>
+          )}
+        </div>
+      </div>
+
+      {/* 가져오기 */}
+      <div style={card}>
+        {sectionTitle('데이터 가져오기')}
+
+        {/* 드래그앤드롭 영역 */}
+        <div
+          onDragOver={e=>{ e.preventDefault(); setDragOver(true); }}
+          onDragLeave={()=>setDragOver(false)}
+          onDrop={e=>{ e.preventDefault(); setDragOver(false); const f=e.dataTransfer.files[0]; if(f) handleFile(f); }}
+          onClick={()=>{ const el=document.getElementById('backup-file-input'); el?.click(); }}
+          style={{ border:`2px dashed ${dragOver?'#c9a84c':'#d1d5db'}`,borderRadius:'12px',
+            padding:'32px',textAlign:'center',cursor:'pointer',background:dragOver?'rgba(201,168,76,0.04)':'#fafafa',
+            transition:'all 0.15s',marginBottom:'16px' }}
+        >
+          <div style={{ fontSize:'32px',marginBottom:'8px' }}>📁</div>
+          <div style={{ fontSize:'14px',fontWeight:600,color:'#374151',marginBottom:'4px' }}>
+            {importFile ? importFile.name : 'JSON 파일을 드래그하거나 클릭하여 선택'}
+          </div>
+          <div style={{ fontSize:'12px',color:'#9ca3af' }}>jsheepfold-backup-*.json</div>
+          <input id="backup-file-input" type="file" accept=".json" style={{ display:'none' }}
+            onChange={e=>{ const f=e.target.files?.[0]; if(f) handleFile(f); }} />
+        </div>
+
+        {/* 미리보기 */}
+        {previewText && (
+          <div style={{ padding:'12px 16px',borderRadius:'8px',background:'rgba(201,168,76,0.06)',
+            border:'1px solid rgba(201,168,76,0.2)',marginBottom:'16px',fontSize:'13px',color:'#374151' }}>
+            📋 포함 데이터: {previewText}
+          </div>
+        )}
+
+        {/* 가져오기 옵션 */}
+        {importFile && (
+          <div style={{ marginBottom:'16px' }}>
+            <div style={{ fontSize:'13px',fontWeight:600,color:'#374151',marginBottom:'8px' }}>가져오기 방식</div>
+            <div style={{ display:'flex',flexDirection:'column',gap:'8px' }}>
+              <label style={{ display:'flex',alignItems:'center',gap:'8px',cursor:'pointer',fontSize:'13px' }}>
+                <input type="radio" name="import-mode" checked={!replaceMode}
+                  onChange={()=>setReplaceMode(false)} />
+                <span style={{ color:'#374151',fontWeight:500 }}>병합</span>
+                <span style={{ color:'#9ca3af' }}>— 기존 데이터를 유지하고 새 데이터만 추가 (중복 UUID 스킵)</span>
+              </label>
+              <label style={{ display:'flex',alignItems:'center',gap:'8px',cursor:'pointer',fontSize:'13px' }}>
+                <input type="radio" name="import-mode" checked={replaceMode}
+                  onChange={()=>setReplaceMode(true)} />
+                <span style={{ color:'#ef4444',fontWeight:600 }}>전체 교체</span>
+                <span style={{ color:'#9ca3af' }}>— 기존 데이터를 모두 삭제하고 백업 데이터로 교체</span>
+              </label>
+            </div>
+            {replaceMode && (
+              <div style={{ marginTop:'10px',padding:'10px 14px',borderRadius:'8px',
+                background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',
+                fontSize:'12px',color:'#dc2626',fontWeight:500 }}>
+                ⚠️ 전체 교체 시 기존 데이터는 복구할 수 없습니다. 반드시 현재 데이터를 먼저 내보내기하세요.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 경고 문구 */}
+        <div style={{ padding:'10px 14px',borderRadius:'8px',background:'#f8fafc',
+          border:'1px solid #e5e7eb',fontSize:'12px',color:'#6b7280',marginBottom:'16px' }}>
+          ℹ️ 가져오기 전 반드시 현재 데이터를 백업하세요. 전체 교체 시 기존 데이터는 복구할 수 없습니다.
+        </div>
+
+        {/* 가져오기 버튼 */}
+        <button
+          onClick={handleImport}
+          disabled={!importFile || importing}
+          style={{ display:'inline-flex',alignItems:'center',gap:'8px',padding:'10px 22px',
+            borderRadius:'10px',border:'none',cursor:!importFile||importing?'not-allowed':'pointer',
+            fontSize:'14px',fontWeight:700,color:'#fff',
+            background:replaceMode?'linear-gradient(135deg,#ef4444,#dc2626)':'linear-gradient(135deg,#10b981,#059669)',
+            opacity:!importFile||importing?0.6:1,
+            boxShadow:replaceMode?'0 4px 12px rgba(239,68,68,0.3)':'0 4px 12px rgba(16,185,129,0.3)' }}
+        >
+          {importing ? '⏳ 가져오는 중...' : replaceMode ? '🔄 전체 교체로 가져오기' : '📥 병합으로 가져오기'}
+        </button>
+
+        {/* 결과 */}
+        {importResult && (
+          <div style={{ marginTop:'16px',padding:'16px',borderRadius:'10px',
+            background:'rgba(16,185,129,0.06)',border:'1px solid rgba(16,185,129,0.2)' }}>
+            <div style={{ fontSize:'14px',fontWeight:700,color:'#059669',marginBottom:'8px' }}>
+              ✅ 가져오기 완료
+            </div>
+            <div style={{ fontSize:'13px',color:'#374151' }}>
+              가져옴: <strong>{totalImported}건</strong> &nbsp;|&nbsp;
+              스킵: <strong>{totalSkipped}건</strong>
+            </div>
+            {importResult.errors.length > 0 && (
+              <div style={{ marginTop:'8px',padding:'8px 12px',borderRadius:'6px',
+                background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.15)',
+                fontSize:'12px',color:'#dc2626' }}>
+                오류 {importResult.errors.length}건:<br/>
+                {importResult.errors.slice(0,5).map((e,i)=><span key={i}>{e}<br/></span>)}
+              </div>
+            )}
+          </div>
+        )}
+
+        {importError && (
+          <div style={{ marginTop:'16px',padding:'12px 16px',borderRadius:'10px',
+            background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',
+            fontSize:'13px',color:'#dc2626' }}>
+            ❌ {importError}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════
 // 메인: 설정 페이지
 // ═══════════════════════════════════════════════════════
-const TAB_ICONS: Record<string, string> = { church:'🏛️', codes:'🏷️', users:'👥', plan:'💳' };
-const TAB_KEYS = ['church', 'codes', 'users', 'plan'] as const;
+const TAB_ICONS: Record<string, string> = { church:'🏛️', codes:'🏷️', users:'👥', plan:'💳', backup:'🗄️' };
+const TAB_KEYS = ['church', 'codes', 'users', 'plan', 'backup'] as const;
 
 export default function SettingsPage() {
   const { t } = useTranslation();
@@ -724,10 +971,11 @@ export default function SettingsPage() {
 
         {/* 탭 콘텐츠 */}
         <div style={{ animation:'fadeIn 0.2s ease' }} key={tab}>
-          {tab==='church' && <ChurchTab />}
-          {tab==='codes'  && <CodeTab />}
-          {tab==='users'  && <UsersTab />}
-          {tab==='plan'   && <PlanTab />}
+          {tab==='church'  && <ChurchTab />}
+          {tab==='codes'   && <CodeTab />}
+          {tab==='users'   && <UsersTab />}
+          {tab==='plan'    && <PlanTab />}
+          {tab==='backup'  && <DataTab />}
         </div>
       </div>
     </>
