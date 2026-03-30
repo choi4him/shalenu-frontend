@@ -158,7 +158,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   };
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(getInitialOpen);
-  const [verseIdx, setVerseIdx] = useState(() => Math.floor(Math.random() * t.bible.verses.length));
+  const [verseIdx, setVerseIdx] = useState(0); // SSR 안전: 클라이언트 전용 랜덤은 useEffect에서 처리
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // 경로 바뀌면 성경 구절 랜덤 교체
