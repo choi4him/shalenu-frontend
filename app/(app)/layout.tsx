@@ -159,6 +159,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(getInitialOpen);
   const [verseIdx, setVerseIdx] = useState(() => Math.floor(Math.random() * t.bible.verses.length));
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // 경로 바뀌면 성경 구절 랜덤 교체
   useEffect(() => {
@@ -166,6 +167,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }, [pathname, t.bible.verses.length]);
 
   const verse = t.bible.verses[verseIdx];
+
+  // 경로 바뀌면 모바일 사이드바 닫기
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
 
   // 경로 바뀌면 해당 그룹 자동 펼침
   useEffect(() => {
@@ -213,6 +219,39 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .sub-list { animation:slideDown 0.18s ease; }
       `}</style>
 
+      {/* ═══ 모바일 상단 헤더 ═══ */}
+      <header className="mobile-header">
+        <button
+          onClick={() => setSidebarOpen(prev => !prev)}
+          aria-label="메뉴 열기"
+          style={{
+            width:'40px', height:'40px', display:'flex', alignItems:'center', justifyContent:'center',
+            borderRadius:'10px', border:'none', background:'rgba(201,168,76,0.15)',
+            color:'#f0e8c0', cursor:'pointer', fontSize:'18px', flexShrink:0,
+          }}
+        >
+          {sidebarOpen ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>
+            </svg>
+          )}
+        </button>
+        <div style={{ display:'flex', alignItems:'center', gap:'8px' }}>
+          <div style={{ width:'28px',height:'28px',borderRadius:'8px',background:'var(--grad-primary)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <rect x="10" y="2" width="4" height="20" rx="1" fill="#1a1208"/>
+              <rect x="4" y="7" width="16" height="4" rx="1" fill="#1a1208"/>
+            </svg>
+          </div>
+          <span style={{ color:'#ffffff', fontWeight:800, fontSize:'15px', letterSpacing:'-0.02em' }}>J-SheepFold</span>
+        </div>
+        <div style={{ width:'40px', flexShrink:0 }} />
+      </header>
+
       <div style={{
         display:'flex', minHeight:'100vh', position:'relative',
         backgroundImage: "url('/images/shepherd-bg.png')",
@@ -222,15 +261,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         backgroundAttachment: 'fixed',
       }}>
 
+        {/* 오버레이 (모바일 사이드바 열릴 때) */}
+        {sidebarOpen && (
+          <div
+            className="sidebar-overlay"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         {/* ═══ 사이드바 ═══ */}
-        <aside style={{
-          width:'240px', minHeight:'100vh',
-          background:'var(--surface-3)',
-          borderRight:'1px solid rgba(201,168,76,0.12)',
-          display:'flex', flexDirection:'column',
-          position:'fixed', top:0, left:0, bottom:0, zIndex:50,
-          boxShadow:'4px 0 24px rgba(0,0,0,0.3)',
-        }}>
+        <aside
+          className={`app-sidebar${sidebarOpen ? ' open' : ''}`}
+          style={{
+            width:'240px', minHeight:'100vh',
+            background:'var(--surface-3)',
+            borderRight:'1px solid rgba(201,168,76,0.12)',
+            display:'flex', flexDirection:'column',
+            position:'fixed', top:0, left:0, bottom:0, zIndex:50,
+            boxShadow:'4px 0 24px rgba(0,0,0,0.3)',
+          }}
+        >
           {/* 로고 */}
           <div style={{ padding:'26px 22px 18px', borderBottom:'1px solid rgba(201,168,76,0.12)', position:'relative', overflow:'hidden' }}>
             {/* 배경 글로우 */}
@@ -384,7 +434,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </aside>
 
         {/* ═══ 콘텐츠 영역 ═══ */}
-        <main style={{ flex:1, marginLeft:'240px', minHeight:'100vh', position:'relative', zIndex:1 }}>
+        <main className="app-main" style={{ flex:1, marginLeft:'240px', minHeight:'100vh', position:'relative', zIndex:1 }}>
           {children}
         </main>
       </div>

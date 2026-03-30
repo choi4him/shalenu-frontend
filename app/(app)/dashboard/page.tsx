@@ -181,7 +181,7 @@ export default function DashboardPage() {
 
   // ─── RENDER ────────────────────────────────────────────────────────────────
   return (
-    <div style={{ padding: '36px 40px', maxWidth: '1100px' }}>
+    <div className="page-content">
 
       {/* 헤더 */}
       <div style={{ marginBottom: '32px' }}>
@@ -197,14 +197,7 @@ export default function DashboardPage() {
       </div>
 
       {/* 요약 카드 4개 */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '20px',
-          marginBottom: '36px',
-        }}
-      >
+      <div className="dashboard-stats-grid">
         {statCards.map((card) => (
           <StatCard
             key={card.title}
@@ -219,7 +212,7 @@ export default function DashboardPage() {
       </div>
 
       {/* 하단 2열 레이아웃 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '24px', alignItems: 'start' }}>
+      <div className="dashboard-bottom-grid">
 
         {/* 최근 헌금 목록 */}
         <div
@@ -303,13 +296,13 @@ export default function DashboardPage() {
 
         {/* 빠른 실행 버튼 */}
         <div
+          className="dashboard-quick-actions"
           style={{
             background: 'var(--surface)',
             borderRadius: '16px',
             padding: '24px',
             boxShadow: 'var(--shadow-card)',
             border: '1px solid var(--border)',
-            minWidth: '200px',
           }}
         >
           <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--foreground)', margin: '0 0 20px', letterSpacing: '-0.02em' }}>
