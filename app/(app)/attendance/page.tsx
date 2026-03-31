@@ -367,7 +367,7 @@ export default function AttendancePage() {
       <style>{`
         @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
       `}</style>
-      <div style={{ padding:'36px 40px', maxWidth:'880px', animation:'fadeIn 0.2s ease' }}>
+      <div className="page-content" style={{ maxWidth:'880px', animation:'fadeIn 0.2s ease' }}>
         {/* 헤더 */}
         <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:'20px', flexWrap:'wrap', gap:'12px' }}>
           <div>
@@ -382,7 +382,8 @@ export default function AttendancePage() {
         </div>
 
         {/* 날짜 선택기 */}
-        <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', padding:'8px 14px', borderRadius:'12px', background:'#fff', border:'1.5px solid #e5e7eb', marginBottom:'20px', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
+        <div style={{ overflowX:'auto', WebkitOverflowScrolling:'touch', marginBottom:'20px' }}>
+        <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', padding:'8px 14px', borderRadius:'12px', background:'#fff', border:'1.5px solid #e5e7eb', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
           <button onClick={() => changeDate(-1)}
             style={{ border:'none', background:'none', cursor:'pointer', padding:'4px 6px', borderRadius:'6px', color:'#6b7280', display:'flex', alignItems:'center' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -398,6 +399,7 @@ export default function AttendancePage() {
             style={{ padding:'4px 10px', borderRadius:'7px', border:'1px solid #e5e7eb', background:'#f3f4f6', color:'#374151', fontSize:'11px', fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>
             {t.common.today}
           </button>
+        </div>
         </div>
 
         {/* 탭 */}

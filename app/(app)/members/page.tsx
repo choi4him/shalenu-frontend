@@ -108,7 +108,7 @@ export default function MembersPage() {
   const genderLabel = (g?: string | null) => g ? (t.members.genderLabels[g] ?? '—') : '—';
 
   return (
-    <div className="page-content" style={{ maxWidth: '1100px' }}>
+    <div className="page-content" style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
       {/* 헤더 */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>

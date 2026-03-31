@@ -193,7 +193,7 @@ export default function AttendanceStatsPage() {
         tr.mem-row:hover td { background:#f8faff; }
       `}</style>
 
-      <div style={{ padding:'36px 40px', maxWidth:'960px', animation:'fadeIn 0.2s ease' }}>
+      <div className="page-content" style={{ maxWidth:'960px', animation:'fadeIn 0.2s ease' }}>
         {/* 헤더 */}
         <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:'20px', flexWrap:'wrap', gap:'12px' }}>
           <div>
