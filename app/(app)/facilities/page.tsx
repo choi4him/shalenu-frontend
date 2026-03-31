@@ -305,7 +305,7 @@ export default function FacilitiesPage() {
         {/* ════════ 캘린더 ════════ */}
         <div style={{ background: '#fff', borderRadius: '18px', padding: '22px 24px', border: '1px solid #f1f5f9', boxShadow: '0 1px 6px rgba(0,0,0,0.05)', marginBottom: '20px' }}>
           {/* 월 헤더 */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '4px', height: '18px', background: 'linear-gradient(#c9a84c,#c9a84c)', borderRadius: '99px' }} />
               <span style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>월별 예약 캘린더</span>

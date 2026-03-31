@@ -109,13 +109,13 @@ export default function PastoralPage() {
             style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', color: '#1a1a1a', outline: 'none', fontFamily: 'inherit', width: '220px', maxWidth: '100%' }}
             placeholder="교인명 또는 내용 검색"
             value={search} onChange={e => setSearch(e.target.value)} />
-          <div style={{ display: 'flex', gap: '5px' }}>
+          <div style={{ display: 'flex', gap: '5px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' as any }}>
             {[{ key: 'all', label: '전체', icon: '📋' }, ...stats].map(t => {
               const sel = cat === t.key;
               const cfg = t.key !== 'all' ? CAT_CONFIG[t.key as NoteCategory] : null;
               return (
                 <button key={t.key} onClick={() => setCat(t.key as 'all' | NoteCategory)}
-                  style={{ padding: '6px 13px', borderRadius: '18px', border: `1.5px solid ${sel ? (cfg?.border ?? '#f0d88a') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#fdf8e8') : '#fff', color: sel ? (cfg?.color ?? '#c9a84c') : '#6b7280', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.14s' }}>
+                  style={{ padding: '6px 13px', borderRadius: '18px', border: `1.5px solid ${sel ? (cfg?.border ?? '#f0d88a') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#fdf8e8') : '#fff', color: sel ? (cfg?.color ?? '#c9a84c') : '#6b7280', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.14s', flexShrink: 0, whiteSpace: 'nowrap' }}>
                   {(t as any).icon} {t.label}
                 </button>
               );

@@ -307,7 +307,7 @@ export default function PaymentsPage() {
         )}
 
         {/* 통계 카드 */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px', marginBottom: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(120px,1fr))', gap: '12px', marginBottom: '24px' }}>
           {[
             { label: '결제 링크', value: `${links.filter(l => l.is_active).length}개 활성`, icon: '🔗', color: '#c9a84c', bg: '#fdf8e8', border: '#f0d88a' },
             { label: '완료된 헌금', value: `${totalCompleted.length}건`, icon: '✅', color: '#16a34a', bg: '#f0fdf4', border: '#86efac' },
@@ -315,7 +315,7 @@ export default function PaymentsPage() {
           ].map(s => (
             <div key={s.label} style={{ background: s.bg, border: `1.5px solid ${s.border}`, borderRadius: '14px', padding: '16px 18px' }}>
               <div style={{ fontSize: '22px', marginBottom: '6px' }}>{s.icon}</div>
-              <div style={{ fontSize: '18px', fontWeight: 800, color: s.color, letterSpacing: '-0.02em' }}>{s.value}</div>
+              <div style={{ fontSize: '18px', fontWeight: 800, color: s.color, letterSpacing: '-0.02em', wordBreak: 'keep-all' }}>{s.value}</div>
               <div style={{ fontSize: '12px', color: '#6b7280', marginTop: '2px', fontWeight: 600 }}>{s.label}</div>
             </div>
           ))}

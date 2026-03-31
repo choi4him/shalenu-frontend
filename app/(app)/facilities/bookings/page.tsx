@@ -186,6 +186,18 @@ export default function BookingsPage() {
         .bk-row { transition:background 0.12s; }
         .bk-row:hover { background:#f8faff !important; }
         .inp-bk:focus { border-color:#c9a84c !important; box-shadow:0 0 0 3px rgba(201,168,76,0.1); }
+        @media (max-width:768px) {
+          .bk-table-inner { min-width:0 !important; }
+          .bk-header-row { display:none !important; }
+          .bk-data-row { display:block !important; padding:12px 14px !important; border-radius:10px !important; margin-bottom:6px; border-bottom:1px solid #f1f5f9; }
+          .bk-cell-date { font-size:12px !important; color:#9ca3af !important; }
+          .bk-cell-time { font-size:12px !important; color:#9ca3af !important; margin-left:4px; }
+          .bk-cell-info { display:block; margin:5px 0; }
+          .bk-cell-info div { white-space:normal !important; overflow:visible !important; text-overflow:unset !important; }
+          .bk-cell-requester { font-size:12px !important; color:#6b7280 !important; display:block !important; margin-top:4px; }
+          .bk-cell-status-badge { display:inline-block !important; margin-top:4px; }
+          .bk-cell-actions { display:flex !important; justify-content:flex-end; margin-top:8px; }
+        }
       `}</style>
 
       <div className="page-content" style={{ maxWidth: '900px' }}>
@@ -236,8 +248,8 @@ export default function BookingsPage() {
         {/* 테이블 */}
         <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
           <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-          <div style={{ minWidth: '560px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '110px 90px 1fr 90px 80px 90px', gap: '0', padding: '10px 20px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
+          <div className="bk-table-inner" style={{ minWidth: '560px' }}>
+          <div className="bk-header-row" style={{ display: 'grid', gridTemplateColumns: '110px 90px 1fr 90px 80px 90px', gap: '0', padding: '10px 20px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
             {['날짜', '시간', '예약 제목 / 시설', '신청자', '상태', '관리'].map(h => (
               <span key={h} style={{ fontSize: '11px', fontWeight: 700, color: '#9ca3af', letterSpacing: '0.03em' }}>{h}</span>
             ))}
@@ -255,17 +267,17 @@ export default function BookingsPage() {
             displayed.map(b => {
               const st = STATUS[b.status] ?? STATUS.pending;
               return (
-                <div key={b.id} className="bk-row" onClick={() => setDetailBk(b)}
+                <div key={b.id} className="bk-row bk-data-row" onClick={() => setDetailBk(b)}
                   style={{ display: 'grid', gridTemplateColumns: '110px 90px 1fr 90px 80px 90px', gap: '0', padding: '14px 20px', borderBottom: '1px solid #f9fafb', alignItems: 'center', cursor: 'pointer' }}>
-                  <span style={{ fontSize: '12px', color: '#6b7280' }}>{toDateStr(b.start_time)}</span>
-                  <span style={{ fontSize: '12px', color: '#6b7280' }}>{toTimeStr(b.start_time)}–{toTimeStr(b.end_time)}</span>
-                  <div style={{ overflow: 'hidden' }}>
+                  <span className="bk-cell-date" style={{ fontSize: '12px', color: '#6b7280' }}>{toDateStr(b.start_time)}</span>
+                  <span className="bk-cell-time" style={{ fontSize: '12px', color: '#6b7280' }}>{toTimeStr(b.start_time)}–{toTimeStr(b.end_time)}</span>
+                  <div className="bk-cell-info" style={{ overflow: 'hidden' }}>
                     <div style={{ fontSize: '13px', fontWeight: 600, color: '#1a1a1a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{b.title}</div>
                     <div style={{ fontSize: '11px', color: '#9ca3af', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{b.facility_name}</div>
                   </div>
-                  <span style={{ fontSize: '13px', color: '#374151' }}>{b.booked_by_name ?? '—'}</span>
-                  <span style={{ padding: '3px 8px', borderRadius: '10px', background: st.bg, color: st.color, border: `1px solid ${st.border}`, fontSize: '11px', fontWeight: 700, display: 'inline-block' }}>{st.label}</span>
-                  <div onClick={e => e.stopPropagation()} style={{ display: 'flex', gap: '5px' }}>
+                  <span className="bk-cell-requester" style={{ fontSize: '13px', color: '#374151' }}>{b.booked_by_name ?? '—'}</span>
+                  <span className="bk-cell-status-badge" style={{ padding: '3px 8px', borderRadius: '10px', background: st.bg, color: st.color, border: `1px solid ${st.border}`, fontSize: '11px', fontWeight: 700, display: 'inline-block' }}>{st.label}</span>
+                  <div className="bk-cell-actions" onClick={e => e.stopPropagation()} style={{ display: 'flex', gap: '5px' }}>
                     {b.status === 'pending' && (
                       <>
                         <button onClick={() => changeStatus(b.id, 'approved')}

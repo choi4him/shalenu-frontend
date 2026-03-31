@@ -309,12 +309,14 @@ export default function OfferingsPage() {
                   ? (
                     <tr>
                       <td colSpan={6} style={{ padding: '60px 20px', textAlign: 'center', color: 'var(--muted)' }}>
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: '0 auto 12px' }}>
-                          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                        </svg>
-                        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--foreground-2)', marginBottom: '4px' }}>{t.offerings.noOfferings}</div>
-                        <div style={{ fontSize: '13px' }}>
-                          {(dateFrom || dateTo || filterType) ? t.offerings.changeFilter : t.offerings.tryEntering}
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '12px' }}>
+                            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                          </svg>
+                          <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--foreground-2)', marginBottom: '4px' }}>{t.offerings.noOfferings}</div>
+                          <div style={{ fontSize: '13px' }}>
+                            {(dateFrom || dateTo || filterType) ? t.offerings.changeFilter : t.offerings.tryEntering}
+                          </div>
                         </div>
                       </td>
                     </tr>

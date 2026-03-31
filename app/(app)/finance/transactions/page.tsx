@@ -268,12 +268,14 @@ export default function TransactionsPage() {
                     ? (
                       <tr>
                         <td colSpan={6} style={{ padding:'60px 20px', textAlign:'center', color:'#8b6914' }}>
-                          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display:'block', margin:'0 auto 12px' }}>
-                            <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
-                          </svg>
-                          <div style={{ fontSize:'15px', fontWeight:600, color:'#1a1a1a', marginBottom:'4px' }}>거래 내역이 없습니다</div>
-                          <div style={{ fontSize:'13px' }}>
-                            {(dateFrom || dateTo || filterAcct || filterType) ? '필터 조건을 변경해보세요.' : '거래를 입력해보세요!'}
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '12px' }}>
+                              <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+                            </svg>
+                            <div style={{ fontSize:'15px', fontWeight:600, color:'#1a1a1a', marginBottom:'4px' }}>거래 내역이 없습니다</div>
+                            <div style={{ fontSize:'13px' }}>
+                              {(dateFrom || dateTo || filterAcct || filterType) ? '필터 조건을 변경해보세요.' : '거래를 입력해보세요!'}
+                            </div>
                           </div>
                         </td>
                       </tr>
