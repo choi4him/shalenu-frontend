@@ -253,7 +253,7 @@ export default function TransactionsPage() {
         {/* 테이블 */}
         <div style={{ background:'rgba(255,255,255,0.90)', borderRadius:'16px', boxShadow:'0 2px 12px rgba(0,0,0,0.1)', overflow:'hidden', border:'1px solid rgba(160,120,40,0.3)' }}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width:'100%', borderCollapse:'collapse', minWidth:'700px' }}>
+            <table className="table-dark" style={{ width:'100%', borderCollapse:'collapse', minWidth:'700px' }}>
               <thead>
                 <tr style={{ background:'rgba(160,120,40,0.06)', borderBottom:'1px solid rgba(160,120,40,0.2)' }}>
                   {['날짜', '적요', '분류', '계좌', '수입', '지출'].map(h => (

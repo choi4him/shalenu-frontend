@@ -106,7 +106,7 @@ export default function PastoralPage() {
         {/* 검색 + 탭 */}
         <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
           <input
-            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', color: '#1a1a1a', outline: 'none', fontFamily: 'inherit', width: '220px' }}
+            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', color: '#1a1a1a', outline: 'none', fontFamily: 'inherit', width: '220px', maxWidth: '100%' }}
             placeholder="교인명 또는 내용 검색"
             value={search} onChange={e => setSearch(e.target.value)} />
           <div style={{ display: 'flex', gap: '5px' }}>

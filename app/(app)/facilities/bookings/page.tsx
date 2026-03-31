@@ -229,7 +229,7 @@ export default function BookingsPage() {
             ))}
           </div>
           <input className="inp-bk"
-            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', outline: 'none', fontFamily: 'inherit', color: '#1a1a1a', marginLeft: 'auto', width: '200px' }}
+            style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', outline: 'none', fontFamily: 'inherit', color: '#1a1a1a', marginLeft: 'auto', width: '200px', maxWidth: '100%' }}
             placeholder="제목/시설/신청자 검색" value={search} onChange={e => setSearch(e.target.value)} />
         </div>
 

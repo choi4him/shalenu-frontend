@@ -408,7 +408,7 @@ export default function PledgesPage() {
         </div>
 
         {/* 테이블 */}
-        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%' }}>
         <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)', overflow: 'hidden', animation: 'fadeIn 0.2s ease', minWidth: '700px' }}>
           {/* 테이블 헤더 */}
           <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 2fr 1.2fr 1.2fr 140px 80px 80px', gap: '0', padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
