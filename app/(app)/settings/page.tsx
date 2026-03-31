@@ -690,6 +690,7 @@ function PlanTab() {
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
 
 function DataTab() {
+  const { t } = useTranslation();
   const [exporting, setExporting] = useState(false);
   const [lastExport, setLastExport] = useState<string | null>(null);
 
@@ -734,9 +735,9 @@ function DataTab() {
       a.download = `jsheepfold-backup-${date}.json`;
       a.click();
       URL.revokeObjectURL(url);
-      setLastExport(new Date().toLocaleString('ko-KR'));
+      setLastExport(new Date().toLocaleString());
     } catch (e: unknown) {
-      alert(`내보내기 실패: ${e instanceof Error ? e.message : e}`);
+      alert(`${t.settingsBackup.errExport} ${e instanceof Error ? e.message : e}`);
     } finally {
       setExporting(false);
     }
@@ -744,7 +745,7 @@ function DataTab() {
 
   // ── 파일 선택/드롭 ────────────────────────────────────
   const handleFile = (file: File) => {
-    if (!file.name.endsWith('.json')) { alert('JSON 파일만 업로드 가능합니다.'); return; }
+    if (!file.name.endsWith('.json')) { alert(t.settingsBackup.jsonOnly); return; }
     setImportFile(file);
     setImportResult(null);
     setImportError(null);
@@ -767,7 +768,7 @@ function DataTab() {
   // ── 가져오기 ──────────────────────────────────────────
   const handleImport = async () => {
     if (!importFile) return;
-    if (replaceMode && !confirm('⚠️ 기존 데이터가 모두 삭제됩니다. 계속하시겠습니까?')) return;
+    if (replaceMode && !confirm(t.settingsBackup.confirmReplace)) return;
     setImporting(true);
     setImportError(null);
     setImportResult(null);
@@ -781,7 +782,7 @@ function DataTab() {
       );
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.detail ?? `오류 ${res.status}`);
+        throw new Error(err.detail ?? `${t.settingsBackup.errImport} ${res.status}`);
       }
       setImportResult(await res.json());
     } catch (e: unknown) {
@@ -791,17 +792,10 @@ function DataTab() {
     }
   };
 
-  const LABEL_MAP: Record<string,string> = {
-    shalenu_members:'교인',shalenu_offerings:'헌금',shalenu_transactions:'거래',
-    shalenu_budgets:'예산',shalenu_budget_items:'예산항목',shalenu_small_groups:'소그룹',
-    shalenu_attendance_logs:'출석',shalenu_newcomers:'새가족',shalenu_pastoral_notes:'목양노트',
-    shalenu_offering_pledges:'작정헌금',shalenu_offering_items:'헌금항목',
-    shalenu_small_group_members:'소그룹멤버',shalenu_finance_accounts:'재정계정',
-    shalenu_lookup_codes:'코드',
-  };
+  const tableLabels = t.settingsBackup.tableLabels as Record<string, string>;
 
   const previewText = preview
-    ? Object.entries(preview).map(([k,v]) => `${LABEL_MAP[k]??k} ${v}건`).join(', ')
+    ? Object.entries(preview).map(([k,v]) => `${tableLabels[k]??k} ${v}`).join(', ')
     : null;
 
   const totalImported = importResult
@@ -825,7 +819,7 @@ function DataTab() {
       });
       if (!res.ok) { const e = await res.json(); throw new Error(e.detail ?? `오류 ${res.status}`); }
       setEmailSettings(await res.json());
-      setSettingsAlert({ type: 'ok', msg: '자동 백업 설정이 저장되었습니다.' });
+      setSettingsAlert({ type: 'ok', msg: t.settingsBackup.settingsSaved });
     } catch (e: unknown) {
       setSettingsAlert({ type: 'err', msg: e instanceof Error ? e.message : String(e) });
     } finally { setSettingsSaving(false); }
@@ -841,7 +835,7 @@ function DataTab() {
       });
       if (!res.ok) { const e = await res.json(); throw new Error(e.detail ?? `오류 ${res.status}`); }
       const d = await res.json();
-      setSendNowAlert({ type: 'ok', msg: `${d.to}으로 백업 이메일을 발송했습니다.` });
+      setSendNowAlert({ type: 'ok', msg: `${d.to}` });
     } catch (e: unknown) {
       setSendNowAlert({ type: 'err', msg: e instanceof Error ? e.message : String(e) });
     } finally { setSendingNow(false); }
@@ -851,9 +845,9 @@ function DataTab() {
     <div>
       {/* 내보내기 */}
       <div style={card}>
-        {sectionTitle('데이터 내보내기')}
+        {sectionTitle(t.settingsBackup.exportTitle)}
         <p style={{ margin:'0 0 16px',fontSize:'13px',color:'#6b7280' }}>
-          정기적으로 백업하여 데이터를 안전하게 보관하세요.
+          {t.settingsBackup.exportDesc}
         </p>
         <div style={{ display:'flex',alignItems:'center',gap:'12px',flexWrap:'wrap' }}>
           <button
@@ -864,17 +858,17 @@ function DataTab() {
               fontWeight:700,border:'none',cursor:exporting?'not-allowed':'pointer',
               opacity:exporting?0.7:1,boxShadow:'0 4px 12px rgba(201,168,76,0.3)' }}
           >
-            {exporting ? '⏳ 내보내는 중...' : '⬇️ 전체 데이터 내보내기'}
+            {exporting ? t.settingsBackup.exporting : t.settingsBackup.exportBtn}
           </button>
           {lastExport && (
-            <span style={{ fontSize:'12px',color:'#9ca3af' }}>마지막 내보내기: {lastExport}</span>
+            <span style={{ fontSize:'12px',color:'#9ca3af' }}>{t.settingsBackup.lastExport} {lastExport}</span>
           )}
         </div>
       </div>
 
       {/* 가져오기 */}
       <div style={card}>
-        {sectionTitle('데이터 가져오기')}
+        {sectionTitle(t.settingsBackup.importTitle)}
 
         {/* 드래그앤드롭 영역 */}
         <div
@@ -888,7 +882,7 @@ function DataTab() {
         >
           <div style={{ fontSize:'32px',marginBottom:'8px' }}>📁</div>
           <div style={{ fontSize:'14px',fontWeight:600,color:'#374151',marginBottom:'4px' }}>
-            {importFile ? importFile.name : 'JSON 파일을 드래그하거나 클릭하여 선택'}
+            {importFile ? importFile.name : t.settingsBackup.dropzone}
           </div>
           <div style={{ fontSize:'12px',color:'#9ca3af' }}>jsheepfold-backup-*.json</div>
           <input id="backup-file-input" type="file" accept=".json" style={{ display:'none' }}
@@ -899,33 +893,33 @@ function DataTab() {
         {previewText && (
           <div style={{ padding:'12px 16px',borderRadius:'8px',background:'rgba(201,168,76,0.06)',
             border:'1px solid rgba(201,168,76,0.2)',marginBottom:'16px',fontSize:'13px',color:'#374151' }}>
-            📋 포함 데이터: {previewText}
+            {t.settingsBackup.previewLabel} {previewText}
           </div>
         )}
 
         {/* 가져오기 옵션 */}
         {importFile && (
           <div style={{ marginBottom:'16px' }}>
-            <div style={{ fontSize:'13px',fontWeight:600,color:'#374151',marginBottom:'8px' }}>가져오기 방식</div>
+            <div style={{ fontSize:'13px',fontWeight:600,color:'#374151',marginBottom:'8px' }}>{t.settingsBackup.importMethod}</div>
             <div style={{ display:'flex',flexDirection:'column',gap:'8px' }}>
               <label style={{ display:'flex',alignItems:'center',gap:'8px',cursor:'pointer',fontSize:'13px' }}>
                 <input type="radio" name="import-mode" checked={!replaceMode}
                   onChange={()=>setReplaceMode(false)} />
-                <span style={{ color:'#374151',fontWeight:500 }}>병합</span>
-                <span style={{ color:'#9ca3af' }}>— 기존 데이터를 유지하고 새 데이터만 추가 (중복 UUID 스킵)</span>
+                <span style={{ color:'#374151',fontWeight:500 }}>{t.settingsBackup.mergeLabel}</span>
+                <span style={{ color:'#9ca3af' }}>{t.settingsBackup.mergeDesc}</span>
               </label>
               <label style={{ display:'flex',alignItems:'center',gap:'8px',cursor:'pointer',fontSize:'13px' }}>
                 <input type="radio" name="import-mode" checked={replaceMode}
                   onChange={()=>setReplaceMode(true)} />
-                <span style={{ color:'#ef4444',fontWeight:600 }}>전체 교체</span>
-                <span style={{ color:'#9ca3af' }}>— 기존 데이터를 모두 삭제하고 백업 데이터로 교체</span>
+                <span style={{ color:'#ef4444',fontWeight:600 }}>{t.settingsBackup.replaceLabel}</span>
+                <span style={{ color:'#9ca3af' }}>{t.settingsBackup.replaceDesc}</span>
               </label>
             </div>
             {replaceMode && (
               <div style={{ marginTop:'10px',padding:'10px 14px',borderRadius:'8px',
                 background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',
                 fontSize:'12px',color:'#dc2626',fontWeight:500 }}>
-                ⚠️ 전체 교체 시 기존 데이터는 복구할 수 없습니다. 반드시 현재 데이터를 먼저 내보내기하세요.
+                {t.settingsBackup.replaceWarning}
               </div>
             )}
           </div>
@@ -934,7 +928,7 @@ function DataTab() {
         {/* 경고 문구 */}
         <div style={{ padding:'10px 14px',borderRadius:'8px',background:'#f8fafc',
           border:'1px solid #e5e7eb',fontSize:'12px',color:'#6b7280',marginBottom:'16px' }}>
-          ℹ️ 가져오기 전 반드시 현재 데이터를 백업하세요. 전체 교체 시 기존 데이터는 복구할 수 없습니다.
+          {t.settingsBackup.importWarning}
         </div>
 
         {/* 가져오기 버튼 */}
@@ -948,7 +942,7 @@ function DataTab() {
             opacity:!importFile||importing?0.6:1,
             boxShadow:replaceMode?'0 4px 12px rgba(239,68,68,0.3)':'0 4px 12px rgba(16,185,129,0.3)' }}
         >
-          {importing ? '⏳ 가져오는 중...' : replaceMode ? '🔄 전체 교체로 가져오기' : '📥 병합으로 가져오기'}
+          {importing ? t.settingsBackup.importingBtn : replaceMode ? t.settingsBackup.replaceBtn : t.settingsBackup.importBtn}
         </button>
 
         {/* 결과 */}
@@ -956,17 +950,17 @@ function DataTab() {
           <div style={{ marginTop:'16px',padding:'16px',borderRadius:'10px',
             background:'rgba(16,185,129,0.06)',border:'1px solid rgba(16,185,129,0.2)' }}>
             <div style={{ fontSize:'14px',fontWeight:700,color:'#059669',marginBottom:'8px' }}>
-              ✅ 가져오기 완료
+              {t.settingsBackup.importDone}
             </div>
             <div style={{ fontSize:'13px',color:'#374151' }}>
-              가져옴: <strong>{totalImported}건</strong> &nbsp;|&nbsp;
-              스킵: <strong>{totalSkipped}건</strong>
+              {t.settingsBackup.imported} <strong>{totalImported}</strong> &nbsp;|&nbsp;
+              {t.settingsBackup.skipped} <strong>{totalSkipped}</strong>
             </div>
             {importResult.errors.length > 0 && (
               <div style={{ marginTop:'8px',padding:'8px 12px',borderRadius:'6px',
                 background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.15)',
                 fontSize:'12px',color:'#dc2626' }}>
-                오류 {importResult.errors.length}건:<br/>
+                {t.settingsBackup.errCount} ({importResult.errors.length}):<br/>
                 {importResult.errors.slice(0,5).map((e,i)=><span key={i}>{e}<br/></span>)}
               </div>
             )}
@@ -984,9 +978,9 @@ function DataTab() {
 
       {/* 자동 백업 이메일 */}
       <div style={card}>
-        {sectionTitle('자동 백업 이메일')}
+        {sectionTitle(t.settingsBackup.autoBackupTitle)}
         <p style={{ margin:'0 0 16px',fontSize:'13px',color:'#6b7280' }}>
-          정기적으로 지정된 이메일로 백업 파일을 자동 발송합니다.
+          {t.settingsBackup.autoBackupDesc}
         </p>
 
         {/* 활성화 토글 */}
@@ -1002,13 +996,13 @@ function DataTab() {
               boxShadow:'0 1px 3px rgba(0,0,0,0.2)',transition:'left 0.2s' }}/>
           </div>
           <span style={{ fontSize:'14px',fontWeight:600,color:'#374151' }}>
-            {emailSettings.is_enabled ? '자동 백업 활성화됨' : '자동 백업 비활성화'}
+            {emailSettings.is_enabled ? t.settingsBackup.enabledLabel : t.settingsBackup.disabledLabel}
           </span>
         </div>
 
         {/* 수신 이메일 */}
         <div style={{ marginBottom:'16px' }}>
-          <label style={labelSt}>수신 이메일</label>
+          <label style={labelSt}>{t.settingsBackup.emailLabel}</label>
           <input
             style={inputSt}
             type="email"
@@ -1020,9 +1014,9 @@ function DataTab() {
 
         {/* 백업 주기 */}
         <div style={{ marginBottom:'20px' }}>
-          <label style={labelSt}>백업 주기</label>
+          <label style={labelSt}>{t.settingsBackup.cycleLabel}</label>
           <div style={{ display:'flex',gap:'20px' }}>
-            {[{val:'weekly',label:'매주'},{val:'monthly',label:'매월'}].map(opt => (
+            {[{val:'weekly',label:t.settingsBackup.weekly},{val:'monthly',label:t.settingsBackup.monthly}].map(opt => (
               <label key={opt.val} style={{ display:'flex',alignItems:'center',gap:'7px',cursor:'pointer',fontSize:'13px',color:'#374151' }}>
                 <input type="radio" name="backup-freq" value={opt.val}
                   checked={emailSettings.frequency===opt.val}
@@ -1038,12 +1032,12 @@ function DataTab() {
           <div style={{ display:'flex',gap:'20px',marginBottom:'16px',flexWrap:'wrap' }}>
             {emailSettings.last_backup_at && (
               <div style={{ fontSize:'12px',color:'#6b7280' }}>
-                마지막 백업: <strong>{new Date(emailSettings.last_backup_at).toLocaleString('ko-KR')}</strong>
+                {t.settingsBackup.lastBackup} <strong>{new Date(emailSettings.last_backup_at).toLocaleString()}</strong>
               </div>
             )}
             {emailSettings.next_backup_at && emailSettings.is_enabled && (
               <div style={{ fontSize:'12px',color:'#6b7280' }}>
-                다음 백업: <strong>{new Date(emailSettings.next_backup_at).toLocaleString('ko-KR')}</strong>
+                {t.settingsBackup.nextBackup} <strong>{new Date(emailSettings.next_backup_at).toLocaleString()}</strong>
               </div>
             )}
           </div>
@@ -1061,7 +1055,7 @@ function DataTab() {
               fontSize:'14px',fontWeight:700,border:'none',cursor:settingsSaving?'not-allowed':'pointer',
               opacity:settingsSaving?0.7:1,boxShadow:'0 4px 12px rgba(201,168,76,0.3)' }}
           >
-            {settingsSaving ? '⏳ 저장 중...' : '💾 설정 저장'}
+            {settingsSaving ? `⏳ ${t.settingsBackup.savingSettings}` : `💾 ${t.settingsBackup.saveSettings}`}
           </button>
           <button
             onClick={handleSendNow}
@@ -1072,7 +1066,7 @@ function DataTab() {
               cursor:sendingNow||!emailSettings.send_to_email?'not-allowed':'pointer',
               opacity:sendingNow||!emailSettings.send_to_email?0.6:1 }}
           >
-            {sendingNow ? '⏳ 발송 중...' : '📧 지금 즉시 발송'}
+            {sendingNow ? `⏳ ${t.settingsBackup.sending}` : `📧 ${t.settingsBackup.sendNow}`}
           </button>
         </div>
 

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient, formatKRW } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ───────────────────────────────────────────────
 interface Account {
@@ -28,11 +29,6 @@ interface TxResponse {
   pages: number;
 }
 
-const CATEGORY_LABELS: Record<string, string> = {
-  worship: '예배', mission: '선교', education: '교육',
-  admin: '행정', facility: '시설', etc: '기타',
-};
-
 // ─── 스켈레톤 ───────────────────────────────────────────
 function SkeletonRow() {
   return (
@@ -53,6 +49,7 @@ function SkeletonRow() {
 // ─── 메인 ───────────────────────────────────────────────
 export default function TransactionsPage() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [total, setTotal]               = useState(0);
@@ -93,11 +90,11 @@ export default function TransactionsPage() {
       setTotalPages(data.pages ?? 1);
       setPage(data.page ?? pg);
     } catch (e) {
-      setError(e instanceof Error ? e.message : '데이터를 불러오지 못했습니다.');
+      setError(e instanceof Error ? e.message : t.common.fetchError);
     } finally {
       setLoading(false);
     }
-  }, [dateFrom, dateTo, filterAcct, filterType]);
+  }, [dateFrom, dateTo, filterAcct, filterType, t]);
 
   useEffect(() => { fetchTx(1); }, [fetchTx]);
 
@@ -117,8 +114,11 @@ export default function TransactionsPage() {
   };
 
   // 이번 달 수입/지출 합계
-  const incomeSum  = transactions.filter(t => t.transaction_type === 'income').reduce((s, t) => s + t.amount, 0);
-  const expenseSum = transactions.filter(t => t.transaction_type === 'expense').reduce((s, t) => s + t.amount, 0);
+  const incomeSum  = transactions.filter(tx => tx.transaction_type === 'income').reduce((s, tx) => s + tx.amount, 0);
+  const expenseSum = transactions.filter(tx => tx.transaction_type === 'expense').reduce((s, tx) => s + tx.amount, 0);
+
+  const headers = t.transactions.headers;
+  const categoryLabels = t.transactions.categoryLabels as Record<string, string>;
 
   return (
     <>
@@ -154,8 +154,8 @@ export default function TransactionsPage() {
               </svg>
             </button>
             <div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 6px' }}>거래 내역</h1>
-              <p style={{ margin: 0, fontSize: '14px', color: '#8b6914', fontWeight: 500 }}>전체 {total.toLocaleString()}건</p>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 6px' }}>{t.transactions.title}</h1>
+              <p style={{ margin: 0, fontSize: '14px', color: '#8b6914', fontWeight: 500 }}>{t.transactions.totalCount.replace('{count}', total.toLocaleString())}</p>
             </div>
           </div>
           <button
@@ -174,16 +174,16 @@ export default function TransactionsPage() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
-            거래 입력
+            {t.transactions.enterTransaction}
           </button>
         </div>
 
         {/* 간단 통계 */}
         <div className="r-grid-3" style={{ gap: '14px', marginBottom: '20px' }}>
           {[
-            { label: '조회 수입 합계', value: formatKRW(incomeSum), color: '#7d6324', bg: 'linear-gradient(135deg,#fdf8e8,#f0d88a)' },
-            { label: '조회 지출 합계', value: formatKRW(expenseSum), color: '#be123c', bg: 'linear-gradient(135deg,#fff1f2,#fecdd3)' },
-            { label: '순수익', value: formatKRW(incomeSum - expenseSum), color: incomeSum >= expenseSum ? '#059669' : '#dc2626', bg: 'linear-gradient(135deg,#f0fdf4,#bbf7d0)' },
+            { label: t.transactions.incomeTotal, value: formatKRW(incomeSum), color: '#7d6324', bg: 'linear-gradient(135deg,#fdf8e8,#f0d88a)' },
+            { label: t.transactions.expenseTotal, value: formatKRW(expenseSum), color: '#be123c', bg: 'linear-gradient(135deg,#fff1f2,#fecdd3)' },
+            { label: t.transactions.netProfit, value: formatKRW(incomeSum - expenseSum), color: incomeSum >= expenseSum ? '#059669' : '#dc2626', bg: 'linear-gradient(135deg,#f0fdf4,#bbf7d0)' },
           ].map(c => (
             <div key={c.label} style={{ background: c.bg, borderRadius: '12px', padding: '16px 18px', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
               <div style={{ fontSize: '11px', fontWeight: 700, color: 'rgba(0,0,0,0.4)', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '4px' }}>{c.label}</div>
@@ -200,24 +200,24 @@ export default function TransactionsPage() {
           <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
 
             {[
-              { label: '시작일', el: <input className="fi-filter" type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }} /> },
-              { label: '종료일', el: <input className="fi-filter" type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }} /> },
+              { label: t.transactions.dateFrom, el: <input className="fi-filter" type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }} /> },
+              { label: t.transactions.dateTo, el: <input className="fi-filter" type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }} /> },
               {
-                label: '계좌',
+                label: t.transactions.accountFilter,
                 el: (
                   <select className="fi-filter" value={filterAcct} onChange={e => setFilterAcct(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', cursor:'pointer', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }}>
-                    <option value="">전체</option>
+                    <option value="">{t.transactions.allTypes}</option>
                     {accounts.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
                   </select>
                 ),
               },
               {
-                label: '거래 유형',
+                label: t.transactions.typeFilter,
                 el: (
                   <select className="fi-filter" value={filterType} onChange={e => setFilterType(e.target.value)} style={{ padding:'9px 12px', borderRadius:'9px', border:'1px solid rgba(160,120,40,0.3)', fontSize:'13px', color:'#1a1a1a', outline:'none', fontFamily:'inherit', background:'rgba(255,255,255,0.90)', cursor:'pointer', transition:'all 0.2s', boxSizing:'border-box' as const, width:'100%' }}>
-                    <option value="">전체</option>
-                    <option value="income">수입</option>
-                    <option value="expense">지출</option>
+                    <option value="">{t.transactions.allTypes}</option>
+                    <option value="income">{t.transactions.income}</option>
+                    <option value="expense">{t.transactions.expense}</option>
                   </select>
                 ),
               },
@@ -237,7 +237,7 @@ export default function TransactionsPage() {
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#c9a84c'; (e.currentTarget as HTMLButtonElement).style.color = '#c9a84c'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(160,120,40,0.3)'; (e.currentTarget as HTMLButtonElement).style.color = '#1a1a1a'; }}
-            >초기화</button>
+            >{t.common.reset}</button>
           </div>
         </div>
 
@@ -246,7 +246,7 @@ export default function TransactionsPage() {
           <div style={{ padding:'14px 18px', borderRadius:'12px', background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', fontSize:'14px', marginBottom:'20px', display:'flex', alignItems:'center', gap:'10px' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             {error}
-            <button onClick={() => fetchTx(page)} style={{ marginLeft:'auto', background:'none', border:'none', color:'#dc2626', cursor:'pointer', fontWeight:600, fontFamily:'inherit', fontSize:'13px' }}>다시 시도</button>
+            <button onClick={() => fetchTx(page)} style={{ marginLeft:'auto', background:'none', border:'none', color:'#dc2626', cursor:'pointer', fontWeight:600, fontFamily:'inherit', fontSize:'13px' }}>{t.common.retry}</button>
           </div>
         )}
 
@@ -256,7 +256,7 @@ export default function TransactionsPage() {
             <table className="table-dark" style={{ width:'100%', borderCollapse:'collapse', minWidth:'700px' }}>
               <thead>
                 <tr style={{ background:'rgba(160,120,40,0.06)', borderBottom:'1px solid rgba(160,120,40,0.2)' }}>
-                  {['날짜', '적요', '분류', '계좌', '수입', '지출'].map(h => (
+                  {headers.map((h: string) => (
                     <th key={h} style={{ padding:'13px 18px', textAlign:'left', fontSize:'12px', fontWeight:700, color:'#8b6914', letterSpacing:'0.05em', textTransform:'uppercase', whiteSpace:'nowrap' }}>{h}</th>
                   ))}
                 </tr>
@@ -272,9 +272,9 @@ export default function TransactionsPage() {
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '12px' }}>
                               <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
                             </svg>
-                            <div style={{ fontSize:'15px', fontWeight:600, color:'#1a1a1a', marginBottom:'4px' }}>거래 내역이 없습니다</div>
+                            <div style={{ fontSize:'15px', fontWeight:600, color:'#1a1a1a', marginBottom:'4px' }}>{t.transactions.noTransactions}</div>
                             <div style={{ fontSize:'13px' }}>
-                              {(dateFrom || dateTo || filterAcct || filterType) ? '필터 조건을 변경해보세요.' : '거래를 입력해보세요!'}
+                              {(dateFrom || dateTo || filterAcct || filterType) ? t.transactions.changeFilter : t.transactions.tryEntering}
                             </div>
                           </div>
                         </td>
@@ -288,30 +288,28 @@ export default function TransactionsPage() {
                         onMouseLeave={() => setHoveredRow(null)}
                         style={{ borderBottom:'1px solid rgba(160,120,40,0.15)', background: hoveredRow === tx.id ? 'rgba(160,120,40,0.06)' : 'transparent' }}
                       >
-                        <td data-label="날짜" style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', whiteSpace:'nowrap', fontWeight:500 }}>
+                        <td data-label={headers[0]} style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', whiteSpace:'nowrap', fontWeight:500 }}>
                           {fmtDate(tx.transaction_date)}
                         </td>
-                        <td data-label="내용" style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', fontWeight:500, maxWidth:'200px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                        <td data-label={headers[1]} style={{ padding:'14px 18px', fontSize:'14px', color:'#1a1a1a', fontWeight:500, maxWidth:'200px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
                           {tx.description || '—'}
                         </td>
-                        <td data-label="분류" style={{ padding:'14px 18px', fontSize:'13px', whiteSpace:'nowrap' }}>
+                        <td data-label={headers[2]} style={{ padding:'14px 18px', fontSize:'13px', whiteSpace:'nowrap' }}>
                           {tx.category ? (
                             <span style={{ background:'rgba(160,120,40,0.1)', color:'#7a5c00', padding:'3px 10px', borderRadius:'99px', fontSize:'12px', fontWeight:600, border:'1px solid rgba(160,120,40,0.25)' }}>
-                              {CATEGORY_LABELS[tx.category] ?? tx.category}
+                              {categoryLabels[tx.category] ?? tx.category}
                             </span>
                           ) : '—'}
                         </td>
-                        <td data-label="계좌" style={{ padding:'14px 18px', fontSize:'13px', color:'#8b6914', whiteSpace:'nowrap' }}>
-                          {tx.account_name ?? `계좌 #${tx.account_id}`}
+                        <td data-label={headers[3]} style={{ padding:'14px 18px', fontSize:'13px', color:'#8b6914', whiteSpace:'nowrap' }}>
+                          {tx.account_name ?? `#${tx.account_id}`}
                         </td>
-                        {/* 수입 */}
-                        <td data-label="수입" style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
+                        <td data-label={headers[4]} style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
                           {tx.transaction_type === 'income' ? (
                             <span style={{ color:'#2563eb' }}>+ {formatKRW(tx.amount)}</span>
                           ) : '—'}
                         </td>
-                        {/* 지출 */}
-                        <td data-label="지출" style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
+                        <td data-label={headers[5]} style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
                           {tx.transaction_type === 'expense' ? (
                             <span style={{ color:'#dc2626' }}>– {formatKRW(tx.amount)}</span>
                           ) : '—'}

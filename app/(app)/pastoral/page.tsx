@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient } from '@/lib/api';
+import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ──────────────────────────────────────────────────
 interface PastoralNote {
@@ -26,11 +27,11 @@ function extractList<T>(res: unknown): T[] {
 }
 
 // ─── 카테고리 설정 ─────────────────────────────────────────
-const CAT_CONFIG: Record<NoteCategory, { label: string; color: string; bg: string; border: string; icon: string }> = {
-  visit:   { label: '심방',   color: '#7c3aed', bg: '#f5f3ff', border: '#ddd6fe', icon: '🏠' },
-  counsel: { label: '상담',   color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe', icon: '💬' },
-  prayer:  { label: '기도',   color: '#d97706', bg: '#fffbeb', border: '#fcd34d', icon: '🙏' },
-  general: { label: '일반',   color: '#6b7280', bg: '#f9fafb', border: '#e5e7eb', icon: '📝' },
+const CAT_CONFIG: Record<NoteCategory, { color: string; bg: string; border: string; icon: string }> = {
+  visit:   { color: '#7c3aed', bg: '#f5f3ff', border: '#ddd6fe', icon: '🏠' },
+  counsel: { color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe', icon: '💬' },
+  prayer:  { color: '#d97706', bg: '#fffbeb', border: '#fcd34d', icon: '🙏' },
+  general: { color: '#6b7280', bg: '#f9fafb', border: '#e5e7eb', icon: '📝' },
 };
 
 // 최근 30일
@@ -38,6 +39,7 @@ const THIRTY_DAYS_AGO = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOStr
 
 export default function PastoralPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [notes,   setNotes]   = useState<PastoralNote[]>([]);
   const [loading, setLoading] = useState(true);
   const [cat,     setCat]     = useState<'all' | NoteCategory>('all');
@@ -68,10 +70,10 @@ export default function PastoralPage() {
 
   // 카테고리별 통계 카드
   const stats = [
-    { key: 'visit',   ...CAT_CONFIG.visit,   count: catCounts.visit   ?? 0 },
-    { key: 'counsel', ...CAT_CONFIG.counsel,  count: catCounts.counsel ?? 0 },
-    { key: 'prayer',  ...CAT_CONFIG.prayer,   count: catCounts.prayer  ?? 0 },
-    { key: 'general', ...CAT_CONFIG.general,  count: catCounts.general ?? 0 },
+    { key: 'visit',   ...CAT_CONFIG.visit,   count: catCounts.visit   ?? 0, label: t.pastoral.categoryLabels['visit'] },
+    { key: 'counsel', ...CAT_CONFIG.counsel,  count: catCounts.counsel ?? 0, label: t.pastoral.categoryLabels['counsel'] },
+    { key: 'prayer',  ...CAT_CONFIG.prayer,   count: catCounts.prayer  ?? 0, label: t.pastoral.categoryLabels['prayer'] },
+    { key: 'general', ...CAT_CONFIG.general,  count: catCounts.general ?? 0, label: t.pastoral.categoryLabels['general'] },
   ];
 
   return (
@@ -86,8 +88,8 @@ export default function PastoralPage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>목양 현황</h1>
-            <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>최근 30일간의 심방·상담·기도 기록</p>
+            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>{t.pastoral.title}</h1>
+            <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>{t.pastoral.subtitle}</p>
           </div>
         </div>
 
@@ -107,16 +109,16 @@ export default function PastoralPage() {
         <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
           <input
             style={{ padding: '9px 13px', borderRadius: '9px', border: '1.5px solid #e5e7eb', fontSize: '13px', color: '#1a1a1a', outline: 'none', fontFamily: 'inherit', width: '220px', maxWidth: '100%' }}
-            placeholder="교인명 또는 내용 검색"
+            placeholder={t.pastoral.searchPlaceholder}
             value={search} onChange={e => setSearch(e.target.value)} />
           <div style={{ display: 'flex', gap: '5px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' as any }}>
-            {[{ key: 'all', label: '전체', icon: '📋' }, ...stats].map(t => {
-              const sel = cat === t.key;
-              const cfg = t.key !== 'all' ? CAT_CONFIG[t.key as NoteCategory] : null;
+            {[{ key: 'all', label: t.pastoral.allTab, icon: '📋' }, ...stats].map(tab => {
+              const sel = cat === tab.key;
+              const cfg = tab.key !== 'all' ? CAT_CONFIG[tab.key as NoteCategory] : null;
               return (
-                <button key={t.key} onClick={() => setCat(t.key as 'all' | NoteCategory)}
+                <button key={tab.key} onClick={() => setCat(tab.key as 'all' | NoteCategory)}
                   style={{ padding: '6px 13px', borderRadius: '18px', border: `1.5px solid ${sel ? (cfg?.border ?? '#f0d88a') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#fdf8e8') : '#fff', color: sel ? (cfg?.color ?? '#c9a84c') : '#6b7280', fontSize: '12px', fontWeight: sel ? 700 : 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.14s', flexShrink: 0, whiteSpace: 'nowrap' }}>
-                  {(t as any).icon} {t.label}
+                  {(tab as any).icon} {tab.label}
                 </button>
               );
             })}
@@ -125,17 +127,18 @@ export default function PastoralPage() {
 
         {/* 노트 목록 */}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '60px', color: '#9ca3af', fontSize: '14px' }}>불러오는 중...</div>
+          <div style={{ textAlign: 'center', padding: '60px', color: '#9ca3af', fontSize: '14px' }}>Loading...</div>
         ) : displayed.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '60px', background: '#f9fafb', borderRadius: '16px', border: '1.5px dashed #e5e7eb' }}>
             <div style={{ fontSize: '36px', marginBottom: '10px' }}>📋</div>
-            <div style={{ fontSize: '15px', fontWeight: 600, color: '#374151', marginBottom: '4px' }}>최근 30일 기록이 없습니다</div>
-            <div style={{ fontSize: '13px', color: '#9ca3af' }}>교인 상세 페이지에서 목양 노트를 작성해보세요</div>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#374151', marginBottom: '4px' }}>{t.pastoral.noNotes}</div>
+            <div style={{ fontSize: '13px', color: '#9ca3af' }}>{t.pastoral.noNotesHint}</div>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', animation: 'fadeIn 0.2s ease' }}>
             {displayed.map(note => {
               const cfg = CAT_CONFIG[note.category] ?? CAT_CONFIG.general;
+              const catLabel = t.pastoral.categoryLabels[note.category] ?? t.pastoral.categoryLabels['general'];
               return (
                 <div key={note.id} className="note-card"
                   onClick={() => router.push(`/members/${note.member_id}`)}
@@ -148,11 +151,11 @@ export default function PastoralPage() {
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '5px', flexWrap: 'wrap' }}>
                         <span style={{ fontSize: '14px', fontWeight: 700, color: '#1a1a1a' }}>{note.member_name}</span>
-                        <span style={{ padding: '2px 8px', borderRadius: '10px', background: cfg.bg, color: cfg.color, border: `1px solid ${cfg.border}`, fontSize: '11px', fontWeight: 700 }}>{cfg.label}</span>
+                        <span style={{ padding: '2px 8px', borderRadius: '10px', background: cfg.bg, color: cfg.color, border: `1px solid ${cfg.border}`, fontSize: '11px', fontWeight: 700 }}>{catLabel}</span>
                         {note.is_private && (
                           <span style={{ fontSize: '11px', color: '#9ca3af', display: 'flex', alignItems: 'center', gap: '3px' }}>
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                            비공개
+                            {t.pastoral.privateLabel}
                           </span>
                         )}
                         <span style={{ fontSize: '11px', color: '#d1d5db', marginLeft: 'auto' }}>
@@ -160,10 +163,10 @@ export default function PastoralPage() {
                         </span>
                       </div>
                       <div style={{ fontSize: '13px', color: '#374151', lineHeight: 1.6, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                        {note.is_private ? '🔒 비공개 노트입니다' : note.content}
+                        {note.is_private ? `🔒 ${t.pastoral.privateContent}` : note.content}
                       </div>
                       {note.author_name && (
-                        <div style={{ fontSize: '11px', color: '#9ca3af', marginTop: '5px' }}>작성: {note.author_name}</div>
+                        <div style={{ fontSize: '11px', color: '#9ca3af', marginTop: '5px' }}>{t.pastoral.authorLabel}{note.author_name}</div>
                       )}
                     </div>
                   </div>
