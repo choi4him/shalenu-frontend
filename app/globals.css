@@ -419,6 +419,21 @@ body {
     max-width: 95vw !important;
   }
 
+  /* r-grid-2 내 gridColumn:1/-1 자식은 1열에서도 full span */
+  .r-grid-2 > [style*="gridColumn"],
+  .r-grid-2 > [style*="grid-column"] {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* 차트 컨테이너 전체 너비 */
+  canvas { max-width: 100% !important; }
+
+  /* 헤더 영역 flex 버튼이 wrap 될 때 버튼 전체 너비 */
+  .page-content > div > div > button.btn-primary-dark { width: 100%; justify-content: center; }
+
+  /* 출석/예약 select 최소 너비 제거 */
+  select[style*="minWidth"] { min-width: 0 !important; width: 100% !important; }
+
   /* 가로 넘침 방지 */
   .page-content > * { max-width: 100%; }
   img, video, iframe { max-width: 100%; }

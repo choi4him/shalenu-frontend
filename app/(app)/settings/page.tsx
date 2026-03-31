@@ -123,7 +123,7 @@ function ChurchTab() {
       {alert && <Alert type={alert.type} msg={alert.msg} />}
       <div style={card}>
         {sectionTitle(t.settings.churchBasicInfo)}
-        <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px' }}>
+        <div className="r-grid-2" style={{ gap:'14px' }}>
           <div style={{ gridColumn:'1/-1' }}>
             <label style={labelSt}>{t.settings.churchName} <span style={{ color:'#ef4444' }}>*</span></label>
             <input className="inp" style={inputSt} placeholder={t.settings.churchName} {...f('name')} />

@@ -229,7 +229,7 @@ export default function AttendanceStatsPage() {
         ) : (
           <>
             {/* ── 요약 카드 4개 ── */}
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'12px', marginBottom:'20px' }}>
+            <div className="r-grid-4" style={{ gap:'12px', marginBottom:'20px' }}>
               {([
                 { label:'출석', key:'present', icon:'✅', color:STATUS_COLORS.present, bg:'#fdf8e8', border:'#f0d88a' },
                 { label:'결석', key:'absent',  icon:'❌', color:STATUS_COLORS.absent,  bg:'#fef2f2', border:'#fecaca' },
@@ -250,7 +250,7 @@ export default function AttendanceStatsPage() {
             </div>
 
             {/* ── 차트 2개 ── */}
-            <div style={{ display:'grid', gridTemplateColumns:'2fr 1fr', gap:'16px', marginBottom:'20px' }}>
+            <div className="m-1col" style={{ display:'grid', gridTemplateColumns:'2fr 1fr', gap:'16px', marginBottom:'20px' }}>
               <div style={{ background:'#fff', borderRadius:'16px', padding:'20px', border:'1px solid #f1f5f9', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'14px' }}>
                   <div style={{ width:'4px', height:'18px', background:'linear-gradient(#c9a84c,#c9a84c)', borderRadius:'99px' }}/>

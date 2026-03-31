@@ -200,7 +200,7 @@ export default function OfferingsPage() {
       </div>
 
       {/* 이번 달 통계 카드 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+      <div className="r-grid-2" style={{ gap: '16px', marginBottom: '24px' }}>
         <StatCard
           accentColor="#c9a84c"
           icon={

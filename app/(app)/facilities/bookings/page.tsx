@@ -203,7 +203,7 @@ export default function BookingsPage() {
         )}
 
         {/* 통계 카드 */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '10px', marginBottom: '20px' }}>
+        <div className="r-grid-4" style={{ gap: '10px', marginBottom: '20px' }}>
           {TABS.map(t => {
             const cfg = STATUS[t.key] ?? { color: '#c9a84c', bg: '#fdf8e8', border: '#f0d88a' };
             const isSel = statusTab === t.key;
@@ -235,6 +235,8 @@ export default function BookingsPage() {
 
         {/* 테이블 */}
         <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f1f5f9', boxShadow: '0 1px 4px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+          <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+          <div style={{ minWidth: '560px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '110px 90px 1fr 90px 80px 90px', gap: '0', padding: '10px 20px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
             {['날짜', '시간', '예약 제목 / 시설', '신청자', '상태', '관리'].map(h => (
               <span key={h} style={{ fontSize: '11px', fontWeight: 700, color: '#9ca3af', letterSpacing: '0.03em' }}>{h}</span>
@@ -281,6 +283,8 @@ export default function BookingsPage() {
               );
             })
           )}
+          </div>
+          </div>
         </div>
       </div>
 
