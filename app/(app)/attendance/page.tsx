@@ -26,11 +26,11 @@ function getMemberName(m: Member | GroupMember): string {
 
 type AttStatus = 'present' | 'absent' | 'late' | 'online';
 
-const STATUS_CONFIG: Record<AttStatus, { label: string; color: string; bg: string; border: string }> = {
-  present: { label: '출석', color: '#16a34a', bg: '#f0fdf4', border: '#86efac' },
-  absent:  { label: '결석', color: '#dc2626', bg: '#fef2f2', border: '#fca5a5' },
-  late:    { label: '지각', color: '#d97706', bg: '#fffbeb', border: '#fcd34d' },
-  online:  { label: '온라인', color: '#c9a84c', bg: '#fdf8e8', border: '#e8d48b' },
+const STATUS_COLORS: Record<AttStatus, { color: string; bg: string; border: string }> = {
+  present: { color: '#16a34a', bg: '#f0fdf4', border: '#86efac' },
+  absent:  { color: '#dc2626', bg: '#fef2f2', border: '#fca5a5' },
+  late:    { color: '#d97706', bg: '#fffbeb', border: '#fcd34d' },
+  online:  { color: '#c9a84c', bg: '#fdf8e8', border: '#e8d48b' },
 };
 
 const STATUS_ORDER: AttStatus[] = ['present', 'absent', 'late', 'online'];
@@ -41,6 +41,13 @@ function toDateStr(d: Date) {
 }
 function fmtDate(s: string) {
   const d = new Date(s + 'T00:00:00');
+  const lang = typeof window !== 'undefined' ? (localStorage.getItem('lang') || 'ko') : 'ko';
+  if (lang === 'en') {
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return `${mm}/${dd}/${d.getFullYear()} ${days[d.getDay()]}`;
+  }
   return d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' });
 }
 
@@ -49,6 +56,8 @@ function AttRow({ name, memberId, status, onChange }: {
   name: string; memberId: number;
   status: AttStatus; onChange: (id: number, s: AttStatus) => void;
 }) {
+  const { t } = useTranslation();
+  const statusLabels = t.attendance.statusLabels as Record<string, string>;
   return (
     <div style={{ display:'flex', alignItems:'center', gap:'10px', padding:'10px 14px', borderRadius:'11px', background:'#fff', border:'1px solid #f1f5f9', marginBottom:'6px', transition:'all 0.12s' }}>
       {/* 아바타 */}
@@ -59,12 +68,12 @@ function AttRow({ name, memberId, status, onChange }: {
       {/* 상태 버튼 그룹 */}
       <div style={{ display:'flex', gap:'5px' }}>
         {STATUS_ORDER.map(s => {
-          const c = STATUS_CONFIG[s];
+          const c = STATUS_COLORS[s];
           const sel = status === s;
           return (
             <button key={s} onClick={() => onChange(memberId, s)}
               style={{ padding:'5px 11px', borderRadius:'20px', border:`1.5px solid ${sel ? c.border : '#e5e7eb'}`, background:sel ? c.bg : '#fff', color:sel ? c.color : '#9ca3af', fontSize:'12px', fontWeight:sel ? 700 : 500, cursor:'pointer', fontFamily:'inherit', transition:'all 0.13s' }}>
-              {c.label}
+              {statusLabels[s] ?? s}
             </button>
           );
         })}
@@ -76,6 +85,7 @@ function AttRow({ name, memberId, status, onChange }: {
 // ─── 예배 출석 탭 ─────────────────────────────────────────
 function WorshipTab({ date }: { date: string }) {
   const { t } = useTranslation();
+  const statusLabels = t.attendance.statusLabels as Record<string, string>;
   const [worships,   setWorships]   = useState<Worship[]>([]);
   const [worshipId,  setWorshipId]  = useState<number | ''>('');
   const [members,    setMembers]    = useState<Member[]>([]);
@@ -156,11 +166,11 @@ function WorshipTab({ date }: { date: string }) {
         <div style={{ display:'flex', gap:'5px', alignItems:'center' }}>
           <span style={{ fontSize:'12px', color:'#9ca3af', marginRight:'2px' }}>{t.attendance.batchApply}</span>
           {STATUS_ORDER.map(s => {
-            const c = STATUS_CONFIG[s];
+            const c = STATUS_COLORS[s];
             return (
               <button key={s} onClick={() => applyQuickAll(s)}
                 style={{ padding:'5px 10px', borderRadius:'18px', border:`1.5px solid ${quickAll===s?c.border:'#e5e7eb'}`, background:quickAll===s?c.bg:'#fff', color:quickAll===s?c.color:'#6b7280', fontSize:'11px', fontWeight:quickAll===s?700:500, cursor:'pointer', fontFamily:'inherit' }}>
-                {c.label}
+                {statusLabels[s] ?? s}
               </button>
             );
           })}
@@ -170,12 +180,12 @@ function WorshipTab({ date }: { date: string }) {
       {/* 요약 카드 */}
       <div style={{ display:'flex', gap:'8px', marginBottom:'14px', flexWrap:'wrap' }}>
         {STATUS_ORDER.map(s => {
-          const c = STATUS_CONFIG[s];
+          const c = STATUS_COLORS[s];
           const total = members.length;
           const cnt = counts[s];
           return (
             <div key={s} style={{ flex:'1 1 80px', minWidth:'80px', padding:'10px 14px', borderRadius:'10px', background:c.bg, border:`1px solid ${c.border}` }}>
-              <div style={{ fontSize:'11px', color:c.color, fontWeight:700, marginBottom:'3px' }}>{c.label}</div>
+              <div style={{ fontSize:'11px', color:c.color, fontWeight:700, marginBottom:'3px' }}>{statusLabels[s] ?? s}</div>
               <div style={{ fontSize:'20px', fontWeight:800, color:c.color }}>{cnt}</div>
               <div style={{ fontSize:'10px', color:`${c.color}88` }}>{total ? Math.round(cnt/total*100) : 0}%</div>
             </div>
@@ -213,6 +223,7 @@ function WorshipTab({ date }: { date: string }) {
 // ─── 구역 출석 탭 ─────────────────────────────────────────
 function GroupTab({ date }: { date: string }) {
   const { t } = useTranslation();
+  const statusLabels = t.attendance.statusLabels as Record<string, string>;
   const [groups,    setGroups]    = useState<Group[]>([]);
   const [groupId,   setGroupId]   = useState<number | ''>('');
   const [members,   setMembers]   = useState<GroupMember[]>([]);
@@ -288,11 +299,11 @@ function GroupTab({ date }: { date: string }) {
           <div style={{ display:'flex', gap:'5px', alignItems:'center' }}>
             <span style={{ fontSize:'12px', color:'#9ca3af', marginRight:'2px' }}>{t.attendance.batchApply}</span>
             {STATUS_ORDER.map(s => {
-              const c = STATUS_CONFIG[s];
+              const c = STATUS_COLORS[s];
               return (
                 <button key={s} onClick={() => applyQuickAll(s)}
                   style={{ padding:'5px 10px', borderRadius:'18px', border:`1.5px solid ${quickAll===s?c.border:'#e5e7eb'}`, background:quickAll===s?c.bg:'#fff', color:quickAll===s?c.color:'#6b7280', fontSize:'11px', fontWeight:quickAll===s?700:500, cursor:'pointer', fontFamily:'inherit' }}>
-                  {c.label}
+                  {statusLabels[s] ?? s}
                 </button>
               );
             })}
@@ -303,12 +314,12 @@ function GroupTab({ date }: { date: string }) {
       {groupId && members.length > 0 && (
         <div style={{ display:'flex', gap:'8px', marginBottom:'14px', flexWrap:'wrap' }}>
           {STATUS_ORDER.map(s => {
-            const c = STATUS_CONFIG[s];
+            const c = STATUS_COLORS[s];
             const total = members.length;
             const cnt = counts[s];
             return (
               <div key={s} style={{ flex:'1 1 80px', minWidth:'80px', padding:'10px 14px', borderRadius:'10px', background:c.bg, border:`1px solid ${c.border}` }}>
-                <div style={{ fontSize:'11px', color:c.color, fontWeight:700, marginBottom:'3px' }}>{c.label}</div>
+                <div style={{ fontSize:'11px', color:c.color, fontWeight:700, marginBottom:'3px' }}>{statusLabels[s] ?? s}</div>
                 <div style={{ fontSize:'20px', fontWeight:800, color:c.color }}>{cnt}</div>
                 <div style={{ fontSize:'10px', color:`${c.color}88` }}>{total ? Math.round(cnt/total*100) : 0}%</div>
               </div>
@@ -383,14 +394,14 @@ export default function AttendancePage() {
 
         {/* 날짜 선택기 */}
         <div style={{ overflowX:'auto', WebkitOverflowScrolling:'touch', marginBottom:'20px' }}>
-        <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', padding:'8px 14px', borderRadius:'12px', background:'#fff', border:'1.5px solid #e5e7eb', boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
+        <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', padding:'8px 14px', borderRadius:'12px', background:'#fff', border:'1.5px solid #e5e7eb', boxShadow:'0 1px 4px rgba(0,0,0,0.05)', flexWrap:'nowrap' }}>
           <button onClick={() => changeDate(-1)}
             style={{ border:'none', background:'none', cursor:'pointer', padding:'4px 6px', borderRadius:'6px', color:'#6b7280', display:'flex', alignItems:'center' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
           <input type="date" value={date} onChange={e => setDate(e.target.value)}
             style={{ border:'none', fontSize:'14px', fontWeight:700, color:'#1a1a1a', fontFamily:'inherit', outline:'none', cursor:'text', background:'transparent' }} />
-          <span style={{ fontSize:'12px', color:'#9ca3af' }}>{fmtDate(date)}</span>
+          <span style={{ fontSize:'14px', color:'#9ca3af', whiteSpace:'nowrap' }}>{fmtDate(date)}</span>
           <button onClick={() => changeDate(1)}
             style={{ border:'none', background:'none', cursor:'pointer', padding:'4px 6px', borderRadius:'6px', color:'#6b7280', display:'flex', alignItems:'center' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>

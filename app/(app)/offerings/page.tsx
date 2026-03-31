@@ -170,7 +170,7 @@ export default function OfferingsPage() {
   };
 
   const now = new Date();
-  const monthLabel = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, '0')}월`;
+  const monthLabel = now.toLocaleDateString(undefined, { year: 'numeric', month: 'long' });
 
   return (
     <div className="page-content" style={{ maxWidth: '1100px' }}>
@@ -210,7 +210,7 @@ export default function OfferingsPage() {
           }
           label={t.offerings.monthlyTotal.replace('{label}', monthLabel)}
           value={monthlyStats ? formatKRW(monthlyStats.total_amount) : '—'}
-          sub={monthlyStats ? `총 ${monthlyStats.count}건` : undefined}
+          sub={monthlyStats ? t.offerings.totalCount.replace('{count}', String(monthlyStats.count)) : undefined}
         />
         <StatCard
           accentColor="#10b981"
@@ -220,7 +220,7 @@ export default function OfferingsPage() {
             </svg>
           }
           label={t.offerings.totalOfferingCount}
-          value={`${total.toLocaleString()}건`}
+          value={`${total.toLocaleString()}${t.common.cases}`}
           sub={t.offerings.allPeriod}
         />
       </div>
@@ -326,24 +326,24 @@ export default function OfferingsPage() {
                       key={o.id}
                       onClick={() => router.push(`/offerings/${o.id}`)}
                     >
-                      <td data-label="날짜" style={{ fontSize: '14px', fontWeight: 500, whiteSpace: 'nowrap' }}>
+                      <td data-label={t.offerings.headers[0]} style={{ fontSize: '14px', fontWeight: 500, whiteSpace: 'nowrap' }}>
                         {fmtDate(o.offering_date)}
                       </td>
-                      <td data-label="종류" style={{ whiteSpace: 'nowrap' }}>
+                      <td data-label={t.offerings.headers[1]} style={{ whiteSpace: 'nowrap' }}>
                         <span className="badge badge-type">
                           {o.offering_type_name ?? o.offering_type_code}
                         </span>
                       </td>
-                      <td data-label="예배" style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
+                      <td data-label={t.offerings.headers[2]} style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                         {o.worship_type_name ?? o.worship_type_code ?? '—'}
                       </td>
-                      <td data-label="금액" style={{ fontSize: '14px', fontWeight: 700, color: 'var(--foreground)', whiteSpace: 'nowrap' }}>
+                      <td data-label={t.offerings.headers[3]} style={{ fontSize: '14px', fontWeight: 700, color: 'var(--foreground)', whiteSpace: 'nowrap' }}>
                         {formatKRW(o.total_amount)}
                       </td>
-                      <td data-label="건수" style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
-                        {o.item_count != null ? `${o.item_count}건` : '—'}
+                      <td data-label={t.offerings.headers[4]} style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
+                        {o.item_count != null ? `${o.item_count}${t.common.cases}` : '—'}
                       </td>
-                      <td data-label="상태" style={{ whiteSpace: 'nowrap' }}>
+                      <td data-label={t.offerings.headers[5]} style={{ whiteSpace: 'nowrap' }}>
                         <StatusBadge status={o.status} />
                       </td>
                     </tr>

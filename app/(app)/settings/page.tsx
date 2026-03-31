@@ -232,7 +232,7 @@ function SortableItem({
           onKeyDown={e => { if(e.key==='Enter') onSaveEdit(); if(e.key==='Escape') onCancelEdit(); }}
           style={{ ...inputSt, flex:1, padding:'5px 9px', fontSize:'13px' }} />
       ) : (
-        <span style={{ flex:1, fontSize:'13px', fontWeight:500, color:item.is_active?'#111827':'#9ca3af' }}>
+        <span style={{ flex:1, fontSize:'13px', fontWeight:500, color:item.is_active?'#111827':'#9ca3af', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>
           {item.label}
         </span>
       )}
@@ -532,10 +532,10 @@ function UsersTab() {
                         {u.full_name}
                       </div>
                     </td>
-                    <td style={{ padding:'11px 13px',color:'#6b7280' }}>{u.email}</td>
+                    <td style={{ padding:'11px 13px',color:'#6b7280',maxWidth:'160px',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{u.email}</td>
                     <td style={{ padding:'11px 13px' }}>
                       <select value={u.role} onChange={e => changeRole(u, e.target.value)}
-                        style={{ padding:'5px 9px',borderRadius:'7px',border:'1.5px solid #e5e7eb',fontSize:'12px',color:ROLE_COLORS[u.role]??'#374151',fontWeight:600,cursor:'pointer',fontFamily:'inherit',background:'#fff',outline:'none' }}>
+                        style={{ padding:'5px 9px',borderRadius:'7px',border:'1.5px solid #e5e7eb',fontSize:'12px',color:ROLE_COLORS[u.role]??'#374151',fontWeight:600,cursor:'pointer',fontFamily:'inherit',background:'#fff',outline:'none',maxWidth:'130px' }}>
                         {Object.entries(t.settings.roleLabels).map(([v,l]) => <option key={v} value={v}>{l}</option>)}
                       </select>
                     </td>
@@ -1100,6 +1100,8 @@ export default function SettingsPage() {
         .tab-btn { display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:10px;border:none;background:transparent;font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;transition:all 0.15s;font-family:inherit; }
         .tab-btn:hover { background:#f1f5f9;color:#374151; }
         .tab-btn.active { background:linear-gradient(135deg,#c9a84c,#c9a84c);color:#fff;font-weight:700;box-shadow:0 3px 10px rgba(201,168,76,0.3); }
+        .tab-scroll { overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none; }
+        .tab-scroll::-webkit-scrollbar { display:none; }
       `}</style>
 
       <div className="page-content" style={{ maxWidth:'820px' }}>
