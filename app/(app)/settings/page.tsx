@@ -166,8 +166,18 @@ function ChurchTab() {
                 localStorage.setItem('currency', e.target.value);
               }}
             >
-              <option value="KRW">₩ KRW (한국 원)</option>
-              <option value="USD">$ USD (미국 달러)</option>
+              <option value="KRW">KRW — ₩ Korean Won</option>
+              <option value="USD">USD — $ US Dollar</option>
+              <option value="JPY">JPY — ¥ Japanese Yen</option>
+              <option value="CNY">CNY — ¥ Chinese Yuan</option>
+              <option value="EUR">EUR — € Euro</option>
+              <option value="GBP">GBP — £ British Pound</option>
+              <option value="CAD">CAD — $ Canadian Dollar</option>
+              <option value="AUD">AUD — $ Australian Dollar</option>
+              <option value="SGD">SGD — $ Singapore Dollar</option>
+              <option value="PHP">PHP — ₱ Philippine Peso</option>
+              <option value="VND">VND — ₫ Vietnamese Dong</option>
+              <option value="THB">THB — ฿ Thai Baht</option>
             </select>
           </div>
         </div>

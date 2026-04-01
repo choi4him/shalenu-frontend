@@ -60,10 +60,25 @@ export async function apiClient<T>(
  */
 export function formatCurrency(amount: number): string {
   const currency = typeof window !== 'undefined' ? (localStorage.getItem('currency') ?? 'KRW') : 'KRW';
-  if (currency === 'USD') {
-    return `$${(amount ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-  }
-  return `₩${(amount ?? 0).toLocaleString('ko-KR')}`;
+  const v = amount ?? 0;
+
+  const CURRENCY_CONFIG: Record<string, { symbol: string; decimals: number }> = {
+    KRW: { symbol: '₩', decimals: 0 },
+    USD: { symbol: '$', decimals: 2 },
+    JPY: { symbol: '¥', decimals: 0 },
+    CNY: { symbol: '¥', decimals: 2 },
+    EUR: { symbol: '€', decimals: 2 },
+    GBP: { symbol: '£', decimals: 2 },
+    CAD: { symbol: '$', decimals: 2 },
+    AUD: { symbol: '$', decimals: 2 },
+    SGD: { symbol: '$', decimals: 2 },
+    PHP: { symbol: '₱', decimals: 2 },
+    VND: { symbol: '₫', decimals: 0 },
+    THB: { symbol: '฿', decimals: 2 },
+  };
+
+  const cfg = CURRENCY_CONFIG[currency] ?? { symbol: currency, decimals: 2 };
+  return `${cfg.symbol}${v.toLocaleString('en-US', { minimumFractionDigits: cfg.decimals, maximumFractionDigits: cfg.decimals })}`;
 }
 
 /** @deprecated formatCurrency 사용 */
