@@ -54,12 +54,20 @@ export async function apiClient<T>(
 }
 
 /**
- * 금액을 한국식 원화로 포매팅
- * ex) 1234000 → "1,234,000원"
+ * 금액을 교회 통화 설정에 따라 포매팅
+ * KRW: 1234000 → "₩1,234,000"
+ * USD: 1234.56 → "$1,234.56"
  */
-export function formatKRW(amount: number): string {
-  return `${(amount ?? 0).toLocaleString('ko-KR')}원`;
+export function formatCurrency(amount: number): string {
+  const currency = typeof window !== 'undefined' ? (localStorage.getItem('currency') ?? 'KRW') : 'KRW';
+  if (currency === 'USD') {
+    return `$${(amount ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  }
+  return `₩${(amount ?? 0).toLocaleString('ko-KR')}`;
 }
+
+/** @deprecated formatCurrency 사용 */
+export const formatKRW = formatCurrency;
 
 /**
  * 날짜를 한국식으로 포매팅

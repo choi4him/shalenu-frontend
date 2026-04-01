@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ──────────────────────────────────────────────
@@ -370,7 +370,7 @@ export default function OfferingNewPage() {
               borderRadius: '10px', padding: '8px 16px',
               fontSize: '15px', fontWeight: 800, color: '#4338ca',
             }}>
-              합계 {formatKRW(total)}
+              합계 {formatCurrency(total)}
             </div>
           </div>
 

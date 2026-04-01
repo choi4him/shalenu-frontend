@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
 import { useTranslation } from '@/lib/i18n';
+import { apiClient } from '@/lib/api';
 
 // ─── 메뉴 구조 정의 ─────────────────────────────────────
 interface SubItem {
@@ -199,10 +200,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     });
   }, [pathname]);
 
-  // 토큰 없으면 로그인 페이지로
+  // 토큰 없으면 로그인 페이지로, 있으면 교회 통화 설정 로드
   useEffect(() => {
     const token = localStorage.getItem('access_token');
-    if (!token) router.replace('/login');
+    if (!token) { router.replace('/login'); return; }
+    apiClient<{ currency?: string }>('/api/v1/churches/me')
+      .then(church => {
+        if (church.currency) localStorage.setItem('currency', church.currency);
+      })
+      .catch(() => {});
   }, [router]);
 
   const handleLogout = () => {

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 
 // ─── 타입 ───────────────────────────────────────────────
 interface Account {
@@ -250,7 +250,7 @@ export default function TransactionNewPage() {
                   <option value="">연결하지 않음</option>
                   {offerings.map(o => (
                     <option key={o.id} value={o.id}>
-                      {o.offering_date} · {o.offering_type_name ?? '헌금'} · {formatKRW(o.total_amount)}
+                      {o.offering_date} · {o.offering_type_name ?? '헌금'} · {formatCurrency(o.total_amount)}
                     </option>
                   ))}
                 </select>

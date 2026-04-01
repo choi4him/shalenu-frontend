@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Script from 'next/script';
-import { apiClient, formatKRW, formatDateKR } from '@/lib/api';
+import { apiClient, formatCurrency, formatDateKR } from '@/lib/api';
 
 
 // ─── 타입 ───────────────────────────────────────────────
@@ -747,7 +747,7 @@ export default function MemberDetailPage() {
                   {[
                     {
                       label: '총 헌금',
-                      value: formatKRW(offerings.filter(o => o.status === 'confirmed').reduce((s, o) => s + o.amount, 0)),
+                      value: formatCurrency(offerings.filter(o => o.status === 'confirmed').reduce((s, o) => s + o.amount, 0)),
                       gradient: 'linear-gradient(135deg,#fdf8e8,#f0d88a)', color: '#7d6324',
                     },
                     {
@@ -798,7 +798,7 @@ export default function MemberDetailPage() {
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                           <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '99px', color: oSt.color, background: oSt.bg }}>{oSt.label}</span>
-                          <span style={{ fontSize: '15px', fontWeight: 800, color: '#1e40af', letterSpacing: '-0.02em' }}>{formatKRW(o.amount)}</span>
+                          <span style={{ fontSize: '15px', fontWeight: 800, color: '#1e40af', letterSpacing: '-0.02em' }}>{formatCurrency(o.amount)}</span>
                         </div>
                       </div>
                     );

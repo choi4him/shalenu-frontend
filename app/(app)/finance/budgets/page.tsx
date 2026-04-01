@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 
 // ─── 타입 ───────────────────────────────────────────────
 interface BudgetItem {
@@ -50,8 +50,8 @@ function ProgressBar({ planned, actual }: { planned: number; actual: number }) {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
         <span style={{ fontSize: '12px', color: '#6b7280' }}>
-          실적: <strong style={{ color: over ? '#dc2626' : '#111827' }}>{formatKRW(actual)}</strong>
-          <span style={{ color: '#9ca3af' }}> / {formatKRW(planned)}</span>
+          실적: <strong style={{ color: over ? '#dc2626' : '#111827' }}>{formatCurrency(actual)}</strong>
+          <span style={{ color: '#9ca3af' }}> / {formatCurrency(planned)}</span>
         </span>
         <span style={{
           fontSize: '11px', fontWeight: 700,
@@ -254,7 +254,7 @@ export default function BudgetListPage() {
                     {year}년 총 예산
                   </div>
                   <div style={{ fontSize:'34px',fontWeight:900,color:'#fff',letterSpacing:'-0.04em' }}>
-                    {formatKRW(budget.total_planned)}
+                    {formatCurrency(budget.total_planned)}
                   </div>
                 </div>
                 <div style={{ display:'flex',flexDirection:'column',alignItems:'flex-end',gap:'8px' }}>
@@ -263,7 +263,7 @@ export default function BudgetListPage() {
                     color: statusCfg.color, background: statusCfg.bg, border:`1px solid ${statusCfg.border}`,
                   }}>{statusCfg.label}</span>
                   <div style={{ fontSize:'13px',color:'rgba(255,255,255,0.7)',textAlign:'right' }}>
-                    총 실적: <strong style={{ color:'#fff' }}>{formatKRW(budget.total_actual)}</strong>
+                    총 실적: <strong style={{ color:'#fff' }}>{formatCurrency(budget.total_actual)}</strong>
                   </div>
                 </div>
               </div>
@@ -324,7 +324,7 @@ export default function BudgetListPage() {
                           </div>
                           <div style={{ marginLeft:'auto',textAlign:'right' }}>
                             <div style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>계획</div>
-                            <div style={{ fontSize:'13px',fontWeight:800,color:'#374151' }}>{formatKRW(item.planned_amount)}</div>
+                            <div style={{ fontSize:'13px',fontWeight:800,color:'#374151' }}>{formatCurrency(item.planned_amount)}</div>
                           </div>
                         </div>
                         <ProgressBar planned={item.planned_amount} actual={item.actual_amount} />

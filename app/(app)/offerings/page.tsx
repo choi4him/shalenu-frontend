@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ──────────────────────────────────────────────
@@ -209,7 +209,7 @@ export default function OfferingsPage() {
             </svg>
           }
           label={t.offerings.monthlyTotal.replace('{label}', monthLabel)}
-          value={monthlyStats ? formatKRW(monthlyStats.total_amount) : '—'}
+          value={monthlyStats ? formatCurrency(monthlyStats.total_amount) : '—'}
           sub={monthlyStats ? t.offerings.totalCount.replace('{count}', String(monthlyStats.count)) : undefined}
         />
         <StatCard
@@ -338,7 +338,7 @@ export default function OfferingsPage() {
                         {o.worship_type_name ?? o.worship_type_code ?? '—'}
                       </td>
                       <td data-label={t.offerings.headers[3]} style={{ fontSize: '14px', fontWeight: 700, color: 'var(--foreground)', whiteSpace: 'nowrap' }}>
-                        {formatKRW(o.total_amount)}
+                        {formatCurrency(o.total_amount)}
                       </td>
                       <td data-label={t.offerings.headers[4]} style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                         {o.item_count != null ? `${o.item_count}${t.common.cases}` : '—'}

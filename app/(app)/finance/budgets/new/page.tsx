@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 
 // ─── 타입 ───────────────────────────────────────────────
 interface CategoryOption {
@@ -410,7 +410,7 @@ export default function BudgetNewPage() {
             {total > 0 && (
               <div style={{ display:'flex',alignItems:'center',gap:'8px' }}>
                 <span style={{ fontSize:'12px',color:'#6b7280' }}>총 계획</span>
-                <span style={{ fontSize:'16px',fontWeight:900,color:'#7d6324',letterSpacing:'-0.02em' }}>{formatKRW(total)}</span>
+                <span style={{ fontSize:'16px',fontWeight:900,color:'#7d6324',letterSpacing:'-0.02em' }}>{formatCurrency(total)}</span>
               </div>
             )}
           </div>
@@ -554,7 +554,7 @@ export default function BudgetNewPage() {
                       </div>
                       {line.planned_amount > 0 && (
                         <div style={{ fontSize:'11px',color:'#c9a84c',fontWeight:600,marginTop:'3px',textAlign:'right' }}>
-                          {formatKRW(line.planned_amount)}
+                          {formatCurrency(line.planned_amount)}
                         </div>
                       )}
                     </div>
@@ -582,7 +582,7 @@ export default function BudgetNewPage() {
         }}>
           <div>
             <div style={{ fontSize:'11px',fontWeight:700,color:'#c9a84c',letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:'3px' }}>총 예산 합계</div>
-            <div style={{ fontSize:'26px',fontWeight:900,color:'#7d6324',letterSpacing:'-0.04em' }}>{formatKRW(total)}</div>
+            <div style={{ fontSize:'26px',fontWeight:900,color:'#7d6324',letterSpacing:'-0.04em' }}>{formatCurrency(total)}</div>
           </div>
           <div style={{ display:'flex',flexDirection:'column',gap:'4px',alignItems:'flex-end',maxHeight:'80px',overflowY:'auto' }}>
             {lines.filter(l => l.planned_amount > 0).map(l => (
@@ -591,7 +591,7 @@ export default function BudgetNewPage() {
                   {categories.find(c => c.value === l.category)?.label ?? l.category}
                   {l.description ? ` · ${l.description}` : ''}
                 </span>
-                <span style={{ fontWeight:700,color:'#7d6324' }}>{formatKRW(l.planned_amount)}</span>
+                <span style={{ fontWeight:700,color:'#7d6324' }}>{formatCurrency(l.planned_amount)}</span>
               </div>
             ))}
           </div>

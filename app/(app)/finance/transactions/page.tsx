@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 ───────────────────────────────────────────────
@@ -181,9 +181,9 @@ export default function TransactionsPage() {
         {/* 간단 통계 */}
         <div className="r-grid-3" style={{ gap: '14px', marginBottom: '20px' }}>
           {[
-            { label: t.transactions.incomeTotal, value: formatKRW(incomeSum), color: '#7d6324', bg: 'linear-gradient(135deg,#fdf8e8,#f0d88a)' },
-            { label: t.transactions.expenseTotal, value: formatKRW(expenseSum), color: '#be123c', bg: 'linear-gradient(135deg,#fff1f2,#fecdd3)' },
-            { label: t.transactions.netProfit, value: formatKRW(incomeSum - expenseSum), color: incomeSum >= expenseSum ? '#059669' : '#dc2626', bg: 'linear-gradient(135deg,#f0fdf4,#bbf7d0)' },
+            { label: t.transactions.incomeTotal, value: formatCurrency(incomeSum), color: '#7d6324', bg: 'linear-gradient(135deg,#fdf8e8,#f0d88a)' },
+            { label: t.transactions.expenseTotal, value: formatCurrency(expenseSum), color: '#be123c', bg: 'linear-gradient(135deg,#fff1f2,#fecdd3)' },
+            { label: t.transactions.netProfit, value: formatCurrency(incomeSum - expenseSum), color: incomeSum >= expenseSum ? '#059669' : '#dc2626', bg: 'linear-gradient(135deg,#f0fdf4,#bbf7d0)' },
           ].map(c => (
             <div key={c.label} style={{ background: c.bg, borderRadius: '12px', padding: '16px 18px', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
               <div style={{ fontSize: '11px', fontWeight: 700, color: 'rgba(0,0,0,0.4)', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '4px' }}>{c.label}</div>
@@ -306,12 +306,12 @@ export default function TransactionsPage() {
                         </td>
                         <td data-label={headers[4]} style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
                           {tx.transaction_type === 'income' ? (
-                            <span style={{ color:'#2563eb' }}>+ {formatKRW(tx.amount)}</span>
+                            <span style={{ color:'#2563eb' }}>+ {formatCurrency(tx.amount)}</span>
                           ) : '—'}
                         </td>
                         <td data-label={headers[5]} style={{ padding:'14px 18px', fontSize:'14px', fontWeight:700, whiteSpace:'nowrap' }}>
                           {tx.transaction_type === 'expense' ? (
-                            <span style={{ color:'#dc2626' }}>– {formatKRW(tx.amount)}</span>
+                            <span style={{ color:'#dc2626' }}>– {formatCurrency(tx.amount)}</span>
                           ) : '—'}
                         </td>
                       </tr>

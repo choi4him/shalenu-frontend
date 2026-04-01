@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { apiClient, formatKRW, formatDateKR } from '@/lib/api';
+import { apiClient, formatCurrency, formatDateKR } from '@/lib/api';
 
 // ─── 타입 ───────────────────────────────────────────────
 interface OfferingItem {
@@ -228,7 +228,7 @@ export default function OfferingDetailPage() {
               <div style={{ height: '44px', width: '200px', borderRadius: '10px', background: 'rgba(255,255,255,0.2)', animation: 'shimmer 1.5s infinite' }} />
             ) : (
               <div style={{ fontSize: '38px', fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1 }}>
-                {offering ? formatKRW(offering.total_amount) : '—'}
+                {offering ? formatCurrency(offering.total_amount) : '—'}
               </div>
             )}
             <div style={{ marginTop: '8px', fontSize: '13px', color: 'rgba(255,255,255,0.65)', fontWeight: 500 }}>
@@ -338,7 +338,7 @@ export default function OfferingDetailPage() {
                           {/* 금액 */}
                           <td data-label="금액" style={{ padding: '14px 18px' }}>
                             <span style={{ fontSize: '15px', fontWeight: 800, color: '#1e40af', letterSpacing: '-0.02em' }}>
-                              {formatKRW(item.amount)}
+                              {formatCurrency(item.amount)}
                             </span>
                           </td>
 
@@ -376,7 +376,7 @@ export default function OfferingDetailPage() {
                     </td>
                     <td style={{ padding: '14px 18px' }}>
                       <span style={{ fontSize: '17px', fontWeight: 900, color: '#7d6324', letterSpacing: '-0.03em' }}>
-                        {formatKRW(items.reduce((s, i) => s + i.amount, 0))}
+                        {formatCurrency(items.reduce((s, i) => s + i.amount, 0))}
                       </span>
                     </td>
                     <td colSpan={2} />

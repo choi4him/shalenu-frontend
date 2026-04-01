@@ -28,6 +28,7 @@ interface Church {
   phone?:       string;
   denomination?: string;
   founded_at?:  string;
+  currency?:    string;
 }
 
 interface LookupItem {
@@ -88,6 +89,7 @@ function ChurchTab() {
   useEffect(() => {
     apiClient<Church>('/api/v1/churches/me').then(d => {
       setData(d); setForm(d);
+      if (d.currency) localStorage.setItem('currency', d.currency);
     }).catch(() => {}).finally(() => setLoading(false));
   }, []);
 
@@ -153,6 +155,19 @@ function ChurchTab() {
               {t.settings.denominations.map(d => (
                 <option key={d} value={d}>{d}</option>
               ))}
+            </select>
+          </div>
+          <div style={{ gridColumn:'1/-1' }}>
+            <label style={labelSt}>{lang === 'ko' ? '통화 설정' : 'Currency'}</label>
+            <select className="inp" style={inputSt}
+              value={form.currency ?? 'KRW'}
+              onChange={e => {
+                setForm(p => ({ ...p, currency: e.target.value }));
+                localStorage.setItem('currency', e.target.value);
+              }}
+            >
+              <option value="KRW">₩ KRW (한국 원)</option>
+              <option value="USD">$ USD (미국 달러)</option>
             </select>
           </div>
         </div>

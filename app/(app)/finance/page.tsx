@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 import { useTranslation } from '@/lib/i18n';
 import {
   Chart as ChartJS,
@@ -231,28 +231,28 @@ export default function FinancePage() {
             <SummaryCard
               gradient="linear-gradient(135deg,#fdf8e8 0%,#f0d88a 100%)"
               label={t.finance.totalIncome}
-              value={summary ? formatKRW(Number(summary.total_income)) : '—'}
+              value={summary ? formatCurrency(Number(summary.total_income)) : '—'}
               valueColor="#7d6324"
               icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
             />
             <SummaryCard
               gradient="linear-gradient(135deg,#fff1f2 0%,#fecdd3 100%)"
               label={t.finance.totalExpense}
-              value={summary ? formatKRW(Number(summary.total_expense)) : '—'}
+              value={summary ? formatCurrency(Number(summary.total_expense)) : '—'}
               valueColor="#be123c"
               icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e11d48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>}
             />
             <SummaryCard
               gradient={summary && netProfit >= 0 ? 'linear-gradient(135deg,#f0fdf4 0%,#bbf7d0 100%)' : 'linear-gradient(135deg,#fff7ed 0%,#fed7aa 100%)'}
               label={t.finance.netProfit}
-              value={summary ? formatKRW(netProfit) : '—'}
+              value={summary ? formatCurrency(netProfit) : '—'}
               valueColor={netColor}
               icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={netColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>}
             />
             <SummaryCard
               gradient="linear-gradient(135deg,#f0f9ff 0%,#bae6fd 100%)"
               label={t.finance.currentBalance}
-              value={summary ? formatKRW(Number(summary.current_balance)) : '—'}
+              value={summary ? formatCurrency(Number(summary.current_balance)) : '—'}
               valueColor="#0369a1"
               icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>}
             />
@@ -378,7 +378,7 @@ export default function FinancePage() {
                       )}
                     </div>
                     <div style={{ fontSize: '15px', fontWeight: 700, color: acc.balance >= 0 ? '#1e40af' : '#dc2626', letterSpacing: '-0.02em', flexShrink: 0 }}>
-                      {formatKRW(Number(acc.balance))}
+                      {formatCurrency(Number(acc.balance))}
                     </div>
                   </div>
                 );

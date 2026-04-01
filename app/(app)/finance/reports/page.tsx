@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 import {
   Chart as ChartJS,
   CategoryScale, LinearScale,
@@ -332,26 +332,26 @@ export default function FinanceReportsPage() {
               <SummaryCard
                 gradient="linear-gradient(135deg,#fdf8e8,#f0d88a)"
                 label="총 수입" valueColor="#7d6324"
-                value={summary ? formatKRW(summary.total_income) : '—'}
+                value={summary ? formatCurrency(summary.total_income) : '—'}
                 icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
               />
               <SummaryCard
                 gradient="linear-gradient(135deg,#fff1f2,#fecdd3)"
                 label="총 지출" valueColor="#be123c"
-                value={summary ? formatKRW(summary.total_expense) : '—'}
+                value={summary ? formatCurrency(summary.total_expense) : '—'}
                 icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e11d48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>}
               />
               <SummaryCard
                 gradient={summary && summary.net_profit >= 0 ? 'linear-gradient(135deg,#f0fdf4,#bbf7d0)' : 'linear-gradient(135deg,#fff7ed,#fed7aa)'}
                 label="순이익" valueColor={netColor}
-                value={summary ? formatKRW(summary.net_profit) : '—'}
+                value={summary ? formatCurrency(summary.net_profit) : '—'}
                 sub={summary && summary.total_income > 0 ? `수입 대비 ${((summary.net_profit / summary.total_income) * 100).toFixed(1)}%` : undefined}
                 icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={netColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>}
               />
               <SummaryCard
                 gradient="linear-gradient(135deg,#f0f9ff,#bae6fd)"
                 label="현재 잔액" valueColor="#0369a1"
-                value={summary ? formatKRW(summary.current_balance) : '—'}
+                value={summary ? formatCurrency(summary.current_balance) : '—'}
                 icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>}
               />
             </div>
@@ -400,7 +400,7 @@ export default function FinanceReportsPage() {
                   transform: 'translate(-50%,-50%)', textAlign: 'center', pointerEvents: 'none',
                 }}>
                   <div style={{ fontSize: '11px', color: '#8b6914', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>총 지출</div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#1a1a1a', marginTop: '2px' }}>{formatKRW(totalExpTx)}</div>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#1a1a1a', marginTop: '2px' }}>{formatCurrency(totalExpTx)}</div>
                 </div>
               </div>
             )}
@@ -415,7 +415,7 @@ export default function FinanceReportsPage() {
                       <div style={{ width: '10px', height: '10px', borderRadius: '3px', background: DONUT_COLORS[i], flexShrink: 0 }} />
                       <span style={{ fontSize: '12px', color: '#1a1a1a', fontWeight: 500, flex: 1 }}>{CATEGORY_LABELS[cat] ?? cat}</span>
                       <span style={{ fontSize: '11px', color: '#8b6914' }}>{pct}%</span>
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#1a1a1a' }}>{formatKRW(amt)}</span>
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#1a1a1a' }}>{formatCurrency(amt)}</span>
                     </div>
                   );
                 })}
@@ -462,16 +462,16 @@ export default function FinanceReportsPage() {
                       <tr key={i} style={{ borderBottom: '1px solid rgba(160,120,40,0.15)', background: hasData ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)' }}>
                         <td data-label="월" style={{ padding: '13px 20px', fontSize: '14px', fontWeight: 600, color: '#1a1a1a' }}>{row.month}</td>
                         <td data-label="수입 합계" style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.income > 0 ? 700 : 400, color: row.income > 0 ? '#7d6324' : '#d1d5db' }}>
-                          {row.income > 0 ? formatKRW(row.income) : '—'}
+                          {row.income > 0 ? formatCurrency(row.income) : '—'}
                         </td>
                         <td data-label="지출 합계" style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: row.expense > 0 ? 700 : 400, color: row.expense > 0 ? '#be123c' : '#d1d5db' }}>
-                          {row.expense > 0 ? formatKRW(row.expense) : '—'}
+                          {row.expense > 0 ? formatCurrency(row.expense) : '—'}
                         </td>
                         <td data-label="순이익" style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: 700, color: row.net > 0 ? '#059669' : row.net < 0 ? '#dc2626' : '#9ca3af' }}>
-                          {row.net > 0 ? `+${formatKRW(row.net)}` : row.net < 0 ? `${formatKRW(row.net)}` : '—'}
+                          {row.net > 0 ? `+${formatCurrency(row.net)}` : row.net < 0 ? `${formatCurrency(row.net)}` : '—'}
                         </td>
                         <td data-label="누계 잔액" style={{ padding: '13px 20px', textAlign: 'right', fontSize: '14px', fontWeight: 700, color: row.cumulative >= 0 ? '#1e40af' : '#dc2626' }}>
-                          {row.income > 0 || row.expense > 0 ? formatKRW(row.cumulative) : '—'}
+                          {row.income > 0 || row.expense > 0 ? formatCurrency(row.cumulative) : '—'}
                         </td>
                       </tr>
                     );
@@ -484,16 +484,16 @@ export default function FinanceReportsPage() {
                   <tr style={{ background: 'linear-gradient(135deg,#f5f7ff,#fdf8e8)', borderTop: '2px solid #f0d88a' }}>
                     <td style={{ padding: '14px 20px', fontSize: '13px', fontWeight: 800, color: '#7d6324' }}>연간 합계</td>
                     <td style={{ padding: '14px 20px', textAlign: 'right', fontSize: '15px', fontWeight: 900, color: '#7d6324', letterSpacing: '-0.02em' }}>
-                      {formatKRW(summary.total_income)}
+                      {formatCurrency(summary.total_income)}
                     </td>
                     <td style={{ padding: '14px 20px', textAlign: 'right', fontSize: '15px', fontWeight: 900, color: '#be123c', letterSpacing: '-0.02em' }}>
-                      {formatKRW(summary.total_expense)}
+                      {formatCurrency(summary.total_expense)}
                     </td>
                     <td style={{ padding: '14px 20px', textAlign: 'right', fontSize: '15px', fontWeight: 900, color: netColor, letterSpacing: '-0.02em' }}>
-                      {summary.net_profit >= 0 ? '+' : ''}{formatKRW(summary.net_profit)}
+                      {summary.net_profit >= 0 ? '+' : ''}{formatCurrency(summary.net_profit)}
                     </td>
                     <td style={{ padding: '14px 20px', textAlign: 'right', fontSize: '15px', fontWeight: 900, color: '#0369a1', letterSpacing: '-0.02em' }}>
-                      {formatKRW(summary.current_balance)}
+                      {formatCurrency(summary.current_balance)}
                     </td>
                   </tr>
                 </tfoot>

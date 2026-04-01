@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import StatCard from '@/components/ui/StatCard';
-import { apiClient, formatKRW, formatDateKR } from '@/lib/api';
+import { apiClient, formatCurrency, formatDateKR } from '@/lib/api';
 import { useTranslation } from '@/lib/i18n';
 
 // ─── 타입 정의 ──────────────────────────────────────────────────────────────
@@ -134,7 +134,7 @@ export default function DashboardPage() {
     },
     {
       title: t.dashboard.monthlyOffering,
-      value: monthlyOffering !== null ? formatKRW(monthlyOffering) : '--',
+      value: monthlyOffering !== null ? formatCurrency(monthlyOffering) : '--',
       subtitle: `${CURRENT_YEAR}${t.common.year} ${CURRENT_MONTH}${t.common.month}`,
       accentColor: '#e8d48b',
       icon: (
@@ -148,7 +148,7 @@ export default function DashboardPage() {
     },
     {
       title: t.dashboard.monthlyExpense,
-      value: monthlyExpense !== null ? formatKRW(monthlyExpense) : '--',
+      value: monthlyExpense !== null ? formatCurrency(monthlyExpense) : '--',
       subtitle: `${CURRENT_YEAR}${t.common.year} ${CURRENT_MONTH}${t.common.month}`,
       accentColor: '#b5923a',
       icon: (
@@ -164,7 +164,7 @@ export default function DashboardPage() {
     },
     {
       title: t.dashboard.currentBalance,
-      value: currentBalance !== null ? formatKRW(currentBalance) : '--',
+      value: currentBalance !== null ? formatCurrency(currentBalance) : '--',
       subtitle: t.dashboard.currentBalanceSubtitle,
       accentColor: '#4a7c59',
       icon: (
@@ -286,7 +286,7 @@ export default function DashboardPage() {
                       letterSpacing: '-0.02em',
                     }}
                   >
-                    {formatKRW(item.amount)}
+                    {formatCurrency(item.amount)}
                   </span>
                 </div>
               ))}

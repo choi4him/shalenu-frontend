@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiClient, formatKRW } from '@/lib/api';
+import { apiClient, formatCurrency } from '@/lib/api';
 import {
   Chart as ChartJS,
   CategoryScale, LinearScale, BarElement, ArcElement,
@@ -77,7 +77,7 @@ function SummaryCard({
       borderTop:`3px solid ${color}`,
     }}>
       <div style={{ fontSize:'11px', fontWeight:700, color:'#9ca3af', textTransform:'uppercase', letterSpacing:'0.05em', marginBottom:'10px' }}>{label}</div>
-      <div style={{ fontSize:'22px', fontWeight:900, color:'#1a1a1a', letterSpacing:'-0.04em', marginBottom:'4px' }}>{formatKRW(amount)}</div>
+      <div style={{ fontSize:'22px', fontWeight:900, color:'#1a1a1a', letterSpacing:'-0.04em', marginBottom:'4px' }}>{formatCurrency(amount)}</div>
       {sub && <div style={{ fontSize:'12px', color:'#6b7280' }}>{sub}</div>}
       <div style={{ marginTop:'10px', height:'4px', borderRadius:'99px', background:bg, overflow:'hidden' }}>
         <div style={{ height:'100%', width:'100%', background:color, borderRadius:'99px' }} />
@@ -284,7 +284,7 @@ export default function OfferingsStatsPage() {
               <SummaryCard
                 label="연간 헌금 합계"
                 amount={stats.grand_total}
-                sub={`${(stats.grand_total / 12).toFixed(0) !== 'NaN' ? '월평균 ' + formatKRW(Math.round(stats.grand_total / 12)) : ''}`}
+                sub={`${(stats.grand_total / 12).toFixed(0) !== 'NaN' ? '월평균 ' + formatCurrency(Math.round(stats.grand_total / 12)) : ''}`}
                 color="#c9a84c"
                 bg="#fdf8e8"
               />
@@ -333,7 +333,7 @@ export default function OfferingsStatsPage() {
                     <div style={{ position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',textAlign:'center',pointerEvents:'none' }}>
                       <div style={{ fontSize:'10px',fontWeight:700,color:'#9ca3af',letterSpacing:'0.05em' }}>합계</div>
                       <div style={{ fontSize:'13px',fontWeight:900,color:'#1a1a1a',whiteSpace:'nowrap' }}>
-                        {formatKRW(stats.grand_total)}
+                        {formatCurrency(stats.grand_total)}
                       </div>
                     </div>
                   )}
@@ -347,7 +347,7 @@ export default function OfferingsStatsPage() {
                         <div style={{ width:'10px',height:'10px',borderRadius:'3px',background:TYPE_PALETTE[i % TYPE_PALETTE.length].border,flexShrink:0 }} />
                         <span style={{ fontSize:'12px',color:'#374151',flex:1 }}>{t.type_label}</span>
                         <span style={{ fontSize:'11px',color:'#9ca3af' }}>{pct}%</span>
-                        <span style={{ fontSize:'12px',fontWeight:700,color:'#1a1a1a',minWidth:'80px',textAlign:'right' }}>{formatKRW(t.total)}</span>
+                        <span style={{ fontSize:'12px',fontWeight:700,color:'#1a1a1a',minWidth:'80px',textAlign:'right' }}>{formatCurrency(t.total)}</span>
                       </div>
                     );
                   })}
@@ -424,11 +424,11 @@ export default function OfferingsStatsPage() {
                       </td>
                       {memberTypeKeys.map(k => (
                         <td key={k} style={{ padding:'11px 14px',textAlign:'right',color:'#374151',whiteSpace:'nowrap' }}>
-                          {m.by_type[k] ? formatKRW(m.by_type[k]) : <span style={{ color:'#d1d5db' }}>—</span>}
+                          {m.by_type[k] ? formatCurrency(m.by_type[k]) : <span style={{ color:'#d1d5db' }}>—</span>}
                         </td>
                       ))}
                       <td style={{ padding:'11px 14px',textAlign:'right',fontWeight:800,color:'#7d6324',whiteSpace:'nowrap' }}>
-                        {formatKRW(m.total)}
+                        {formatCurrency(m.total)}
                       </td>
                     </tr>
                   ))}
@@ -441,12 +441,12 @@ export default function OfferingsStatsPage() {
                       const sum = members.reduce((s, m) => s + (m.by_type[k] ?? 0), 0);
                       return (
                         <td key={k} style={{ padding:'12px 14px',textAlign:'right',fontWeight:700,color:'#374151',whiteSpace:'nowrap' }}>
-                          {sum > 0 ? formatKRW(sum) : <span style={{ color:'#d1d5db' }}>—</span>}
+                          {sum > 0 ? formatCurrency(sum) : <span style={{ color:'#d1d5db' }}>—</span>}
                         </td>
                       );
                     })}
                     <td style={{ padding:'12px 14px',textAlign:'right',fontWeight:900,color:'#7d6324',whiteSpace:'nowrap' }}>
-                      {formatKRW(members.reduce((s, m) => s + m.total, 0))}
+                      {formatCurrency(members.reduce((s, m) => s + m.total, 0))}
                     </td>
                   </tr>
                 </tfoot>
