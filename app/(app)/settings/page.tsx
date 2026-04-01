@@ -79,7 +79,7 @@ function Alert({ type, msg }: { type:'ok'|'err', msg:string }) {
 // 탭 1: 교회 정보
 // ═══════════════════════════════════════════════════════
 function ChurchTab() {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const [data,    setData]    = useState<Church | null>(null);
   const [form,    setForm]    = useState<Partial<Church>>({});
   const [loading, setLoading] = useState(true);
