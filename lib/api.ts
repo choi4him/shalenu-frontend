@@ -32,7 +32,8 @@ export async function apiClient<T>(
   if (res.status === 401) {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('access_token');
-      window.location.href = '/login';
+      const lang = window.location.pathname.split('/')[1] || 'ko';
+      window.location.href = `/${lang}/login`;
     }
     throw new Error('인증이 만료되었습니다. 다시 로그인해주세요.');
   }
