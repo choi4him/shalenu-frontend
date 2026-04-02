@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useLangRouter } from '@/lib/i18n';
+import { useParams } from 'next/navigation';
+import { useTranslation, useLangRouter } from '@/lib/i18n';
 import { apiClient } from '@/lib/api';
 
 // ─── 타입 ──────────────────────────────────────────────────
@@ -29,18 +30,18 @@ function extractList<T>(res: unknown): T[] {
 }
 
 // ─── 상태 설정 ─────────────────────────────────────────────
-const STATUS_CONFIG: Record<NewcomerStatus, { label: string; color: string; bg: string; border: string; icon: string }> = {
-  visited:    { label: '방문',     color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe', icon: '👋' },
-  pending:    { label: '등록대기', color: '#d97706', bg: '#fffbeb', border: '#fcd34d', icon: '⏳' },
-  registered: { label: '등록완료', color: '#16a34a', bg: '#f0fdf4', border: '#86efac', icon: '✅' },
-  dropped:    { label: '이탈',     color: '#dc2626', bg: '#fef2f2', border: '#fca5a5', icon: '❌' },
+const STATUS_CONFIG: Record<NewcomerStatus, { label: string; labelEn: string; color: string; bg: string; border: string; icon: string }> = {
+  visited:    { label: '방문',     labelEn: 'Visited',    color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe', icon: '👋' },
+  pending:    { label: '등록대기', labelEn: 'Pending',    color: '#d97706', bg: '#fffbeb', border: '#fcd34d', icon: '⏳' },
+  registered: { label: '등록완료', labelEn: 'Registered', color: '#16a34a', bg: '#f0fdf4', border: '#86efac', icon: '✅' },
+  dropped:    { label: '이탈',     labelEn: 'Left',       color: '#dc2626', bg: '#fef2f2', border: '#fca5a5', icon: '❌' },
 };
-const STATUS_TABS: Array<{ key: 'all' | NewcomerStatus; label: string }> = [
-  { key: 'all',        label: '전체' },
-  { key: 'visited',    label: '방문' },
-  { key: 'pending',    label: '등록대기' },
-  { key: 'registered', label: '등록완료' },
-  { key: 'dropped',    label: '이탈' },
+const STATUS_TABS: Array<{ key: 'all' | NewcomerStatus; label: string; labelEn: string }> = [
+  { key: 'all',        label: '전체',     labelEn: 'All' },
+  { key: 'visited',    label: '방문',     labelEn: 'Visited' },
+  { key: 'pending',    label: '등록대기', labelEn: 'Pending' },
+  { key: 'registered', label: '등록완료', labelEn: 'Registered' },
+  { key: 'dropped',    label: '이탈',     labelEn: 'Left' },
 ];
 const VISIT_ROUTES = ['지인 소개', '인터넷 검색', '전도', '가족', '직접 방문', '기타'];
 
@@ -57,9 +58,11 @@ const labelSt: React.CSSProperties = {
 // ─── 상태 뱃지 ─────────────────────────────────────────────
 function StatusBadge({ status }: { status: NewcomerStatus }) {
   const c = STATUS_CONFIG[status];
+  const params = useParams();
+  const l = (params?.lang as string) || 'ko';
   return (
     <span style={{ padding: '3px 10px', borderRadius: '20px', background: c.bg, color: c.color, border: `1px solid ${c.border}`, fontSize: '11px', fontWeight: 700 }}>
-      {c.icon} {c.label}
+      {c.icon} {l === 'en' ? c.labelEn : c.label}
     </span>
   );
 }
@@ -244,6 +247,7 @@ function NewcomerCard({ nc, onClick }: { nc: Newcomer; onClick: () => void }) {
 // ─── 메인 페이지 ────────────────────────────────────────────
 export default function NewcomersPage() {
   const router = useLangRouter();
+  const { lang } = useTranslation();
   const [newcomers,    setNewcomers]    = useState<Newcomer[]>([]);
   const [loading,      setLoading]      = useState(true);
   const [tab,          setTab]          = useState<'all' | NewcomerStatus>('all');
@@ -280,19 +284,19 @@ export default function NewcomersPage() {
         {/* 헤더 */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px', gap: '16px', flexWrap: 'wrap' }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>새가족 관리</h1>
-            <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>방문 새가족을 관리하고 교인으로 연결합니다</p>
+            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em' }}>{lang === 'en' ? 'Newcomer Management' : '새가족 관리'}</h1>
+            <p style={{ margin: '5px 0 0', fontSize: '13px', color: '#9ca3af' }}>{lang === 'en' ? 'Manage newcomers and connect them as members' : '방문 새가족을 관리하고 교인으로 연결합니다'}</p>
           </div>
           <button onClick={() => setShowCreate(true)}
             style={{ display: 'flex', alignItems: 'center', gap: '7px', padding: '10px 20px', borderRadius: '11px', border: 'none', background: 'linear-gradient(135deg,#c9a84c,#c9a84c)', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(201,168,76,0.35)', flexShrink: 0 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            새가족 등록
+            {lang === 'en' ? 'Register Newcomer' : '새가족 등록'}
           </button>
         </div>
 
         {/* 검색 */}
         <div style={{ marginBottom: '16px' }}>
-          <input style={{ ...inputSt, maxWidth: '280px' }} placeholder="이름 검색..."
+          <input style={{ ...inputSt, maxWidth: '280px' }} placeholder={lang === 'en' ? 'Search by name...' : '이름 검색...'}
             value={search} onChange={e => setSearch(e.target.value)} />
         </div>
 
@@ -304,7 +308,7 @@ export default function NewcomersPage() {
             return (
               <button key={t.key} onClick={() => setTab(t.key as 'all' | NewcomerStatus)}
                 style={{ padding: '7px 16px', borderRadius: '20px', border: `1.5px solid ${sel ? (cfg?.border ?? '#c9a84c') : '#e5e7eb'}`, background: sel ? (cfg?.bg ?? '#fdf8e8') : '#fff', color: sel ? (cfg?.color ?? '#c9a84c') : '#6b7280', fontSize: '13px', fontWeight: sel ? 700 : 500, cursor: 'pointer', transition: 'all 0.15s', fontFamily: 'inherit' }}>
-                {t.label}
+                {lang === 'en' ? t.labelEn : t.label}
                 <span style={{ marginLeft: '5px', padding: '1px 6px', borderRadius: '10px', background: sel ? 'rgba(255,255,255,0.5)' : '#f3f4f6', fontSize: '11px', fontWeight: 700 }}>
                   {counts[t.key] ?? 0}
                 </span>
@@ -320,9 +324,9 @@ export default function NewcomersPage() {
           <div style={{ textAlign: 'center', padding: '60px', background: '#f9fafb', borderRadius: '16px', border: '1.5px dashed #e5e7eb' }}>
             <div style={{ fontSize: '40px', marginBottom: '12px' }}>👋</div>
             <div style={{ fontSize: '15px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>
-              {search ? '검색 결과가 없습니다' : '등록된 새가족이 없습니다'}
+              {search ? (lang === 'en' ? 'No results found' : '검색 결과가 없습니다') : (lang === 'en' ? 'No newcomers registered' : '등록된 새가족이 없습니다')}
             </div>
-            <div style={{ fontSize: '13px', color: '#9ca3af', marginBottom: '16px' }}>새가족 등록 버튼으로 추가해보세요</div>
+            <div style={{ fontSize: '13px', color: '#9ca3af', marginBottom: '16px' }}>{lang === 'en' ? 'Use the button above to add newcomers' : '새가족 등록 버튼으로 추가해보세요'}</div>
             {!search && (
               <button onClick={() => setShowCreate(true)}
                 style={{ padding: '9px 20px', borderRadius: '10px', border: 'none', background: '#c9a84c', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>

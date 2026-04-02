@@ -431,34 +431,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
           {/* 하단: 언어 전환 + 성경구절 + 로그아웃 */}
           <div style={{ padding:'14px 16px', borderTop:'1px solid rgba(201,168,76,0.12)' }}>
-            {/* 언어 전환 버튼 */}
-            <div style={{ display:'flex', gap:'6px', marginBottom:'10px' }}>
-              <button
-                onClick={() => changeLang('ko')}
-                style={{
-                  flex:1, padding:'7px 0', borderRadius:'8px', border:'none', cursor:'pointer',
-                  fontSize:'13px', fontWeight: lang === 'ko' ? 700 : 500, fontFamily:'inherit',
-                  background: lang === 'ko' ? 'rgba(201,168,76,0.2)' : 'transparent',
-                  color: lang === 'ko' ? '#f0d88a' : '#8a7e60',
-                  transition:'all 0.15s',
-                }}
-              >
-                🇰🇷 한국어
-              </button>
-              <button
-                onClick={() => changeLang('en')}
-                style={{
-                  flex:1, padding:'7px 0', borderRadius:'8px', border:'none', cursor:'pointer',
-                  fontSize:'13px', fontWeight: lang === 'en' ? 700 : 500, fontFamily:'inherit',
-                  background: lang === 'en' ? 'rgba(201,168,76,0.2)' : 'transparent',
-                  color: lang === 'en' ? '#f0d88a' : '#8a7e60',
-                  transition:'all 0.15s',
-                }}
-              >
-                🇺🇸 English
-              </button>
-            </div>
-
             {/* 성경 구절 */}
             <div style={{ padding:'12px 14px', marginBottom:'10px', borderRadius:'10px', background:'rgba(201,168,76,0.06)', border:'1px solid rgba(201,168,76,0.1)' }}>
               <p style={{ fontSize:'14px', color:'#c9a84c', margin:0, lineHeight:'1.6', fontStyle:'italic' }}>

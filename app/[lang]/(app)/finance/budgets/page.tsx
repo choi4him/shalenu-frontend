@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useLangRouter } from '@/lib/i18n';
+import { useTranslation, useLangRouter } from '@/lib/i18n';
 import { apiClient, formatCurrency } from '@/lib/api';
 
 // ─── 타입 ───────────────────────────────────────────────
@@ -91,6 +91,7 @@ function Sk({ w = '100%', h = '16px', r = '6px' }: { w?: string; h?: string; r?:
 // ─── 메인 ───────────────────────────────────────────────
 export default function BudgetListPage() {
   const router = useLangRouter();
+  const { lang } = useTranslation();
   const [year,    setYear]    = useState(new Date().getFullYear());
   const [budget,  setBudget]  = useState<Budget | null>(null);
   const [loading, setLoading] = useState(true);
@@ -151,8 +152,8 @@ export default function BudgetListPage() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div>
-              <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 4px' }}>예산 관리</h1>
-              <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>연도별 예산 편성 및 실적 비교</p>
+              <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 4px' }}>{lang === 'en' ? 'Budget Management' : '예산 관리'}</h1>
+              <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>{lang === 'en' ? 'Annual budget planning' : '연도별 예산 편성 및 실적 비교'}</p>
             </div>
           </div>
 
@@ -179,7 +180,7 @@ export default function BudgetListPage() {
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity='1'; (e.currentTarget as HTMLButtonElement).style.transform='none'; }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              예산 편성
+              {lang === 'en' ? 'Create Budget' : '예산 편성'}
             </button>
           </div>
         </div>
@@ -251,7 +252,7 @@ export default function BudgetListPage() {
               <div style={{ display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:'20px',flexWrap:'wrap',gap:'12px' }}>
                 <div>
                   <div style={{ fontSize:'12px',fontWeight:700,color:'rgba(255,255,255,0.6)',letterSpacing:'0.07em',textTransform:'uppercase',marginBottom:'6px' }}>
-                    {year}년 총 예산
+                    {lang === 'en' ? `${year} Total Budget` : `${year}년 총 예산`}
                   </div>
                   <div style={{ fontSize:'34px',fontWeight:900,color:'#fff',letterSpacing:'-0.04em' }}>
                     {formatCurrency(budget.total_planned)}
@@ -261,9 +262,9 @@ export default function BudgetListPage() {
                   <span style={{
                     fontSize:'12px',fontWeight:700,padding:'5px 14px',borderRadius:'99px',
                     color: statusCfg.color, background: statusCfg.bg, border:`1px solid ${statusCfg.border}`,
-                  }}>{statusCfg.label}</span>
+                  }}>{lang === 'en' ? (statusCfg.label === '초안' ? 'Draft' : 'Confirmed') : statusCfg.label}</span>
                   <div style={{ fontSize:'13px',color:'rgba(255,255,255,0.7)',textAlign:'right' }}>
-                    총 실적: <strong style={{ color:'#fff' }}>{formatCurrency(budget.total_actual)}</strong>
+                    {lang === 'en' ? 'Actual' : '총 실적'}: <strong style={{ color:'#fff' }}>{formatCurrency(budget.total_actual)}</strong>
                   </div>
                 </div>
               </div>
@@ -271,7 +272,7 @@ export default function BudgetListPage() {
               {/* 전체 진행률 */}
               <div>
                 <div style={{ display:'flex',justifyContent:'space-between',marginBottom:'8px' }}>
-                  <span style={{ fontSize:'12px',color:'rgba(255,255,255,0.7)',fontWeight:600 }}>전체 집행률</span>
+                  <span style={{ fontSize:'12px',color:'rgba(255,255,255,0.7)',fontWeight:600 }}>{lang === 'en' ? 'Execution Rate' : '전체 집행률'}</span>
                   <span style={{ fontSize:'13px',fontWeight:800,color: isOver ? '#fca5a5' : '#fff' }}>
                     {isOver ? `초과 (${overallPct}%)` : `${overallPct}%`}
                   </span>
@@ -292,13 +293,13 @@ export default function BudgetListPage() {
             <div style={{ marginBottom:'12px' }}>
               <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'14px' }}>
                 <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-                <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>항목별 예산</span>
+                <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>{lang === 'en' ? 'Budget Items' : '항목별 예산'}</span>
                 <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{budget.items.length}개 항목</span>
               </div>
 
               {budget.items.length === 0 ? (
                 <div style={{ textAlign:'center',padding:'32px',color:'#9ca3af',fontSize:'14px',background:'#f8fafc',borderRadius:'14px' }}>
-                  등록된 예산 항목이 없습니다
+                  {lang === 'en' ? 'No budget items' : '등록된 예산 항목이 없습니다'}
                 </div>
               ) : (
                 <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px' }}>

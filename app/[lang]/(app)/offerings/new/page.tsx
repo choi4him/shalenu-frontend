@@ -90,7 +90,7 @@ const labelSt: React.CSSProperties = {
 // ─── 메인 컴포넌트 ──────────────────────────────────────
 export default function OfferingNewPage() {
   const router = useLangRouter();
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const paymentOptions = [
     { value: 'cash', label: t.offerings.paymentCash },
     { value: 'transfer', label: t.offerings.paymentTransfer },
@@ -361,7 +361,7 @@ export default function OfferingNewPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
             <div>
               <span style={{ fontSize: '15px', fontWeight: 700, color: '#1e1e2e' }}>{t.offerings.offeringItems}</span>
-              <span style={{ marginLeft: '10px', fontSize: '13px', color: '#9ca3af' }}>{items.length}건</span>
+              <span style={{ marginLeft: '10px', fontSize: '13px', color: '#9ca3af' }}>{lang === 'en' ? `${items.length} item${items.length !== 1 ? 's' : ''}` : `${items.length}건`}</span>
             </div>
             {/* 합계 */}
             <div style={{
@@ -612,9 +612,7 @@ export default function OfferingNewPage() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
             </svg>
-            <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.2 }}>
-              <span>임시</span><span>저장</span>
-            </span>
+            <span>{lang === 'en' ? 'Save Draft' : '임시저장'}</span>
           </button>
           <button
             type="button"
@@ -647,9 +645,7 @@ export default function OfferingNewPage() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.2 }}>
-                  <span>헌금</span><span>확정</span>
-                </span>
+                <span>{lang === 'en' ? 'Confirm Offering' : '헌금 확정'}</span>
               </>
             )}
           </button>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useLangRouter } from '@/lib/i18n';
+import { useTranslation, useLangRouter } from '@/lib/i18n';
 import { apiClient, formatCurrency } from '@/lib/api';
 import {
   Chart as ChartJS,
@@ -49,7 +49,8 @@ interface TxResponse {
 }
 
 // ─── 상수 ───────────────────────────────────────────────
-const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const MONTHS_KO = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const MONTHS_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 const CATEGORY_LABELS: Record<string, string> = {
   worship: '예배', mission: '선교', education: '교육',
@@ -101,6 +102,8 @@ function Sk({ w = '100%', h = '16px', r = '6px' }: { w?: string; h?: string; r?:
 // ─── 메인 ───────────────────────────────────────────────
 export default function FinanceReportsPage() {
   const router = useLangRouter();
+  const { lang } = useTranslation();
+  const MONTHS = lang === 'en' ? MONTHS_EN : MONTHS_KO;
   const [year,    setYear]    = useState(new Date().getFullYear());
   const [summary, setSummary] = useState<SummaryReport | null>(null);
   const [txItems, setTxItems] = useState<TxItem[]>([]);
@@ -147,7 +150,7 @@ export default function FinanceReportsPage() {
     labels: MONTHS,
     datasets: [
       {
-        label: '수입',
+        label: lang === 'en' ? 'Income' : '수입',
         data: incomeByMonth,
         borderColor: '#c9a84c',
         backgroundColor: 'rgba(201,168,76,0.08)',
@@ -159,7 +162,7 @@ export default function FinanceReportsPage() {
         fill: true,
       },
       {
-        label: '지출',
+        label: lang === 'en' ? 'Expense' : '지출',
         data: expenseByMonth,
         borderColor: '#ef4444',
         backgroundColor: 'rgba(239,68,68,0.06)',
@@ -273,7 +276,7 @@ export default function FinanceReportsPage() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 4px' }}>재정 보고서</h1>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.04em', margin: '0 0 4px' }}>{lang === 'en' ? 'Financial Report' : '재정 보고서'}</h1>
               <p style={{ margin: 0, fontSize: '13px', color: '#8b6914', fontWeight: 500 }}>{year}년 연간 보고서</p>
             </div>
           </div>
@@ -303,7 +306,7 @@ export default function FinanceReportsPage() {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
               </svg>
-              인쇄
+              {lang === 'en' ? 'Print' : '인쇄'}
             </button>
           </div>
         </div>
@@ -321,7 +324,7 @@ export default function FinanceReportsPage() {
         <div style={{ marginBottom: '28px' }}>
           <div className="sec-title">
             <div className="sec-bar" />
-            섹션 1 — 연간 요약
+            {lang === 'en' ? 'Section 1 — Annual Summary' : '섹션 1 — 연간 요약'}
           </div>
           {loading ? (
             <div className="r-grid-4" style={{ gap: '16px' }}>
@@ -331,26 +334,26 @@ export default function FinanceReportsPage() {
             <div className="r-grid-4" style={{ gap: '16px' }}>
               <SummaryCard
                 gradient="linear-gradient(135deg,#fdf8e8,#f0d88a)"
-                label="총 수입" valueColor="#7d6324"
+                label={lang === 'en' ? 'Total Income' : '총 수입'} valueColor="#7d6324"
                 value={summary ? formatCurrency(summary.total_income) : '—'}
                 icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
               />
               <SummaryCard
                 gradient="linear-gradient(135deg,#fff1f2,#fecdd3)"
-                label="총 지출" valueColor="#be123c"
+                label={lang === 'en' ? 'Total Expense' : '총 지출'} valueColor="#be123c"
                 value={summary ? formatCurrency(summary.total_expense) : '—'}
                 icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e11d48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>}
               />
               <SummaryCard
                 gradient={summary && summary.net_profit >= 0 ? 'linear-gradient(135deg,#f0fdf4,#bbf7d0)' : 'linear-gradient(135deg,#fff7ed,#fed7aa)'}
-                label="순이익" valueColor={netColor}
+                label={lang === 'en' ? 'Net Income' : '순이익'} valueColor={netColor}
                 value={summary ? formatCurrency(summary.net_profit) : '—'}
                 sub={summary && summary.total_income > 0 ? `수입 대비 ${((summary.net_profit / summary.total_income) * 100).toFixed(1)}%` : undefined}
                 icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={netColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>}
               />
               <SummaryCard
                 gradient="linear-gradient(135deg,#f0f9ff,#bae6fd)"
-                label="현재 잔액" valueColor="#0369a1"
+                label={lang === 'en' ? 'Current Balance' : '현재 잔액'} valueColor="#0369a1"
                 value={summary ? formatCurrency(summary.current_balance) : '—'}
                 icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>}
               />
@@ -365,7 +368,7 @@ export default function FinanceReportsPage() {
           <div style={{ background: 'rgba(255,255,255,0.90)', borderRadius: '16px', padding: '22px 24px', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
             <div className="sec-title">
               <div className="sec-bar" />
-              섹션 2 — 월별 수입/지출 추이
+              {lang === 'en' ? 'Section 2 — Monthly Trend' : '섹션 2 — 월별 수입/지출 추이'}
             </div>
             {loading ? (
               <Sk h="260px" r="12px" />
@@ -380,7 +383,7 @@ export default function FinanceReportsPage() {
           <div style={{ background: 'rgba(255,255,255,0.90)', borderRadius: '16px', padding: '22px 24px', border: '1px solid rgba(160,120,40,0.3)', boxShadow: '0 2px 12px rgba(0,0,0,0.1)' }}>
             <div className="sec-title">
               <div className="sec-bar" />
-              섹션 3 — 항목별 지출 분포
+              {lang === 'en' ? 'Section 3 — Expense Distribution' : '섹션 3 — 항목별 지출 분포'}
             </div>
             {loading ? (
               <Sk h="260px" r="12px" />
@@ -389,7 +392,7 @@ export default function FinanceReportsPage() {
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
                 </svg>
-                <div style={{ fontSize: '13px', fontWeight: 500 }}>지출 데이터가 없습니다</div>
+                <div style={{ fontSize: '13px', fontWeight: 500 }}>{lang === 'en' ? 'No expense data' : '지출 데이터가 없습니다'}</div>
               </div>
             ) : (
               <div style={{ height: '260px', position: 'relative' }}>
@@ -399,7 +402,7 @@ export default function FinanceReportsPage() {
                   position: 'absolute', top: '50%', left: '34%',
                   transform: 'translate(-50%,-50%)', textAlign: 'center', pointerEvents: 'none',
                 }}>
-                  <div style={{ fontSize: '11px', color: '#8b6914', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>총 지출</div>
+                  <div style={{ fontSize: '11px', color: '#8b6914', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>{lang === 'en' ? 'Total Expense' : '총 지출'}</div>
                   <div style={{ fontSize: '14px', fontWeight: 800, color: '#1a1a1a', marginTop: '2px' }}>{formatCurrency(totalExpTx)}</div>
                 </div>
               </div>
@@ -429,14 +432,14 @@ export default function FinanceReportsPage() {
           <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid rgba(160,120,40,0.2)' }}>
             <div className="sec-title" style={{ marginBottom: 0 }}>
               <div className="sec-bar" />
-              섹션 4 — 월별 상세
+              {lang === 'en' ? 'Section 4 — Monthly Details' : '섹션 4 — 월별 상세'}
             </div>
           </div>
           <div style={{ overflowX: 'auto' }}>
             <table className="table-mobile" style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
               <thead>
                 <tr style={{ background: 'rgba(160,120,40,0.06)' }}>
-                  {['월', '수입 합계', '지출 합계', '순이익', '누계 잔액'].map(h => (
+                  {(lang === 'en' ? ['Month', 'Income', 'Expense', 'Net Income', 'Balance'] : ['월', '수입 합계', '지출 합계', '순이익', '누계 잔액']).map(h => (
                     <th key={h} style={{
                       padding: '12px 20px', textAlign: h === '월' ? 'left' : 'right',
                       fontSize: '11px', fontWeight: 700, color: '#8b6914',
@@ -482,7 +485,7 @@ export default function FinanceReportsPage() {
               {!loading && summary && (
                 <tfoot>
                   <tr style={{ background: 'linear-gradient(135deg,#f5f7ff,#fdf8e8)', borderTop: '2px solid #f0d88a' }}>
-                    <td style={{ padding: '14px 20px', fontSize: '13px', fontWeight: 800, color: '#7d6324' }}>연간 합계</td>
+                    <td style={{ padding: '14px 20px', fontSize: '13px', fontWeight: 800, color: '#7d6324' }}>{lang === 'en' ? 'Annual Total' : '연간 합계'}</td>
                     <td style={{ padding: '14px 20px', textAlign: 'right', fontSize: '15px', fontWeight: 900, color: '#7d6324', letterSpacing: '-0.02em' }}>
                       {formatCurrency(summary.total_income)}
                     </td>

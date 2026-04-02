@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { useLangRouter } from '@/lib/i18n';
+import { useTranslation, useLangRouter } from '@/lib/i18n';
 import { apiClient, formatCurrency } from '@/lib/api';
 import {
   Chart as ChartJS,
@@ -41,7 +41,8 @@ interface MemberStat {
 }
 
 // ─── 상수 ────────────────────────────────────────────────
-const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const MONTHS_KO = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const MONTHS_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 // 헌금 종류별 팔레트
 const TYPE_PALETTE = [
@@ -89,6 +90,8 @@ function SummaryCard({
 // ─── 메인 ────────────────────────────────────────────────
 export default function OfferingsStatsPage() {
   const router = useLangRouter();
+  const { lang } = useTranslation();
+  const MONTHS = lang === 'en' ? MONTHS_EN : MONTHS_KO;
   const [year,      setYear]      = useState(new Date().getFullYear());
   const [stats,     setStats]     = useState<StatsResponse | null>(null);
   const [members,   setMembers]   = useState<MemberStat[]>([]);
@@ -247,8 +250,8 @@ export default function OfferingsStatsPage() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div>
-              <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 4px' }}>헌금 통계</h1>
-              <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>연도별 헌금 현황 분석</p>
+              <h1 style={{ fontSize:'26px',fontWeight:800,color:'#1a1a1a',letterSpacing:'-0.04em',margin:'0 0 4px' }}>{lang === 'en' ? 'Offering Statistics' : '헌금 통계'}</h1>
+              <p style={{ margin:0,fontSize:'13px',color:'#9ca3af',fontWeight:500 }}>{lang === 'en' ? 'Annual offering analysis' : '연도별 헌금 현황 분석'}</p>
             </div>
           </div>
           {/* 연도 선택기 */}
@@ -272,7 +275,7 @@ export default function OfferingsStatsPage() {
         <div style={{ marginBottom:'24px' }}>
           <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'14px' }}>
             <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-            <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>연간 요약</span>
+            <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>{lang === 'en' ? 'Annual Summary' : '연간 요약'}</span>
           </div>
           {loading ? (
             <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:'14px' }}>
@@ -282,9 +285,9 @@ export default function OfferingsStatsPage() {
             <div style={{ display:'grid',gridTemplateColumns:`repeat(auto-fill,minmax(180px,1fr))`,gap:'14px',animation:'fadeIn 0.3s' }}>
               {/* 총합 카드 */}
               <SummaryCard
-                label="연간 헌금 합계"
+                label={lang === 'en' ? 'Annual Total' : '연간 헌금 합계'}
                 amount={stats.grand_total}
-                sub={`${(stats.grand_total / 12).toFixed(0) !== 'NaN' ? '월평균 ' + formatCurrency(Math.round(stats.grand_total / 12)) : ''}`}
+                sub={`${(stats.grand_total / 12).toFixed(0) !== 'NaN' ? (lang === 'en' ? 'Monthly Avg ' : '월평균 ') + formatCurrency(Math.round(stats.grand_total / 12)) : ''}`}
                 color="#c9a84c"
                 bg="#fdf8e8"
               />
@@ -309,7 +312,7 @@ export default function OfferingsStatsPage() {
           <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
               <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-              <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>월별 헌금 추이</span>
+              <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>{lang === 'en' ? 'Monthly Trend' : '월별 헌금 추이'}</span>
             </div>
             {loading ? <Sk h="240px" r="12px" /> : (
               <div style={{ height:'260px', animation:'fadeIn 0.3s' }}>
@@ -322,7 +325,7 @@ export default function OfferingsStatsPage() {
           <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
               <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-              <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>종류별 비율</span>
+              <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>{lang === 'en' ? 'By Type' : '종류별 비율'}</span>
             </div>
             {loading ? <Sk h="240px" r="12px" /> : (
               <div style={{ animation:'fadeIn 0.3s' }}>
@@ -361,7 +364,7 @@ export default function OfferingsStatsPage() {
         <div style={{ background:'#fff',borderRadius:'16px',padding:'22px 24px',border:'1px solid #f1f5f9',boxShadow:'0 1px 4px rgba(0,0,0,0.05)' }}>
           <div style={{ display:'flex',alignItems:'center',gap:'8px',marginBottom:'16px' }}>
             <div style={{ width:'4px',height:'18px',background:'linear-gradient(#c9a84c,#c9a84c)',borderRadius:'99px' }} />
-            <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>교인별 헌금 현황</span>
+            <span style={{ fontSize:'15px',fontWeight:700,color:'#1a1a1a' }}>{lang === 'en' ? 'By Member' : '교인별 헌금 현황'}</span>
             {!loadingM && <span style={{ fontSize:'12px',color:'#9ca3af',fontWeight:500 }}>{members.length}명</span>}
           </div>
 
@@ -371,7 +374,7 @@ export default function OfferingsStatsPage() {
             </div>
           ) : members.length === 0 ? (
             <div style={{ textAlign:'center',padding:'40px 20px',color:'#9ca3af',fontSize:'14px' }}>
-              데이터가 없습니다
+              {lang === 'en' ? 'No data available' : '데이터가 없습니다'}
             </div>
           ) : (
             <div style={{ overflowX:'auto' }}>
@@ -379,7 +382,7 @@ export default function OfferingsStatsPage() {
                 <thead>
                   <tr style={{ background:'#f8fafc',borderBottom:'1.5px solid #e5e7eb' }}>
                     <th style={{ padding:'10px 14px',textAlign:'left',fontWeight:700,color:'#374151',whiteSpace:'nowrap',position:'sticky',left:0,background:'#f8fafc',zIndex:1 }}>
-                      교인명
+                      {lang === 'en' ? 'Member' : '교인명'}
                     </th>
                     {memberTypeKeys.map(k => (
                       <th key={k} style={{ padding:'10px 14px',textAlign:'right',whiteSpace:'nowrap' }}>
@@ -390,7 +393,7 @@ export default function OfferingsStatsPage() {
                     ))}
                     <th style={{ padding:'10px 14px',textAlign:'right',whiteSpace:'nowrap',color:'#c9a84c' }}>
                       <button className="th-btn" onClick={() => handleSort('total')} style={{ marginLeft:'auto',color:'#c9a84c' }}>
-                        연간 합계<SortIcon k="total" />
+                        {lang === 'en' ? 'Annual Total' : '연간 합계'}<SortIcon k="total" />
                       </button>
                     </th>
                   </tr>
@@ -436,7 +439,7 @@ export default function OfferingsStatsPage() {
                 {/* 합계 행 */}
                 <tfoot>
                   <tr style={{ background:'linear-gradient(135deg,#f5f7ff,#fdf8e8)',borderTop:'2px solid #f0d88a' }}>
-                    <td style={{ padding:'12px 14px',fontWeight:800,color:'#7d6324',whiteSpace:'nowrap',position:'sticky',left:0,background:'linear-gradient(135deg,#f5f7ff,#fdf8e8)',zIndex:1 }}>합계</td>
+                    <td style={{ padding:'12px 14px',fontWeight:800,color:'#7d6324',whiteSpace:'nowrap',position:'sticky',left:0,background:'linear-gradient(135deg,#f5f7ff,#fdf8e8)',zIndex:1 }}>{lang === 'en' ? 'Total' : '합계'}</td>
                     {memberTypeKeys.map(k => {
                       const sum = members.reduce((s, m) => s + (m.by_type[k] ?? 0), 0);
                       return (
