@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
 
 /**
  * 요금제 제한으로 인한 403 오류를 구분하기 위한 커스텀 에러 클래스
@@ -8,6 +8,26 @@ export class PlanLimitError extends Error {
     super('현재 요금제에서 사용할 수 없는 기능입니다.\n설정 > 요금제에서 업그레이드하세요.');
     this.name = 'PlanLimitError';
   }
+}
+
+/**
+ * 백엔드 423 (계정 잠금) 응답을 호출측에서 구분할 수 있게 해주는 에러.
+ * Retry-After 헤더(초 단위)를 `retryAfterSeconds` 로 실어 넘긴다.
+ */
+export class AccountLockedError extends Error {
+  retryAfterSeconds: number | null;
+  constructor(retryAfterSeconds: number | null, detail?: string) {
+    super(detail ?? 'Account is locked');
+    this.name = 'AccountLockedError';
+    this.retryAfterSeconds = retryAfterSeconds;
+  }
+}
+
+function parseRetryAfter(res: Response): number | null {
+  const raw = res.headers.get('Retry-After');
+  if (!raw) return null;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? Math.floor(n) : null;
 }
 
 /**
@@ -44,6 +64,19 @@ export async function apiClient<T>(
       window.dispatchEvent(new CustomEvent('plan-limit-error'));
     }
     throw new PlanLimitError();
+  }
+
+  if (res.status === 423) {
+    // 계정 잠금 — 호출측이 Retry-After 를 UX 에 반영할 수 있도록 전용 에러
+    const retry = parseRetryAfter(res);
+    let detail: string | undefined;
+    try {
+      const body = (await res.json()) as { detail?: string };
+      detail = body?.detail;
+    } catch {
+      /* ignore */
+    }
+    throw new AccountLockedError(retry, detail);
   }
 
   if (!res.ok) {

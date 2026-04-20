@@ -13,6 +13,14 @@ function getErrorMessage(status: number, errors: { wrongCredentials: string; for
   return errors.genericError;
 }
 
+function formatLockCountdown(template: string, seconds: number): string {
+  const mm = Math.floor(seconds / 60);
+  const ss = seconds % 60;
+  return template
+    .replace('{mm}', String(mm))
+    .replace('{ss}', String(ss).padStart(2, '0'));
+}
+
 export default function LoginPage() {
   const router = useLangRouter();
   const { t } = useTranslation();
@@ -23,6 +31,7 @@ export default function LoginPage() {
   const [error, setError]       = useState('');
   const [hasError, setHasError] = useState(false);
   const [mounted, setMounted]   = useState(false);
+  const [lockSeconds, setLockSeconds] = useState<number | null>(null);
   const emailRef                = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -30,6 +39,29 @@ export default function LoginPage() {
     emailRef.current?.focus();
     return () => clearTimeout(timer);
   }, []);
+
+  // 잠금 카운트다운 — 1초 단위로 감소, 0 이 되면 자동 해제
+  useEffect(() => {
+    if (lockSeconds === null || lockSeconds <= 0) return;
+    const id = setInterval(() => {
+      setLockSeconds(prev => {
+        if (prev === null) return null;
+        if (prev <= 1) {
+          setError('');
+          setHasError(false);
+          return null;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [lockSeconds]);
+
+  // 잠금 중에도 라벨이 매초 갱신되도록 파생 문자열
+  const lockMessage =
+    lockSeconds !== null && lockSeconds > 0
+      ? formatLockCountdown(t.login.lockedTemplate, lockSeconds)
+      : null;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -43,6 +75,16 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
+
+      if (res.status === 423) {
+        const raw = res.headers.get('Retry-After');
+        const n = raw ? Number(raw) : NaN;
+        const secs = Number.isFinite(n) && n > 0 ? Math.floor(n) : null;
+        setLockSeconds(secs);
+        setError(secs ? formatLockCountdown(t.login.lockedTemplate, secs) : t.login.lockedFallback);
+        setHasError(true);
+        return;
+      }
 
       if (!res.ok) {
         setError(getErrorMessage(res.status, t.login.errors));
@@ -264,7 +306,7 @@ export default function LoginPage() {
             </div>
 
             {/* 에러 */}
-            {error && (
+            {(lockMessage || error) && (
               <div role="alert" style={{
                 display: 'flex', alignItems: 'center', gap: '10px',
                 padding: '12px 16px', borderRadius: '10px',
@@ -276,14 +318,14 @@ export default function LoginPage() {
                   <line x1="12" y1="8" x2="12" y2="12"/>
                   <line x1="12" y1="16" x2="12.01" y2="16"/>
                 </svg>
-                {error}
+                {lockMessage ?? error}
               </div>
             )}
 
             {/* 로그인 버튼 */}
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || lockSeconds !== null}
               className="login-submit-btn"
               style={{
                 width: '100%', padding: '14px', borderRadius: '12px',

@@ -148,11 +148,17 @@ export default function OnboardingPage() {
     return true;
   };
 
+  // 10자 이상 + 숫자 1+ + 특수문자 1+ — 백엔드 정책과 일치
+  const PASSWORD_RE = /^(?=.*\d)(?=.*[!@#$%^&*()_+=\-[\]{};':"\\|,.<>/?]).{10,}$/;
+
   // ── 2단계 유효성 ──
   const validateStep2 = () => {
     if (!admin.full_name.trim()) { setError('담당자 이름은 필수입니다.'); return false; }
     if (!admin.email.trim() || !admin.email.includes('@')) { setError('올바른 이메일을 입력해주세요.'); return false; }
-    if (admin.password.length < 8) { setError('비밀번호는 8자 이상이어야 합니다.'); return false; }
+    if (!PASSWORD_RE.test(admin.password)) {
+      setError('비밀번호는 10자 이상이어야 하며 숫자와 특수문자를 각각 1개 이상 포함해야 합니다.');
+      return false;
+    }
     if (admin.password !== admin.passwordConfirm) { setError('비밀번호가 일치하지 않습니다.'); return false; }
     return true;
   };
@@ -369,7 +375,7 @@ export default function OnboardingPage() {
                   <input className="inp" style={{ ...inputSt, paddingRight:'44px' }}
                     type={showPw ? 'text' : 'password'} value={admin.password}
                     onChange={e => setAdmin(p => ({ ...p, password: e.target.value }))}
-                    placeholder="8자 이상" autoComplete="new-password" />
+                    placeholder="10자 이상, 숫자 + 특수문자 포함" autoComplete="new-password" />
                   <button type="button" onClick={() => setShowPw(v => !v)}
                     style={{ position:'absolute',right:'12px',top:'50%',transform:'translateY(-50%)',background:'none',border:'none',cursor:'pointer',color:'#9ca3af',padding:0 }}>
                     {showPw
@@ -377,17 +383,30 @@ export default function OnboardingPage() {
                       : <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>}
                   </button>
                 </div>
-                {/* 강도 표시 */}
+                {/* 정책 안내 + 강도 표시 */}
+                <div style={{ fontSize:'12px', color:'#6b7280', marginTop:'6px', lineHeight:1.4 }}>
+                  10자 이상, 숫자와 특수문자를 각각 1개 이상 포함
+                </div>
                 {admin.password && (
                   <div style={{ marginTop:'6px',display:'flex',gap:'4px' }}>
                     {[1,2,3,4].map(i => {
                       const len = admin.password.length;
-                      const has = /[A-Z]/.test(admin.password) || /[^a-zA-Z0-9]/.test(admin.password);
-                      const strength = len < 8 ? 1 : len < 12 && !has ? 2 : len >= 12 && has ? 4 : 3;
+                      const hasDigit = /\d/.test(admin.password);
+                      const hasSpecial = /[^a-zA-Z0-9]/.test(admin.password);
+                      const meets = len >= 10 && hasDigit && hasSpecial;
+                      const strength = !meets
+                        ? 1
+                        : len < 12
+                          ? 2
+                          : len < 16
+                            ? 3
+                            : 4;
                       return <div key={i} style={{ flex:1,height:'3px',borderRadius:'99px',background:i<=strength?['#ef4444','#f59e0b','#10b981','#059669'][strength-1]:'#e5e7eb',transition:'background 0.2s' }} />;
                     })}
                     <span style={{ fontSize:'11px',color:'#6b7280',marginLeft:'4px',flexShrink:0 }}>
-                      {['','약함','보통','강함','매우 강함'][Math.min(4, admin.password.length < 8 ? 1 : /[A-Z]/.test(admin.password)||/[^a-zA-Z0-9]/.test(admin.password)?admin.password.length>=12?4:3:2)]}
+                      {PASSWORD_RE.test(admin.password)
+                        ? (admin.password.length >= 16 ? '매우 강함' : admin.password.length >= 12 ? '강함' : '보통')
+                        : '정책 미충족'}
                     </span>
                   </div>
                 )}
