@@ -291,6 +291,8 @@ export interface Translations {
     loginBtn: string;
     loggingIn: string;
     copyright: string;
+    lockedTemplate: string;      // "계정이 잠겼습니다 — 약 {mm}분 {ss}초 후 재시도"
+    lockedFallback: string;      // Retry-After 헤더 없을 때
     errors: {
       wrongCredentials: string;
       forbidden: string;
@@ -300,6 +302,33 @@ export interface Translations {
       networkError: string;
       tokenError: string;
     };
+  };
+  security: {
+    passwordPolicyHint: string;  // "10자 이상, 숫자 + 특수문자 포함"
+    passwordTooWeak: string;     // 회원가입 버튼 비활성 툴팁
+  };
+  backupPassword: {
+    modalTitle: string;
+    warning: string;
+    instruction: string;
+    copyBtn: string;
+    copiedBtn: string;
+    copiedCheckbox: string;
+    closeBtn: string;
+    metaSectionTitle: string;
+    metaLastSent: string;        // "마지막 발송: {when}"
+    metaSentTo: string;          // "수신: {email}"
+    metaReminder: string;        // "암호는 이메일 발송 시 1회만 노출됩니다"
+    metaUnrevealed: string;      // "아직 미확인"
+    metaRevealed: string;        // "확인됨"
+    metaEmpty: string;           // "아직 발송된 백업 암호가 없습니다"
+  };
+  userLockout: {
+    lockedBadge: string;         // "잠금됨"
+    unlockBtn: string;           // "잠금 해제"
+    unlocking: string;
+    unlockOk: string;            // "잠금이 해제되었습니다"
+    unlockFail: string;
   };
   pastoral: {
     title: string;
@@ -932,6 +961,8 @@ const ko: Translations = {
     loginBtn: '로그인',
     loggingIn: '로그인 중...',
     copyright: 'J-SheepFold. All rights reserved.',
+    lockedTemplate: '계정이 잠겼습니다 — 약 {mm}분 {ss}초 후 다시 시도하세요.',
+    lockedFallback: '계정이 잠겼습니다. 30분 후 또는 관리자 해제 후 다시 시도하세요.',
     errors: {
       wrongCredentials: '이메일 또는 비밀번호가 올바르지 않습니다.',
       forbidden: '접근 권한이 없습니다. 관리자에게 문의하세요.',
@@ -941,6 +972,33 @@ const ko: Translations = {
       networkError: '서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.',
       tokenError: '로그인 처리 중 오류가 발생했습니다.',
     },
+  },
+  security: {
+    passwordPolicyHint: '10자 이상, 숫자와 특수문자를 각각 1개 이상 포함해주세요.',
+    passwordTooWeak: '비밀번호 정책을 만족해야 가입할 수 있습니다.',
+  },
+  backupPassword: {
+    modalTitle: '백업 암호 — 지금 기록하세요',
+    warning: '이 암호는 이번 한 번만 표시되며 다시 확인할 수 없습니다.',
+    instruction: '암호를 안전한 곳에 저장한 뒤 [복사했습니다] 체크박스를 선택하세요.',
+    copyBtn: '📋 복사',
+    copiedBtn: '✓ 복사됨',
+    copiedCheckbox: '복사했습니다',
+    closeBtn: '닫기',
+    metaSectionTitle: '최근 백업 암호',
+    metaLastSent: '마지막 발송: {when}',
+    metaSentTo: '수신: {email}',
+    metaReminder: '암호는 이메일 발송 시 1회만 노출됩니다.',
+    metaUnrevealed: '아직 미확인',
+    metaRevealed: '확인됨',
+    metaEmpty: '아직 발송된 백업 암호가 없습니다.',
+  },
+  userLockout: {
+    lockedBadge: '🔒 잠금됨',
+    unlockBtn: '잠금 해제',
+    unlocking: '해제 중...',
+    unlockOk: '잠금이 해제되었습니다.',
+    unlockFail: '잠금 해제에 실패했습니다.',
   },
   pastoral: {
     title: '목양 현황',

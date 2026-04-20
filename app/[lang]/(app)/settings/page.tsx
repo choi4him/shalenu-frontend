@@ -45,7 +45,12 @@ interface UserItem {
   email:      string;
   role:       string;
   is_active:  boolean;
+  // 백엔드가 Phase 3 이후 확장 응답을 내려줄 때만 채워짐 — 현재는 optional
+  locked_until?:       string | null;
+  failed_login_count?: number;
 }
+
+const ADMIN_ROLES = new Set(['admin', 'senior_pastor', 'admin_staff']);
 
 // ─── 공통 UI ─────────────────────────────────────────────
 const inputSt: React.CSSProperties = {
@@ -470,6 +475,8 @@ function UsersTab() {
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole,  setInviteRole]  = useState('staff');
   const [alert,   setAlert]   = useState<{type:'ok'|'err',msg:string}|null>(null);
+  const [currentRole, setCurrentRole] = useState<string | null>(null);
+  const [unlockingId, setUnlockingId] = useState<string | number | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -479,6 +486,38 @@ function UsersTab() {
   }, []);
 
   useEffect(() => { load(); }, [load]);
+
+  // 현재 로그인 사용자 역할 — 잠금 해제 버튼 노출 판단
+  useEffect(() => {
+    apiClient<{ role: string }>('/api/v1/auth/me')
+      .then(me => setCurrentRole(me.role))
+      .catch(() => setCurrentRole(null));
+  }, []);
+
+  const isLocked = (u: UserItem): boolean => {
+    if (!u.locked_until) return false;
+    const ts = Date.parse(u.locked_until);
+    return Number.isFinite(ts) && ts > Date.now();
+  };
+
+  const handleUnlock = async (u: UserItem) => {
+    setUnlockingId(u.id);
+    setAlert(null);
+    try {
+      await apiClient(`/api/v1/users/${u.id}/unlock`, { method: 'POST' });
+      setAlert({ type: 'ok', msg: t.userLockout.unlockOk });
+      load();
+    } catch (e) {
+      setAlert({
+        type: 'err',
+        msg: e instanceof Error ? e.message : t.userLockout.unlockFail,
+      });
+    } finally {
+      setUnlockingId(null);
+    }
+  };
+
+  const canUnlock = currentRole !== null && ADMIN_ROLES.has(currentRole);
 
   const changeRole = async (user: UserItem, role: string) => {
     try { await apiClient(`/api/v1/users/${user.id}`, { method:'PUT', body: JSON.stringify({ ...user, role }) }); load(); }
@@ -565,10 +604,38 @@ function UsersTab() {
                       </select>
                     </td>
                     <td style={{ padding:'11px 13px' }}>
-                      <button onClick={() => toggleActive(u)}
-                        style={{ padding:'4px 12px',borderRadius:'20px',border:`1px solid ${u.is_active?'#10b981':'#e5e7eb'}`,background:u.is_active?'#ecfdf5':'#f9fafb',color:u.is_active?'#059669':'#9ca3af',fontSize:'11px',fontWeight:600,cursor:'pointer',transition:'all 0.15s',fontFamily:'inherit' }}>
-                        {u.is_active ? t.common.active : t.common.inactive}
-                      </button>
+                      <div style={{ display:'flex', alignItems:'center', gap:'8px', flexWrap:'wrap' }}>
+                        <button onClick={() => toggleActive(u)}
+                          style={{ padding:'4px 12px',borderRadius:'20px',border:`1px solid ${u.is_active?'#10b981':'#e5e7eb'}`,background:u.is_active?'#ecfdf5':'#f9fafb',color:u.is_active?'#059669':'#9ca3af',fontSize:'11px',fontWeight:600,cursor:'pointer',transition:'all 0.15s',fontFamily:'inherit' }}>
+                          {u.is_active ? t.common.active : t.common.inactive}
+                        </button>
+                        {isLocked(u) && (
+                          <span style={{
+                            padding:'4px 10px', borderRadius:'20px',
+                            background:'#fef2f2', border:'1px solid #fecaca',
+                            color:'#b91c1c', fontSize:'11px', fontWeight:700,
+                          }}>
+                            {t.userLockout.lockedBadge}
+                          </span>
+                        )}
+                        {isLocked(u) && canUnlock && (
+                          <button
+                            onClick={() => handleUnlock(u)}
+                            disabled={unlockingId === u.id}
+                            style={{
+                              padding:'4px 10px', borderRadius:'20px',
+                              border:'1px solid #c9a84c',
+                              background:'#fff', color:'#a07840',
+                              fontSize:'11px', fontWeight:700,
+                              cursor: unlockingId === u.id ? 'not-allowed' : 'pointer',
+                              opacity: unlockingId === u.id ? 0.6 : 1,
+                              fontFamily:'inherit',
+                            }}
+                          >
+                            {unlockingId === u.id ? t.userLockout.unlocking : t.userLockout.unlockBtn}
+                          </button>
+                        )}
+                      </div>
                     </td>
 
                   </tr>
@@ -737,10 +804,30 @@ function DataTab() {
   const [sendingNow, setSendingNow] = useState(false);
   const [sendNowAlert, setSendNowAlert] = useState<{type:'ok'|'err';msg:string}|null>(null);
 
+  // 백업 암호 — 1회용 모달 상태, 닫을 때 반드시 null 로 초기화
+  const [backupPassword, setBackupPassword] = useState<string | null>(null);
+
+  // 백엔드 GET /backup/passwords/latest 응답 — 평문 암호는 포함되지 않음
+  type BackupPwMeta =
+    | { exists: false }
+    | { exists: true; sent_to: string; created_at: string; revealed_at: string | null };
+  const [passwordMeta, setPasswordMeta] = useState<BackupPwMeta | null>(null);
+
+  const loadPasswordMeta = () => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+    fetch(`${BASE_URL}/api/v1/backup/passwords/latest`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => { if (d) setPasswordMeta(d); })
+      .catch(() => {});
+  };
+
   useEffect(() => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
     fetch(`${BASE_URL}/api/v1/backup/settings`, { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json()).then(d => setEmailSettings(d)).catch(() => {});
+    loadPasswordMeta();
   }, []);
 
   // ── 내보내기 ──────────────────────────────────────────
@@ -859,8 +946,12 @@ function DataTab() {
         method: 'POST', headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) { const e = await res.json(); throw new Error(e.detail ?? `오류 ${res.status}`); }
-      const d = await res.json();
+      const d = await res.json() as { to: string; password?: string };
       setSendNowAlert({ type: 'ok', msg: `${d.to}` });
+      if (d.password) {
+        setBackupPassword(d.password);
+      }
+      loadPasswordMeta();
     } catch (e: unknown) {
       setSendNowAlert({ type: 'err', msg: e instanceof Error ? e.message : String(e) });
     } finally { setSendingNow(false); }
@@ -1100,6 +1191,162 @@ function DataTab() {
             <Alert type={sendNowAlert.type} msg={sendNowAlert.msg} />
           </div>
         )}
+
+        {/* 백업 암호 메타데이터 — 평문 미노출 */}
+        <div style={{ marginTop:'20px', paddingTop:'16px', borderTop:'1px solid #f1e9d8' }}>
+          <div style={{ fontSize:'13px', fontWeight:700, color:'#5c3d1e', marginBottom:'8px' }}>
+            {t.backupPassword.metaSectionTitle}
+          </div>
+          {passwordMeta && passwordMeta.exists ? (
+            <div style={{ display:'flex', flexDirection:'column', gap:'4px', fontSize:'12px', color:'#6b7280' }}>
+              <div>
+                {t.backupPassword.metaLastSent.replace(
+                  '{when}', new Date(passwordMeta.created_at).toLocaleString(),
+                )}
+              </div>
+              <div>
+                {t.backupPassword.metaSentTo.replace('{email}', passwordMeta.sent_to)}
+              </div>
+              <div style={{ display:'flex', alignItems:'center', gap:'8px' }}>
+                <span style={{
+                  display:'inline-block', padding:'2px 8px', borderRadius:'999px',
+                  fontSize:'11px', fontWeight:600,
+                  background: passwordMeta.revealed_at ? '#dcfce7' : '#fef3c7',
+                  color: passwordMeta.revealed_at ? '#166534' : '#92400e',
+                }}>
+                  {passwordMeta.revealed_at
+                    ? t.backupPassword.metaRevealed
+                    : t.backupPassword.metaUnrevealed}
+                </span>
+                <span>{t.backupPassword.metaReminder}</span>
+              </div>
+            </div>
+          ) : (
+            <div style={{ fontSize:'12px', color:'#9ca3af' }}>
+              {t.backupPassword.metaEmpty}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <BackupPasswordModal
+        password={backupPassword}
+        onClose={() => setBackupPassword(null)}
+      />
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════
+// BackupPasswordModal — 1회성 암호 표시 + 복사 체크박스 후 닫기
+// ═══════════════════════════════════════════════════════
+function BackupPasswordModal({
+  password,
+  onClose,
+}: {
+  password: string | null;
+  onClose: () => void;
+}) {
+  const { t } = useTranslation();
+  const [acknowledged, setAcknowledged] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // 모달이 새로 열릴 때마다 내부 상태 초기화
+  useEffect(() => {
+    if (password) { setAcknowledged(false); setCopied(false); }
+  }, [password]);
+
+  if (!password) return null;
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(password);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* 브라우저가 막은 경우 무시 */ }
+  };
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      style={{
+        position:'fixed', inset:0, zIndex:1000,
+        background:'rgba(0,0,0,0.55)',
+        display:'flex', alignItems:'center', justifyContent:'center', padding:'24px',
+      }}
+    >
+      <div style={{
+        background:'#fff', borderRadius:'16px', padding:'28px 28px 20px',
+        width:'100%', maxWidth:'480px',
+        boxShadow:'0 20px 60px rgba(0,0,0,0.25)', border:'1px solid #e5e7eb',
+      }}>
+        <h2 style={{ margin:'0 0 8px', fontSize:'18px', fontWeight:800, color:'#1a1a1a' }}>
+          {t.backupPassword.modalTitle}
+        </h2>
+        <p style={{ margin:'0 0 16px', fontSize:'13px', color:'#b45309', fontWeight:600 }}>
+          ⚠️ {t.backupPassword.warning}
+        </p>
+        <p style={{ margin:'0 0 14px', fontSize:'13px', color:'#4b5563' }}>
+          {t.backupPassword.instruction}
+        </p>
+
+        <div style={{
+          display:'flex', alignItems:'center', gap:'10px',
+          padding:'14px', borderRadius:'10px',
+          background:'#fef3c7', border:'1px solid #fde68a',
+          marginBottom:'16px',
+        }}>
+          <code style={{
+            flex:1,
+            fontFamily:'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+            fontSize:'17px', fontWeight:700, letterSpacing:'0.02em',
+            color:'#1a1a1a', wordBreak:'break-all',
+          }}>
+            {password}
+          </code>
+          <button
+            onClick={copy}
+            style={{
+              padding:'8px 14px', borderRadius:'8px', border:'none',
+              background: copied ? '#16a34a' : '#c9a84c', color:'#fff',
+              fontSize:'12px', fontWeight:700, cursor:'pointer', whiteSpace:'nowrap',
+            }}
+          >
+            {copied ? t.backupPassword.copiedBtn : t.backupPassword.copyBtn}
+          </button>
+        </div>
+
+        <label style={{
+          display:'flex', alignItems:'center', gap:'8px',
+          fontSize:'13px', color:'#374151', cursor:'pointer',
+          marginBottom:'16px',
+        }}>
+          <input
+            type="checkbox"
+            checked={acknowledged}
+            onChange={e => setAcknowledged(e.target.checked)}
+          />
+          {t.backupPassword.copiedCheckbox}
+        </label>
+
+        <div style={{ display:'flex', justifyContent:'flex-end' }}>
+          <button
+            onClick={onClose}
+            disabled={!acknowledged}
+            style={{
+              padding:'10px 22px', borderRadius:'10px', border:'none',
+              background: acknowledged
+                ? 'linear-gradient(135deg,#c9a84c,#d4b85c)'
+                : '#e5e7eb',
+              color: acknowledged ? '#fff' : '#9ca3af',
+              fontSize:'14px', fontWeight:700,
+              cursor: acknowledged ? 'pointer' : 'not-allowed',
+            }}
+          >
+            {t.backupPassword.closeBtn}
+          </button>
+        </div>
       </div>
     </div>
   );
